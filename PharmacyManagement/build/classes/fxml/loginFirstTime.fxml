@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.LoginFirstTimeController">
+    <stylesheets>
+        <URL value="@/css/Appcss.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: #f80000;">
+         <children>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="86.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pharmacy Management" wrappingWidth="490.13671875">
+               <font>
+                  <Font name="SansSerif Regular" size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Label layoutX="43.0" layoutY="64.0" prefHeight="29.0" prefWidth="164.0" text="First time login">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="136.0" layoutY="109.0" text="EmployeeID" />
+      <Label layoutX="141.0" layoutY="167.0" text="Username" />
+      <Label layoutX="143.0" layoutY="223.0" text="Password" />
+      <Label layoutX="141.0" layoutY="281.0" text="Re-password" />
+      <JFXTextField layoutX="263.0" layoutY="92.0" prefHeight="25.0" prefWidth="196.0" />
+      <JFXTextField layoutX="263.0" layoutY="150.0" prefHeight="25.0" prefWidth="196.0" />
+      <JFXTextField layoutX="263.0" layoutY="206.0" prefHeight="25.0" prefWidth="196.0" />
+      <JFXTextField layoutX="263.0" layoutY="269.0" prefHeight="25.0" prefWidth="196.0" />
+      <JFXButton layoutX="448.0" layoutY="338.0" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: #f80000;" text="Next" textFill="WHITE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
