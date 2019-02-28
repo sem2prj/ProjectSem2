@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="688.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MedrepsController">
+   <children>
+      <AnchorPane accessibleRole="BUTTON" layoutX="-7.0" layoutY="88.0" prefHeight="512.0" prefWidth="1024.0" style="-fx-background-color: purple;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="86.0">
+         <children>
+            <TableView fx:id="tableDrug" layoutY="46.0" prefHeight="379.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+            <JFXTextField fx:id="txtSearch" alignment="CENTER" layoutX="697.0" layoutY="8.0" prefHeight="25.0" prefWidth="301.0" promptText="Search" style="-fx-background-color: yellow;" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="8.0" />
+            <FontAwesomeIcon fill="PURPLE" glyphName="SEARCH" layoutX="620.0" layoutY="24.0" size="1.5em" />
+         </children></AnchorPane>
+      <AnchorPane prefHeight="32.0" prefWidth="506.0" AnchorPane.bottomAnchor="658.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar layoutY="4.0" prefHeight="25.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="36.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+         <children>
+            <JFXButton layoutX="12.0" layoutY="6.0" prefHeight="50.0" prefWidth="96.0" text="Logout" textFill="#757847" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="920.0" AnchorPane.topAnchor="5.0">
+               <graphic>
+                  <FontAwesomeIcon fill="#e4e06f" glyphName="REPLY_ALL" size="1.5em" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnSell" layoutX="107.0" layoutY="5.0" onAction="#handleSell" prefHeight="50.0" prefWidth="100.0" text="Sell" textFill="#757847" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="820.0" AnchorPane.topAnchor="5.0">
+               <graphic>
+                  <FontAwesomeIcon fill="#e4e06f" glyphName="EYEDROPPER" size="1.5em" />
+               </graphic>
+            </JFXButton>
+            <JFXButton layoutX="224.0" layoutY="5.0" prefHeight="50.0" prefWidth="100.0" text="Instruction" textFill="#757847">
+               <graphic>
+                  <FontAwesomeIcon fill="#e4e06f" glyphName="BOOK" size="1.5em" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
