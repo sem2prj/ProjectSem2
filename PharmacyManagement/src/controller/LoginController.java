@@ -34,6 +34,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Member;
+import model.MemberDAOIplement;
 import static model.encrypt.encryptmd5;
 
 /**
@@ -59,8 +61,10 @@ public class LoginController implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
 
-    public List<Integer> listroles = new ArrayList<>();
     
+    public static ObservableList<Member> ListMember = FXCollections.observableArrayList();
+        public static ObservableList<Member> ListMemberLogin = FXCollections.observableArrayList();
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -68,8 +72,9 @@ public class LoginController implements Initializable {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        btn_Login.setDisable(true);
-
+        
+        MemberDAOIplement mberDAO = new MemberDAOIplement();
+        ListMember = mberDAO.getAllMember();
     }
 
     @FXML
@@ -78,8 +83,52 @@ public class LoginController implements Initializable {
     }
 
     private void login() throws IOException {
+          if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
+            boolean check = false;
+            for (Member member : ListMember) {
+                if (txt_user.getText().equals(member.getuserName()) && txt_password.getText().equals(member.getpassword())) {
+                    check = true;
+                    ListMemberLogin.add(member);
+                    Stage stage = (Stage) aPane_Login.getScene().getWindow();
+                    stage.getIcons().clear();
+                    stage.close();
+                    //loading scene main
 
-        //        if (txt_user.getText().equalsIgnoreCase("")) {
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
+                    stage.getIcons().add(applicationIcon);
+
+                    stage.setTitle("Main");
+
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+                break;
+            }
+            if(check==false){
+                
+            }
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
+            stageicondialog.getIcons().add(new Image("image/invalid.png"));
+            alert.setTitle("Invalid");
+            alert.showAndWait();
+        }
+
+        
+    }
+
+   
+    @FXML
+    private void handle_Exit(ActionEvent event) {
+        Stage stage = (Stage) aPane_Login.getScene().getWindow();
+        stage.close();
+    }
+
+           //        if (txt_user.getText().equalsIgnoreCase("")) {
 //            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email", ButtonType.OK);
 //            txt_user.requestFocus();
 //            return;
@@ -89,95 +138,5 @@ public class LoginController implements Initializable {
 //            txt_password.requestFocus();
 //            return;
 //        }
-        if (!txt_user.getText().isEmpty() || !txt_password.getText().isEmpty()) {
-            if (txt_user.getText().equals(getUser()) && txt_password.getText().equals(getPassword())) {
-                int role = 0;
-                try {
-                    pst = con.prepareStatement("select role_user from users where name_user = ? and password_user=?");
-                    pst.setString(1, txt_user.getText());
-                    pst.setString(2, encryptmd5(txt_password.getText()));
-                    rs = pst.executeQuery();
-                    if (rs.next()) {
-                        role = rs.getInt(1);
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                listroles.add(role);
-                for (Integer listrole : listroles) {
-                    System.out.println(listrole);
-                }
-
-                Stage stage = (Stage) aPane_Login.getScene().getWindow();
-                stage.getIcons().clear();
-                stage.close();
-                //loading scene main
-
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-                Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
-                stage.getIcons().add(applicationIcon);
-
-                stage.setTitle("Main");
-
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            } else {
-
-                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-                Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
-                stageicondialog.getIcons().add(new Image("image/invalid.png"));
-                alert.setTitle("Invalid");
-                alert.showAndWait();
-            }
-
-        } else {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
-            stageicondialog.getIcons().add(new Image("image/invalid.png"));
-            alert.setTitle("Invalid");
-            alert.showAndWait();
-
-        }
-    }
-
-    private String getUser() {
-        String user = "";
-        try {
-            pst = con.prepareStatement("select name_user from users where name_user=? ");
-            pst.setString(1, txt_user.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                user = rs.getString(1);
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return user;
-    }
-
-    private String getPassword() {
-        String password = "";
-        try {
-            pst = con.prepareStatement("select password_user from users where name_user = ?");
-            pst.setString(1, txt_user.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                password = rs.getString(1);
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return password;
-    }
-
-    @FXML
-    private void handle_Exit(ActionEvent event) {
-        Stage stage = (Stage) aPane_Login.getScene().getWindow();
-        stage.close();
-    }
-
+    
 }

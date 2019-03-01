@@ -19,7 +19,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Medreps.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         
         Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
         stage.getIcons().add(applicationIcon);

@@ -20,7 +20,7 @@ public class ConnectDB {
 
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String DB_URL = "jdbc:sqlserver://PC-PC\\SQLEXPRESS:1433;";
-    static String DATABASENAME = "databaseName=employees;";
+    static String DATABASENAME = "databaseName=permission;";
     static String USER = "user=sa;";
     static String PASS = "password=123";
 
