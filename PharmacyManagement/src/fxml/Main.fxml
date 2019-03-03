@@ -1,79 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="688.0" prefWidth="1200.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <AnchorPane layoutY="133.0" prefHeight="517.0" prefWidth="220.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="980.0" AnchorPane.topAnchor="125.0">
+      <AnchorPane layoutY="80.0" prefHeight="570.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0">
          <children>
-            <Accordion layoutX="7.0" prefHeight="75.0" prefWidth="244.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <panes>
-                <TitledPane animated="false" text="Drug List">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" text="List of Customers">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                <TitledPane animated="false" text="Enter Medicines">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                  <TitledPane animated="false" text="Sell Medicines">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </TitledPane>
-                  <TitledPane animated="false" text="Manage Inventory">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </TitledPane>
-              </panes>
-            </Accordion>
-            <JFXButton layoutX="1.0" layoutY="162.0" prefHeight="25.0" prefWidth="146.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="160.0" />
+            <AnchorPane prefHeight="462.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1000.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <JFXButton fx:id="btbInfo" layoutY="3.0" prefHeight="50.0" prefWidth="224.0" text="InFormation" />
+                  <JFXButton layoutY="54.0" prefHeight="50.0" prefWidth="224.0" text="Button" />
+                  <JFXButton layoutY="105.0" prefHeight="50.0" prefWidth="224.0" />
+                  <JFXButton layoutY="156.0" prefHeight="50.0" prefWidth="224.0" />
+                  <JFXButton layoutY="207.0" prefHeight="51.0" prefWidth="224.0" />
+                  <JFXButton layoutY="259.0" prefHeight="50.0" prefWidth="224.0" />
+                  <JFXButton layoutY="528.0" prefHeight="51.0" prefWidth="224.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="223.0" layoutY="-1.0" prefHeight="580.0" prefWidth="1000.0" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <TabPane layoutY="5.0" prefHeight="580.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <tabs>
+                      <Tab text="Start Page" />
+                    </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="34.0" prefWidth="1200.0" AnchorPane.bottomAnchor="625.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar prefHeight="25.0" prefWidth="286.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="900.0" AnchorPane.topAnchor="0.0">
+            <MenuBar fx:id="menuBar" prefHeight="29.0" prefWidth="1210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <menus>
                 <Menu mnemonicParsing="false" text="System">
                   <items>
-                    <MenuItem fx:id="mn_employees" mnemonicParsing="false" onAction="#handleEmployees" text="Employees" />
-                        <MenuItem mnemonicParsing="false" text="Change password" />
+                    <MenuItem fx:id="mnLogout" mnemonicParsing="false" onAction="#handleEmployees" text="Logout" />
+                        <MenuItem fx:id="mnChangePw" mnemonicParsing="false" text="Change password" />
+                        <MenuItem fx:id="mnMmember" mnemonicParsing="false" text="Management member" />
+                        <MenuItem fx:id="mnExit" mnemonicParsing="false" text="Exit" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Setup">
+                <Menu mnemonicParsing="false" text="Category">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Medicine Group" />
-                        <MenuItem mnemonicParsing="false" text="Medicine" />
-                        <MenuItem mnemonicParsing="false" text="Supplier " />
+                    <MenuItem fx:id="mnEmployees" mnemonicParsing="false" text="Employees" />
+                        <MenuItem fx:id="mnDrugs" mnemonicParsing="false" text="Drugs" />
+                        <MenuItem fx:id="mnCustomer" mnemonicParsing="false" text="Customer" />
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="Invoice">
+                  <Menu mnemonicParsing="false" text="Report">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Import Invoice" />
+                      <MenuItem fx:id="mnReport" mnemonicParsing="false" text="Report" />
                     </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="About">
+                  <Menu mnemonicParsing="false" text="Utilities">
                     <items>
-                      <MenuItem fx:id="mnStatistical" mnemonicParsing="false" text="Statistical" />
+                      <MenuItem fx:id="mnStatistical" mnemonicParsing="false" text="Tool" />
                     </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -85,45 +73,52 @@
             </MenuBar>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="6.0" layoutY="25.0" prefHeight="102.0" prefWidth="1200.0" AnchorPane.bottomAnchor="525.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <AnchorPane layoutX="-6.0" layoutY="25.0" prefHeight="44.0" prefWidth="1216.0">
          <children>
-            <Label fx:id="labelA" layoutX="484.0" layoutY="42.0" />
-            <JFXButton fx:id="btnA" defaultButton="true" layoutX="69.0" layoutY="25.0" prefHeight="50.0" prefWidth="104.0" ripplerFill="BLACK" style="-fx-background-color: #7d6757;" text="A" textFill="ORANGE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btnB" defaultButton="true" layoutX="218.0" layoutY="26.0" prefHeight="50.0" prefWidth="104.0" ripplerFill="BLACK" style="-fx-background-color: #7d6757;" text="B" textFill="ORANGE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
-            <JFXButton fx:id="btnC" defaultButton="true" layoutX="358.0" layoutY="26.0" prefHeight="50.0" prefWidth="104.0" ripplerFill="BLACK" style="-fx-background-color: #7d6757;" text="C" textFill="ORANGE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXButton>
+            <AnchorPane layoutX="-1.0" layoutY="2.0" prefHeight="40.0" prefWidth="480.0">
+               <children>
+                  <JFXButton fx:id="btnBack" contentDisplay="GRAPHIC_ONLY" defaultButton="true" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAddMember" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="60.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAddGroup" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="120.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnsSatistical" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="240.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnrReport" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="300.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnSearch" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="360.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnHelp" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="420.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnAddGroup1" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="180.0" prefHeight="40.0" prefWidth="60.0" ripplerFill="BLACK" textFill="ORANGE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane layoutX="220.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #5a94d6;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="125.0">
-         <children>
-            <TabPane fx:id="TabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <tabs>
-                  <Tab text="Untitled Tab">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #5a94d6;">
-                           <children>
-                              <Label layoutX="413.0" layoutY="100.0" text="Management Pharmacy">
-                                 <font>
-                                    <Font name=".VnShelley Allegro" size="18.0" />
-                                 </font>
-                              </Label>
-                              <FontAwesomeIcon fill="#c93030" glyphName="FLAG" layoutX="472.0" layoutY="78.0" size="3em" />
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-         </children>
-      </AnchorPane>
    </children>
 </AnchorPane>

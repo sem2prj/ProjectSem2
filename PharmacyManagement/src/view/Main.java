@@ -26,15 +26,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        con = controller.ConnectDB.connectSQLServer();
-        pst = con.prepareStatement("select * from users");
-        rs = pst.executeQuery();
-
-        if (rs.next()) {
-            rs.close();
-            pst.close();
-            con.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+//        con = controller.ConnectDB.connectSQLServer();
+//        pst = con.prepareStatement("select * from users");
+//        rs = pst.executeQuery();
+//
+//        if (rs.next()) {
+//            rs.close();
+//            pst.close();
+//            con.close();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
 
             Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
             stage.getIcons().add(applicationIcon);
@@ -46,6 +46,7 @@ public class Main extends Application {
             stage.show();
             
             
+<<<<<<< HEAD
 
         } else {
             rs.close();
@@ -60,6 +61,24 @@ public class Main extends Application {
 
 
         }
+=======
+//
+//        } else {
+//            rs.close();
+//            pst.close();
+//            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginFirstTime.fxml"));
+//
+//            Scene scene = new Scene(root);
+//
+//            stage.setScene(scene);
+//            stage.show();
+//            rs.close();
+//            pst.close();
+//            con.close();
+//
+//        }
+>>>>>>> 5a2383e6c25e3b7fd8041bc289e82b80b0685dd0
     }
 
     /**
