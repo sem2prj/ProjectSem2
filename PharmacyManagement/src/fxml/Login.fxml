@@ -28,6 +28,8 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </JFXButton>
+            <Label fx:id="error_username" layoutX="81.0" layoutY="117.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
+            <Label fx:id="error_password" layoutX="81.0" layoutY="217.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="logo_AnchorPane" layoutX="399.0" prefHeight="480.0" prefWidth="320.0" stylesheets="@../css/Appcss.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -19,10 +19,10 @@ import java.util.logging.Logger;
 public class ConnectDB {
 
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String DB_URL = "jdbc:sqlserver://PC-PC\\SQLEXPRESS:1433;";
-    static String DATABASENAME = "databaseName=permission;";
+    static String DB_URL = "jdbc:sqlserver://localhost:1433;";
+    static String DATABASENAME = "databaseName=pmart;";
     static String USER = "user=sa;";
-    static String PASS = "password=123";
+    static String PASS = "password=sa";
 
     static public Connection connectSQLServer() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);

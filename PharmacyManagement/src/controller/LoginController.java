@@ -8,15 +8,12 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import static java.awt.SystemColor.window;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +33,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Member;
 import model.MemberDAOIplement;
-import static model.encrypt.encryptmd5;
 
 /**
  *
@@ -56,6 +52,11 @@ public class LoginController implements Initializable {
     private AnchorPane aPane_Login;
     @FXML
     private JFXButton btn_Exit;
+    
+    @FXML
+    private Label error_username;
+    @FXML
+    private Label error_password;
 
     private Connection con;
     private PreparedStatement pst;
@@ -64,6 +65,7 @@ public class LoginController implements Initializable {
     
     public static ObservableList<Member> ListMember = FXCollections.observableArrayList();
         public static ObservableList<Member> ListMemberLogin = FXCollections.observableArrayList();
+
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -79,14 +81,20 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handle_Login(ActionEvent event) throws IOException {
-        login();
+        boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "username is requied");
+        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txt_password, error_password, "password is requied");
+        
+        if(isUserNameNotEmpty && isPasswordNotEmpty){
+            login();
+        }
+        
     }
 
     private void login() throws IOException {
           if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
             boolean check = false;
             for (Member member : ListMember) {
-                if (txt_user.getText().equals(member.getuserName()) && txt_password.getText().equals(member.getpassword())) {
+                if (txt_user.getText().equals(member.getuserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(member.getpassword())) {
                     check = true;
                     ListMemberLogin.add(member);
                     Stage stage = (Stage) aPane_Login.getScene().getWindow();
