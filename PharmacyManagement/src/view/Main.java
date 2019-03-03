@@ -57,9 +57,7 @@ public class Main extends Application {
 
             stage.setScene(scene);
             stage.show();
-            rs.close();
-            pst.close();
-            con.close();
+
 
         }
     }
