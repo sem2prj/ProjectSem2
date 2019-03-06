@@ -41,18 +41,18 @@ import model.DAOEmployees;
 import model.Employees;
 import model.EmployeesDAOImplement;
 //import model.ListEmployees;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.swing.JRViewer;
+//import net.sf.jasperreports.engine.JRDataSource;
+//import net.sf.jasperreports.engine.JREmptyDataSource;
+//import net.sf.jasperreports.engine.JRException;
+//import net.sf.jasperreports.engine.JasperCompileManager;
+//import net.sf.jasperreports.engine.JasperExportManager;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.engine.JasperReport;
+//import net.sf.jasperreports.engine.design.JRDesignQuery;
+//import net.sf.jasperreports.engine.design.JasperDesign;
+//import net.sf.jasperreports.engine.xml.JRXmlLoader;
+//import net.sf.jasperreports.swing.JRViewer;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -347,26 +347,26 @@ public class EmployeesController implements Initializable {
 //        });
 //
     }
-
-    private void handle_print(ActionEvent event) throws JRException {
+//
+//    private void handle_print(ActionEvent event) throws JRException {
 
 //        JasperReport jp = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/teacherPay.jrxml"));
-        JasperDesign jasperDesign = JRXmlLoader.load("model/MyReport.jrxml");
-        String query = "select * from employee";
-        JRDesignQuery jrquery = new JRDesignQuery();
-        jrquery.setText(query);
-        jasperDesign.setQuery(jrquery);
-
-        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-        JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, con);
-        JRViewer viewer = new JRViewer(JasperPrint);
+//        JasperDesign jasperDesign = JRXmlLoader.load("model/MyReport.jrxml");
+//        String query = "select * from employee";
+//        JRDesignQuery jrquery = new JRDesignQuery();
+//        jrquery.setText(query);
+//        jasperDesign.setQuery(jrquery);
+//
+//        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//        JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, con);
+//        JRViewer viewer = new JRViewer(JasperPrint);
 
         /*JasperReport jasperReport = JasperCompileManager.compileReport("E:\CabinetJava\PharmacyManagement\src\model\MyReport.jrxml");
              JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
              JRViewer viewer = new JRViewer(JasperPrint);*/
-        viewer.setOpaque(true);
-        viewer.setVisible(true);
-
-    }
+//        viewer.setOpaque(true);
+//        viewer.setVisible(true);
+//
+//    }
 
 }
