@@ -84,6 +84,7 @@ public class LoginController implements Initializable {
         boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "username is requied");
         boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txt_password, error_password, "password is requied");
         
+        
         if(isUserNameNotEmpty && isPasswordNotEmpty){
             login();
         }
