@@ -19,7 +19,7 @@ import javafx.beans.property.StringProperty;
  * @author PC
  */
 public class Employees{
-
+    public static int classInstances = 0;
     private IntegerProperty employee_id;
     private StringProperty Name;
     private StringProperty email;
@@ -45,6 +45,7 @@ public class Employees{
         this.commission_pct= new SimpleDoubleProperty(commission_pct);
         this.manager_id=new SimpleIntegerProperty(manager_id);
         this.department_id=new SimpleIntegerProperty(department_id);
+        classInstances++;
     }
 
     public Integer getEmployee_id() {

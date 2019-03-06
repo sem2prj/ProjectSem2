@@ -34,34 +34,35 @@ public class Main extends Application {
 //            rs.close();
 //            pst.close();
 //            con.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-
-            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-            stage.getIcons().add(applicationIcon);
-//        stage.setResizable(false);
-            Scene scene = new Scene(root);
-            stage.setTitle("Login");
-
-            stage.setScene(scene);
-            stage.show();
-            
-            
-<<<<<<< HEAD
-
-        } else {
-            rs.close();
-            pst.close();
-            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//
+//            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
+//            stage.getIcons().add(applicationIcon);
+////        stage.setResizable(false);
+//            Scene scene = new Scene(root);
+//            stage.setTitle("Login");
+//
+//            stage.setScene(scene);
+//            stage.show();
+//            
+//            
+////<<<<<<< HEAD
+//
+//        } else {
+//            rs.close();
+//            pst.close();
+//            con.close();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/loginFirstTime.fxml"));
 
             Scene scene = new Scene(root);
 
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
 
-        }
-=======
+//        }
+//=======
 //
 //        } else {
 //            rs.close();
@@ -78,7 +79,7 @@ public class Main extends Application {
 //            con.close();
 //
 //        }
->>>>>>> 5a2383e6c25e3b7fd8041bc289e82b80b0685dd0
+//>>>>>>> 5a2383e6c25e3b7fd8041bc289e82b80b0685dd0
     }
 
     /**
