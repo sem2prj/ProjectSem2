@@ -20,9 +20,9 @@ public class ConnectDB {
 
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String DB_URL = "jdbc:sqlserver://localhost:1433;";
-    static String DATABASENAME = "databaseName=pmart;";
+    static String DATABASENAME = "databaseName=employees;";
     static String USER = "user=sa;";
-    static String PASS = "password=sa";
+    static String PASS = "password=123";
 
     static public Connection connectSQLServer() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);

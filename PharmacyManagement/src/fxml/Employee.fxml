@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane id="AnchorPane" fx:id="acPane" prefHeight="600.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeController">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="600.0" prefWidth="520.0" AnchorPane.leftAnchor="-2.0">
+         <children>
+            <TableView fx:id="tableView" prefHeight="600.0" prefWidth="520.0" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="imageView" fitHeight="120.0" fitWidth="120.0" layoutX="530.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton layoutX="692.0" layoutY="78.0" onAction="#handleAdd" prefHeight="25.0" prefWidth="55.0" text="Add" />
+      <JFXButton layoutX="773.0" layoutY="78.0" onAction="#handleUpdate" text="Update" />
+      <JFXButton layoutX="860.0" layoutY="78.0" onAction="#HandleDelete" prefHeight="25.0" prefWidth="55.0" text="Delete" />
+      <JFXTextField fx:id="txtSearch" layoutX="816.0" layoutY="26.0" prefHeight="25.0" prefWidth="190.0" promptText="Search" />
+      <JFXButton fx:id="btnChoose" layoutX="685.0" layoutY="26.0" onAction="#handleChoose" prefHeight="25.0" prefWidth="100.0" text="Choose image" />
+      <JFXTextField fx:id="txtEplCode" layoutX="545.0" layoutY="160.0" prefHeight="25.0" prefWidth="190.0" />
+      <JFXTextField fx:id="txtUsername" layoutX="545.0" layoutY="230.0" prefHeight="25.0" prefWidth="190.0" />
+      <JFXTextField fx:id="txtPhone" layoutX="545.0" layoutY="300.0" prefHeight="25.0" prefWidth="190.0" />
+      <JFXTextField fx:id="txtEmail" layoutX="545.0" layoutY="370.0" prefHeight="25.0" prefWidth="190.0" />
+      <JFXTextField fx:id="txtConfirmPW" layoutX="800.0" layoutY="547.0" prefHeight="25.0" prefWidth="190.0" promptText="Confirm" />
+      <JFXTextField fx:id="txtPassword" layoutX="545.0" layoutY="547.0" prefHeight="25.0" prefWidth="190.0" promptText="Password" />
+      <ComboBox fx:id="cbPosition" layoutX="800.0" layoutY="370.0" prefHeight="25.0" prefWidth="190.0" />
+      <HBox fx:id="hboxGender" layoutX="801.0" layoutY="177.0" prefHeight="17.0" prefWidth="174.0">
+         <children>
+            <RadioButton fx:id="rdMale" mnemonicParsing="false" prefHeight="17.0" prefWidth="80.0" text="Male">
+               <toggleGroup>
+                  <ToggleGroup fx:id="gender" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="rdFemale" mnemonicParsing="false" prefHeight="17.0" prefWidth="95.0" text="Female" toggleGroup="$gender" />
+         </children>
+      </HBox>
+      <JFXTextField fx:id="txtAddrees" layoutX="545.0" layoutY="440.0" prefHeight="25.0" prefWidth="190.0" />
+      <ComboBox fx:id="cbDepartment" layoutX="800.0" layoutY="440.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="545.0" layoutY="144.0" text="Code :" />
+      <Label layoutX="545.0" layoutY="210.0" text="Username" />
+      <Label fx:id="lbCode" layoutX="545.0" layoutY="190.0" prefHeight="17.0" prefWidth="190.0" />
+      <Label fx:id="lbUser" layoutX="545.0" layoutY="260.0" prefHeight="17.0" prefWidth="190.0" />
+      <Label layoutX="545.0" layoutY="280.0" text="Phone" />
+      <Label fx:id="lbPhone" layoutX="545.0" layoutY="330.0" prefHeight="17.0" prefWidth="190.0" />
+      <Label layoutX="545.0" layoutY="350.0" text="Email" />
+      <Label fx:id="lbEmail" layoutX="545.0" layoutY="400.0" prefHeight="17.0" prefWidth="190.0" />
+      <Label layoutX="545.0" layoutY="420.0" text="Addrees" />
+      <Label layoutX="799.0" layoutY="144.0" text="Gender" />
+      <DatePicker fx:id="txtDateBirth" layoutX="800.0" layoutY="230.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="800.0" layoutY="210.0" text="Date of birth" />
+      <Label layoutX="800.0" layoutY="280.0" text="Salary" />
+      <JFXTextField fx:id="txtSalary" layoutX="800.0" layoutY="300.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="800.0" layoutY="350.0" text="Position" />
+      <Label layoutX="800.0" layoutY="420.0" text="Department" />
+      <JFXButton layoutX="940.0" layoutY="78.0" text="Excel" />
+      <Label fx:id="lbSalary" layoutX="800.0" layoutY="330.0" prefHeight="17.0" prefWidth="190.0" />
+      <JFXButton layoutX="699.0" layoutY="115.0"  text="Print" />
+      <Line endX="254.0" endY="1.0" layoutX="736.0" layoutY="546.0" startX="-191.0" startY="1.0" />
+      <DatePicker fx:id="txtDateWork" layoutX="800.0" layoutY="510.0" prefHeight="25.0" prefWidth="190.0" />
+      <Label layoutX="800.0" layoutY="478.0" prefHeight="17.0" prefWidth="80.0" text="Date at work" />
+      <JFXButton layoutX="775.0" layoutY="115.0" onAction="#handleClear" text="Clear" />
+      <JFXButton layoutX="854.0" layoutY="115.0" onAction="#handleLoadTable" text="Load Table" />
+   </children>
+</AnchorPane>

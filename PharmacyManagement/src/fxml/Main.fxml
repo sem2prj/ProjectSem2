@@ -13,11 +13,16 @@
    <children>
       <AnchorPane layoutY="88.0" prefHeight="600.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
          <children>
-            <TabPane fx:id="TabPane" prefHeight="600.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <TabPane fx:id="TabPane" prefHeight="600.0" prefWidth="1024.0" tabClosingPolicy="ALL_TABS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <tabs>
-                <Tab text="Untitled Tab 1">
+                <Tab text="Stage Page">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane fx:id="pane1" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" />
+                              <AnchorPane fx:id="pane2" layoutX="-2.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" />
+                              <AnchorPane fx:id="pane3" layoutX="-1.0" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" />
+                           </children></AnchorPane>
                   </content>
                 </Tab>
               </tabs>
@@ -66,7 +71,7 @@
          <children>
             <AnchorPane layoutX="-1.0" layoutY="2.0" prefHeight="60.0" prefWidth="640.0">
                <children>
-                  <JFXButton fx:id="btnBack" contentDisplay="GRAPHIC_ONLY" defaultButton="true" prefHeight="60.0" prefWidth="80.0" ripplerFill="BLACK" textFill="ORANGE">
+                  <JFXButton fx:id="btnEmployee" contentDisplay="GRAPHIC_ONLY" defaultButton="true" prefHeight="60.0" prefWidth="80.0" ripplerFill="BLACK" textFill="ORANGE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

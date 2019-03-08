@@ -52,7 +52,7 @@ public class Main extends Application {
 //            rs.close();
 //            pst.close();
 //            con.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
 
             Scene scene = new Scene(root);
 
