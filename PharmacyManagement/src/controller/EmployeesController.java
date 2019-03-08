@@ -347,17 +347,17 @@ public class EmployeesController implements Initializable {
 //        });
 //
     }
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //
 //    private void handle_print(ActionEvent event) throws JRException {
 
 //        JasperReport jp = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/teacherPay.jrxml"));
-=======
+//=======
 
 //    private void handle_print(ActionEvent event) throws JRException {
 //
 ////        JasperReport jp = JasperCompileManager.compileReport(getClass().getResourceAsStream("/reports/teacherPay.jrxml"));
->>>>>>> 59da75facfbfa8d6fdc47640c609102ed89df643
+//>>>>>>> 59da75facfbfa8d6fdc47640c609102ed89df643
 //        JasperDesign jasperDesign = JRXmlLoader.load("model/MyReport.jrxml");
 //        String query = "select * from employee";
 //        JRDesignQuery jrquery = new JRDesignQuery();
@@ -367,17 +367,17 @@ public class EmployeesController implements Initializable {
 //        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 //        JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, con);
 //        JRViewer viewer = new JRViewer(JasperPrint);
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
         /*JasperReport jasperReport = JasperCompileManager.compileReport("E:\CabinetJava\PharmacyManagement\src\model\MyReport.jrxml");
              JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
              JRViewer viewer = new JRViewer(JasperPrint);*/
-=======
+//=======
 //
 //        /*JasperReport jasperReport = JasperCompileManager.compileReport("E:\CabinetJava\PharmacyManagement\src\model\MyReport.jrxml");
 //             JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, null, conn);
 //             JRViewer viewer = new JRViewer(JasperPrint);*/
->>>>>>> 59da75facfbfa8d6fdc47640c609102ed89df643
+//>>>>>>> 59da75facfbfa8d6fdc47640c609102ed89df643
 //        viewer.setOpaque(true);
 //        viewer.setVisible(true);
 //

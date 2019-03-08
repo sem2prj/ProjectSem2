@@ -8,11 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-    <jar href="PharmacyManagement.jar" size="15530437" download="eager" />
-=======
-    <jar href="PharmacyManagement.jar" size="15534371" download="eager" />
->>>>>>> 59da75facfbfa8d6fdc47640c609102ed89df643
+    <jar href="PharmacyManagement.jar" size="15534248" download="eager" />
     <jar href="lib\fontawesomefx-8.2.jar" size="180341" download="eager" />
     <jar href="lib\jfoenix-8.0.8.jar" size="2708772" download="eager" />
     <jar href="lib\poi-4.0.1.jar" size="2718209" download="eager" />
