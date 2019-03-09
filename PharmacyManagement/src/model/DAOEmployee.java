@@ -24,6 +24,7 @@ public interface DAOEmployee {
     void deleteEmployee(String eplCode);
     
     ObservableList<Employee> searchCodeEmployee(String eplCode);
+    ObservableList<Employee> searchCodeEmployee(String username, String email, Date dateofBirth);
     
     
 }

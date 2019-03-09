@@ -152,6 +152,7 @@ public class EmployeeDAOImplement implements DAOEmployee {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return listEmployee;
     }
     
@@ -170,4 +171,41 @@ public class EmployeeDAOImplement implements DAOEmployee {
 //	blogImage varbinary(max),
 //	dateWork date,
 //    )
+
+    @Override
+    public ObservableList<Employee> searchCodeEmployee(String username, String email, Date dateofBirth) {
+        ObservableList<Employee> listEmployee = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM employee WHERE username=?,email=?,dateofBirth=?";
+
+        try (Connection connection = controller.ConnectDB.connectSQLServer();
+                PreparedStatement pst = connection.prepareStatement(sql);) {
+            pst.setString(1, username);
+            pst.setString(2, email);
+            pst.setDate(3, dateofBirth);
+            
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {
+                Employee employee = new Employee();
+                employee.setEplCode(rs.getString("eplCode"));
+                employee.setUserName(rs.getString("username"));
+                employee.setPhone(rs.getString("phone"));
+                employee.setEmail(rs.getString("email"));
+                employee.setAddrees(rs.getString("addrees"));
+                employee.setGender(rs.getBoolean("gender"));
+                employee.setDateBirth(rs.getDate("dateOfBirth"));
+                employee.setSalary(rs.getDouble("salary"));
+                employee.setPosition(rs.getString("position"));
+                employee.setDepartment(rs.getString("department"));
+                employee.setImageBlob(rs.getBlob("blogImage"));
+                employee.setDateWork(rs.getDate("dateWork"));
+
+                listEmployee.add(employee);
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return listEmployee;
+    }
 }
