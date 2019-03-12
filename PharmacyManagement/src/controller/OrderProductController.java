@@ -45,9 +45,7 @@ public class OrderProductController implements Initializable {
     @FXML
     private Button btn_remove;
     
-    
-    
-    
+   
     
     private Connection con;
     private PreparedStatement pst;
