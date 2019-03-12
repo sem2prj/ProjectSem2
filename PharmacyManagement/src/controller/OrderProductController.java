@@ -52,6 +52,15 @@ public class OrderProductController implements Initializable {
     private ResultSet rs;
     @FXML
     private TextField tf_invoiceID;
+    
+    
+    int no = 0;
+    int productId = 0;
+    String barcode = "";
+    String productName = "";
+    double priceOut = 0.0;
+    int qty = 0;
+    double amount = 0.0;
 
     /**
      * Initializes the controller class.
