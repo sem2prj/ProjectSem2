@@ -302,7 +302,7 @@ public class EmployeeController implements Initializable {
             //converted Object to Date 
             Date dt = (Date) employee.getDateBirth();
             txtDateBirth.setValue(LocalDate.parse(dt.toString()));
-            txtSalary.setText(String.valueOf(employee.getSalary()));
+            txtSalary.setText(String.format("%.2f",employee.getSalary()));
             txtAddrees.setText(employee.getAddrees());
             
             //Show image with eCode

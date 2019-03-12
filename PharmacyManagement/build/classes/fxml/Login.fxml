@@ -32,7 +32,7 @@
             <Label fx:id="error_password" layoutX="81.0" layoutY="217.0" prefHeight="17.0" prefWidth="255.0" textFill="RED" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="logo_AnchorPane" layoutX="399.0" prefHeight="480.0" prefWidth="320.0" stylesheets="@../css/Appcss.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="logo_AnchorPane" layoutX="399.0" prefHeight="480.0" prefWidth="320.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <FontAwesomeIcon fill="ORANGE" glyphName="MEDKIT" layoutX="165.0" layoutY="207.0" size="2.5em" />
             <Label alignment="CENTER" layoutX="242.0" layoutY="450.0" prefHeight="30.0" prefWidth="104.0" text="Version 0.0.1" textFill="ORANGE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="450.0" />
