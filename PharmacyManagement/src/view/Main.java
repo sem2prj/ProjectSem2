@@ -39,7 +39,7 @@ public class Main extends Application {
 
             Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
             stage.getIcons().add(applicationIcon);
-       stage.setResizable(false);
+         stage.setResizable(false);
             Scene scene = new Scene(root);
             stage.setTitle("Login");
 
@@ -50,6 +50,7 @@ public class Main extends Application {
 // <<<<<<< HEAD
 //
         } else {
+            
             rs.close();
             pst.close();
             con.close();
