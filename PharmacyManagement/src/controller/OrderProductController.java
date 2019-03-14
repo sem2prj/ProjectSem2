@@ -70,7 +70,7 @@ public class OrderProductController implements Initializable {
     private double grandTotal = 0.0;
     
     @FXML
-    private TableView<OrderList> table_invoice;
+    private TableView<OrderList> table_order;
     @FXML
     private TableColumn<OrderList, Integer> column_invoice_no;
     @FXML
@@ -145,10 +145,36 @@ public class OrderProductController implements Initializable {
         if(qty!=0){
             amount = priceOut * qty;
             grandTotal += amount;
+            
+            for (OrderList item : orderData){
+                if(item.getProductId()==productId){
+                    int table_qty = item.getQty()+ qty;
+                    double table_amount = item.getAmount() + amount;
+                    item.setQty(table_qty);
+                    item.setAmount(table_amount);
+                    lb_total.setText(""+grandTotal);
+                    table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                    clearText();
+                    return;
+                }
+            }
+            orderData.add(new OrderList(++no, productId, barcode, productName, priceOut, qty, amount));
+            table_order.setItems(orderData);
+            lb_total.setText(""+grandTotal);
+            clearText();
         }
         else{
-            AlertDialog.display("Info", "Qty can not be zero");
+            AlertDialog.display("Info", "Hey, where is my qty ?");
         }
+        
+    }
+    
+        private void clearText(){
+        tf_barcode.clear();
+        tf_barcode.requestFocus();
+        tf_productname.clear();
+        tf_price.clear();
+        tf_qty.clear();
         
     }
     
