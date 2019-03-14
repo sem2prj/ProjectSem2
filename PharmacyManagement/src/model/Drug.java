@@ -17,10 +17,10 @@ import javafx.beans.property.StringProperty;
  * @author PC
  */
 public class Drug {
-    private StringProperty dCode;
+    private StringProperty DCode;
     private StringProperty nameDrug;
     private StringProperty type;
-    private StringProperty uNit;
+    private StringProperty UNit;
     private DoubleProperty priceIn;
     private DoubleProperty saleprice;
     private StringProperty supplier;
@@ -31,10 +31,10 @@ public class Drug {
     }
 
     public Drug(String dCode, String nameDrug, String type, String uNit, Double priceIn, Double saleprice, String supplier, Integer amount, String desciption) {
-        this.dCode =new SimpleStringProperty(dCode);
+        this.DCode =new SimpleStringProperty(dCode);
         this.nameDrug = new SimpleStringProperty(nameDrug);
         this.type = new SimpleStringProperty(type);
-        this.uNit = new SimpleStringProperty(uNit);
+        this.UNit = new SimpleStringProperty(uNit);
         this.priceIn = new SimpleDoubleProperty(priceIn);
         this.saleprice = new SimpleDoubleProperty(saleprice);
         this.supplier = new SimpleStringProperty(supplier);
@@ -42,12 +42,12 @@ public class Drug {
         this.desciption =  new SimpleStringProperty(desciption);
     }
 
-    public String getdCode() {
-        return dCode.get();
+    public String getDCode() {
+        return DCode.get();
     }
 
-    public void setdCode(String dCode) {
-        this.dCode = new SimpleStringProperty(dCode);
+    public void setDCode(String dCode) {
+        this.DCode = new SimpleStringProperty(dCode);
     }
 
     public String getNameDrug() {
@@ -58,12 +58,12 @@ public class Drug {
         this.nameDrug = new SimpleStringProperty(nameDrug);
     }
 
-    public String getuNit() {
-        return uNit.get();
+    public String getUNit() {
+        return UNit.get();
     }
 
-    public void setuNit(String uNit) {
-        this.uNit =new SimpleStringProperty(uNit);
+    public void setUNit(String uNit) {
+        this.UNit =new SimpleStringProperty(uNit);
     }
 
     public String getType() {
@@ -113,8 +113,5 @@ public class Drug {
     public void setDesciption(String desciption) {
         this.desciption = new SimpleStringProperty(desciption);
     }
-    
-    
-    
     
 }
