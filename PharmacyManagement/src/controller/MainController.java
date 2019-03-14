@@ -6,16 +6,18 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,20 +25,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.MenuBar;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.Member;
 
@@ -49,45 +49,15 @@ public class MainController implements Initializable {
 
     public static ObservableList<Member> Info_Member_Login = FXCollections.observableArrayList();
 
-    @FXML
     private TabPane TabPane;
 
     private boolean counte, countst;
-    @FXML
-    private MenuItem mnStatistical;
-
-    @FXML
-    private MenuBar menuBar;
-
-    @FXML
-    private JFXButton btnAddMember;
-    @FXML
-    private JFXButton btnAddGroup;
-    @FXML
-    private JFXButton btnsSatistical;
-    @FXML
-    private JFXButton btnrReport;
-    @FXML
-    private JFXButton btnSearch;
-    @FXML
-    private JFXButton btnHelp;
-    @FXML
-    private JFXButton btnAddGroup1;
-    @FXML
     private MenuItem mnChangePw;
-    @FXML
     private MenuItem mnMmember;
-    @FXML
-    private MenuItem mnExit;
-    @FXML
     private MenuItem mnLogout;
-    @FXML
     private MenuItem mnEmployees;
-    @FXML
     private MenuItem mnDrugs;
-    @FXML
     private MenuItem mnCustomer;
-    @FXML
     private MenuItem mnReport;
 
     @FXML
@@ -100,6 +70,36 @@ public class MainController implements Initializable {
     private AnchorPane pane2;
     @FXML
     private AnchorPane pane3;
+    @FXML
+    private ImageView drawImage;
+    @FXML
+    private AnchorPane pane4;
+    @FXML
+    private AnchorPane opacityPane;
+    @FXML
+    private AnchorPane drawerPane;
+    @FXML
+    private JFXButton btnDrug;
+    @FXML
+    private JFXButton btnCustomer;
+    @FXML
+    private JFXButton btnStore;
+    @FXML
+    private JFXButton btnPayment;
+    @FXML
+    private JFXButton btnReport;
+    @FXML
+    private JFXButton btnSupplier;
+    @FXML
+    private JFXButton btnIE;
+    @FXML
+    private JFXButton btnExit;
+    @FXML
+    private Label lbDateYear;
+    @FXML
+    private Label lbDateM;
+    @FXML
+    private Label lbDateDay;
 
     /**
      * Initializes the controller class.
@@ -108,9 +108,9 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        animationPane();
-        dislayIcon();
-        mnStatistical();
+//        animationPane();
+//        dislayIcon();
+//        mnStatistical();
 //        Info_Member_Login = LoginController.ListMemberLogin;
 //        for (Member member : Info_Member_Login) {
 //            System.out.println("User: " + member.getuserName() + "Pass: " + member.getpassword() + "Role: " + member.getrole());
@@ -120,148 +120,186 @@ public class MainController implements Initializable {
 //            }
 
 //        }
-    }
-
-    @FXML
-    private void handleEmployees(ActionEvent event) {
+        opacityPane.setVisible(false);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), opacityPane);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(0.5), drawerPane);
+        translateTransition.setByX(-600);
+        translateTransition.play();
+        pane1.setStyle("-fx-background-image: url(\"/image/21.jpg\")");
+        pane2.setStyle("-fx-background-image: url(\"/image/22.jpg\")");
+        pane3.setStyle("-fx-background-image: url(\"/image/23.jpg\")");
+        pane4.setStyle("-fx-background-image: url(\"/image/24.jpg\")");
+        animationPane();
+        drawImage.setOnMouseClicked(event -> {
+            opacityPane.setVisible(true);
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), opacityPane);
+            fadeTransition1.setFromValue(0);
+            fadeTransition1.setToValue(0.15);
+            fadeTransition1.play();
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), drawerPane);
+            translateTransition1.setByX(+600);
+            translateTransition1.play();
+        });
+        opacityPane.setOnMouseClicked(event -> {
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(0.5), opacityPane);
+            fadeTransition1.setFromValue(0.15);
+            fadeTransition1.setToValue(0);
+            fadeTransition1.play();
+            fadeTransition1.setOnFinished(event1 -> {
+                opacityPane.setVisible(false);
+            });
+            TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), drawerPane);
+            translateTransition1.setByX(-600);
+            translateTransition1.play();
+        });
+        Timer timer = new Timer(true); //set it as a deamon
+        timer.schedule(new MyTimer(), 0, 1000);
     }
 
     private void animationPane() {
-        pane1.setStyle("-fx-background-image:url(\"/image/Hydrangeas.jpg\")");
-        pane2.setStyle("-fx-background-image:url(\"/image/Jellyfish.jpg\")");
-        pane3.setStyle("-fx-background-image:url(\"/image/Penguins.jpg\")");
-
-        FadeTransition fdT1 = new FadeTransition(Duration.seconds(3), pane3);
-        fdT1.setFromValue(1);
-        fdT1.setToValue(0);
-        fdT1.play();
-
-        fdT1.setOnFinished(e1 -> {
-            FadeTransition fdT2 = new FadeTransition(Duration.seconds(3), pane2);
-            fdT2.setFromValue(1);
-            fdT2.setToValue(0);
-            fdT2.play();
-            fdT2.setOnFinished(e2 -> {
-                FadeTransition fdT3 = new FadeTransition(Duration.seconds(3), pane3);
-                fdT3.setFromValue(1);
-                fdT3.setToValue(0);
-                fdT3.play();
-                fdT3.setOnFinished(e3 -> {
-                    FadeTransition fdT4 = new FadeTransition(Duration.seconds(3), pane2);
-                    fdT4.setFromValue(0);
-                    fdT4.setToValue(1);
-                    fdT4.play();
-                    fdT4.setOnFinished(e4 -> {
-                        FadeTransition fdT5 = new FadeTransition(Duration.seconds(3), pane3);
-                        fdT5.setFromValue(0);
-                        fdT5.setToValue(1);
-                        fdT5.play();
-                        fdT5.setOnFinished(e6 -> {
-                            FadeTransition fdT6 = new FadeTransition(Duration.seconds(3), pane1);
-                            fdT6.setFromValue(0);
-                            fdT6.setToValue(1);
-                            fdT6.play();
-                            fdT6.setOnFinished(e7 -> {
-                                FadeTransition fdT7 = new FadeTransition(Duration.seconds(3), pane3);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), pane4);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+        fadeTransition.setOnFinished(event -> {
+            FadeTransition fadeTransition1 = new FadeTransition(Duration.seconds(3), pane3);
+            fadeTransition1.setFromValue(1);
+            fadeTransition1.setToValue(0);
+            fadeTransition1.play();
+            fadeTransition1.setOnFinished(event1 -> {
+                FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(3), pane2);
+                fadeTransition2.setFromValue(1);
+                fadeTransition2.setToValue(0);
+                fadeTransition2.play();
+                fadeTransition2.setOnFinished(event2 -> {
+                    FadeTransition fadeTransition00 = new FadeTransition(Duration.seconds(3), pane2);
+                    fadeTransition00.setFromValue(0);
+                    fadeTransition00.setToValue(1);
+                    fadeTransition00.play();
+                    fadeTransition00.setOnFinished(event3 -> {
+                        FadeTransition fadeTransition11 = new FadeTransition(Duration.seconds(3), pane3);
+                        fadeTransition11.setFromValue(0);
+                        fadeTransition11.setToValue(1);
+                        fadeTransition11.play();
+                        fadeTransition11.setOnFinished(event4 -> {
+                            FadeTransition fadeTransition22 = new FadeTransition(Duration.seconds(3), pane4);
+                            fadeTransition22.setFromValue(0);
+                            fadeTransition22.setToValue(1);
+                            fadeTransition22.play();
+                            fadeTransition22.setOnFinished(event5 -> {
                                 animationPane();
                             });
                         });
-
                     });
                 });
-
             });
         });
-        
     }
 
-    public void dislayIcon() {
-        Image iconLogout = new Image(getClass().getResourceAsStream("/image/logout.png"));
-        ImageView cameraIconLogOut = new ImageView(iconLogout);
-        cameraIconLogOut.setFitHeight(16);
-        cameraIconLogOut.setFitWidth(16);
-        mnLogout.setGraphic(cameraIconLogOut);
-        mnLogout.setAccelerator(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN));
+    public class MyTimer extends TimerTask {
 
-        Image iconChangePW = new Image(getClass().getResourceAsStream("/image/collaboration.png"));
-        ImageView cameraChangepw = new ImageView(iconChangePW);
-        cameraChangepw.setFitHeight(16);
-        cameraChangepw.setFitWidth(16);
-        mnChangePw.setGraphic(cameraChangepw);
-        mnChangePw.setAccelerator(new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN));
-
-        Image iconMT = new Image(getClass().getResourceAsStream("/image/managementteam.png"));
-        ImageView cameraTeam = new ImageView(iconMT);
-        cameraTeam.setFitHeight(16);
-        cameraTeam.setFitWidth(16);
-        mnMmember.setGraphic(cameraTeam);
-        mnMmember.setAccelerator(new KeyCodeCombination(KeyCode.M, KeyCombination.CONTROL_DOWN));
-
-        Image iconEmployees = new Image(getClass().getResourceAsStream("/image/employees.png"));
-        ImageView cameraEmployees = new ImageView(iconEmployees);
-        cameraEmployees.setFitHeight(16);
-        cameraEmployees.setFitWidth(16);
-        mnEmployees.setGraphic(cameraEmployees);
-//        btbIcon.setContentDisplay(ContentDisplay.LEFT);
-        Image iconDrug = new Image(getClass().getResourceAsStream("/image/drug.png"));
-        ImageView cameraDrug = new ImageView(iconDrug);
-        cameraDrug.setFitHeight(16);
-        cameraDrug.setFitWidth(16);
-        mnDrugs.setGraphic(cameraDrug);
-        mnDrugs.setAccelerator(new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN));
-
-        Image iconCustommer = new Image(getClass().getResourceAsStream("/image/customer.png"));
-        ImageView cameraCustommer = new ImageView(iconCustommer);
-        cameraCustommer.setFitHeight(16);
-        cameraCustommer.setFitWidth(16);
-        mnCustomer.setGraphic(cameraCustommer);
-
-        Image iconReport = new Image(getClass().getResourceAsStream("/image/report.png"));
-        ImageView cameraReport = new ImageView(iconReport);
-        cameraReport.setFitHeight(16);
-        cameraReport.setFitWidth(16);
-        mnReport.setGraphic(cameraReport);
-
-        //button action
-        Image iconBack = new Image(getClass().getResourceAsStream("/image/logout.png"));
-        ImageView cameraBack = new ImageView(iconBack);
-        cameraBack.setFitHeight(20);
-        cameraBack.setFitWidth(20);
-        btnEmployee.setGraphic(cameraBack);
-
-    }
-
-    public void mnStatistical() {
-        btnEmployee.setOnAction(event -> {
-            countst=true;
-            if (countst) {
-                try {
-                    Node productForm = FXMLLoader.load(getClass().getResource("/fxml/Employee.fxml"));
-                    Tab tab = new Tab("Employee", productForm);
-                    TabPane.getTabs().add(tab);
-                    
-
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class
-                            .getName()).log(Level.SEVERE, null, ex);
-                }
+        @Override
+        public void run() {
+            Calendar calendar = Calendar.getInstance();
+            int hour = calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
+            int second = calendar.get(Calendar.SECOND);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            int AM_PM = calendar.get(Calendar.AM_PM);
+            if (AM_PM == 1) {
+                lbDateM.setText("PM");
+            } else {
+                lbDateM.setText("AM");
             }
-           
-        });
-//        mnMmember.setOnAction(e -> {
-//            counte++;
-//            if (counte == 1) {
-//                try {
-//                    Node productForm = FXMLLoader.load(getClass().getResource("/fxml/Employees.fxml"));
-//                    Tab tab = new Tab("Employees", productForm);
-//                    TabPane.getTabs().add(tab);
-//
-//                } catch (IOException ex) {
-//                    Logger.getLogger(MainController.class
-//                            .getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        });
+            if (minute < 10 && minute >= 0) {
+                String times = hour + ":" + ("0" + minute) + ":" + second;
+                String date = (month + 1) + "/" + day + "/" + (year);
+                Platform.runLater(() -> {
+                    lbDateDay.setText(times);
+                    lbDateYear.setText(date);
+                });
+            } else if (minute >= 10 && minute <= 60) {
+                String times = hour + ":" + (minute) + ":" + second;
+                String date = (month + 1) + "/" + day + "/" + (year);
+                Platform.runLater(() -> {
+                    lbDateDay.setText(times);
+                    lbDateYear.setText(date);
+                });
+            }
+        }
     }
 
+    @FXML
+    private void handleDrug(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Drug.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Drug");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleEmployee(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Employee.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Employee");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleCustomer(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Customer.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Customer");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleSuppier(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Supplier.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Supplier");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleLogOut(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Logout Form");
+        alert.setHeaderText(null);
+        alert.setContentText("Are You Sure?");
+        ButtonType okButton = new ButtonType("Yes");
+        ButtonType noButton = new ButtonType("No");
+        alert.getButtonTypes().setAll(okButton, noButton);  
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get()==okButton) {
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.centerOnScreen();
+                    stage.show();
+        }else if(result.get()==noButton){            
+        }  
+    }
 }
