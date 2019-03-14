@@ -18,11 +18,18 @@ import java.util.logging.Logger;
  */
 public class ConnectDB {
 
+    //Test
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    static String DB_URL = "jdbc:sqlserver://dbpharmacymanagement.chalwz8sezq8.us-east-2.rds.amazonaws.com:1433;";
-    static String DATABASENAME = "databaseName=dbpharmacy;";
-    static String USER = "user=duydangnguyenphan;";
-    static String PASS = "password=duydangnguyenphan";
+    static String DB_URL = "jdbc:sqlserver://localhost:1433;";
+    static String DATABASENAME = "databaseName=employees;";
+    static String USER = "user=sa;";
+    static String PASS = "password=123";
+    
+//    static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+//    static String DB_URL = "jdbc:sqlserver://dbpharmacymanagement.chalwz8sezq8.us-east-2.rds.amazonaws.com:1433;";
+//    static String DATABASENAME = "databaseName=dbpharmacy;";
+//    static String USER = "user=duydangnguyenphan;";
+//    static String PASS = "password=duydangnguyenphan";
 
     static public Connection connectSQLServer() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
