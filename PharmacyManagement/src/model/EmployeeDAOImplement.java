@@ -6,6 +6,8 @@
 package model;
 
 import controller.AlertDialog;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
@@ -17,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -74,8 +77,10 @@ public class EmployeeDAOImplement implements DAOEmployee {
             pst.setDate(12, dateWork);
             int i = pst.executeUpdate();
 
-            if (i == 1) {
+            if (i != 0) {
                 AlertDialog.display("Info", "Data Insert Successfully");
+            } else {
+                AlertDialog.display("Info", "Data Insert Failing");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
@@ -84,25 +89,29 @@ public class EmployeeDAOImplement implements DAOEmployee {
 
     @Override
     public void updateEmployee(String eplCode, String username, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork) {
-        String sql = "UPDATE employee SET eplCode=?,username=?,phone=?,email=?,addrees=?,gender=?,dateOfBirth=?,salary=?,position=?,department=?,blogImage=?,dateWork=?";
+        String sql = "UPDATE employee SET username=?,phone=?,email=?,addrees=?,gender=?,dateOfBirth=?,salary=?,position=?,department=?,blogImage=?,dateWork=? WHERE eplCode=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
-            pst.setString(1, eplCode);
-            pst.setString(2, username);
-            pst.setString(3, phone);
-            pst.setString(4, email);
-            pst.setString(5, addrees);
-            pst.setBoolean(6, gender);
-            pst.setDate(7, dateofBirth);
-            pst.setDouble(8, salary);
-            pst.setString(9, position);
-            pst.setString(10, department);
-            pst.setBlob(11, blobImage);
-            pst.setDate(12, dateWork);
+           
+            pst.setString(1, username);
+            pst.setString(2, phone);
+            pst.setString(3, email);
+            pst.setString(4, addrees);
+            pst.setBoolean(5, gender);
+            pst.setDate(6, dateofBirth);
+            pst.setDouble(7, salary);
+            pst.setString(8, position);
+            pst.setString(9, department);
+            pst.setBlob(10, blobImage);
+            pst.setDate(11, dateWork);
+             pst.setString(12, eplCode);
             int i = pst.executeUpdate();
-            if (i == 1) {
+            if (i != 0) {
                 AlertDialog.display("Info", "Data Update Successfully");
+            } else {
+                AlertDialog.display("Info", "Data Update is Failing");
             }
+
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,9 +123,11 @@ public class EmployeeDAOImplement implements DAOEmployee {
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, eplCode);
-            int i=pst.executeUpdate();
-            if (i == 1) {
+            int i = pst.executeUpdate();
+            if (i != 0) {
                 AlertDialog.display("Info", "Data Delete Successfully");
+            } else {
+                AlertDialog.display("Info", "Data deletion is failing");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
@@ -207,5 +218,28 @@ public class EmployeeDAOImplement implements DAOEmployee {
         }
         
         return listEmployee;
+    }
+    
+     //converted image on Blob SQL
+    @Override
+    public Image getImage(String eplCode) {
+       String sql = "select blogImage from employee where eplCode=?";
+        try (Connection connection = controller.ConnectDB.connectSQLServer();
+                PreparedStatement prepareStatement = connection.prepareStatement(sql);) {
+            prepareStatement.setString(1, eplCode);
+            ResultSet rs = prepareStatement.executeQuery();
+            Image image = null;
+            if (rs.next()) {
+                Blob botto = rs.getBlob("blogImage");
+                InputStream is = botto.getBinaryStream();
+                image = new Image(is);
+                is.close();
+            }
+            rs.close();
+            return image;
+        } catch (ClassNotFoundException | SQLException | IOException ex) {
+            Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

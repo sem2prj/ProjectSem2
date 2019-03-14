@@ -14,19 +14,19 @@
    <children>
       <TextField fx:id="tf_barcode" layoutX="26.0" layoutY="39.0" promptText="Barcode" />
       <TextField fx:id="tf_productname" layoutX="26.0" layoutY="80.0" promptText="Product name" />
-      <TextField fx:id="tf_qty" layoutX="26.0" layoutY="120.0" promptText="Qty" />
+      <TextField fx:id="tf_qty" layoutX="26.0" layoutY="120.0" onAction="#handle_order" promptText="Qty" />
       <TextField fx:id="tf_price" layoutX="26.0" layoutY="167.0" promptText="Price" />
-      <Button fx:id="btn_add" layoutX="198.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Add" />
+      <Button fx:id="btn_add" layoutX="198.0" layoutY="39.0" mnemonicParsing="false" onAction="#action_add" prefHeight="25.0" prefWidth="60.0" text="Add" />
       <JFXDatePicker fx:id="order_dateInvoice" layoutX="444.0" layoutY="175.0" prefHeight="17.0" prefWidth="135.0" />
       <TableView fx:id="table_invoice" layoutX="26.0" layoutY="215.0" prefHeight="254.0" prefWidth="598.0">
         <columns>
-          <TableColumn prefWidth="42.0" text="No" />
-          <TableColumn prefWidth="103.0" text="ProductID" />
-            <TableColumn prefWidth="100.0" text="Barcode" />
-            <TableColumn prefWidth="100.0" text="Product name" />
-            <TableColumn prefWidth="76.0" text="Price" />
-            <TableColumn prefWidth="73.0" text="Qty" />
-            <TableColumn prefWidth="103.0" text="Amount" />
+          <TableColumn fx:id="column_invoice_no" prefWidth="42.0" text="No" />
+          <TableColumn fx:id="column_invoice_productid" prefWidth="103.0" text="ProductID" />
+            <TableColumn fx:id="column_invoice_barcode" prefWidth="100.0" text="Barcode" />
+            <TableColumn fx:id="column_invoice_productname" prefWidth="100.0" text="Product name" />
+            <TableColumn fx:id="column_invoice_priceout" prefWidth="76.0" text="Price" />
+            <TableColumn fx:id="column_invoice_qty" prefWidth="73.0" text="Qty" />
+            <TableColumn fx:id="column_invoice_amount" prefWidth="103.0" text="Amount" />
         </columns>
       </TableView>
       <Label layoutX="484.0" layoutY="487.0" prefHeight="17.0" prefWidth="60.0" text="Total : " />
@@ -37,10 +37,10 @@
          </font>
       </Label>
       <JFXTextField layoutX="287.0" layoutY="39.0" prefHeight="9.0" prefWidth="135.0" promptText="Search the medic " />
-      <TableView layoutX="444.0" layoutY="17.0" prefHeight="152.0" prefWidth="201.0">
+      <TableView fx:id="table_search" layoutX="444.0" layoutY="17.0" prefHeight="152.0" prefWidth="201.0">
         <columns>
-          <TableColumn prefWidth="98.0" text="Product name" />
-          <TableColumn minWidth="0.0" prefWidth="114.0" text="Barcode" />
+          <TableColumn fx:id="column_search_productname" prefWidth="98.0" text="Product name" />
+          <TableColumn fx:id="column_search_barcode" minWidth="0.0" prefWidth="114.0" text="Barcode" />
         </columns>
       </TableView>
       <Button fx:id="btn_remove" layoutX="198.0" layoutY="81.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Remove" />

@@ -8,6 +8,7 @@ package model;
 import java.sql.Blob;
 import java.sql.Date;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -25,6 +26,8 @@ public interface DAOEmployee {
     
     ObservableList<Employee> searchCodeEmployee(String eplCode);
     ObservableList<Employee> searchCodeEmployee(String username, String email, Date dateofBirth);
+    
+    Image getImage(String eplCode);
     
     
 }
