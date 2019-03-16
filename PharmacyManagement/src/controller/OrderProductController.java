@@ -61,35 +61,27 @@ public class OrderProductController implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
 
-//    int no = 0;
-//    int productId = 0;
-//    String barcode = null;
-//    String productName = null;
-//    double priceOut = 0.0;
-//    int qty = 0;
-//    double amount = 0.0;
-//    private double grandTotal = 0.0;
-    
-      private ObservableList<OrderList> orderData;
-      private ObservableList<ProductListForSearchInInvoice> searchData;
 
-  
-    @FXML
-    private TableColumn<OrderList, Integer> column_invoice_no;
-    @FXML
-    private TableColumn<OrderList, Integer> column_invoice_productid;
-    @FXML
-    private TableColumn<OrderList, String> column_invoice_barcode;
-    @FXML
-    private TableColumn<OrderList, String> column_invoice_productname;
-    @FXML
-    private TableColumn<OrderList, Double> column_invoice_priceout;
-    @FXML
-    private TableColumn<OrderList, Integer> column_invoice_qty;
-    @FXML
-    private TableColumn<OrderList, Double> column_invoice_amount;
     
     
+    private ObservableList<OrderList2> orderData;
+    private ObservableList<ProductListForSearchInInvoice> searchData;
+    @FXML
+    private TableView<OrderList2> table_order;
+
+    @FXML
+    private TableColumn<OrderList2, Integer> column_invoice_no;
+    @FXML
+    private TableColumn<OrderList2, String> column_invoice_barcode;
+    @FXML
+    private TableColumn<OrderList2, String> column_invoice_productname;
+    @FXML
+    private TableColumn<OrderList2, Double> column_invoice_priceout;
+    @FXML
+    private TableColumn<OrderList2, Integer> column_invoice_qty;
+    @FXML
+    private TableColumn<OrderList2, Double> column_invoice_amount;
+
     @FXML
     private TableView<ProductListForSearchInInvoice> table_search;
     @FXML
@@ -97,14 +89,23 @@ public class OrderProductController implements Initializable {
     @FXML
     private TableColumn<ProductListForSearchInInvoice, String> column_search_barcode;
 
-  
-
     @FXML
     private Button btn_add2;
-    @FXML
-    private TableView<OrderList> table_order;
+
     @FXML
     private JFXTextField tf_search;
+    
+    int no =0 ;
+    int productId ;
+    String barcode ;
+    String productname ;
+    double price ;
+    int qty ;
+    double amount ;
+    private double grandTotal ;
+    @FXML
+    private Label error_qty;
+    
 
     /**
      * Initializes the controller class.
@@ -120,29 +121,41 @@ public class OrderProductController implements Initializable {
         }
 
         order_dateInvoice.setValue(LocalDate.now());
-        searchData = FXCollections.observableArrayList(); 
+        searchData = FXCollections.observableArrayList();
         column_search_productname.setCellValueFactory(new PropertyValueFactory<>("productname"));
         column_search_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-            tf_search.setOnKeyReleased((KeyEvent ke) -> {
+        tf_search.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 try {
                     doSearchAction();
                 } catch (SQLException ex) {
                     Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                       }
+
+            }
+        });
+        
+        tf_barcode.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    autoFillWithBarcode();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
         });
 
+        
+        
         try {
             doSearchAction();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //        orderData = FXCollections.observableArrayList();
 
+        //        orderData = FXCollections.observableArrayList();
 //        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
 //        column_invoice_productid.setCellValueFactory(new PropertyValueFactory<>("productId"));
 //        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
@@ -150,18 +163,13 @@ public class OrderProductController implements Initializable {
 //        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
 //        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
 //        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-
     }
-    
- 
 
-    
     public void doSearchAction() throws SQLException {
-        
+
         searchData.clear();
         table_search.setItems(searchData);
         System.out.println(tf_search.getText());
-  
 
         try {
             pst = con.prepareStatement("select barcode,productname from products where productname LIKE ?");
@@ -170,12 +178,12 @@ public class OrderProductController implements Initializable {
             while (rs.next()) {
 //                searchData.add(new ProductList(rs.getInt("pid"),rs.getString("barcode"), rs.getString("productname"),""+ rs.getDouble("priceIn"),""+rs.getDouble("priceOut")));
                 searchData.add(new ProductListForSearchInInvoice(rs.getString("barcode"), rs.getString("productname")));
-                 table_search.setItems(searchData);
+                table_search.setItems(searchData);
 
 //                        searchData.add(new ProductList2(rs.getString("barcode"), rs.getString("productname"), "" + rs.getDouble("priceIn"), "" + rs.getDouble("priceOut")));
 //                        table_search.setItems(searchData);
             }
-            
+
             rs.close();
 
             pst.close();
@@ -183,26 +191,88 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
     }
-                
-    
+
     @FXML
     public void action_add(ActionEvent event) throws SQLException {
 //        scanbarcode();
 //doSearchAction();
+
+        boolean isBarcodeHavingText = ValidationController.isTextFieldNotEmpty(tf_barcode);
+        boolean isProductNameHavingText = ValidationController.isTextFieldNotEmpty(tf_productname);
+        boolean isQtyHavingText = ValidationController.isTextFieldNotEmpty(tf_qty);
+        boolean isPriceHavingText = ValidationController.isTextFieldNotEmpty(tf_price);
+        boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty,error_qty,"qty can't be negative");
+        
+        if (isBarcodeHavingText && isProductNameHavingText && isQtyHavingText && isPriceHavingText && IsQtyNotNegative) {
+            qty = Integer.parseInt(tf_qty.getText());
+            if (qty != 0) {
+                amount = price * qty;
+                 grandTotal += amount;
+                 
+                 for(OrderList2 item : orderData){
+                     String str1 = item.getBarcode();
+                     
+                     if(ValidationController.sosanhchuoi(barcode,str1 )){
+                         int table_qty = item.getQty() + qty;
+                         double table_amount = item.getAmount() + amount;
+                         item.setQty(table_qty);
+                         item.setAmount(table_amount);
+                         lb_total.setText("" + grandTotal);
+                         table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                         clearText();
+                         return;
+                         
+                     }
+                 
+                 }
+                 
+                 
+                 orderData.add(new OrderList2(++no,barcode,productname,price,qty,amount));
+                 table_order.setItems(orderData);
+                 
+            }
+            
+            
+            
+            clearText();
+        } else {
+            AlertDialog.display("Info", "Some field is missing !!!");
+        }
+        
     }
 
     private void clearText() {
         tf_barcode.clear();
-        tf_barcode.requestFocus();
+     
         tf_productname.clear();
         tf_price.clear();
         tf_qty.clear();
 
     }
 
-    private void scanbarcode() throws SQLException {
+    public void autoFillWithBarcode() throws SQLException{
+        pst = con.prepareStatement("Select * from Product where barcode = ?");
+        pst.setString(1, tf_barcode.getText());
+        rs= pst.executeQuery();
+        if(rs.next()){
+            barcode = tf_barcode.getText();
+            tf_productname.setText(rs.getString("PName"));
+            productname = tf_productname.getText();
+            tf_price.setText(rs.getString("SellPrice"));
+            price = Double.parseDouble(tf_price.getText());
+            tf_qty.requestFocus();
+            
+        
+        }
+        rs.close();
+    }
+    
+    
+    
+    
+    
+//    private void scanbarcode() throws SQLException {
 //        pst = con.prepareStatement("Select * from products where barcode = ?");
 //        pst.setString(1, tf_barcode.getText());
 //        rs = pst.executeQuery();
@@ -216,7 +286,7 @@ public class OrderProductController implements Initializable {
 //            tf_qty.requestFocus();
 //        }
 //        rs.close();
-    }
+//    }
 
     @FXML
     private void action_addtomenu(ActionEvent event) {
@@ -226,25 +296,25 @@ public class OrderProductController implements Initializable {
 //            amount = priceOut * qty;
 //            grandTotal += amount;
 //
-////            for (OrderList item : orderData) {
-////                if (item.getProductId() == productId) {
-////                    int table_qty = item.getQty() + qty;
-////                    double table_amount = item.getAmount() + amount;
-////                    item.setQty(table_qty);
-////                    item.setAmount(table_amount);
-////                    lb_total.setText("" + grandTotal);
-////                    table_order.getItems().set(table_order.getItems().indexOf(item), item);
-////                    clearText();
-////                    return;
-////                }
-////            }
+//            for (OrderList item : orderData) {
+//                if (item.getProductId() == productId) {
+//                    int table_qty = item.getQty() + qty;
+//                    double table_amount = item.getAmount() + amount;
+//                    item.setQty(table_qty);
+//                    item.setAmount(table_amount);
+//                    lb_total.setText("" + grandTotal);
+//                    table_order.getItems().set(table_order.getItems().indexOf(item), item);
+//                    clearText();
+//                    return;
+//                }
+//            }
 //            orderData.add(new OrderList(++no, productId, barcode, productName, priceOut, qty, amount));
-//            table_order.setItems(orderData);
+//            table_order.setItems(orderData);//            AlertDialog.display("Info", "Hey, where is my qty ?");
+//        }
 //            lb_total.setText("" + grandTotal);
 //            clearText();
-//        } else {
-//            AlertDialog.display("Info", "Hey, where is my qty ?");
-//        }
+//        } else {}
+
     }
 
 }

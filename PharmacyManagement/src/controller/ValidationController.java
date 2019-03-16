@@ -90,6 +90,17 @@ public class ValidationController {
         lb.setText(msg);
         return b;
     }
+    
+    public static boolean sosanhchuoi(String str1, String str2) {
+        boolean logic = false;
+        char[] a = str1.toCharArray();
+        char[] b = str2.toCharArray();
+        if (Arrays.equals(a, b)) {
+            logic = true;
+        }
+
+        return logic;
+    }
 
     public static boolean isEmailSuitable(TextField tf) {
         boolean b = false;
@@ -226,6 +237,29 @@ public class ValidationController {
         
         return b;
     }
+    
+    public static boolean isIntegerValueNegative(TextField tf){
+        boolean b = false;
+        int i = Integer.parseInt(tf.getText());
+        if(Integer.signum(i)==-1){
+            b = true;
+        }
+        return b;
+    }
+    
+    public static boolean isIntegerValueNegative(TextField tf, Label lb, String errorMessage){
+        boolean b = true;
+        String msg = null;
+        if(!isIntegerValueNegative(tf)){
+            b = false;
+            msg = errorMessage;
+        
+        }
+        lb.setText(msg);
+        return b;
+    }
+    
+    
     
 }
 

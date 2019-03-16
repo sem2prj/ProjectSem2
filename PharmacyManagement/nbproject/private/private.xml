@@ -2,14 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/model/ProductListForSearchInInvoice.java</file>
-            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/view/Main.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/model/OrderList.java</file>
             <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/OrderProductController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ValidationController.java</file>
         </group>
-=======
-        <group/>
->>>>>>> 684c945871f364974fa85f8db38d983ccc38c039
     </open-files>
 </project-private>
