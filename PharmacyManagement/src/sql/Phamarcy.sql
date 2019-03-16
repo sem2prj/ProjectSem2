@@ -142,20 +142,77 @@ CREATE TABLE RequestsDetail(
 )
 
 
-CREATE TABLE Permission(
-	PerID int identity,
-	PerName varchar(50) ,
-	CONSTRAINT pk_PerID PRIMARY KEY (PerID),
+
+CREATE TABLE DetailUser(
+	DetailID int identity,
+	Code varchar(50),
+	Phone varchar(50),
+	Email varchar(50),
+	Addrees varchar(50),
+	Sex bit,
+	BirthDay date,
+	Salary float,
+	Position varchar(50),
+	Department varchar(50),
+	ImageBlob varbinary(max),
+	WorkDay date,
+	Mission varchar(50) ,
+	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
 )
+
+drop table DetailUser
 
 CREATE TABLE Users(
 	UsersID int identity,
 	UsersName varchar(50) ,
 	UsersPass varchar(50) ,
 	UsersFullName varchar(50) ,
-	PerID int,
+	DetailID int,
 	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
-	CONSTRAINT fk_PerID FOREIGN KEY (PerID) REFERENCES Permission(PerID)
+	CONSTRAINT fk_DetailID FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
 	on delete cascade 
 	on update cascade ,
 )
+
+create procedure getAllEmployee
+as
+begin 
+select dtu.Code as eplCode,us.UsersName as username,dtu.Phone as phone,dtu.Email as email
+,dtu.Addrees as addrees ,dtu.Sex as gender,dtu.BirthDay as dateOfBirth,dtu.Salary as salary
+,dtu.Position as position,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork 
+from Users AS us
+ INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
+end
+
+alter PROCEDURE InsertUser 
+(@UserName varchar(20),@Pass varchar(20),@DetailID int)   
+AS 
+INSERT INTO Users ([UsersName],[UsersPass],[DetailID]) VALUES (@UserName,@Pass,@DetailID)  
+GO 
+
+
+CREATE PROCEDURE ProceDetailUser
+(@eplCode varchar(20),@phone varchar(20),@email varchar(20),
+@addrees varchar(20),@gender bit,@birthday date,
+@salary float,@position varchar(20),@department varchar(20),
+@image varbinary(max),@workday date)   
+AS 
+INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salary],[Position],[Department],[ImageBlob],[WorkDay])
+ VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@position,@department,@image,@workday)  
+GO 
+
+select *from Users
+
+select *from DetailUser
+
+INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Salary,Position,Department,ImageBlob,WorkDay)
+
+update Users
+set A.UsersName = 'duc'
+from Users A, DetailUser B
+where A.DetailID= B.DetailID
+
+update B
+set B.UsersName = ''
+from Users B inner join DetailUser A on B.DetailID=A.DetailID
+
