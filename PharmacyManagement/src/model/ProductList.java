@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package model;
 
@@ -10,6 +10,7 @@ package model;
  * @author admin
  */
 public class ProductList {
+
     private int pid;
     private String barcode;
     private String productName;
@@ -17,16 +18,17 @@ public class ProductList {
     private String priceOut;
     private String qty;
     private String dateIn;
-    
-   
-    public ProductList(String barcode, String productName, String priceIn, String priceOut) {
+
+    public ProductList(int pid, String barcode, String productName, String priceIn, String priceOut) {
+        this.pid = pid;
         this.barcode = barcode;
         this.productName = productName;
         this.priceIn = priceIn;
         this.priceOut = priceOut;
-        
-    }   
-     public ProductList(int pid,String barcode, String productName, String priceIn, String priceOut, String qty, String dateIn) {
+
+    }
+
+    public ProductList(int pid, String barcode, String productName, String priceIn, String priceOut, String qty, String dateIn) {
         this.pid = pid;
         this.barcode = barcode;
         this.productName = productName;
@@ -34,9 +36,8 @@ public class ProductList {
         this.priceOut = priceOut;
         this.qty = qty;
         this.dateIn = dateIn;
-        
-    }   
-   
+
+    }
 
     /**
      * @return the barcode
