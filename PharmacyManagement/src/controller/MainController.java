@@ -49,16 +49,6 @@ public class MainController implements Initializable {
 
     public static ObservableList<Member> Info_Member_Login = FXCollections.observableArrayList();
 
-    private TabPane TabPane;
-
-    private boolean counte, countst;
-    private MenuItem mnChangePw;
-    private MenuItem mnMmember;
-    private MenuItem mnLogout;
-    private MenuItem mnEmployees;
-    private MenuItem mnDrugs;
-    private MenuItem mnCustomer;
-    private MenuItem mnReport;
 
     @FXML
     private JFXButton btnEmployee;
@@ -239,6 +229,7 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Drug.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/drug.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Drug");
@@ -251,6 +242,7 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Employee.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/employee.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Employee");
@@ -263,6 +255,7 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Customer.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Customer");
@@ -275,6 +268,7 @@ public class MainController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Supplier.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Supplier");

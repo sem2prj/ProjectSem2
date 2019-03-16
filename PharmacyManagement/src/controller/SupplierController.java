@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import model.Supplier;
+import model.SupplierDAOIplement;
 
 /**
  * FXML Controller class
@@ -27,7 +28,7 @@ public class SupplierController implements Initializable {
     @FXML
     private TableView<Supplier> tableView;
     @FXML
-    private TableColumn<Supplier, ?> columnName;
+    private TableColumn<Supplier, String> columnName;
     @FXML
     private TableColumn<Supplier, String> columnType;
     @FXML
@@ -85,21 +86,26 @@ public class SupplierController implements Initializable {
 
     @FXML
     private void handleAdd(ActionEvent event) {
-        
-        
+        SupplierDAOIplement sDI=new SupplierDAOIplement();
+        sDI.insertSupplier(txtName.getText(), txtType.getText(), txtAddrees.getText(), txtPhone.getText(), txtTIN.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
         
     }
 
     @FXML
     private void handleUpdate(ActionEvent event) {
+        SupplierDAOIplement sDI=new SupplierDAOIplement();
+        sDI.updateSupplier(txtName.getText(), txtType.getText(), txtAddrees.getText(), txtPhone.getText(), txtTIN.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
     }
 
     @FXML
     private void handleDelete(ActionEvent event) {
+        SupplierDAOIplement sDI=new SupplierDAOIplement();
+        sDI.deleteSupplier(txtTIN.getText());
     }
 
     @FXML
     private void handleClear(ActionEvent event) {
+        
     }
 
     @FXML
