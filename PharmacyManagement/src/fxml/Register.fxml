@@ -42,28 +42,34 @@
       <Label fx:id="error_repassword" layoutX="263.0" layoutY="269.0" prefHeight="17.0" prefWidth="196.0" textFill="RED" />
       <Label fx:id="error_samePassword" layoutX="574.0" layoutY="253.0" prefHeight="17.0" prefWidth="237.0" textFill="RED" />
       <PasswordField fx:id="pf_password" layoutX="261.0" layoutY="180.0" prefHeight="25.0" prefWidth="196.0" />
-      <PasswordField fx:id="pf_repassword" layoutX="261.0" layoutY="240.0" prefHeight="25.0" prefWidth="196.0" />
-      <Label layoutX="139.0" layoutY="309.0" prefHeight="18.0" prefWidth="78.0" text="Email" AnchorPane.leftAnchor="141.0" />
+      <PasswordField fx:id="pf_repassword" layoutX="261.0" layoutY="240.0" prefHeight="25.0" prefWidth="196.0" AnchorPane.leftAnchor="261.0" />
+      <Label layoutX="139.0" layoutY="309.0" prefHeight="18.0" prefWidth="78.0" text="Email" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="309.0" />
       <JFXTextField fx:id="tf_email" layoutX="263.0" layoutY="305.0" prefHeight="26.0" prefWidth="196.0" />
-      <Label layoutX="139.0" layoutY="374.0" prefHeight="18.0" prefWidth="78.0" text="Name" AnchorPane.leftAnchor="141.0" />
+      <Label layoutX="139.0" layoutY="374.0" prefHeight="18.0" prefWidth="78.0" text="Name" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="374.0" />
       <JFXTextField fx:id="tf_name" layoutX="261.0" layoutY="361.0" prefHeight="26.0" prefWidth="196.0" />
-      <Label layoutX="136.0" layoutY="432.0" text="Address" AnchorPane.leftAnchor="141.0" />
+      <Label layoutX="136.0" layoutY="432.0" text="Address" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="432.0" />
       <JFXTextField fx:id="tf_address" layoutX="261.0" layoutY="419.0" prefHeight="26.0" prefWidth="196.0" />
-      <Label layoutX="141.0" layoutY="494.0" prefHeight="18.0" prefWidth="61.0" text="Phone" AnchorPane.leftAnchor="141.0" />
+      <Label layoutX="141.0" layoutY="494.0" prefHeight="18.0" prefWidth="61.0" text="Phone" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="494.0" />
       <JFXTextField fx:id="tf_phone" layoutX="261.0" layoutY="490.0" prefHeight="26.0" prefWidth="196.0" />
       <Label layoutX="141.0" layoutY="567.0" text="Sex" AnchorPane.leftAnchor="141.0" />
       <Label layoutX="139.0" layoutY="633.0" prefHeight="18.0" prefWidth="78.0" text="Day of birth" AnchorPane.leftAnchor="141.0" />
       <JFXDatePicker fx:id="date_birth" layoutX="260.0" layoutY="620.0" />
       <JFXComboBox fx:id="combobox_sex" layoutX="263.0" layoutY="562.0" />
-      <Label fx:id="error_email" layoutX="263.0" layoutY="331.0" prefHeight="18.0" prefWidth="196.0" />
+      <Label fx:id="error_email" layoutX="263.0" layoutY="331.0" prefHeight="18.0" prefWidth="229.0" />
       <Label fx:id="error_name" layoutX="263.0" layoutY="392.0" prefHeight="18.0" prefWidth="196.0" />
       <Label fx:id="error_address" layoutX="261.0" layoutY="450.0" prefHeight="18.0" prefWidth="196.0" />
-      <Label fx:id="error_phone" layoutX="263.0" layoutY="516.0" prefHeight="18.0" prefWidth="196.0" />
+      <Label fx:id="error_phone" layoutX="263.0" layoutY="516.0" prefHeight="18.0" prefWidth="229.0" />
       <Label fx:id="error_birth" layoutX="263.0" layoutY="651.0" prefHeight="18.0" prefWidth="177.0" />
-      <Label fx:id="error_email2" layoutX="581.0" layoutY="309.0" prefHeight="18.0" prefWidth="302.0" />
-      <Label fx:id="error_phone2" layoutX="567.0" layoutY="494.0" prefHeight="18.0" prefWidth="302.0" />
       <Label layoutX="539.0" layoutY="113.0" prefHeight="18.0" prefWidth="413.0" text="*Allow number, lower case letter, upper case letter. 3-15 charactes" />
       <Label layoutX="539.0" layoutY="184.0" prefHeight="18.0" prefWidth="426.0" text="*Allow number, lower case letter, upper case letter, special symbols" />
       <Label layoutX="539.0" layoutY="209.0" prefHeight="18.0" prefWidth="426.0" text=" with 7-16 charactes" />
+      <Label layoutX="555.0" layoutY="310.0" prefHeight="17.0" prefWidth="100.0" text="Position" AnchorPane.leftAnchor="555.0" AnchorPane.rightAnchor="369.0" AnchorPane.topAnchor="309.0" />
+      <JFXComboBox fx:id="combobox_position" layoutX="758.0" layoutY="306.0" prefHeight="25.0" prefWidth="89.0" AnchorPane.leftAnchor="758.0" />
+      <Label layoutX="555.0" layoutY="379.0" prefHeight="17.0" prefWidth="100.0" text="Department" />
+      <JFXComboBox fx:id="combobox_department" layoutX="758.0" layoutY="375.0" prefHeight="25.0" prefWidth="89.0" />
+      <Label layoutX="555.0" layoutY="437.0" prefHeight="17.0" prefWidth="100.0" text="Mission" AnchorPane.topAnchor="432.0" />
+      <JFXComboBox fx:id="combobox_mission" layoutX="758.0" layoutY="437.0" prefHeight="25.0" prefWidth="89.0" />
+      <JFXDatePicker fx:id="date_work" layoutX="704.0" layoutY="491.0" />
+      <Label layoutX="555.0" layoutY="495.0" prefHeight="17.0" prefWidth="100.0" text="Day of working" AnchorPane.topAnchor="495.0" />
    </children>
 </AnchorPane>

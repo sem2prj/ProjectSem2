@@ -14,7 +14,10 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -66,9 +69,9 @@ public class RegisterController implements Initializable {
     private JFXTextField tf_phone;
 
     private Connection con;
-    private PreparedStatement pst1 = null;
-    private PreparedStatement pst2 = null;
-
+    private PreparedStatement pst = null;
+//    private PreparedStatement pst2 = null;
+    private ResultSet rs;
     @FXML
     private JFXDatePicker date_birth;
     @FXML
@@ -86,10 +89,15 @@ public class RegisterController implements Initializable {
     private JFXTextField tf_email;
     @FXML
     private Label error_email;
+
     @FXML
-    private Label error_email2;
+    private JFXComboBox<String> combobox_position;
     @FXML
-    private Label error_phone2;
+    private JFXComboBox<String> combobox_department;
+    @FXML
+    private JFXComboBox<String> combobox_mission;
+    @FXML
+    private JFXDatePicker date_work;
 
     /**
      * Initializes the controller class.
@@ -102,16 +110,30 @@ public class RegisterController implements Initializable {
         combobox_sex.getSelectionModel().selectFirst();
 //        combobox_sex.getValue();
 
+//Combobox_position
+        combobox_position.getItems().addAll("Employee","Manager","Chef","Chairman");
+        combobox_position.getSelectionModel().selectFirst();
+        
+//Combobox_department
+        combobox_department.getItems().addAll("Sales","Accountant","General");
+        combobox_department.getSelectionModel().selectFirst();
+        
+//Combobox_mission
+        combobox_mission.getItems().addAll("User","Supervision","Admin","President");
+        combobox_mission.getSelectionModel().selectFirst();      
+        
 // Set default for date_birth
         date_birth.setValue(LOCAL_DATE.localDate("01-01-1991"));
+        
+// Set default for date_work
+        date_work.setValue(LocalDate.now());
 
 // Set color for textfield    
-        error_email.setStyle("-fx-text-fill: red;");
-        error_name.setStyle("-fx-text-fill: red;");
-        error_address.setStyle("-fx-text-fill: red;");
-        error_phone.setStyle("-fx-text-fill: red;");
-        error_email2.setStyle("-fx-text-fill: red;");
-        error_phone2.setStyle("-fx-text-fill: red;");
+//        error_email.setStyle("-fx-text-fill: red;");
+//        error_name.setStyle("-fx-text-fill: red;");
+//        error_address.setStyle("-fx-text-fill: red;");
+//        error_phone.setStyle("-fx-text-fill: red;");
+
     }
 
     @FXML
@@ -125,62 +147,91 @@ public class RegisterController implements Initializable {
         boolean isAddressNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_address, error_address, "address is requied");
         boolean isPhoneNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_phone, error_phone, "phone is requied");
 
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(tf_email, error_email2, "ex: abc@yahoo.com.vn");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone2, "ex: +84 925 111 4456, 0905999999,01238888888....");
+        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(tf_email, error_email, "ex: abc@yahoo.com.vn");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone, "ex: +84 925 111 4456, 0905999999,01238888888....");
         boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(tf_username, error_username, "username is not suitable");
         boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(pf_password, error_password, "password is not suitable");
 
         if (isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
                 && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty
-                && isEmailTrue && isPhoneTrue) {
-            if (isUsernameTrue && isPasswordTrue) {
+               ) {
+            if (isUsernameTrue && isPasswordTrue && isEmailTrue && isPhoneTrue) {
                 try {
-                    con = controller.ConnectDB.connectSQLServer();
-                    pst1 = con.prepareStatement("INSERT INTO users2 VALUES(?,?,?,?)");
-                    pst2 = con.prepareStatement("INSERT INTO NhanVien2(manhanvien,tennhanvien,username,role_user,diachi,sodienthoai,ngaysinh,gioitinh) VALUES(?,?,?,?,?,?,?,?)");
+                    
 
-                    String manhanvien = "NV" + Employees.classInstances;
+//                    String manhanvien = "NV" + Employees.classInstances;
                     String username = tf_username.getText();
                     String password = PasswordHash.encryptPass(pf_password.getText());
-                    String role_user = "admin";
+//                    String role_user = "admin";
                     String diachi = tf_address.getText().trim().replaceAll(" +", " ");
                     String tennhanvien = tf_name.getText().trim().replaceAll(" +", " ");
                     String phone = tf_phone.getText();
                     Date ngaysinh =  java.sql.Date.valueOf(date_birth.getValue());
                     int gioitinh;
                     if (combobox_sex.getValue().equalsIgnoreCase("Male")) {
-                        gioitinh = 1;
+                        gioitinh = 1; //Nam la 1
                     } else {
-                        gioitinh = 0;
+                        gioitinh = 0; //Nu la 0
                     }
+                    String position = combobox_position.getValue();
+                    String department = combobox_department.getValue();
+                    String mission = combobox_mission.getValue();
+                    Date    workday = java.sql.Date.valueOf(date_work.getValue());
+                    String email = tf_email.getText();
+                    
+                    con = controller.ConnectDB.connectSQLServer();
+                    pst = con.prepareStatement("INSERT INTO DetailUser(Phone,Email,Addrees,Sex,BirthDay,Position,Department,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
-                    pst1.setString(1, manhanvien);
-                    pst1.setString(2, username);
-                    pst1.setString(3, password);
-                    pst1.setString(4, role_user);
 
-                    int a = pst1.executeUpdate();
+                    pst.setString(1, phone);
+                    pst.setString(2, email);
+                    pst.setString(3, diachi);
+                    pst.setInt(4, gioitinh);
+                    pst.setDate(5, ngaysinh);
+                    pst.setString(6, position);
+                    pst.setString(7, department);
+                    pst.setString(8,mission );
+                    pst.setDate(9, workday);
+                    
+//                    pst1.setString(2, username);
+//                    pst1.setString(3, password);
+//                    pst1.setString(4, role_user);
+//
+//                    
+//
+//                    pst2.setString(1, manhanvien);
+//                    pst2.setString(2, tennhanvien);
+//                    pst2.setString(3, username);
+//                    pst2.setString(4, role_user);
+//                    pst2.setString(5, diachi);
+//                    pst2.setString(6, phone);
+//                    pst2.setDate(7, ngaysinh);
+//                    pst2.setInt(8, gioitinh);
+                    
+                    pst.executeUpdate();
+                    rs = pst.getGeneratedKeys();
+                    rs.next();
+                    Object key = rs.getObject(1);
+                    String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)";
+                    pst  = con.prepareStatement(sql);
+                    pst.setInt(1,Integer.parseInt(String.valueOf(key)));
+                    pst.setString(2,username);
+                    pst.setString(3,password);
+                    pst.setString(4,tennhanvien);
+                    int a = pst.executeUpdate();
+                    
+                    
+                    
 
-                    pst2.setString(1, manhanvien);
-                    pst2.setString(2, tennhanvien);
-                    pst2.setString(3, username);
-                    pst2.setString(4, role_user);
-                    pst2.setString(5, diachi);
-                    pst2.setString(6, phone);
-                    pst2.setDate(7, ngaysinh);
-                    pst2.setInt(8, gioitinh);
 
-                    int b = pst2.executeUpdate();
-
-                    if (a == 1 && b == 1) {
+                    if (a == 1 ) {
                         System.out.println("Data update for 2 tables success");
-                        Employees.classInstances++;
+             
 
                     }
 
-                    pst2.close();
-                    pst1.close();
-
+   
+                    pst.close();
                     con.close();
 
                 } catch (ClassNotFoundException | SQLException ex) {

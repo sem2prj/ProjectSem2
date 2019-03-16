@@ -21,12 +21,11 @@
       <TableView fx:id="table_order" layoutX="26.0" layoutY="215.0" prefHeight="254.0" prefWidth="598.0">
         <columns>
           <TableColumn fx:id="column_invoice_no" prefWidth="42.0" text="No" />
-          <TableColumn fx:id="column_invoice_productid" prefWidth="103.0" text="ProductID" />
-            <TableColumn fx:id="column_invoice_barcode" prefWidth="100.0" text="Barcode" />
-            <TableColumn fx:id="column_invoice_productname" prefWidth="100.0" text="Product name" />
-            <TableColumn fx:id="column_invoice_priceout" prefWidth="76.0" text="Price" />
-            <TableColumn fx:id="column_invoice_qty" prefWidth="73.0" text="Qty" />
-            <TableColumn fx:id="column_invoice_amount" prefWidth="103.0" text="Amount" />
+            <TableColumn fx:id="column_invoice_barcode" prefWidth="130.0" text="Barcode" />
+            <TableColumn fx:id="column_invoice_productname" prefWidth="127.0" text="Product name" />
+            <TableColumn fx:id="column_invoice_priceout" prefWidth="122.0" text="Price" />
+            <TableColumn fx:id="column_invoice_qty" prefWidth="68.0" text="Qty" />
+            <TableColumn fx:id="column_invoice_amount" prefWidth="108.0" text="Amount" />
         </columns>
       </TableView>
       <Label layoutX="484.0" layoutY="487.0" prefHeight="17.0" prefWidth="60.0" text="Total : " />
@@ -43,6 +42,6 @@
           <TableColumn fx:id="column_search_barcode" minWidth="0.0" prefWidth="114.0" text="Barcode" />
         </columns>
       </TableView>
-      <Button fx:id="btn_add2" layoutX="198.0" layoutY="81.0" mnemonicParsing="false" onAction="#action_addtomenu" prefHeight="25.0" prefWidth="88.0" text="Add to menu" />
+      <Label fx:id="error_qty" layoutX="198.0" layoutY="124.0" prefHeight="17.0" prefWidth="118.0" textFill="RED" />
    </children>
 </AnchorPane>

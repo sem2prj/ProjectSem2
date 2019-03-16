@@ -2,8 +2,6 @@
  * Empty Stylesheet file.
  */
 
-<<<<<<< HEAD
-=======
 
 #tableView{
     -fx-table-cell-border-color: transparent;
@@ -70,4 +68,3 @@
     -fx-background-insets: 0, 0 0 1 0, 1 1 2 1, 2 2 3 2, 3 3 4 3;
     -fx-text-fill: -fx-text-inner-color;
 }
->>>>>>> 684c945871f364974fa85f8db38d983ccc38c039
