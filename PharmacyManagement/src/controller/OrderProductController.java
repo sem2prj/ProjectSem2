@@ -89,8 +89,6 @@ public class OrderProductController implements Initializable {
     @FXML
     private TableColumn<ProductListForSearchInInvoice, String> column_search_barcode;
 
-    @FXML
-    private Button btn_add2;
 
     @FXML
     private JFXTextField tf_search;
@@ -272,49 +270,5 @@ public class OrderProductController implements Initializable {
     
     
     
-//    private void scanbarcode() throws SQLException {
-//        pst = con.prepareStatement("Select * from products where barcode = ?");
-//        pst.setString(1, tf_barcode.getText());
-//        rs = pst.executeQuery();
-//        if (rs.next()) {
-//            productId = rs.getInt("pid");
-//            barcode = rs.getString("barcode");
-//            productName = rs.getString("productname");
-//            priceOut = rs.getDouble("priceout");
-//            tf_productname.setText(productName);
-//            tf_price.setText("" + priceOut);
-//            tf_qty.requestFocus();
-//        }
-//        rs.close();
-//    }
-
-    @FXML
-    private void action_addtomenu(ActionEvent event) {
-//        qty = Integer.parseInt(tf_qty.getText());
-//        System.out.println(qty);
-//        if (qty != 0) {
-//            amount = priceOut * qty;
-//            grandTotal += amount;
-//
-//            for (OrderList item : orderData) {
-//                if (item.getProductId() == productId) {
-//                    int table_qty = item.getQty() + qty;
-//                    double table_amount = item.getAmount() + amount;
-//                    item.setQty(table_qty);
-//                    item.setAmount(table_amount);
-//                    lb_total.setText("" + grandTotal);
-//                    table_order.getItems().set(table_order.getItems().indexOf(item), item);
-//                    clearText();
-//                    return;
-//                }
-//            }
-//            orderData.add(new OrderList(++no, productId, barcode, productName, priceOut, qty, amount));
-//            table_order.setItems(orderData);//            AlertDialog.display("Info", "Hey, where is my qty ?");
-//        }
-//            lb_total.setText("" + grandTotal);
-//            clearText();
-//        } else {}
-
-    }
 
 }
