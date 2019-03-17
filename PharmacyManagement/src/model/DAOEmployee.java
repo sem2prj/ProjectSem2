@@ -18,9 +18,9 @@ public interface DAOEmployee {
 
     ObservableList<Employee> getAllEmployee();
 
-    void insertEmployee(String eplCode,String username,String phone,String email,String addrees,boolean gender,Date dateofBirth,double salary,String position,String department,Blob blobImage,Date dateWork );
-    
-    void updateEmployee(String eplCode,String username,String phone,String email,String addrees,boolean gender,Date dateofBirth,double salary,String position,String department,Blob blobImage,Date dateWork);
+   void insertEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork,String roles,String username,String Pass);
+
+    void updateEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork,String roles,String username,int id);
 
     void deleteEmployee(String eplCode);
     

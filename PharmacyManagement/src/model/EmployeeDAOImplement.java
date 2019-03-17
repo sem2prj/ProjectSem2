@@ -9,6 +9,7 @@ import controller.AlertDialog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -30,7 +31,7 @@ public class EmployeeDAOImplement implements DAOEmployee {
     @Override
     public ObservableList<Employee> getAllEmployee() {
         ObservableList<Employee> listEmployee = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM employee";
+        String sql = "{call dbo.getAllEmployee}";
 
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
@@ -48,7 +49,8 @@ public class EmployeeDAOImplement implements DAOEmployee {
                 employee.setDepartment(rs.getString("department"));
                 employee.setImageBlob(rs.getBlob("blogImage"));
                 employee.setDateWork(rs.getDate("dateWork"));
-
+                employee.setId(rs.getInt("UserId"));
+                employee.setRole(rs.getString("roles"));
                 listEmployee.add(employee);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -58,25 +60,35 @@ public class EmployeeDAOImplement implements DAOEmployee {
     }
 
     @Override
-    public void insertEmployee(String eplCode, String username, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork) {
-        String sql = "INSERT INTO employee (eplCode, username, phone, email, addrees, gender,dateOfBirth,salary,position,department,blogImage,dateWork) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    public void insertEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork, String roles, String username, String Pass) {
+        String sql2 = "INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Salary,Position,Department,ImageBlob,WorkDay,Mission) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            Connection connection = controller.ConnectDB.connectSQLServer();
+            PreparedStatement pst2 = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+            pst2.setString(1, eplCode);
+            pst2.setString(2, phone);
+            pst2.setString(3, email);
+            pst2.setString(4, addrees);
+            pst2.setBoolean(5, gender);
+            pst2.setDate(6, dateofBirth);
+            pst2.setDouble(7, salary);
+            pst2.setString(8, position);
+            pst2.setString(9, department);
+            pst2.setBlob(10, blobImage);
+            pst2.setDate(11, dateWork);
+            pst2.setString(12, roles);
+            pst2.executeUpdate();
 
-        try (Connection connection = controller.ConnectDB.connectSQLServer();
-                PreparedStatement pst = connection.prepareStatement(sql);) {
-            pst.setString(1, eplCode);
-            pst.setString(2, username);
-            pst.setString(3, phone);
-            pst.setString(4, email);
-            pst.setString(5, addrees);
-            pst.setBoolean(6, gender);
-            pst.setDate(7, dateofBirth);
-            pst.setDouble(8, salary);
-            pst.setString(9, position);
-            pst.setString(10, department);
-            pst.setBlob(11, blobImage);
-            pst.setDate(12, dateWork);
+            ResultSet rs = pst2.getGeneratedKeys();
+            rs.next();
+            Object key = rs.getObject(1);
+
+            String sql = "{call dbo.InsertUser(?,?,?)}";
+            CallableStatement pst = connection.prepareCall(sql);
+            pst.setString(1, username);
+            pst.setString(2, Pass);
+            pst.setString(3, String.valueOf(key));
             int i = pst.executeUpdate();
-
             if (i != 0) {
                 AlertDialog.display("Info", "Data Insert Successfully");
             } else {
@@ -88,30 +100,36 @@ public class EmployeeDAOImplement implements DAOEmployee {
     }
 
     @Override
-    public void updateEmployee(String eplCode, String username, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork) {
-        String sql = "UPDATE employee SET username=?,phone=?,email=?,addrees=?,gender=?,dateOfBirth=?,salary=?,position=?,department=?,blogImage=?,dateWork=? WHERE eplCode=?";
+    public void updateEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork, String roles, String username, int id) {
+        String sql = "UPDATE DetailUser SET Phone=?,Email=?,Addrees=?,Sex=?,BirthDay=?,Salary=?,Position=?,Department=?,ImageBlob=?,WorkDay=?,Mission=? WHERE Code=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
-           
-            pst.setString(1, username);
-            pst.setString(2, phone);
-            pst.setString(3, email);
-            pst.setString(4, addrees);
-            pst.setBoolean(5, gender);
-            pst.setDate(6, dateofBirth);
-            pst.setDouble(7, salary);
-            pst.setString(8, position);
-            pst.setString(9, department);
-            pst.setBlob(10, blobImage);
-            pst.setDate(11, dateWork);
-             pst.setString(12, eplCode);
+
+            pst.setString(1, phone);
+            pst.setString(2, email);
+            pst.setString(3, addrees);
+            pst.setBoolean(4, gender);
+            pst.setDate(5, dateofBirth);
+            pst.setDouble(6, salary);
+            pst.setString(7, position);
+            pst.setString(8, department);
+            pst.setBlob(9, blobImage);
+            pst.setDate(10, dateWork);
+            pst.setString(11, roles);
+            pst.setString(12, eplCode);
             int i = pst.executeUpdate();
-            if (i != 0) {
+
+            String sql2 = "UPDATE Users SET UsersName=? WHERE UsersID=?";
+            PreparedStatement pst2 = connection.prepareStatement(sql2);
+            pst2.setString(1, username);
+            pst2.setInt(2, id);
+
+            int j = pst2.executeUpdate();
+            if (i != 0 && j != 0) {
                 AlertDialog.display("Info", "Data Update Successfully");
             } else {
                 AlertDialog.display("Info", "Data Update is Failing");
             }
-
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,7 +137,7 @@ public class EmployeeDAOImplement implements DAOEmployee {
 
     @Override
     public void deleteEmployee(String eplCode) {
-        String sql = "DELETE FROM employee WHERE eplCode=(?)";
+        String sql = "DELETE FROM DetailUser WHERE Code=(?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, eplCode);
@@ -163,10 +181,10 @@ public class EmployeeDAOImplement implements DAOEmployee {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return listEmployee;
     }
-    
+
 //    create table employee (
 //	employeId int identity,
 //	eplCode varchar(50) ,
@@ -182,7 +200,6 @@ public class EmployeeDAOImplement implements DAOEmployee {
 //	blogImage varbinary(max),
 //	dateWork date,
 //    )
-
     @Override
     public ObservableList<Employee> searchCodeEmployee(String username, String email, Date dateofBirth) {
         ObservableList<Employee> listEmployee = FXCollections.observableArrayList();
@@ -193,9 +210,9 @@ public class EmployeeDAOImplement implements DAOEmployee {
             pst.setString(1, username);
             pst.setString(2, email);
             pst.setDate(3, dateofBirth);
-            
+
             ResultSet rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 Employee employee = new Employee();
                 employee.setEplCode(rs.getString("eplCode"));
@@ -216,21 +233,22 @@ public class EmployeeDAOImplement implements DAOEmployee {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return listEmployee;
     }
-    
-     //converted image on Blob SQL
+
+    //converted image on Blob SQL
     @Override
+
     public Image getImage(String eplCode) {
-       String sql = "select blogImage from employee where eplCode=?";
+        String sql = "select ImageBlob from DetailUser where Code=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement prepareStatement = connection.prepareStatement(sql);) {
             prepareStatement.setString(1, eplCode);
             ResultSet rs = prepareStatement.executeQuery();
             Image image = null;
             if (rs.next()) {
-                Blob botto = rs.getBlob("blogImage");
+                Blob botto = rs.getBlob("ImageBlob");
                 InputStream is = botto.getBinaryStream();
                 image = new Image(is);
                 is.close();

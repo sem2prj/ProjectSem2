@@ -6,6 +6,8 @@
 package controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -13,13 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,7 +34,10 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -52,6 +53,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import model.Employee;
@@ -102,6 +104,7 @@ public class EmployeeController implements Initializable {
     //combobox
     private final String position[] = {"Manager", "Employee"};
     private final String department[] = {"Store", "Sell", "Bussiness"};
+    private final String roles[]={"1","2","3","4","5"};
 
     //image
     private FileChooser fileChooser;
@@ -153,7 +156,21 @@ public class EmployeeController implements Initializable {
     private Label lbAWork;
     @FXML
     private ToggleGroup sex;
+    @FXML
+    private JFXPasswordField txtPass;
+    @FXML
+    private Label labelPass;
+    @FXML
+    private JFXPasswordField txtConfirmPass;
+    @FXML
+    private Label lbConfirm;
 
+    private int id;
+    @FXML
+    private Label labelRoles;
+    @FXML
+    private JFXComboBox<String> cbRoles;
+    
     /**
      * Initializes the controller class.
      */
@@ -186,7 +203,12 @@ public class EmployeeController implements Initializable {
     @FXML
     private void handleAdd(ActionEvent event) {
         //error
-       boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied ");
+        
+        boolean isPasswordNotEmpty=controller.ValidationController.isPasswordFieldHavingText(txtPass, labelPass, "Password is requied ");
+           
+        boolean arePasswordsametoREPassword = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirmPass, lbConfirm, "Password and Re-password not match");
+        
+        boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied ");
         if (!txtAddreenotEmpty) {
             txtAddrees.requestFocus();
         }
@@ -210,10 +232,10 @@ public class EmployeeController implements Initializable {
             txtEplCode.requestFocus();
         }
 
-//        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
-//        if (!txtSalarynotNumber) {
-//            txtSalary.requestFocus();
-//        }
+        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
+        if (!txtSalarynotNumber) {
+            txtSalary.requestFocus();
+        }
         if (txtDateBirth.getValue() == null) {
             lbDofBirth.setText("Date is required");
         } else if (txtDateBirth.getValue() != null) {
@@ -231,7 +253,7 @@ public class EmployeeController implements Initializable {
             lbImage.setText("");
         }
 
-        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty) {
+        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty&&isPasswordNotEmpty&&arePasswordsametoREPassword&&txtSalarynotNumber) {
             if (rdMale.isSelected()) {
                 gendercheck = true;
             } else if (rdFemale.isSelected()) {
@@ -246,16 +268,21 @@ public class EmployeeController implements Initializable {
                 Blob blob = new SerialBlob(res);
                 employee.setImageBlob(blob);
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                eDAOIpl.insertEmployee(txtEplCode.getText(), txtUsername.getText(), txtPhone.getText(), txtEmail.getText(), txtAddrees.getText(), gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()));
+                String password = PasswordHash.encryptPass(txtConfirmPass.getText());
+                String username =txtUsername.getText().trim().replaceAll("\\s+","");
+                String addrees =txtAddrees.getText().trim().replaceAll("\\s+", " ");
+                eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()),cbRoles.getSelectionModel().getSelectedItem() + "", username,password);
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
             }
             emptyLabel();
+            clear();
         }
         loadTableForm();
     }
+    
 
     //update
     @FXML
@@ -285,10 +312,10 @@ public class EmployeeController implements Initializable {
             txtEplCode.requestFocus();
         }
 
-//        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
-//        if (!txtSalarynotNumber) {
-//            txtSalary.requestFocus();
-//        }
+        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
+        if (!txtSalarynotNumber) {
+            txtSalary.requestFocus();
+        }
         if (txtDateBirth.getValue() == null) {
             lbDofBirth.setText("Date is required");
         } else if (txtDateBirth.getValue() != null) {
@@ -304,7 +331,7 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty) {
+        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty&&txtSalarynotNumber) {
             if (rdMale.isSelected()) {
                 gendercheck = true;
             } else if (rdFemale.isSelected()) {
@@ -319,15 +346,18 @@ public class EmployeeController implements Initializable {
                 Blob blob = new SerialBlob(res);
                 employee.setImageBlob(blob);
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                eDAOIpl.updateEmployee(txtEplCode.getText(), txtUsername.getText(), txtPhone.getText(), txtEmail.getText(), txtAddrees.getText(), gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()));
+                String addrees =txtAddrees.getText().trim().replaceAll("\\s+", " "); 
+                eDAOIpl.updateEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()),cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(),id);
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
             }
             emptyLabel();
+            clear();
         }
         loadTableForm();
+
     }
 
     //delete
@@ -340,8 +370,11 @@ public class EmployeeController implements Initializable {
         if (txtBarcodenotEmpty) {
             EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
             eDAOIpl.deleteEmployee(txtEplCode.getText());
+            emptyLabel();
+            clear();
         }
         loadTableForm();
+
     }
 
     @FXML
@@ -385,6 +418,11 @@ public class EmployeeController implements Initializable {
             //Show Datepicker
             Date datetW = (Date) employee.getDateWork();
             txtDateWork.setValue(LocalDate.parse(datetW.toString()));
+            cbPosition.setValue(employee.getPosition());
+            cbDepartment.setValue(employee.getDepartment());
+            cbRoles.setValue(employee.getRole());
+            //Transaction id employee to update
+            id=employee.getId();
         });
     }
 
@@ -402,6 +440,13 @@ public class EmployeeController implements Initializable {
         }
         ObservableList obListDP = FXCollections.observableArrayList(listDP);
         cbDepartment.setItems(obListDP);
+        
+        List<String> listRL = new ArrayList<>();
+        for (String listSRL : roles) {
+            listRL.add(listSRL);
+        }
+        ObservableList obListRL = FXCollections.observableArrayList(listRL);
+        cbRoles.setItems(obListRL);
     }
 
     //Css error
@@ -415,6 +460,8 @@ public class EmployeeController implements Initializable {
         lbImage.setStyle("-fx-text-fill:orange");
         lbDofBirth.setStyle("-fx-text-fill:orange");
         lbAWork.setStyle("-fx-text-fill:orange");
+        labelPass.setStyle("-fx-text-fill:orange");
+        lbConfirm.setStyle("-fx-text-fill:orange");
     }
 
     @FXML
@@ -442,10 +489,16 @@ public class EmployeeController implements Initializable {
         txtAddrees.clear();
         txtPhone.clear();
         txtEmail.clear();
-        txtDateBirth.setValue(LocalDate.now());
+        txtDateBirth.getEditor().clear();
+//        txtDateBirth.setValue(LocalDate.now());
         txtSalary.clear();
         imageView.setImage(null);
-        txtDateWork.setValue(LocalDate.now());
+        txtDateWork.getEditor().clear();
+        txtPass.clear();
+        txtConfirmPass.clear();
+        cbPosition.getSelectionModel().clearSelection();
+        cbDepartment.getSelectionModel().clearSelection();
+        cbRoles.getSelectionModel().clearSelection();
     }
 
     private void loadTableForm() {
@@ -574,5 +627,19 @@ public class EmployeeController implements Initializable {
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
             tableView.setItems(sortedData);
         });
+    }
+
+    @FXML
+    private void handleChangePass(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChangePass.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/changepass.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Change Password");
+        stage.setScene(scene);
+        stage.show();
+        
     }
 }

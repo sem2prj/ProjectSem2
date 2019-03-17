@@ -9,8 +9,10 @@ import java.sql.Blob;
 import java.sql.Date;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -33,6 +35,11 @@ public class Employee {
     private StringProperty department;
     private Blob imageBlob;
     private SimpleObjectProperty<Date> dateWork;
+    
+    private StringProperty Pass;
+    private StringProperty Role;
+
+    private IntegerProperty id;
 
     public Employee() {
     }
@@ -52,6 +59,50 @@ public class Employee {
         this.dateWork = new SimpleObjectProperty<>(dateWork);
     }
 
+     public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String position, String department, Blob imageBlob, Date dateWork, String Pass, Integer id,String Role) {
+        this.EplCode = new SimpleStringProperty(eplCode);
+        this.userName = new SimpleStringProperty(userName);
+        this.phone = new SimpleStringProperty(phone);
+        this.email = new SimpleStringProperty(email);
+        this.addrees = new SimpleStringProperty(addrees);
+        this.gender = new SimpleBooleanProperty(gender);
+        this.dateBirth = new SimpleObjectProperty<>(dateBirth);
+        this.salary = new SimpleDoubleProperty(salary);
+        this.position = new SimpleStringProperty(position);
+        this.department = new SimpleStringProperty(department);
+        this.imageBlob = imageBlob;
+        this.dateWork = new SimpleObjectProperty<>(dateWork);
+        this.Pass = new SimpleStringProperty(Pass);
+        this.id = new SimpleIntegerProperty(id);
+        this.Role=new SimpleStringProperty(Role);
+    }
+    
+    
+    public String getRole() {
+        return Role.get();
+    }
+
+    public void setRole(String Role) {
+        this.Role = new SimpleStringProperty(Role);
+    }
+
+    public Integer getId() {
+        return id.get();
+    }
+
+    public void setId(Integer id) {
+        this.id = new SimpleIntegerProperty(id);
+    }
+    
+     public String getPass() {
+        return Pass.get();
+    }
+
+    public void setPass(String Pass) {
+        this.Pass = new SimpleStringProperty(Pass);
+    }
+    
+    
     public Blob getImageBlob() {
         return imageBlob;
     }

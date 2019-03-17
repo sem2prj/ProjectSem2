@@ -4,13 +4,13 @@ use pharmacy
  
 use master 
 drop database pharmacy
-	/*Loai thuoc*/
+
 CREATE TABLE Categories(
 	CatID int identity,
 	CatName varchar(50) ,
 	CONSTRAINT pk_CatID PRIMARY KEY (CatID),	
 )
-/*Hoạt chất */
+
 CREATE TABLE ActiveMaterial(
 	AmId int identity,
 	AmName varchar(50) ,
@@ -174,12 +174,12 @@ CREATE TABLE Users(
 	on update cascade ,
 )
 
-create procedure getAllEmployee
+alter procedure getAllEmployee
 as
 begin 
 select dtu.Code as eplCode,us.UsersName as username,dtu.Phone as phone,dtu.Email as email
 ,dtu.Addrees as addrees ,dtu.Sex as gender,dtu.BirthDay as dateOfBirth,dtu.Salary as salary
-,dtu.Position as position,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork 
+,dtu.Position as position,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork ,us.UsersID as UserId,dtu.Mission as roles
 from Users AS us
  INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
 end
@@ -201,18 +201,24 @@ INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salar
  VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@position,@department,@image,@workday)  
 GO 
 
-select *from Users
+alter PROCEDURE getUserMission
+as
+begin
+select us.UsersName as username,us.UsersFullName as fullname,dtu.mission as mission
+from Users AS us
+ INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
+end
+
+CREATE PROCEDURE updatePassCode
+(@password varchar(50),@code varchar(50))
+AS
+UPDATE A SET A.UsersPass =@password
+FROM Users A INNER JOIN DetailUser B ON  A.DetailID=B.DetailID
+WHERE B.Code=@code 
+GO
+
+
+SELECT *FROM Users
 
 select *from DetailUser
-
-INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Salary,Position,Department,ImageBlob,WorkDay)
-
-update Users
-set A.UsersName = 'duc'
-from Users A, DetailUser B
-where A.DetailID= B.DetailID
-
-update B
-set B.UsersName = ''
-from Users B inner join DetailUser A on B.DetailID=A.DetailID
 
