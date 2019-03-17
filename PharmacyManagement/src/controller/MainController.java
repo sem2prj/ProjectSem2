@@ -231,7 +231,7 @@ public class MainController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/drug.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
+//        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Drug");
         stage.setScene(scene);
         stage.show();
@@ -244,7 +244,7 @@ public class MainController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/employee.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
+//        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Employee");
         stage.setScene(scene);
         stage.show();
@@ -257,7 +257,7 @@ public class MainController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
+//        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Customer");
         stage.setScene(scene);
         stage.show();
@@ -269,7 +269,7 @@ public class MainController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
-        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Supplier");
         stage.setScene(scene);

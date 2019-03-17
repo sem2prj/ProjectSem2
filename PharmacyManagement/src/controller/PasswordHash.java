@@ -4,14 +4,14 @@
  * and open the template in the editor.
  */
 package controller;
-import java.io.UnsupportedEncodingException;
+//import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.Scanner;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javax.xml.bind.DatatypeConverter;
-import sun.applet.Main;
+//import sun.applet.Main;
 
 /**
  *

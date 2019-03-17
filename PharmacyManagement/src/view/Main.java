@@ -28,15 +28,15 @@ public class Main extends Application {
 
         
 //        //Test MainController
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
-//
-//            Scene scene = new Scene(root);
-//
-//            stage.setScene(scene);
-////            stage.setResizable(false);
-//            stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+//            stage.setResizable(false);
+            stage.show();
         //Start
-      
+/*      
         con = controller.ConnectDB.connectSQLServer();
        
         pst = con.prepareStatement("select * from users");
@@ -74,7 +74,7 @@ public class Main extends Application {
 
           
         }
-
+*/
         //End
         
         
