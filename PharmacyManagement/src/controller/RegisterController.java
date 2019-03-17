@@ -84,8 +84,6 @@ public class RegisterController implements Initializable {
     @FXML
     private Label error_phone;
     @FXML
-    private Label error_birth;
-    @FXML
     private JFXTextField tf_email;
     @FXML
     private Label error_email;
@@ -104,36 +102,40 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("LALALALALALALALA");
 
 // Giai quyet combobox_sex
         combobox_sex.getItems().addAll("Male", "Female");
         combobox_sex.getSelectionModel().selectFirst();
-//        combobox_sex.getValue();
+        combobox_sex.getValue();
 
 //Combobox_position
-        combobox_position.getItems().addAll("Employee","Manager","Chef","Chairman");
+        combobox_position.getItems().addAll("Employee", "Manager", "Chef", "Chairman");
         combobox_position.getSelectionModel().selectFirst();
+        combobox_position.getValue();
         
+
 //Combobox_department
-        combobox_department.getItems().addAll("Sales","Accountant","General");
+        combobox_department.getItems().addAll("Sales", "Accountant", "General");
         combobox_department.getSelectionModel().selectFirst();
-        
+        combobox_department.getValue();
+
 //Combobox_mission
-        combobox_mission.getItems().addAll("User","Supervision","Admin","President");
-        combobox_mission.getSelectionModel().selectFirst();      
-        
+        combobox_mission.getItems().addAll("User", "Supervision", "Admin", "President");
+        combobox_mission.getSelectionModel().selectFirst();
+        combobox_mission.getValue();
+
 // Set default for date_birth
         date_birth.setValue(LOCAL_DATE.localDate("01-01-1991"));
-        
+
 // Set default for date_work
         date_work.setValue(LocalDate.now());
 
-// Set color for textfield    
+// Set color for textfield
 //        error_email.setStyle("-fx-text-fill: red;");
 //        error_name.setStyle("-fx-text-fill: red;");
 //        error_address.setStyle("-fx-text-fill: red;");
 //        error_phone.setStyle("-fx-text-fill: red;");
-
     }
 
     @FXML
@@ -153,11 +155,9 @@ public class RegisterController implements Initializable {
         boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(pf_password, error_password, "password is not suitable");
 
         if (isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
-                && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty
-               ) {
+                && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty) {
             if (isUsernameTrue && isPasswordTrue && isEmailTrue && isPhoneTrue) {
                 try {
-                    
 
 //                    String manhanvien = "NV" + Employees.classInstances;
                     String username = tf_username.getText();
@@ -166,7 +166,7 @@ public class RegisterController implements Initializable {
                     String diachi = tf_address.getText().trim().replaceAll(" +", " ");
                     String tennhanvien = tf_name.getText().trim().replaceAll(" +", " ");
                     String phone = tf_phone.getText();
-                    Date ngaysinh =  java.sql.Date.valueOf(date_birth.getValue());
+                    Date ngaysinh = java.sql.Date.valueOf(date_birth.getValue());
                     int gioitinh;
                     if (combobox_sex.getValue().equalsIgnoreCase("Male")) {
                         gioitinh = 1; //Nam la 1
@@ -176,12 +176,11 @@ public class RegisterController implements Initializable {
                     String position = combobox_position.getValue();
                     String department = combobox_department.getValue();
                     String mission = combobox_mission.getValue();
-                    Date    workday = java.sql.Date.valueOf(date_work.getValue());
+                    Date workday = java.sql.Date.valueOf(date_work.getValue());
                     String email = tf_email.getText();
-                    
-                    con = controller.ConnectDB.connectSQLServer();
-                    pst = con.prepareStatement("INSERT INTO DetailUser(Phone,Email,Addrees,Sex,BirthDay,Position,Department,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 
+                    con = controller.ConnectDB.connectSQLServer();
+                    pst = con.prepareStatement("INSERT INTO DetailUser(Phone,Email,Addrees,Sex,BirthDay,Position,Department,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
                     pst.setString(1, phone);
                     pst.setString(2, email);
@@ -190,14 +189,14 @@ public class RegisterController implements Initializable {
                     pst.setDate(5, ngaysinh);
                     pst.setString(6, position);
                     pst.setString(7, department);
-                    pst.setString(8,mission );
+                    pst.setString(8, mission);
                     pst.setDate(9, workday);
-                    
+
 //                    pst1.setString(2, username);
 //                    pst1.setString(3, password);
 //                    pst1.setString(4, role_user);
 //
-//                    
+//
 //
 //                    pst2.setString(1, manhanvien);
 //                    pst2.setString(2, tennhanvien);
@@ -207,30 +206,25 @@ public class RegisterController implements Initializable {
 //                    pst2.setString(6, phone);
 //                    pst2.setDate(7, ngaysinh);
 //                    pst2.setInt(8, gioitinh);
-                    
                     pst.executeUpdate();
                     rs = pst.getGeneratedKeys();
                     rs.next();
                     Object key = rs.getObject(1);
-                    String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)";
-                    pst  = con.prepareStatement(sql);
-                    pst.setInt(1,Integer.parseInt(String.valueOf(key)));
-                    pst.setString(2,username);
-                    pst.setString(3,password);
-                    pst.setString(4,tennhanvien);
+                    String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)values (?,?,?,?)";
+                    pst = con.prepareStatement(sql);
+                    
+                    pst.setInt(1, Integer.parseInt(String.valueOf(key)));
+
+//                    pst.setString(1, String.valueOf(key));
+                    pst.setString(2, username);
+                    pst.setString(3, password);
+                    pst.setString(4, tennhanvien);
                     int a = pst.executeUpdate();
-                    
-                    
-                    
 
-
-                    if (a == 1 ) {
+                    if (a == 1) {
                         System.out.println("Data update for 2 tables success");
-             
-
                     }
 
-   
                     pst.close();
                     con.close();
 
@@ -242,8 +236,8 @@ public class RegisterController implements Initializable {
                 stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
-                Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-                stage.getIcons().add(applicationIcon);
+//                Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
+//                stage.getIcons().add(applicationIcon);
 //        stage.setResizable(false);
                 Scene scene = new Scene(root);
                 stage.setTitle("Login");
