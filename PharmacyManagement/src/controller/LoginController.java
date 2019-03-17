@@ -112,13 +112,7 @@ public class LoginController implements Initializable {
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
-                }
-                break;
-            }
-            if(check==false){
-                
-            }
-        } else {
+                } else {
 
             Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
 //            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -126,6 +120,12 @@ public class LoginController implements Initializable {
             alert.setTitle("Invalid");
             alert.showAndWait();
         }
+                break;
+            }
+//            if(check==false){
+//                
+//            }
+        } 
 
         
     }

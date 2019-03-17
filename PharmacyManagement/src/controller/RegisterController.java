@@ -132,10 +132,10 @@ public class RegisterController implements Initializable {
         date_work.setValue(LocalDate.now());
 
 // Set color for textfield
-//        error_email.setStyle("-fx-text-fill: red;");
-//        error_name.setStyle("-fx-text-fill: red;");
-//        error_address.setStyle("-fx-text-fill: red;");
-//        error_phone.setStyle("-fx-text-fill: red;");
+        error_email.setStyle("-fx-text-fill: red;");
+        error_name.setStyle("-fx-text-fill: red;");
+        error_address.setStyle("-fx-text-fill: red;");
+        error_phone.setStyle("-fx-text-fill: red;");
     }
 
     @FXML
@@ -150,7 +150,7 @@ public class RegisterController implements Initializable {
         boolean isPhoneNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_phone, error_phone, "phone is requied");
 
         boolean isEmailTrue = controller.ValidationController.isEmailSuitable(tf_email, error_email, "ex: abc@yahoo.com.vn");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone, "ex: +84 925 111 4456, 0905999999,01238888888....");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone, "ex: +84 925 111 4456, 0905999999,...");
         boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(tf_username, error_username, "username is not suitable");
         boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(pf_password, error_password, "password is not suitable");
 
