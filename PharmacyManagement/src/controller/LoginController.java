@@ -104,8 +104,8 @@ public class LoginController implements Initializable {
                     //loading scene main
 
                     Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
-                    stage.getIcons().add(applicationIcon);
+//                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
+//                    stage.getIcons().add(applicationIcon);
 
                     stage.setTitle("Main");
 
@@ -121,8 +121,8 @@ public class LoginController implements Initializable {
         } else {
 
             Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
-            stageicondialog.getIcons().add(new Image("image/invalid.png"));
+//            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
+//            stageicondialog.getIcons().add(new Image("image/invalid.png"));
             alert.setTitle("Invalid");
             alert.showAndWait();
         }

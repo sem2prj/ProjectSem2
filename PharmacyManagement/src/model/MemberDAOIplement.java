@@ -23,14 +23,14 @@ public class MemberDAOIplement implements DAOMember{
     @Override
     public ObservableList<Member> getAllMember() {
         ObservableList<Member> listMember = FXCollections.observableArrayList();
-        String sql = "select * from users";
+        String sql = "select UsersName,UsersPass,UsersFullName from Users";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 Member member = new Member();
-                member.setuserName(rs.getString("name_user"));
-                member.setpassword(rs.getString("password_user"));
-                member.setrole(rs.getString("role_user"));
+                member.setuserName(rs.getString("UsersName"));
+                member.setpassword(rs.getString("UsersPass"));
+                member.setrole(rs.getString("UsersFullName"));
                 listMember.add(member);
             }
         } catch (ClassNotFoundException | SQLException ex) {

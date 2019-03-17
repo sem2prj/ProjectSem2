@@ -102,7 +102,7 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("LALALALALALALALA");
+        System.out.println("LALALALALALALALA2222");
 
 // Giai quyet combobox_sex
         combobox_sex.getItems().addAll("Male", "Female");
