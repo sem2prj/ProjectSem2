@@ -223,7 +223,9 @@ public class OrderProductController implements Initializable {
 
         boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty, error_qty, "qty can't be negative");
         boolean isQtyOver1000 = ValidationController.isQtyOver1000(tf_qty, error_qty, "qty can't be over 1000");
-
+        System.out.println(IsQtyNotNegative);
+        System.out.println(isQtyOver1000);
+        
         if (IsQtyNotNegative) {
             if (isQtyOver1000) {
                 qty = Integer.parseInt(tf_qty.getText());
