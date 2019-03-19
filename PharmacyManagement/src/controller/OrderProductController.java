@@ -147,14 +147,13 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //        orderData = FXCollections.observableArrayList();
-//        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
-//        column_invoice_productid.setCellValueFactory(new PropertyValueFactory<>("productId"));
-//        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-//        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
-//        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
-//        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-//        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        orderData = FXCollections.observableArrayList();
+        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
+        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
+        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
     }
 
     public void doSearchAction() throws SQLException {
@@ -244,7 +243,7 @@ public class OrderProductController implements Initializable {
     }
 
     public void autoFillWithBarcode() throws SQLException {
-        pst = con.prepareStatement("Select * from Product where barcode = ?");
+        pst = con.prepareStatement("Select * from Product where code = ?");
         pst.setString(1, tf_barcode.getText());
         rs = pst.executeQuery();
         if (rs.next()) {
