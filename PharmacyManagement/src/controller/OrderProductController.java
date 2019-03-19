@@ -140,12 +140,7 @@ public class OrderProductController implements Initializable {
             }
         });
 
-        try {
-            doSearchAction();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
 //        orderData = FXCollections.observableArrayList();
 //        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
