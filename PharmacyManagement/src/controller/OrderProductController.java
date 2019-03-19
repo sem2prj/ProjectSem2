@@ -256,7 +256,7 @@ boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty i
 
                 clearText();
             } else {
-                AlertDialog.display("Info", "Some field is missing !!!");
+                AlertDialog.display("Info", "Some information is wrong . Please check !!!");
             }
 
         
