@@ -43,5 +43,6 @@
         </columns>
       </TableView>
       <Label fx:id="error_qty" layoutX="198.0" layoutY="124.0" prefHeight="17.0" prefWidth="118.0" textFill="RED" />
+      <Button fx:id="btn_addtomenu" layoutX="198.0" layoutY="81.0" mnemonicParsing="false" onAction="#action_addtomenu" prefHeight="25.0" prefWidth="98.0" text="Add to menu" />
    </children>
 </AnchorPane>

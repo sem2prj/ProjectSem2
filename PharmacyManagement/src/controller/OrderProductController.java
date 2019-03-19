@@ -99,6 +99,8 @@ public class OrderProductController implements Initializable {
     private double grandTotal;
     @FXML
     private Label error_qty;
+    @FXML
+    private Button btn_addtomenu;
 
     /**
      * Initializes the controller class.
@@ -185,8 +187,39 @@ public class OrderProductController implements Initializable {
     @FXML
     public void action_add(ActionEvent event) throws SQLException {
 //        scanbarcode();
-//doSearchAction();
+    autoFillWithBarcode();
 
+//
+
+    }
+
+    private void clearText() {
+        tf_barcode.clear();
+
+        tf_productname.clear();
+        tf_price.clear();
+        tf_qty.clear();
+
+    }
+
+    public void autoFillWithBarcode() throws SQLException {
+        pst = con.prepareStatement("Select PName,SellPrice from Product where Code = ?");
+        pst.setString(1, tf_barcode.getText());
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            barcode = tf_barcode.getText();
+            tf_productname.setText(rs.getString("PName"));
+            productname = tf_productname.getText();
+            tf_price.setText(rs.getString("SellPrice"));
+            price = Double.parseDouble(tf_price.getText());
+            tf_qty.requestFocus();
+
+        }
+        rs.close();
+    }
+
+    @FXML
+    private void action_addtomenu(ActionEvent event) {
         boolean isBarcodeHavingText = ValidationController.isTextFieldNotEmpty(tf_barcode);
         boolean isProductNameHavingText = ValidationController.isTextFieldNotEmpty(tf_productname);
         boolean isQtyHavingText = ValidationController.isTextFieldNotEmpty(tf_qty);
@@ -228,32 +261,6 @@ public class OrderProductController implements Initializable {
                 AlertDialog.display("Info", "Some field is missing !!!");
             }
         }
-
-    }
-
-    private void clearText() {
-        tf_barcode.clear();
-
-        tf_productname.clear();
-        tf_price.clear();
-        tf_qty.clear();
-
-    }
-
-    public void autoFillWithBarcode() throws SQLException {
-        pst = con.prepareStatement("Select PName,SellPrice from Product where Code = ?");
-        pst.setString(1, tf_barcode.getText());
-        rs = pst.executeQuery();
-        if (rs.next()) {
-            barcode = tf_barcode.getText();
-            tf_productname.setText(rs.getString("PName"));
-            productname = tf_productname.getText();
-            tf_price.setText(rs.getString("SellPrice"));
-            price = Double.parseDouble(tf_price.getText());
-            tf_qty.requestFocus();
-
-        }
-        rs.close();
     }
 
 }
