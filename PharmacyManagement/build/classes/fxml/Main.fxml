@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1024.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="1024.0" style="-fx-background-color: #04afff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label id="lbYear" fx:id="lbDateM" layoutX="970.0" layoutY="15.0" />
+            <Label id="lbYear" fx:id="lbDateDay" layoutX="920.0" layoutY="15.0" />
+            <Label id="lbYear" fx:id="lbDateYear" layoutX="850.0" layoutY="15.0" />
+            <ImageView fx:id="drawImage" fitHeight="30.0" fitWidth="63.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/drawer.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pane1" layoutY="50.0" prefHeight="320.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane fx:id="pane2" layoutX="2.0" layoutY="50.0" prefHeight="320.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane fx:id="pane3" layoutY="50.0" prefHeight="320.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane fx:id="pane4" layoutY="51.0" prefHeight="320.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+      <AnchorPane fx:id="opacityPane" layoutX="14.0" layoutY="344.0" opacity="0.3" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="drawerPane" layoutX="-1.0" layoutY="50.0" prefHeight="640.0" prefWidth="212.0" style="-fx-background-color: #fff;">
+         <children>
+            <GridPane layoutX="1.0" prefHeight="640.0" prefWidth="212.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXButton prefHeight="87.0" prefWidth="212.0" style="-fx-background-color: green;" text="BACK" />
+                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" style="-fx-background-color: green;" text="EMPLOYEES" GridPane.rowIndex="1" />
+                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="84.0" prefWidth="212.0" style="-fx-background-color: green;" text="DRUG" GridPane.rowIndex="2" />
+                  <JFXButton layoutX="10.0" layoutY="146.0" prefHeight="77.0" prefWidth="212.0" style="-fx-background-color: green;" text="CUSTOMER" GridPane.rowIndex="3" />
+                  <JFXButton layoutX="10.0" layoutY="214.0" prefHeight="82.0" prefWidth="212.0" style="-fx-background-color: green;" text="STORE" GridPane.rowIndex="4" />
+                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="79.0" prefWidth="212.0" style="-fx-background-color: green;" text="PAYMENT" GridPane.rowIndex="5" />
+                  <JFXButton layoutX="10.0" layoutY="10.0" prefHeight="86.0" prefWidth="212.0" style="-fx-background-color: green;" text="REPORT" GridPane.rowIndex="6" />
+                  <JFXButton layoutX="10.0" layoutY="10.0" onAction="#handleLogOut" prefHeight="78.0" prefWidth="212.0" style="-fx-background-color: green;" text="EXIT" GridPane.rowIndex="8" />
+                  <JFXButton layoutX="10.0" layoutY="438.0" prefHeight="83.0" prefWidth="212.0" style="-fx-background-color: green;" text="SUPPLIER" GridPane.rowIndex="7" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <HBox layoutX="212.0" layoutY="330.0" prefHeight="360.0" prefWidth="600.0">
+         <children>
+            <GridPane id="#homeWork" opacity="0.75" prefHeight="360.0" prefWidth="600.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXButton id="homeWork" fx:id="btnEmployee" onAction="#handleEmployee" prefHeight="128.0" prefWidth="212.0" text="EMPLOYEES" />
+                  <JFXButton id="homeWork" fx:id="btnDrug" layoutX="10.0" layoutY="10.0" onAction="#handleDrug" prefHeight="128.0" prefWidth="212.0" text="DRUG" GridPane.columnIndex="1" />
+                  <JFXButton id="homeWork" fx:id="btnCustomer" layoutX="10.0" layoutY="10.0" onAction="#handleCustomer" prefHeight="128.0" prefWidth="212.0" text="CUSTOMER" GridPane.columnIndex="2" />
+                  <JFXButton id="homeWork" fx:id="btnStore" layoutX="10.0" layoutY="10.0" prefHeight="128.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="1" />
+                  <JFXButton id="homeWork" fx:id="btnPayment" layoutX="10.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="PAYMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXButton id="homeWork" fx:id="btnReport" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="REPORT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <JFXButton id="homeWork" fx:id="btnSupplier" layoutX="10.0" layoutY="130.0" onAction="#handleSuppier" prefHeight="128.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="2" />
+                  <JFXButton id="homeWork" fx:id="btnIE" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="IMPORT/EXPORT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXButton id="homeWork" fx:id="btnExit" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="EXIT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

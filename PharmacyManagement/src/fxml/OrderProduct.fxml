@@ -35,7 +35,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="tf_search" layoutX="287.0" layoutY="39.0" prefHeight="9.0" prefWidth="135.0" promptText="Search the medic " />
+      <JFXTextField fx:id="tf_search" layoutX="287.0" layoutY="39.0" prefHeight="9.0" prefWidth="135.0" promptText="Search the medic name" />
       <TableView fx:id="table_search" layoutX="444.0" layoutY="17.0" prefHeight="152.0" prefWidth="201.0">
         <columns>
           <TableColumn fx:id="column_search_productname" prefWidth="98.0" text="Product name" />
