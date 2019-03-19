@@ -241,7 +241,7 @@ public class OrderProductController implements Initializable {
     }
 
     public void autoFillWithBarcode() throws SQLException {
-        pst = con.prepareStatement("Select * from Product where code = ?");
+        pst = con.prepareStatement("Select PName,SellPrice from Product where Code = ?");
         pst.setString(1, tf_barcode.getText());
         rs = pst.executeQuery();
         if (rs.next()) {
