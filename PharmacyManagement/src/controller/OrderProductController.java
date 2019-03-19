@@ -147,13 +147,13 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        orderData = FXCollections.observableArrayList();
-        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
-        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
-        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+//        orderData = FXCollections.observableArrayList();
+//        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
+//        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+//        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
+//        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
+//        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+//        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
     }
 
     public void doSearchAction() throws SQLException {
