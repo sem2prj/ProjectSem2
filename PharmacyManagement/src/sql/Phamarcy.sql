@@ -26,6 +26,7 @@ CREATE TABLE ScienitificName(
 
 CREATE TABLE Product(
 	PId bigint identity,
+	Code varchar(50),
 	PName varchar(50) ,
 	PDescription varchar(max),
 	PImage varbinary(max),

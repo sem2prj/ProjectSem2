@@ -10,28 +10,28 @@ package model;
  * @author admin
  */
 public class ProductListForSearchInInvoice {
-    private String barcode;
-    private String productname;
+    private String code;
+    private String pname;
 
     public ProductListForSearchInInvoice(String barcode, String productname) {
-        this.barcode = barcode;
-        this.productname = productname;
+        this.code = barcode;
+        this.pname = productname;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public String getCode() {
+        return code;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getProductname() {
-        return productname;
+    public String getPname() {
+        return pname;
     }
 
-    public void setProductname(String productname) {
-        this.productname = productname;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
     
     

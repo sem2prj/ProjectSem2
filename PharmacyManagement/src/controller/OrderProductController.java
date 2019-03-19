@@ -122,6 +122,7 @@ public class OrderProductController implements Initializable {
         searchData = FXCollections.observableArrayList();
         column_search_productname.setCellValueFactory(new PropertyValueFactory<>("productname"));
         column_search_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        
         tf_search.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -170,12 +171,12 @@ public class OrderProductController implements Initializable {
         System.out.println(tf_search.getText());
 
         try {
-            pst = con.prepareStatement("select barcode,productname from products where productname LIKE ?");
+            pst = con.prepareStatement("select Code,PName from Product where PName LIKE ?");
             pst.setString(1, "%" + tf_search.getText() + "%");
             rs = pst.executeQuery();
             while (rs.next()) {
 //                searchData.add(new ProductList(rs.getInt("pid"),rs.getString("barcode"), rs.getString("productname"),""+ rs.getDouble("priceIn"),""+rs.getDouble("priceOut")));
-                searchData.add(new ProductListForSearchInInvoice(rs.getString("barcode"), rs.getString("productname")));
+                searchData.add(new ProductListForSearchInInvoice(rs.getString("Code"), rs.getString("PName")));
                 table_search.setItems(searchData);
 
 //                        searchData.add(new ProductList2(rs.getString("barcode"), rs.getString("productname"), "" + rs.getDouble("priceIn"), "" + rs.getDouble("priceOut")));
