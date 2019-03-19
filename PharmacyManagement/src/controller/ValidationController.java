@@ -259,6 +259,26 @@ public class ValidationController {
         return b;
     }
     
+    public static boolean isQtyOver1000(TextField tf) {
+        boolean b = false;
+        int i = Integer.parseInt(tf.getText());
+        if (i <= 1000) {
+            b = true;
+        }
+
+        return b;
+    }
+    
+    public static boolean isQtyOver1000(TextField tf, Label lb, String errorMessage){
+        boolean b = true;
+        String msg = null;
+        if(!isQtyOver1000(tf)){
+            b= false;
+            msg = errorMessage;
+        }
+        lb.setText(msg);
+        return b;
+    }
     
     
 }

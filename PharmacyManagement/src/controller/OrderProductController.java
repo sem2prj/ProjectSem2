@@ -61,9 +61,6 @@ public class OrderProductController implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
 
-
-    
-    
     private ObservableList<OrderList2> orderData;
     private ObservableList<ProductListForSearchInInvoice> searchData;
     @FXML
@@ -89,21 +86,19 @@ public class OrderProductController implements Initializable {
     @FXML
     private TableColumn<ProductListForSearchInInvoice, String> column_search_barcode;
 
-
     @FXML
     private JFXTextField tf_search;
-    
-    int no =0 ;
-    int productId ;
-    String barcode ;
-    String productname ;
-    double price ;
-    int qty ;
-    double amount ;
-    private double grandTotal ;
+
+    int no = 0;
+    int productId;
+    String barcode;
+    String productname;
+    double price;
+    int qty;
+    double amount;
+    private double grandTotal;
     @FXML
     private Label error_qty;
-    
 
     /**
      * Initializes the controller class.
@@ -120,9 +115,9 @@ public class OrderProductController implements Initializable {
 
         order_dateInvoice.setValue(LocalDate.now());
         searchData = FXCollections.observableArrayList();
-        column_search_productname.setCellValueFactory(new PropertyValueFactory<>("productname"));
-        column_search_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-        
+        column_search_productname.setCellValueFactory(new PropertyValueFactory<>("pname"));
+        column_search_barcode.setCellValueFactory(new PropertyValueFactory<>("code"));
+
         tf_search.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -133,7 +128,7 @@ public class OrderProductController implements Initializable {
 
             }
         });
-        
+
         tf_barcode.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
                 try {
@@ -145,8 +140,6 @@ public class OrderProductController implements Initializable {
             }
         });
 
-        
-        
         try {
             doSearchAction();
 
@@ -201,75 +194,69 @@ public class OrderProductController implements Initializable {
         boolean isProductNameHavingText = ValidationController.isTextFieldNotEmpty(tf_productname);
         boolean isQtyHavingText = ValidationController.isTextFieldNotEmpty(tf_qty);
         boolean isPriceHavingText = ValidationController.isTextFieldNotEmpty(tf_price);
-        boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty,error_qty,"qty can't be negative");
-        
+        boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty, error_qty, "qty can't be negative");
+        boolean isQtyOver1000 = ValidationController.isQtyOver1000(tf_qty, error_qty, "qty can't be over 1000");
+
         if (isBarcodeHavingText && isProductNameHavingText && isQtyHavingText && isPriceHavingText && IsQtyNotNegative) {
-            qty = Integer.parseInt(tf_qty.getText());
-            if (qty != 0) {
-                amount = price * qty;
-                 grandTotal += amount;
-                 
-                 for(OrderList2 item : orderData){
-                     String str1 = item.getBarcode();
-                     
-                     if(ValidationController.sosanhchuoi(barcode,str1 )){
-                         int table_qty = item.getQty() + qty;
-                         double table_amount = item.getAmount() + amount;
-                         item.setQty(table_qty);
-                         item.setAmount(table_amount);
-                         lb_total.setText("" + grandTotal);
-                         table_order.getItems().set(table_order.getItems().indexOf(item), item);
-                         clearText();
-                         return;
-                         
-                     }
-                 
-                 }
-                 
-                 
-                 orderData.add(new OrderList2(++no,barcode,productname,price,qty,amount));
-                 table_order.setItems(orderData);
-                 
+            if (isQtyOver1000) {
+                qty = Integer.parseInt(tf_qty.getText());
+                if (qty != 0) {
+                    amount = price * qty;
+                    grandTotal += amount;
+
+                    for (OrderList2 item : orderData) {
+                        String str1 = item.getBarcode();
+
+                        if (ValidationController.sosanhchuoi(barcode, str1)) {
+                            int table_qty = item.getQty() + qty;
+                            double table_amount = item.getAmount() + amount;
+                            item.setQty(table_qty);
+                            item.setAmount(table_amount);
+                            lb_total.setText("" + grandTotal);
+                            table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                            clearText();
+                            return;
+
+                        }
+
+                    }
+
+                    orderData.add(new OrderList2(++no, barcode, productname, price, qty, amount));
+                    table_order.setItems(orderData);
+
+                }
+
+                clearText();
+            } else {
+                AlertDialog.display("Info", "Some field is missing !!!");
             }
-            
-            
-            
-            clearText();
-        } else {
-            AlertDialog.display("Info", "Some field is missing !!!");
         }
-        
+
     }
 
     private void clearText() {
         tf_barcode.clear();
-     
+
         tf_productname.clear();
         tf_price.clear();
         tf_qty.clear();
 
     }
 
-    public void autoFillWithBarcode() throws SQLException{
+    public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select * from Product where barcode = ?");
         pst.setString(1, tf_barcode.getText());
-        rs= pst.executeQuery();
-        if(rs.next()){
+        rs = pst.executeQuery();
+        if (rs.next()) {
             barcode = tf_barcode.getText();
             tf_productname.setText(rs.getString("PName"));
             productname = tf_productname.getText();
             tf_price.setText(rs.getString("SellPrice"));
             price = Double.parseDouble(tf_price.getText());
             tf_qty.requestFocus();
-            
-        
+
         }
         rs.close();
     }
-    
-    
-    
-    
-    
 
 }
