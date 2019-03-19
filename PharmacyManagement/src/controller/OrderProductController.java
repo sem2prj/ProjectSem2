@@ -220,14 +220,11 @@ public class OrderProductController implements Initializable {
 
     @FXML
     private void action_addtomenu(ActionEvent event) {
-        boolean isBarcodeHavingText = ValidationController.isTextFieldNotEmpty(tf_barcode);
-        boolean isProductNameHavingText = ValidationController.isTextFieldNotEmpty(tf_productname);
-        boolean isQtyHavingText = ValidationController.isTextFieldNotEmpty(tf_qty);
-        boolean isPriceHavingText = ValidationController.isTextFieldNotEmpty(tf_price);
+
         boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty, error_qty, "qty can't be negative");
         boolean isQtyOver1000 = ValidationController.isQtyOver1000(tf_qty, error_qty, "qty can't be over 1000");
 
-        if (isBarcodeHavingText && isProductNameHavingText && isQtyHavingText && isPriceHavingText && IsQtyNotNegative) {
+        if (IsQtyNotNegative) {
             if (isQtyOver1000) {
                 qty = Integer.parseInt(tf_qty.getText());
                 if (qty != 0) {
@@ -260,7 +257,11 @@ public class OrderProductController implements Initializable {
             } else {
                 AlertDialog.display("Info", "Some field is missing !!!");
             }
-        }
-    }
 
-}
+        }
+    } 
+
+
+} 
+
+
