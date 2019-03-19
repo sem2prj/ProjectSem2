@@ -238,46 +238,53 @@ public class ValidationController {
         return b;
     }
     
-    public static boolean isIntegerValueNegative(TextField tf){
+//    public static boolean isIntegerValueNegative(TextField tf){
+//        boolean b = false;
+//        int i = Integer.parseInt(tf.getText());
+//        if(Integer.signum(i)==-1){
+//            b = true;
+//        }
+//        return b;
+//    }
+//    
+//    public static boolean isIntegerValueNegative(TextField tf, Label lb, String errorMessage){
+//        boolean b = true;
+//        String msg = null;
+//        if(!isIntegerValueNegative(tf)){
+//            b = false;
+//            msg = errorMessage;
+//        
+//        }
+//        lb.setText(msg);
+//        return b;
+//    }
+    
+    
+// Regex Qty : Khong duoc bat dau tu so 0, hoac so am , range value 1-999     
+    public static boolean isQtySuitable(TextField tf){
+   
         boolean b = false;
-        int i = Integer.parseInt(tf.getText());
-        if(Integer.signum(i)==-1){
+        Pattern p = Pattern.compile("^[1-9][0-9]{0,2}$");
+        Matcher m = p.matcher(tf.getText());
+        boolean a = m.matches();
+        if (a == true) {
             b = true;
         }
         return b;
+    
+        
     }
     
-    public static boolean isIntegerValueNegative(TextField tf, Label lb, String errorMessage){
+    public static boolean isQtySuitable(TextField tf, Label lb, String errorMessage) {
         boolean b = true;
         String msg = null;
-        if(!isIntegerValueNegative(tf)){
+        if (!isQtySuitable(tf)) {
             b = false;
             msg = errorMessage;
-        
         }
         lb.setText(msg);
         return b;
-    }
-    
-    public static boolean isQtyOver1000(TextField tf) {
-        boolean b = false;
-        int i = Integer.parseInt(tf.getText());
-        if (i <= 1000) {
-            b = true;
-        }
 
-        return b;
-    }
-    
-    public static boolean isQtyOver1000(TextField tf, Label lb, String errorMessage){
-        boolean b = true;
-        String msg = null;
-        if(!isQtyOver1000(tf)){
-            b= false;
-            msg = errorMessage;
-        }
-        lb.setText(msg);
-        return b;
     }
     
     
@@ -285,3 +292,4 @@ public class ValidationController {
 
 //    @([A-Za-z0-9_]{3,15})
 
+//^[1-9][0-9]{0,2}$

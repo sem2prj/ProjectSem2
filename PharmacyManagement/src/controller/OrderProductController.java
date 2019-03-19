@@ -114,7 +114,8 @@ public class OrderProductController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        error_qty.setStyle("-fx-text-fill: red;");
+        
         order_dateInvoice.setValue(LocalDate.now());
         searchData = FXCollections.observableArrayList();
         column_search_productname.setCellValueFactory(new PropertyValueFactory<>("pname"));
@@ -221,13 +222,11 @@ public class OrderProductController implements Initializable {
     @FXML
     private void action_addtomenu(ActionEvent event) {
 
-        boolean IsQtyNotNegative = ValidationController.isIntegerValueNegative(tf_qty, error_qty, "qty can't be negative");
-        boolean isQtyOver1000 = ValidationController.isQtyOver1000(tf_qty, error_qty, "qty can't be over 1000");
-        System.out.println(IsQtyNotNegative);
-        System.out.println(isQtyOver1000);
+boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
         
-        if (IsQtyNotNegative) {
-            if (isQtyOver1000) {
+        
+
+            if (isQtyTrue) {
                 qty = Integer.parseInt(tf_qty.getText());
                 if (qty != 0) {
                     amount = price * qty;
@@ -260,7 +259,7 @@ public class OrderProductController implements Initializable {
                 AlertDialog.display("Info", "Some field is missing !!!");
             }
 
-        }
+        
     } 
 
 
