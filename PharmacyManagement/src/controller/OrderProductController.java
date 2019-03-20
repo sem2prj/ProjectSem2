@@ -145,13 +145,13 @@ public class OrderProductController implements Initializable {
 
 
 
-//        orderData = FXCollections.observableArrayList();
-//        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
-//        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-//        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
-//        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
-//        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-//        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        orderData = FXCollections.observableArrayList();
+        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
+        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
+        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
     }
 
     public void doSearchAction() throws SQLException {
@@ -229,6 +229,7 @@ public class OrderProductController implements Initializable {
             if (isQtyTrue) {
                 qty = Integer.parseInt(tf_qty.getText());
                 if (qty != 0) {
+                    
                     amount = price * qty;
                     grandTotal += amount;
 
