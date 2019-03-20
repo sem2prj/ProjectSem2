@@ -222,7 +222,7 @@ public class OrderProductController implements Initializable {
     @FXML
     private void action_addtomenu(ActionEvent event) {
 
-boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
+        boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
         
         
 
