@@ -90,25 +90,27 @@ CREATE TABLE Customer(
 )
 
 CREATE TABLE Orders(
-	OrderID bigint identity,
+	OrderID bigint identity PRIMARY KEY,
 	OrderDate date ,
 	Total varchar(50),
 	CuId int,
-	CONSTRAINT pk_OrderID PRIMARY KEY (OrderID),
+
 	CONSTRAINT fk_CuId FOREIGN KEY (CuId) REFERENCES Customer(CuId)
 	on delete cascade 
 	on update cascade ,
 )
 
 CREATE TABLE OrderDetail(
-	OrderID bigint identity,
+	OrderDetailID bigint identity PRIMARY KEY,
 	PId bigint ,
 	Qty varchar(50),
-	CONSTRAINT pk_OrderIDs PRIMARY KEY (OrderID),
+	
 	CONSTRAINT fk_PId_Order FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
 )
+
+
 alter table OrderDetail add
 CONSTRAINT FK_OrderDetail_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 	

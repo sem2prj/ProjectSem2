@@ -101,6 +101,8 @@ public class OrderProductController implements Initializable {
     private Label error_qty;
     @FXML
     private Button btn_addtomenu;
+    @FXML
+    private Button btn_printInvoice;
 
     /**
      * Initializes the controller class.
@@ -252,6 +254,7 @@ public class OrderProductController implements Initializable {
 
                     orderData.add(new OrderList2(++no, barcode, productname, price, qty, amount));
                     table_order.setItems(orderData);
+                    lb_total.setText("" + grandTotal);
 
                 }
 
@@ -262,6 +265,10 @@ public class OrderProductController implements Initializable {
 
         
     } 
+
+    @FXML
+    private void action_printInvoice(ActionEvent event) {
+    }
 
 
 } 
