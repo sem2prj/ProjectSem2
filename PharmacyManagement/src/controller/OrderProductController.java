@@ -206,10 +206,11 @@ public class OrderProductController implements Initializable {
     }
 
     public void autoFillWithBarcode() throws SQLException {
-        pst = con.prepareStatement("Select PName,SellPrice from Product where Code = ?");
+        pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where Code = ?");
         pst.setString(1, tf_barcode.getText());
         rs = pst.executeQuery();
         if (rs.next()) {
+            productId = rs.getInt("Pid");
             barcode = tf_barcode.getText();
             tf_productname.setText(rs.getString("PName"));
             productname = tf_productname.getText();
@@ -252,7 +253,7 @@ public class OrderProductController implements Initializable {
 
                     }
 
-                    orderData.add(new OrderList2(++no, barcode, productname, price, qty, amount));
+                    orderData.add(new OrderList2(++no,productId, barcode, productname, price, qty, amount));
                     table_order.setItems(orderData);
                     lb_total.setText("" + grandTotal);
 
@@ -268,6 +269,30 @@ public class OrderProductController implements Initializable {
 
     @FXML
     private void action_printInvoice(ActionEvent event) {
+        String sql = "insert into Orders (OrderID,OrderDate)values(?,?)";
+        try {
+            pst = con.prepareStatement(sql);
+            pst.setString(1, tf_invoiceID.getText() );
+            pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
+            int  i = pst.executeUpdate();
+            if(i==1){
+                sql = "Insert into OrderDetail(OrderID,PId,Qty,price)values(?,?,?,?)";
+                for(OrderList2 item : orderData){
+                    pst = con.prepareStatement(sql);
+                    pst.setString(1,tf_invoiceID.getText());
+                    pst.setInt(2,item.getPid());
+                    pst.setInt(3, item.getQty());
+                    pst.setString(4,""+item.getPriceOut());
+                    pst.executeUpdate();
+                    
+                           
+                }
+            
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     private String autoOrderID(){
@@ -283,6 +308,9 @@ public class OrderProductController implements Initializable {
                 
             
             }
+            rs.close();
+            pst.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }

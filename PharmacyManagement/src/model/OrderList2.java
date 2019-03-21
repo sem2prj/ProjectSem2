@@ -12,14 +12,17 @@ package model;
 public class OrderList2 {
 
     private int no;
+    private int pid;
     private String barcode;
     private String productName;
     private double priceOut;
+
     private int qty;
     private double amount;
 
-    public OrderList2(int no, String barcode, String productName, double priceOut, int qty, double amount) {
+    public OrderList2(int no, int pid, String barcode, String productName, double priceOut, int qty, double amount) {
         this.no = no;
+        this.pid = pid;
         this.barcode = barcode;
         this.productName = productName;
         this.priceOut = priceOut;
@@ -74,7 +77,13 @@ public class OrderList2 {
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
-    
-    
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
 }
