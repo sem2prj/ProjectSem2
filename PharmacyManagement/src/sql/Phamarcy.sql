@@ -1,6 +1,6 @@
-﻿create database pharmacy
+﻿create database pharmacy2
 
-use pharmacy
+use pharmacy2
  
 use master 
 drop database pharmacy
@@ -25,7 +25,7 @@ CREATE TABLE ScienitificName(
 )
 
 CREATE TABLE Product(
-	PId bigint identity,
+	PId bigint identity PRIMARY KEY,
 	Code varchar(50),
 	PName varchar(50) ,
 	PDescription varchar(max),
@@ -35,16 +35,8 @@ CREATE TABLE Product(
 	CatID int,
 	AmId int,
 	SnId int,
-	CONSTRAINT pk_PId PRIMARY KEY (PId),
-	CONSTRAINT fk_CatID FOREIGN KEY (CatID) REFERENCES Categories(CatID)
-	on delete cascade 
-	on update cascade ,
-	CONSTRAINT fk_AmId FOREIGN KEY (AmId) REFERENCES ActiveMaterial(AmId)
-	on delete cascade 
-	on update cascade ,
-	CONSTRAINT fk_SnId FOREIGN KEY (SnId) REFERENCES ScienitificName(SnId)
-	on delete cascade 
-	on update cascade ,
+	
+	
 	
 )
 
