@@ -274,7 +274,7 @@ public class OrderProductController implements Initializable {
         String orderID = "Order00000";
         
         try {
-            pst = con.prepareStatement("select max(order_id) from Orders");
+            pst = con.prepareStatement("select max(OrderID) from Orders");
             rs = pst.executeQuery();
             if(rs.next()){
                 int n = Integer.parseInt(orderID.substring(5)) +1 ;
