@@ -276,7 +276,7 @@ public class OrderProductController implements Initializable {
             pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
             int  i = pst.executeUpdate();
             if(i==1){
-                sql = "Insert into OrderDetail(OrderID,PId,Qty,price)values(?,?,?,?)";
+                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice)values(?,?,?,?)";
                 for(OrderList2 item : orderData){
                     pst = con.prepareStatement(sql);
                     pst.setString(1,tf_invoiceID.getText());
