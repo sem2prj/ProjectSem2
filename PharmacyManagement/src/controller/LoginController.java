@@ -120,6 +120,7 @@ public class LoginController implements Initializable {
                     stage.setTitle("Main");
                     Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
                     Scene scene = new Scene(root);
+                    scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
                     stage.setScene(scene);
                     stage.show();
                 } else {

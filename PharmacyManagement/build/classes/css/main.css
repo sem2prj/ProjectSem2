@@ -1,13 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Mar 2, 2019, 9:02:53 AM
-    Author     : PC
-*/
-
 #homeWork{
     -fx-background-color: #1fd625;
 }
@@ -15,8 +5,21 @@ and open the template in the editor.
 #homeWork:hover {
     -fx-background-color: #ff895e;
 }
+
+#paneHeaderMain{
+     -fx-background-color: #4169e1;
+}
+
+#btnHandleMain{
+    -fx-background-color: #4169e1;
+}
+#btnHandleMain:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
 #lbYear{
     -fx-font-size: 14px;
     -fx-font-family: sans-serif;
-    -fx-text-fill: #ff0000;
+    -fx-text-fill: #daa520;
 }
