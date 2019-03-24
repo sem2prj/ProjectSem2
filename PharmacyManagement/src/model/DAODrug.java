@@ -5,7 +5,10 @@
  */
 package model;
 
+import java.sql.Blob;
+import java.sql.Date;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 /**
  *
@@ -15,11 +18,11 @@ public interface DAODrug {
 
     ObservableList<Drug> getAllDrug();
 
-    void insertDrug(String dCode, String nameDrug, String type, String uNit, Double priceIn, Double saleprice, String supplier, Integer amount, String desciption);
+    void insertDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied,Integer Quantity,String Supplier,String description);
 
-    void updateDrug(String dCode, String nameDrug, String type, String uNit, Double priceIn, Double saleprice, String supplier, Integer amount, String desciption);
+    void updateDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied,Integer Quantity,String Supplier,String description,int id,int id1);
 
     void deleteDrug(String dCode);
-
-    ObservableList<Drug> searchDrug(String dCode);
+    
+    Image getImage(String DCode);
 }

@@ -32,6 +32,7 @@ public class UsernameDAOImplement implements DAOUser{
                 User user = new User();
                 user.setUserName(rs.getString("username"));
                 user.setFullname(rs.getString("fullname"));
+                user.setPassword(rs.getString("pass"));
                 user.setMission("mission");
                 listUser.add(user);
             }

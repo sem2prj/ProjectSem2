@@ -10,7 +10,7 @@ CREATE TABLE Categories(
 	CatName varchar(50) ,
 	CONSTRAINT pk_CatID PRIMARY KEY (CatID),	
 )
-
+/*
 CREATE TABLE ActiveMaterial(
 	AmId int identity,
 	AmName varchar(50) ,
@@ -23,18 +23,31 @@ CREATE TABLE ScienitificName(
 	SnName varchar(50) ,
 	CONSTRAINT pk_SnId PRIMARY KEY (SnId),
 )
-
+*/
 CREATE TABLE Product(
-	PId bigint identity PRIMARY KEY,
-	Code varchar(50),
+	PId bigint identity,
+	PCode varchar(50) unique,
 	PName varchar(50) ,
-	PDescription varchar(max),
 	PImage varbinary(max),
-	buyPrice varchar(50),
-	SellPrice varchar(50),
+	Unit varchar(50),
+	Statuses varchar(50),
+	BuyPrice float,
+	SellPrice float,
+	Supplier varchar(50),
+	PDescription varchar(max),
 	CatID int,
-	AmId int,
-	SnId int,
+	/*AmId int,
+	SnId int,*/
+	CONSTRAINT pk_PId PRIMARY KEY (PId),
+	CONSTRAINT fk_CatID FOREIGN KEY (CatID) REFERENCES Categories(CatID)
+	on delete cascade 
+	on update cascade ,
+	/*CONSTRAINT fk_AmId FOREIGN KEY (AmId) REFERENCES ActiveMaterial(AmId)
+	on delete cascade 
+	on update cascade ,
+	CONSTRAINT fk_SnId FOREIGN KEY (SnId) REFERENCES ScienitificName(SnId)
+	on delete cascade 
+	on update cascade ,*/
 	
 	
 	
@@ -199,7 +212,7 @@ GO
 alter PROCEDURE getUserMission
 as
 begin
-select us.UsersName as username,us.UsersFullName as fullname,dtu.mission as mission
+select us.UsersName as username,us.UsersPass AS pass,us.UsersFullName as fullname,dtu.mission as mission
 from Users AS us
  INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
 end

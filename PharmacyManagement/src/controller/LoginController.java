@@ -33,6 +33,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Member;
 import model.MemberDAOIplement;
+import model.User;
+import model.UsernameDAOImplement;
 
 /**
  *
@@ -52,7 +54,7 @@ public class LoginController implements Initializable {
     private AnchorPane aPane_Login;
     @FXML
     private JFXButton btn_Exit;
-    
+
     @FXML
     private Label error_username;
     @FXML
@@ -62,11 +64,11 @@ public class LoginController implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
 
-    
-    public static ObservableList<Member> ListMember = FXCollections.observableArrayList();
-        public static ObservableList<Member> ListMemberLogin = FXCollections.observableArrayList();
+//    public static ObservableList<Member> ListMember = FXCollections.observableArrayList();
+//    public static ObservableList<Member> ListMemberLogin = FXCollections.observableArrayList();
+    public static ObservableList<User> ListUser = FXCollections.observableArrayList();
+    public static ObservableList<User> ListUserLogin = FXCollections.observableArrayList();
 
-        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -74,70 +76,95 @@ public class LoginController implements Initializable {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        MemberDAOIplement mberDAO = new MemberDAOIplement();
-        ListMember = mberDAO.getAllMember();
+
+//        MemberDAOIplement mberDAO = new MemberDAOIplement();
+//        ListMember = mberDAO.getAllMember();
+        UsernameDAOImplement userDAOIm = new UsernameDAOImplement();
+        ListUser = userDAOIm.getAllUser();
     }
 
     @FXML
     private void handle_Login(ActionEvent event) throws IOException {
+
         boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "username is requied");
+        if (isUserNameNotEmpty) {
+            txt_user.requestFocus();
+        }
         boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txt_password, error_password, "password is requied");
-        
-        
-        if(isUserNameNotEmpty && isPasswordNotEmpty){
+        if (isPasswordNotEmpty) {
+            txt_password.requestFocus();
+        }
+
+        if (isUserNameNotEmpty && isPasswordNotEmpty) {
             login();
         }
-        
+
     }
 
     private void login() throws IOException {
-          if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
+        if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
             boolean check = false;
-            for (Member member : ListMember) {
-                if (txt_user.getText().equals(member.getuserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(member.getpassword())) {
+//            for (Member member : ListMember) {
+//                if (txt_user.getText().equals(member.getuserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(member.getpassword())) {
+//                    check = true;
+//                    ListMemberLogin.add(member);
+
+            for (User user : ListUser) {
+                if (txt_user.getText().equals(user.getUserName()) &&PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
                     check = true;
-                    ListMemberLogin.add(member);
+                    ListUserLogin.add(user);
                     Stage stage = (Stage) aPane_Login.getScene().getWindow();
                     stage.getIcons().clear();
                     stage.close();
-                    //loading scene main
-
-                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-//                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
-//                    stage.getIcons().add(applicationIcon);
 
                     stage.setTitle("Main");
-
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
                     stage.show();
                 } else {
+                    Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+                    alert.setTitle("Invalid");
+                    alert.showAndWait();
+                    break;
+                }
+            }
+//            Stage stage = (Stage) aPane_Login.getScene().getWindow();
+//            stage.getIcons().clear();
+//            stage.close();
+            //loading scene main
 
-            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
+//                    stage.getIcons().add(applicationIcon);
+//            stage.setTitle("Main");
+//            Scene scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
+//        } else {
+//
+//            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
 //            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
 //            stageicondialog.getIcons().add(new Image("image/invalid.png"));
-            alert.setTitle("Invalid");
-            alert.showAndWait();
-        }
-                break;
-            }
+//            alert.setTitle("Invalid");
+//            alert.showAndWait();
+//                }
+//            break;
+//            }
 //            if(check==false){
 //                
 //            }
-        } 
+        }
 
-        
     }
 
-   
     @FXML
     private void handle_Exit(ActionEvent event) {
         Stage stage = (Stage) aPane_Login.getScene().getWindow();
         stage.close();
     }
 
-           //        if (txt_user.getText().equalsIgnoreCase("")) {
+    //        if (txt_user.getText().equalsIgnoreCase("")) {
 //            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email", ButtonType.OK);
 //            txt_user.requestFocus();
 //            return;
@@ -147,5 +174,4 @@ public class LoginController implements Initializable {
 //            txt_password.requestFocus();
 //            return;
 //        }
-    
 }

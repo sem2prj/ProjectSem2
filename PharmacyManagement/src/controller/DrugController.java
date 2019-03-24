@@ -5,22 +5,45 @@
  */
 package controller;
 
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import javax.sql.rowset.serial.SerialBlob;
 import model.Drug;
 import model.DrugDAOImplement;
 
@@ -34,64 +57,78 @@ public class DrugController implements Initializable {
     @FXML
     private TableView<Drug> tableView;
     @FXML
-    private JFXTextField txtDcode;
-    @FXML
-    private JFXTextField txtDname;
-    @FXML
-    private JFXTextField txtType;
-    @FXML
-    private JFXTextField txtUnit;
-    @FXML
-    private JFXTextField txtPricein;
-    @FXML
-    private JFXTextField txtSaleprice;
-    @FXML
-    private JFXTextField txtSupplier;
-    @FXML
-    private JFXTextField txtAmount;
-    @FXML
-    private JFXTextField txtDescription;
-    @FXML
-    private Label lbcode;
-    @FXML
-    private Label lbName;
-    @FXML
-    private Label lbType;
-    @FXML
-    private Label lbUnit;
-    @FXML
-    private Label lbPricein;
-    @FXML
-    private Label lbSaleP;
-    @FXML
-    private Label lbSupplier;
-    @FXML
-    private Label lbAmount;
-    @FXML
-    private Label lbDes;
-    @FXML
     private JFXTextField txtSearch;
 
     private ObservableList<Drug> data;
     ;
+    //Image
+    private FileChooser fileChooser;
+    private File file;
+    private Stage stage;
+    private Image image;
+
     @FXML
-    private TableColumn<Drug, String> columnDcode;
+    private AnchorPane anchorPane;
     @FXML
-    private TableColumn<Drug, String> columnDName;
+    private JFXTextField txtCode;
     @FXML
-    private TableColumn<Drug, String> columnDType;
+    private JFXTextField txtName;
     @FXML
-    private TableColumn<Drug, String> columnDUnit;
+    private JFXTextField txtCategories;
     @FXML
-    private TableColumn<Drug, String> columnPriceIn;
+    private ChoiceBox<String> cUnit;
     @FXML
-    private TableColumn<Drug, String> columnDSale;
+    private JFXTextField txtBuy;
     @FXML
-    private TableColumn<Drug, String> columnDSupplier;
+    private JFXTextField txtSell;
     @FXML
-    private TableColumn<Drug, String> columnDAmount;
+    private JFXDatePicker txtExpiredTime;
     @FXML
-    private TableColumn<Drug, String> columnDDescription;
+    private JFXTextField txtQty;
+    @FXML
+    private JFXTextField txtSup;
+    @FXML
+    private ChoiceBox<String> cbStatus;
+    @FXML
+    private JFXTextArea txtAreaDes;
+    @FXML
+    private TableColumn<Drug, String> columnCode;
+    @FXML
+    private TableColumn<Drug, String> columnName;
+    @FXML
+    private TableColumn<Drug, String> columnSup;
+    @FXML
+    private TableColumn<Drug, Date> columnExpired;
+    @FXML
+    private TableColumn<Drug, String> columnStatus;
+    @FXML
+    private TableColumn<Drug, String> columnDes;
+
+    private final String unit[] = {"    Wrap    ", "    Blister    "};
+    private final String status[] = {"    Active    ", "    Inactive    "};
+    @FXML
+    private ImageView imageView;
+
+    private int id1, id2;
+    public static ObservableList<Drug> ListDrug = FXCollections.observableArrayList();
+    @FXML
+    private Label lbCode;
+    @FXML
+    private Label lbName;
+    @FXML
+    private Label lbCategories;
+    @FXML
+    private Label lbBuy;
+    @FXML
+    private Label lbSell;
+    @FXML
+    private Label lbExpiredTime;
+    @FXML
+    private Label lbQuantity;
+    @FXML
+    private Label lbSupplier;
+    @FXML
+    private Label lbImage;
 
     /**
      * Initializes the controller class.
@@ -102,136 +139,168 @@ public class DrugController implements Initializable {
         DrugDAOImplement dDI = new DrugDAOImplement();
 
         data = dDI.getAllDrug();
+        ListDrug = dDI.getAllDrug();
+        choiceBox();
+
+        //choose image
+        fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All files", "*.*"),
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Text File", "*.txt")
+        );
 
         loadTable();
         click();
-        search();
         css();
     }
+
 
     @FXML
     private void handleAdd(ActionEvent event) {
 
-//        boolean txtDescriptionnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtDescription, lbDes, "Description is requied");
-//        if (txtDescriptionnotEmpty) {
-//            txtDescription.requestFocus();
-//        }
-
-        boolean txtAmountnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtAmount, lbAmount, "Amount is number");
-        if (txtAmountnotEmpty) {
-            txtAmount.requestFocus();
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        if (!textCodeNotEmpty) {
+            txtCode.requestFocus();
         }
-
-        boolean txtSuppliernotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSupplier, lbSupplier, "Supplier is requied");
-        if (txtSuppliernotEmpty) {
-            txtSupplier.requestFocus();
+        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is queried");
+        if (!txtNameNotEmpty) {
+            txtName.requestFocus();
         }
-
-        boolean txtSalepricenotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSaleprice, lbSaleP, "Sale price is number");
-        if (txtSalepricenotEmpty) {
-            txtSaleprice.requestFocus();
+        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories is queried");
+        if (!txtCategoriesnotEmpty) {
+            txtCategories.requestFocus();
         }
-
-        boolean txtPriceinnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtPricein, lbPricein, "Price In is number");
-        if (txtPriceinnotEmpty) {
-            txtPricein.requestFocus();
+        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice is queried");
+        if (!txtBuyNotEmpty) {
+            txtBuy.requestFocus();
         }
-
-        boolean txtUnitnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtUnit, lbUnit, "Unit is requied");
-        if (!txtUnitnotEmpty) {
-            txtUnit.requestFocus();
+        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice is queried");
+        if (!txtSellNotEmpty) {
+            txtSell.requestFocus();
         }
-
-        boolean txtTypenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtType, lbType, "Type is requied");
-        if (!txtTypenotEmpty) {
-            txtType.requestFocus();
+        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity is queried");
+        if (!txtQtyNotEmpty) {
+            txtQty.requestFocus();
         }
-
-        boolean txtDnamenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtDname, lbName, "Drug Name is requied");
-        if (!txtDnamenotEmpty) {
-            txtDname.requestFocus();
+        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier is queried");
+        if (!txtSupNotEmpty) {
+            txtSup.requestFocus();
         }
-
-        boolean txtDcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtDcode, lbcode, "Drug is requied");
-        if (!txtDcodenotEmpty) {
-            txtDcode.requestFocus();
+        if (txtExpiredTime.getValue() == null) {
+            lbExpiredTime.setText("Date is required");
+        } else if (txtExpiredTime.getValue() != null) {
+            lbExpiredTime.setText("");
         }
+        if (imageView.getImage() == null) {
+            lbImage.setText("Image is required");
+        } else if (imageView.getImage() != null) {
+            lbImage.setText("");
+        }
+        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtQtyNotEmpty && txtSupNotEmpty) {
+            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            byte[] res;
+            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                ImageIO.write(bImage, "png", s);
+                res = s.toByteArray();
+                Blob blob = new SerialBlob(res);
+                Drug drug = new Drug();
+                drug.setImage(blob);
+                DrugDAOImplement dDI = new DrugDAOImplement();
+                dDI.insertDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
+                        cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
+                        java.sql.Date.valueOf(txtExpiredTime.getValue()), Integer.parseInt(txtQty.getText()), txtSup.getText(), txtAreaDes.getText());
 
-        if (txtDcodenotEmpty && txtDnamenotEmpty && txtTypenotEmpty && txtUnitnotEmpty && txtPriceinnotEmpty && txtSalepricenotEmpty && txtSuppliernotEmpty && txtAmountnotEmpty ) {
-            DrugDAOImplement dDI = new DrugDAOImplement();
-            dDI.insertDrug(txtDcode.getText(), txtDname.getText(), txtType.getText(), txtUnit.getText(), Double.parseDouble(txtPricein.getText()), Double.parseDouble(txtSaleprice.getText()), txtSupplier.getText(), Integer.parseInt(txtAmount.getText()), txtDescription.getText());
+            } catch (IOException | SQLException ex) {
+                Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             clear();
-            loadTable();
+            clearLabel();
         }
+        loadTable();
 
     }
 
     @FXML
     private void handleUpdate(ActionEvent event) {
-//        boolean txtDescriptionnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtDescription, lbDes, "Description is requied");
-//        if (txtDescriptionnotEmpty) {
-//            txtDescription.requestFocus();
-//        }
 
-        boolean txtAmountnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtAmount, lbAmount, "Amount is number");
-        if (txtAmountnotEmpty) {
-            txtAmount.requestFocus();
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        if (!textCodeNotEmpty) {
+            txtCode.requestFocus();
         }
-
-        boolean txtSuppliernotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSupplier, lbSupplier, "Supplier is requied");
-        if (txtSuppliernotEmpty) {
-            txtSupplier.requestFocus();
+        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is queried");
+        if (!txtNameNotEmpty) {
+            txtName.requestFocus();
         }
-
-        boolean txtSalepricenotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSaleprice, lbSaleP, "Sale price is number");
-        if (txtSalepricenotEmpty) {
-            txtSaleprice.requestFocus();
+        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories is queried");
+        if (!txtCategoriesnotEmpty) {
+            txtCategories.requestFocus();
         }
-
-        boolean txtPriceinnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtPricein, lbPricein, "Price In is number");
-        if (txtPriceinnotEmpty) {
-            txtPricein.requestFocus();
+        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice is queried");
+        if (!txtBuyNotEmpty) {
+            txtBuy.requestFocus();
         }
-
-        boolean txtUnitnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtUnit, lbUnit, "Unit is requied");
-        if (!txtUnitnotEmpty) {
-            txtUnit.requestFocus();
+        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice is queried");
+        if (!txtSellNotEmpty) {
+            txtSell.requestFocus();
         }
-
-        boolean txtTypenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtType, lbType, "Type is requied");
-        if (!txtTypenotEmpty) {
-            txtType.requestFocus();
+        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity is queried");
+        if (!txtQtyNotEmpty) {
+            txtQty.requestFocus();
         }
-
-        boolean txtDnamenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtDname, lbName, "Drug Name is requied");
-        if (!txtDnamenotEmpty) {
-            txtDname.requestFocus();
+        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier is queried");
+        if (!txtSupNotEmpty) {
+            txtSup.requestFocus();
         }
-
-        boolean txtDcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtDcode, lbcode, "Drug is requied");
-        if (!txtDcodenotEmpty) {
-            txtDcode.requestFocus();
+        if (txtExpiredTime.getValue() == null) {
+            lbExpiredTime.setText("Date is required");
+        } else if (txtExpiredTime.getValue() != null) {
+            lbExpiredTime.setText("");
         }
+        if (imageView.getImage() == null) {
+            lbImage.setText("Image is required");
+        } else if (imageView.getImage() != null) {
+            lbImage.setText("");
+        }
+        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtQtyNotEmpty && txtSupNotEmpty) {
 
-        if (txtDcodenotEmpty && txtDnamenotEmpty && txtTypenotEmpty && txtUnitnotEmpty && txtPriceinnotEmpty && txtSalepricenotEmpty && txtSuppliernotEmpty && txtAmountnotEmpty ) {
-            DrugDAOImplement dDI = new DrugDAOImplement();
-            dDI.updateDrug(txtDcode.getText(), txtDname.getText(), txtType.getText(), txtUnit.getText(), Double.parseDouble(txtPricein.getText()), Double.parseDouble(txtSaleprice.getText()), txtSupplier.getText(), Integer.parseInt(txtAmount.getText()), txtDescription.getText());
+            Drug drug = new Drug();
+            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            byte[] res;
+            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                ImageIO.write(bImage, "png", s);
+                res = s.toByteArray();
+                Blob blob = new SerialBlob(res);
+                drug.setImage(blob);
+                DrugDAOImplement dDI = new DrugDAOImplement();
+                dDI.updateDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
+                        Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
+                        java.sql.Date.valueOf(txtExpiredTime.getValue()), Integer.parseInt(txtQty.getText()), txtSup.getText(), txtAreaDes.getText(), id1, id2);
+
+            } catch (IOException | SQLException ex) {
+                Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             clear();
-            loadTable();
+            clearLabel();
         }
+        loadTable();
+
     }
 
     @FXML
     private void handleDelete(ActionEvent event) {
-        boolean txtDcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtDcode, lbcode, "Drug is requied");
-        if (!txtDcodenotEmpty) {
-            txtDcode.requestFocus();
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        if (!textCodeNotEmpty) {
+            txtCode.requestFocus();
         }
-        if (txtDcodenotEmpty) {
+        if (textCodeNotEmpty) {
             DrugDAOImplement dDI = new DrugDAOImplement();
-            dDI.deleteDrug(txtDcode.getText());
-            loadTable();
+            dDI.deleteDrug(txtCode.getText());
+            clear();
+            clearLabel();
         }
+        loadTable();
+
     }
 
     @FXML
@@ -239,28 +308,20 @@ public class DrugController implements Initializable {
         clear();
     }
 
-    private void clear() {
-        txtDcode.clear();
-        txtDname.clear();
-        txtType.clear();
-        txtUnit.clear();
-        txtPricein.clear();
-        txtSaleprice.clear();
-        txtSupplier.clear();
-        txtAmount.clear();
-        txtDescription.clear();
-    }
+    private void choiceBox() {
+        List<String> listUnit = new ArrayList<>();
+        for (String listSPS : unit) {
+            listUnit.add(listSPS);
+        }
+        ObservableList obListPS = FXCollections.observableArrayList(listUnit);
+        cUnit.setItems(obListPS);
+        List<String> listStatus = new ArrayList<>();
+        for (String listst : status) {
+            listStatus.add(listst);
+        }
+        ObservableList obListST = FXCollections.observableArrayList(listStatus);
+        cbStatus.setItems(obListST);
 
-    private void css() {
-        lbcode.setStyle("-fx-text-fill:orange");
-        lbName.setStyle("-fx-text-fill:orange");
-        lbType.setStyle("-fx-text-fill:orange");
-        lbUnit.setStyle("-fx-text-fill:orange");
-        lbPricein.setStyle("-fx-text-fill:orange");
-        lbSaleP.setStyle("-fx-text-fill:orange");
-        lbSupplier.setStyle("-fx-text-fill:orange");
-        lbAmount.setStyle("-fx-text-fill:orange");
-        lbDes.setStyle("-fx-text-fill:orange");
     }
 
     private void loadTable() {
@@ -268,38 +329,93 @@ public class DrugController implements Initializable {
         ObservableList<Drug> listDrug = dDI.getAllDrug();
         tableView.setItems(listDrug);
 
-        columnDcode.setCellValueFactory(new PropertyValueFactory<>("DCode"));
-        columnDName.setCellValueFactory(new PropertyValueFactory<>("nameDrug"));
-        columnDType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        columnDUnit.setCellValueFactory(new PropertyValueFactory<>("UNit"));
-        columnPriceIn.setCellValueFactory(new PropertyValueFactory<>("priceIn"));
-        columnDSale.setCellValueFactory(new PropertyValueFactory<>("saleprice"));
-        columnDSupplier.setCellValueFactory(new PropertyValueFactory<>("supplier"));
-        columnDAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        columnDDescription.setCellValueFactory(new PropertyValueFactory<>("desciption"));
+        columnCode.setCellValueFactory(new PropertyValueFactory<>("DCode"));
+        columnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        columnSup.setCellValueFactory(new PropertyValueFactory<>("Supplier"));
+        columnExpired.setCellValueFactory(new PropertyValueFactory<>("Experied"));
+        columnStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
+        columnDes.setCellValueFactory(new PropertyValueFactory<>("description"));
+    }
+
+    private void clear() {
+        txtCode.clear();
+        txtName.clear();
+        txtCategories.clear();
+        cUnit.getSelectionModel().clearSelection();
+        txtBuy.clear();
+        txtSell.clear();
+        txtExpiredTime.getEditor().clear();
+        txtQty.clear();
+        txtSup.clear();
+        cbStatus.getSelectionModel().clearSelection();
+        txtAreaDes.clear();
+        imageView.setImage(null);
+    }
+
+    private void clearLabel() {
+        lbCode.setText("");
+        lbName.setText("");
+        lbSupplier.setText("");
+        lbCategories.setText("");
+        lbImage.setText("");
+        lbSell.setText("");
+        lbQuantity.setText("");
+        lbBuy.setText("");
+        lbExpiredTime.setText("");
+    }
+
+    private void css() {
+        lbCode.setStyle("-fx-text-fill:orange");
+        lbName.setStyle("-fx-text-fill:orange");
+        lbSupplier.setStyle("-fx-text-fill:orange");
+        lbCategories.setStyle("-fx-text-fill:orange");
+        lbImage.setStyle("-fx-text-fill:orange");
+        lbSell.setStyle("-fx-text-fill:orange");
+        lbQuantity.setStyle("-fx-text-fill:orange");
+        lbBuy.setStyle("-fx-text-fill:orange");
+        lbExpiredTime.setStyle("-fx-text-fill:orange");
+
     }
 
     private void click() {
         tableView.setOnMouseClicked(e -> {
             Drug drug = tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
-            txtDcode.setText(drug.getDCode());
-            txtDname.setText(drug.getNameDrug());
-            txtType.setText(drug.getType());
-            txtUnit.setText(drug.getUNit());
-            txtPricein.setText(String.format("%.1f", drug.getPriceIn()));
-            txtSaleprice.setText(String.format("%.1f", drug.getSaleprice()));
-            txtSupplier.setText(drug.getSupplier());
-            txtAmount.setText(String.format("%d", drug.getAmount()));
-            txtDescription.setText(drug.getDesciption());
+            txtCode.setText(drug.getDCode());
+            txtName.setText(drug.getName());
+            txtCategories.setText(drug.getCategories());
+            cUnit.setValue(drug.getUnit());
+            txtBuy.setText(String.format("%.1f", drug.getBuyPrice()));
+            txtSell.setText(String.format("%.1f", drug.getSellPrice()));
+            Date dt = (Date) drug.getExperied();
+            txtExpiredTime.setValue(LocalDate.parse(dt.toString()));
+            txtQty.setText(String.format("%d", drug.getQuantity()));
+            txtSup.setText(drug.getSupplier());
+            cbStatus.setValue(drug.getStatus());
+            txtAreaDes.setText(drug.getDescription());
+            //Show image 
+            DrugDAOImplement DrugIm = new DrugDAOImplement();
+            imageView.setImage(DrugIm.getImage(drug.getDCode()));
+            id1 = drug.getId1();
+            id2 = drug.getId2();
         });
     }
 
-    private void search() {
-        txtSearch.setOnKeyReleased(e -> {
-            DrugDAOImplement dDI = new DrugDAOImplement();
-            ObservableList<Drug> listDrug = dDI.searchDrug(txtDcode.getText());
-            tableView.setItems(listDrug);
-        });
+    @FXML
+    private void handleChooseImage(ActionEvent event) {
+        stage = (Stage) anchorPane.getScene().getWindow();
+        file = fileChooser.showOpenDialog(stage);
+        if (file != null) {
+            System.out.println("" + file.getAbsolutePath());
+            image = new Image(file.getAbsoluteFile().toURI().toString(), imageView.getFitWidth(), imageView.getFitHeight(), true, true);
+            imageView.setImage(image);
+            imageView.setPreserveRatio(true);
+        }
+    }
+
+    @FXML
+    private void handleSearch(KeyEvent event) {
+        DrugDAOImplement dDI = new DrugDAOImplement();
+        data = dDI.getAllDrug();
         FilteredList<Drug> filteredData = new FilteredList<>(data, e -> true);
         txtSearch.setOnKeyReleased(e -> {
             txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -309,8 +425,6 @@ public class DrugController implements Initializable {
                     }
                     String lowerCaseFilter = newValue.toLowerCase();
                     if (drug.getDCode().contains(newValue)) {
-                        return true;
-                    } else if (drug.getNameDrug().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
                     return false;

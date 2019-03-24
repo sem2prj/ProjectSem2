@@ -14,9 +14,13 @@
    <children>
       <AnchorPane prefHeight="50.0" prefWidth="1024.0" style="-fx-background-color: #04afff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label id="lbYear" fx:id="lbDateM" layoutX="970.0" layoutY="15.0" />
-            <Label id="lbYear" fx:id="lbDateDay" layoutX="920.0" layoutY="15.0" />
-            <Label id="lbYear" fx:id="lbDateYear" layoutX="850.0" layoutY="15.0" />
+            <HBox layoutX="750.0" layoutY="5.0" prefHeight="30.0" prefWidth="190.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label id="lbYear" fx:id="lbDateDay" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" textAlignment="CENTER" />
+                  <Label id="lbYear" fx:id="lbDateM" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="50.0" />
+                  <Label id="lbYear" fx:id="lbDateYear" alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="30.0" prefWidth="80.0" />
+               </children>
+            </HBox>
             <ImageView fx:id="drawImage" fitHeight="30.0" fitWidth="63.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/drawer.png" />

@@ -5,11 +5,17 @@
  */
 package controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.PasswordField;
 import java.util.regex.*;
 
@@ -286,6 +292,31 @@ public class ValidationController {
         return b;
 
     }
+    
+    public static boolean checkPolymerCode(String code){
+        boolean check=true;
+        String sql="SELECT Code FROM DetailUser";
+        try {
+            Connection connection = controller.ConnectDB.connectSQLServer();
+            PreparedStatement pst = connection.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next()) {                
+                String supercode=rs.getString("Code");
+                System.out.println(supercode);
+                if (supercode==code) {
+                    check=false;
+                }
+            }
+                  
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ValidationController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return check;
+        
+    }
+    
     
     
 }
