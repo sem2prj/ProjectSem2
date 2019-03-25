@@ -22,37 +22,63 @@ public class Products {
         this.amount = amount;
     }
 
+    /**
+     * @return the product
+     */
     public String getProduct() {
         return product;
     }
 
+    /**
+     * @param product the product to set
+     */
     public void setProduct(String product) {
         this.product = product;
     }
 
+    /**
+     * @return the price
+     */
     public String getPrice() {
         return price;
     }
 
+    /**
+     * @param price the price to set
+     */
     public void setPrice(String price) {
         this.price = price;
     }
 
+    /**
+     * @return the pqty
+     */
     public String getPqty() {
         return pqty;
     }
 
+    /**
+     * @param pqty the pqty to set
+     */
     public void setPqty(String pqty) {
         this.pqty = pqty;
     }
 
+    /**
+     * @return the amount
+     */
     public String getAmount() {
         return amount;
     }
 
+    /**
+     * @param amount the amount to set
+     */
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
+   
     
     
 }
