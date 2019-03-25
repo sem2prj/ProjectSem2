@@ -5,83 +5,79 @@
  */
 package report;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  *
- * @author admin
+ * @author LeakSmey
  */
 public class Products {
-    private StringProperty product;
-    private StringProperty price;
-    private StringProperty pqty;
-    private StringProperty amount;
+    private String pname;
+    private String price;
+    private String pqty;
+    private String amount;
 
-    public Products(String product, String price, String pqty, String amount) {
-        this.product =new SimpleStringProperty (product);
-        this.price = new SimpleStringProperty(price);
-        this.pqty = new SimpleStringProperty(pqty);
-        this.amount = new SimpleStringProperty(amount);
+    public Products(String pname, String price, String pqty, String amount) {
+        this.pname = pname;
+        this.price = price;
+        this.pqty = pqty;
+        this.amount = amount;
     }
 
     /**
-     * @return the product
+     * @return the pname
      */
-    public String getProduct() {
-        return product.get();
+    public String getPname() {
+        return pname;
     }
 
     /**
-     * @param product the product to set
+     * @param pname the pname to set
      */
-    public void setProduct(String product) {
-        this.product = new SimpleStringProperty(product);
+    public void setPname(String pname) {
+        this.pname = pname;
     }
 
     /**
      * @return the price
      */
     public String getPrice() {
-        return price.get();
+        return price;
     }
 
     /**
      * @param price the price to set
      */
     public void setPrice(String price) {
-        this.price = new SimpleStringProperty(price);
+        this.price = price;
     }
 
     /**
      * @return the pqty
      */
     public String getPqty() {
-        return pqty.get();
+        return pqty;
     }
 
     /**
      * @param pqty the pqty to set
      */
     public void setPqty(String pqty) {
-        this.pqty = new SimpleStringProperty(pqty);
+        this.pqty = pqty;
     }
 
     /**
      * @return the amount
      */
     public String getAmount() {
-        return amount.get();
+        return amount;
     }
 
     /**
      * @param amount the amount to set
      */
     public void setAmount(String amount) {
-        this.amount = new SimpleStringProperty(amount);
+        this.amount = amount;
     }
-
-   
+    
     
     
 }
