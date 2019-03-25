@@ -346,8 +346,10 @@ public class OrderProductController implements Initializable {
             }
             JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
             JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
+            JasperViewer jv= new JasperViewer(jp,false );
+//            JasperViewer.viewReport(jp);
+            jv.setVisible(true);
             JasperViewer.viewReport(jp);
-            
             
         } catch (JRException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
