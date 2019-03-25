@@ -13,13 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,6 +32,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+import report.Products;
 
 /**
  * FXML Controller class
@@ -289,6 +298,7 @@ public class OrderProductController implements Initializable {
                 }
             
             }
+            printInvoice();
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -317,6 +327,33 @@ public class OrderProductController implements Initializable {
         }
         
         return orderID;
+    }
+    
+    private void printInvoice(){
+        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice.jrxml";
+        try {
+            JasperReport jr = JasperCompileManager.compileReport(file);
+            HashMap<String, Object >para = new HashMap<>();
+            para.put("cashier","ai do");
+            
+            ArrayList<Products> plist = new ArrayList<>();
+            
+            for (OrderList2 item : orderData){
+                
+            plist.add(new Products(item.getProductName(),""+item.getPriceOut(),""+item.getQty(),""+item.getAmount()));
+            
+                   
+            }
+            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
+            JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
+            JasperViewer.viewReport(jp);
+            
+            
+        } catch (JRException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
 } 
 
