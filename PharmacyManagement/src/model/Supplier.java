@@ -13,7 +13,7 @@ import javafx.beans.property.StringProperty;
  * @author PC
  */
 public class Supplier {
-
+    private StringProperty Code;
     private StringProperty nameSupplier;
     private StringProperty type;
     private StringProperty addrees;
@@ -26,7 +26,8 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String nameSupplier, String type, String addrees, String phone, String taxINumber, String email, String website, String notice) {
+    public Supplier(String Code,String nameSupplier, String type, String addrees, String phone, String taxINumber, String email, String website, String notice) {
+        this.Code= new SimpleStringProperty(Code);
         this.nameSupplier =new SimpleStringProperty(nameSupplier);
         this.type = new SimpleStringProperty(type);
         this.addrees = new SimpleStringProperty(addrees);
@@ -35,6 +36,15 @@ public class Supplier {
         this.email = new SimpleStringProperty(email);
         this.website = new SimpleStringProperty(website);
         this.notice = new SimpleStringProperty(notice);
+        
+    }
+
+    public String getCode() {
+        return Code.get();
+    }
+
+    public void setCode(String Code) {
+        this.Code =new SimpleStringProperty(Code);
     }
 
     public String getNameSupplier() {

@@ -29,6 +29,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Member;
@@ -52,8 +54,6 @@ public class LoginController implements Initializable {
     private JFXPasswordField txt_password;
     @FXML
     private AnchorPane aPane_Login;
-    @FXML
-    private JFXButton btn_Exit;
 
     @FXML
     private Label error_username;
@@ -81,11 +81,27 @@ public class LoginController implements Initializable {
 //        ListMember = mberDAO.getAllMember();
         UsernameDAOImplement userDAOIm = new UsernameDAOImplement();
         ListUser = userDAOIm.getAllUser();
+
+        txt_user.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                login();
+            }
+        });
+        
+        txt_password.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                login();
+            }
+        });
+
     }
 
     @FXML
-    private void handle_Login(ActionEvent event) throws IOException {
+    private void handle_Login(ActionEvent event) {
+        login();
+    }
 
+    private void login() {
         boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "username is requied");
         if (isUserNameNotEmpty) {
             txt_user.requestFocus();
@@ -94,46 +110,46 @@ public class LoginController implements Initializable {
         if (isPasswordNotEmpty) {
             txt_password.requestFocus();
         }
-
         if (isUserNameNotEmpty && isPasswordNotEmpty) {
-            login();
-        }
 
-    }
-
-    private void login() throws IOException {
-        if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
-            boolean check = false;
+            if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
+                boolean check = false;
 //            for (Member member : ListMember) {
 //                if (txt_user.getText().equals(member.getuserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(member.getpassword())) {
 //                    check = true;
 //                    ListMemberLogin.add(member);
 
-            for (User user : ListUser) {
-                if (txt_user.getText().equals(user.getUserName()) &&PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
-                    check = true;
-                    ListUserLogin.add(user);
-                    Stage stage = (Stage) aPane_Login.getScene().getWindow();
-                    stage.getIcons().clear();
-                    stage.close();
+                for (User user : ListUser) {
+                    if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
+                        check = true;
+                        ListUserLogin.add(user);
+                        Stage stage = (Stage) aPane_Login.getScene().getWindow();
+                        stage.getIcons().clear();
+                        stage.close();
 
-                    stage.setTitle("Main");
-                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-                    Scene scene = new Scene(root);
-                    scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
-                    stage.setScene(scene);
-                    stage.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-                    alert.setTitle("Invalid");
-                    alert.showAndWait();
-                    break;
+                        stage.setTitle("Main");
+                        Parent root;
+                        try {
+                            root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+                            Scene scene = new Scene(root);
+                            scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException ex) {
+                            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+                        alert.setTitle("Invalid");
+                        alert.showAndWait();
+                        break;
+                    }
                 }
-            }
 //            Stage stage = (Stage) aPane_Login.getScene().getWindow();
 //            stage.getIcons().clear();
 //            stage.close();
-            //loading scene main
+                //loading scene main
 
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
 //                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
@@ -155,14 +171,16 @@ public class LoginController implements Initializable {
 //            if(check==false){
 //                
 //            }
+            }
         }
 
     }
 
     @FXML
-    private void handle_Exit(ActionEvent event) {
-        Stage stage = (Stage) aPane_Login.getScene().getWindow();
-        stage.close();
+    private void handleExit(ActionEvent event) {
+//        Stage stage = (Stage) aPane_Login.getScene().getWindow();
+//        stage.close();
+//        System.exit(0);
     }
 
     //        if (txt_user.getText().equalsIgnoreCase("")) {

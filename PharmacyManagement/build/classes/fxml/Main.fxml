@@ -51,14 +51,14 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="btnHandleMain" prefHeight="87.0" prefWidth="212.0" text="BACK" />
+                  <JFXButton id="btnHandleMain" onAction="#handleLogOut" prefHeight="87.0" prefWidth="212.0" text="LOGOUT" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" text="EMPLOYEES" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="84.0" prefWidth="212.0" text="DRUG" GridPane.rowIndex="2" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="146.0" prefHeight="77.0" prefWidth="212.0" text="CUSTOMER" GridPane.rowIndex="3" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="214.0" prefHeight="82.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="4" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="79.0" prefWidth="212.0" text="PAYMENT" GridPane.rowIndex="5" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="86.0" prefWidth="212.0" text="REPORT" GridPane.rowIndex="6" />
-                  <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" onAction="#handleLogOut" prefHeight="78.0" prefWidth="212.0" text="EXIT" GridPane.rowIndex="8" />
+                  <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="78.0" prefWidth="212.0" text="EXIT" GridPane.rowIndex="8" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="438.0" prefHeight="83.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="7" />
                </children>
             </GridPane>
@@ -66,7 +66,7 @@
       </AnchorPane>
       <HBox layoutX="212.0" layoutY="330.0" prefHeight="360.0" prefWidth="600.0">
          <children>
-            <GridPane id="#homeWork" opacity="0.75" prefHeight="360.0" prefWidth="600.0">
+            <GridPane id="#homeWork" opacity="0.7" prefHeight="360.0" prefWidth="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -86,7 +86,7 @@
                   <JFXButton id="btnHandleMain" fx:id="btnReport" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="REPORT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" fx:id="btnSupplier" layoutX="10.0" layoutY="130.0" onAction="#handleSuppier" prefHeight="128.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="2" />
                   <JFXButton id="btnHandleMain" fx:id="btnIE" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="IMPORT/EXPORT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXButton id="btnHandleMain" fx:id="btnExit" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="EXIT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <JFXButton id="btnHandleMain" layoutX="210.0" layoutY="130.0" onAction="#handleLogOut" prefHeight="128.0" prefWidth="212.0" text="LOGOUT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>

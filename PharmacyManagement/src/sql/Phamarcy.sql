@@ -48,9 +48,6 @@ CREATE TABLE Product(
 	CONSTRAINT fk_SnId FOREIGN KEY (SnId) REFERENCES ScienitificName(SnId)
 	on delete cascade 
 	on update cascade ,*/
-	
-	
-	
 )
 
 CREATE TABLE ExpiredTime(
@@ -63,7 +60,7 @@ CREATE TABLE ExpiredTime(
 	on delete cascade 
 	on update cascade ,
 )
-
+/*
 CREATE TABLE Countries(
 	CountryID int identity,
 	CountryName varchar(50) ,
@@ -79,19 +76,21 @@ CREATE TABLE Cities(
 	CONSTRAINT fk_CountryID FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
 	on delete cascade 
 	on update cascade ,
-)
+)*/
 
 CREATE TABLE Customer(
 	CuId int identity,
+	CuCode varchar(50),
 	CuName varchar(50) ,
 	CuAddrees varchar(max),
 	CuPhone varchar(50),
-	CuImage varbinary(max),
-	CityId int,
+	CuEmail varchar(50),
+	CuLevel int,
+	/*CityId int,*/
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
-	CONSTRAINT fk_CityId FOREIGN KEY (CityId) REFERENCES Cities(CityId)
+	/*CONSTRAINT fk_CityId FOREIGN KEY (CityId) REFERENCES Cities(CityId)
 	on delete cascade 
-	on update cascade ,
+	on update cascade ,*/
 )
 
 CREATE TABLE Orders(
@@ -109,7 +108,6 @@ CREATE TABLE OrderDetail(
 	OrderDetailID bigint identity PRIMARY KEY,
 	PId bigint ,
 	Qty varchar(50),
-	
 	CONSTRAINT fk_PId_Order FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
@@ -117,13 +115,20 @@ CREATE TABLE OrderDetail(
 
 
 alter table OrderDetail add
-CONSTRAINT FK_OrderDetail_Orders FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+CONSTRAINT FK_OrderDetail_Orders FOREIGN KEY (OrderDetailID) REFERENCES Orders(OrderID)
 	
 
 CREATE TABLE Supplier(
 	SuID int identity,
+	SuCode varchar(50),
 	SuName varchar(50) ,
+	SuType varchar(50),
+	SuAddrees varchar(50),
 	SuPhone varchar(50),
+	SuTax varchar(50),
+	SuEmail varchar(50),
+	SuWebsite varchar(50),
+	SuNotice varchar(max),
 	CONSTRAINT pk_SuID PRIMARY KEY (SuID),
 )
 
@@ -182,7 +187,7 @@ CREATE TABLE Users(
 	on update cascade ,
 )
 
-alter procedure getAllEmployee
+CREATE procedure getAllEmployee
 as
 begin 
 select dtu.Code as eplCode,us.UsersName as username,dtu.Phone as phone,dtu.Email as email
@@ -192,7 +197,7 @@ from Users AS us
  INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
 end
 
-alter PROCEDURE InsertUser 
+CREATE PROCEDURE InsertUser 
 (@UserName varchar(20),@Pass varchar(20),@DetailID int)   
 AS 
 INSERT INTO Users ([UsersName],[UsersPass],[DetailID]) VALUES (@UserName,@Pass,@DetailID)  
@@ -209,7 +214,7 @@ INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salar
  VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@position,@department,@image,@workday)  
 GO 
 
-alter PROCEDURE getUserMission
+CREATE PROCEDURE getUserMission
 as
 begin
 select us.UsersName as username,us.UsersPass AS pass,us.UsersFullName as fullname,dtu.mission as mission
@@ -224,6 +229,16 @@ UPDATE A SET A.UsersPass =@password
 FROM Users A INNER JOIN DetailUser B ON  A.DetailID=B.DetailID
 WHERE B.Code=@code 
 GO
+
+CREATE PROCEDURE getAllProduct
+AS
+BEGIN
+SELECT PRD.PCode AS Code,PRD.PName AS Name,CT.CatName AS Categories,PRD.Unit AS Unit,PRD.PImage AS Images,
+PRD.Statuses AS Statuses,PRD.BuyPrice AS Buy,PRD.SellPrice AS Sell,PRD.Supplier AS Supplier,EXT.ExDate AS ExTime,EXt.Qty AS Quantity
+,PRD.PDescription AS Descriptions,CT.CatID AS CatID,EXT.ExId AS EID
+FROM Categories CT JOIN Product PRD ON CT.CatID=PRD.CatID
+JOIN ExpiredTime EXT ON PRD.PId=EXT.PId
+END
 
 
 SELECT *FROM Users

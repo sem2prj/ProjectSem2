@@ -79,8 +79,6 @@ public class MainController implements Initializable {
     @FXML
     private JFXButton btnIE;
     @FXML
-    private JFXButton btnExit;
-    @FXML
     private Label lbDateYear;
     @FXML
     private Label lbDateM;
@@ -298,8 +296,8 @@ public class MainController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
-//        stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Supplier");
         stage.setScene(scene);
         stage.show();
@@ -308,7 +306,7 @@ public class MainController implements Initializable {
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Logout Form");
+        alert.setTitle("Logout");
         alert.setHeaderText(null);
         alert.setContentText("Are You Sure?");
         ButtonType okButton = new ButtonType("Yes");

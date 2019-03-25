@@ -113,7 +113,6 @@ public class RegisterController implements Initializable {
         combobox_position.getItems().addAll("Employee", "Manager", "Chef", "Chairman");
         combobox_position.getSelectionModel().selectFirst();
         combobox_position.getValue();
-        
 
 //Combobox_department
         combobox_department.getItems().addAll("Sales", "Accountant", "General");
@@ -212,7 +211,7 @@ public class RegisterController implements Initializable {
                     Object key = rs.getObject(1);
                     String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)values (?,?,?,?)";
                     pst = con.prepareStatement(sql);
-                    
+
                     pst.setInt(1, Integer.parseInt(String.valueOf(key)));
 
 //                    pst.setString(1, String.valueOf(key));
@@ -241,7 +240,7 @@ public class RegisterController implements Initializable {
 //        stage.setResizable(false);
                 Scene scene = new Scene(root);
                 stage.setTitle("Login");
-
+                scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
                 stage.setScene(scene);
                 stage.show();
 

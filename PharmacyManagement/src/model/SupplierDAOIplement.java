@@ -25,19 +25,20 @@ public class SupplierDAOIplement implements DAOSupplier {
     @Override
     public ObservableList<Supplier> getAllSupplier() {
         ObservableList<Supplier> listSupplier = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM supplier";
+        String sql = "SELECT * FROM Supplier";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 Supplier supplier = new Supplier();
-                supplier.setNameSupplier(rs.getString("nameSupplier"));
-                supplier.setType(rs.getString("type"));
-                supplier.setAddrees(rs.getString("addrees"));
-                supplier.setPhone(rs.getString("phone"));
-                supplier.setTaxINumber(rs.getString("taxINumber"));
-                supplier.setEmail(rs.getString("email"));
-                supplier.setWebsite(rs.getString("website"));
-                supplier.setNotice(rs.getString("notice"));
+                supplier.setCode(rs.getString("SuCode"));
+                supplier.setNameSupplier(rs.getString("SuName"));
+                supplier.setType(rs.getString("SuType"));
+                supplier.setAddrees(rs.getString("SuAddrees"));
+                supplier.setPhone(rs.getString("SuPhone"));
+                supplier.setTaxINumber(rs.getString("SuTax"));
+                supplier.setEmail(rs.getString("SuEmail"));
+                supplier.setWebsite(rs.getString("SuWebsite"));
+                supplier.setNotice(rs.getString("SuNotice"));
 
                 listSupplier.add(supplier);
             }
@@ -48,18 +49,19 @@ public class SupplierDAOIplement implements DAOSupplier {
     }
 
     @Override
-    public void insertSupplier(String nameSupplier, String type, String addrees, String phone, String taxInumber, String email, String website, String notice) {
-        String sql = "INSERT INTO supplier(nameSupplier,type,addrees,phone,taxINumber,email,website,notice) VALUES(?,?,?,?,?,?)";
+    public void insertSupplier(String Code, String nameSupplier, String type, String addrees, String phone, String taxInumber, String email, String website, String notice) {
+        String sql = "INSERT INTO Supplier(SuCode,SuName,SuType,SuAddrees,SuPhone,SuTax,SuEmail,SuWebsite,SuNotice) VALUES(?,?,?,?,?,?,?,?,?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
-            pst.setString(1, nameSupplier);
-            pst.setString(2, type);
-            pst.setString(3, addrees);
-            pst.setString(4, phone);
-            pst.setString(5, taxInumber);
-            pst.setString(6, email);
-            pst.setString(7, website);
-            pst.setString(8, notice);
+            pst.setString(1, Code);
+            pst.setString(2, nameSupplier);
+            pst.setString(3, type);
+            pst.setString(4, addrees);
+            pst.setString(5, phone);
+            pst.setString(6, taxInumber);
+            pst.setString(7, email);
+            pst.setString(8, website);
+            pst.setString(9, notice);
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -73,18 +75,20 @@ public class SupplierDAOIplement implements DAOSupplier {
     }
 
     @Override
-    public void updateSupplier(String nameSupplier, String type, String addrees, String phone, String taxInumber, String email, String website, String notice) {
-        String sql = "UPDATE supplier SET nameSupplier=?,type=?,addrees=?,phone=?,email=?,website=?,notice=? WHERE taxINumber=?";
+    public void updateSupplier(String Code, String nameSupplier, String type, String addrees, String phone, String taxInumber, String email, String website, String notice) {
+        String sql = "UPDATE supplier SET SuName=?,SuType=?,SuAddrees=?,SuPhone=?,SuTax=?,SuEmail=?,SuWebsite=?,SuNotice=? WHERE SuCode=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
+
             pst.setString(1, nameSupplier);
             pst.setString(2, type);
             pst.setString(3, addrees);
             pst.setString(4, phone);
-            pst.setString(5, email);
-            pst.setString(6, website);
+            pst.setString(5, taxInumber);
+            pst.setString(6, email);
+            pst.setString(7, website);
             pst.setString(8, notice);
-            pst.setString(9, taxInumber);
+            pst.setString(9, Code);
 
             int i = pst.executeUpdate();
             if (i != 0) {
@@ -99,11 +103,11 @@ public class SupplierDAOIplement implements DAOSupplier {
     }
 
     @Override
-    public void deleteSupplier(String taxInumber) {
-        String sql = "DELETE FROM supplier WHERE taxINumber=(?)";
+    public void deleteSupplier(String Code) {
+        String sql = "DELETE FROM supplier WHERE SuCode=(?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
-            pst.setString(1, taxInumber);
+            pst.setString(1, Code);
             int i = pst.executeUpdate();
             if (i != 0) {
                 AlertDialog.display("Info", "Data Delete Successfully");
@@ -113,6 +117,6 @@ public class SupplierDAOIplement implements DAOSupplier {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SupplierDAOIplement.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

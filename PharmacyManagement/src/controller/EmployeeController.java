@@ -460,17 +460,17 @@ public class EmployeeController implements Initializable {
 
     //Css error
     private void errorValidate() {
-        lbCode.setStyle("-fx-text-fill:orange");
-        lbUser.setStyle("-fx-text-fill:orange");
-        lbPhone.setStyle("-fx-text-fill:orange");
-        lbEmail.setStyle("-fx-text-fill:orange");
-        lbAddrees.setStyle("-fx-text-fill:orange");
-        lbSalary.setStyle("-fx-text-fill:orange");
-        lbImage.setStyle("-fx-text-fill:orange");
-        lbDofBirth.setStyle("-fx-text-fill:orange");
-        lbAWork.setStyle("-fx-text-fill:orange");
-        labelPass.setStyle("-fx-text-fill:orange");
-        lbConfirm.setStyle("-fx-text-fill:orange");
+        lbCode.setStyle("-fx-text-fill:#daa520");
+        lbUser.setStyle("-fx-text-fill:#daa520");
+        lbPhone.setStyle("-fx-text-fill:#daa520");
+        lbEmail.setStyle("-fx-text-fill:#daa520");
+        lbAddrees.setStyle("-fx-text-fill:#daa520");
+        lbSalary.setStyle("-fx-text-fill:#daa520");
+        lbImage.setStyle("-fx-text-fill:#daa520");
+        lbDofBirth.setStyle("-fx-text-fill:#daa520");
+        lbAWork.setStyle("-fx-text-fill:#daa520");
+        labelPass.setStyle("-fx-text-fill:#daa520");
+        lbConfirm.setStyle("-fx-text-fill:#daa520");
     }
 
     @FXML

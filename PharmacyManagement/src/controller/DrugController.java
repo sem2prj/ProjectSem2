@@ -159,36 +159,36 @@ public class DrugController implements Initializable {
     @FXML
     private void handleAdd(ActionEvent event) {
 
-        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code must be filled out");
         if (!textCodeNotEmpty) {
             txtCode.requestFocus();
         }
-        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is queried");
+        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name must be filled out");
         if (!txtNameNotEmpty) {
             txtName.requestFocus();
         }
-        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories is queried");
+        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories must be filled out");
         if (!txtCategoriesnotEmpty) {
             txtCategories.requestFocus();
         }
-        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice is queried");
+        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice must be filled out");
         if (!txtBuyNotEmpty) {
             txtBuy.requestFocus();
         }
-        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice is queried");
+        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice must be filled out");
         if (!txtSellNotEmpty) {
             txtSell.requestFocus();
         }
-        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity is queried");
+        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity must be filled out");
         if (!txtQtyNotEmpty) {
             txtQty.requestFocus();
         }
-        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier is queried");
+        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier must be filled out");
         if (!txtSupNotEmpty) {
             txtSup.requestFocus();
         }
         if (txtExpiredTime.getValue() == null) {
-            lbExpiredTime.setText("Date is required");
+            lbExpiredTime.setText("Date must be filled out");
         } else if (txtExpiredTime.getValue() != null) {
             lbExpiredTime.setText("");
         }
@@ -224,36 +224,36 @@ public class DrugController implements Initializable {
     @FXML
     private void handleUpdate(ActionEvent event) {
 
-        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code must be filled out");
         if (!textCodeNotEmpty) {
             txtCode.requestFocus();
         }
-        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is queried");
+        boolean txtNameNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name must be filled out");
         if (!txtNameNotEmpty) {
             txtName.requestFocus();
         }
-        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories is queried");
+        boolean txtCategoriesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtCategories, lbCategories, "Categories must be filled out");
         if (!txtCategoriesnotEmpty) {
             txtCategories.requestFocus();
         }
-        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice is queried");
+        boolean txtBuyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtBuy, lbBuy, "BuyPrice must be filled out");
         if (!txtBuyNotEmpty) {
             txtBuy.requestFocus();
         }
-        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice is queried");
+        boolean txtSellNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtSell, lbSell, "SellPrice must be filled out");
         if (!txtSellNotEmpty) {
             txtSell.requestFocus();
         }
-        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity is queried");
+        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity must be filled out");
         if (!txtQtyNotEmpty) {
             txtQty.requestFocus();
         }
-        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier is queried");
+        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier must be filled out");
         if (!txtSupNotEmpty) {
             txtSup.requestFocus();
         }
         if (txtExpiredTime.getValue() == null) {
-            lbExpiredTime.setText("Date is required");
+            lbExpiredTime.setText("Date must be filled out");
         } else if (txtExpiredTime.getValue() != null) {
             lbExpiredTime.setText("");
         }
@@ -289,7 +289,7 @@ public class DrugController implements Initializable {
 
     @FXML
     private void handleDelete(ActionEvent event) {
-        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code is queried");
+        boolean textCodeNotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCode, lbCode, "Code must be filled out");
         if (!textCodeNotEmpty) {
             txtCode.requestFocus();
         }
@@ -365,15 +365,15 @@ public class DrugController implements Initializable {
     }
 
     private void css() {
-        lbCode.setStyle("-fx-text-fill:orange");
-        lbName.setStyle("-fx-text-fill:orange");
-        lbSupplier.setStyle("-fx-text-fill:orange");
-        lbCategories.setStyle("-fx-text-fill:orange");
-        lbImage.setStyle("-fx-text-fill:orange");
-        lbSell.setStyle("-fx-text-fill:orange");
-        lbQuantity.setStyle("-fx-text-fill:orange");
-        lbBuy.setStyle("-fx-text-fill:orange");
-        lbExpiredTime.setStyle("-fx-text-fill:orange");
+        lbCode.setStyle("-fx-text-fill:#daa520");
+        lbName.setStyle("-fx-text-fill:#daa520");
+        lbSupplier.setStyle("-fx-text-fill:#daa520");
+        lbCategories.setStyle("-fx-text-fill:#daa520");
+        lbImage.setStyle("-fx-text-fill:#daa520");
+        lbSell.setStyle("-fx-text-fill:#daa520");
+        lbQuantity.setStyle("-fx-text-fill:#daa520");
+        lbBuy.setStyle("-fx-text-fill:#daa520");
+        lbExpiredTime.setStyle("-fx-text-fill:#daa520");
 
     }
 

@@ -31,12 +31,12 @@ public class CustomerDAOImplement implements DAOCustomer {
                 Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 Customer customer = new Customer();
-                customer.setCustomerCode(rs.getString("customerCode"));
-                customer.setName(rs.getString("name"));
-                customer.setAddrees(rs.getString("addrees"));
-                customer.setPhone(rs.getString("phone"));
-                customer.setEmail(rs.getString("email"));
-                customer.setLevel(rs.getInt("levers"));
+                customer.setCustomerCode(rs.getString("CuCode"));
+                customer.setName(rs.getString("CuName"));
+                customer.setAddrees(rs.getString("CuAddrees"));
+                customer.setPhone(rs.getString("CuPhone"));
+                customer.setEmail(rs.getString("CuEmail"));
+                customer.setLevel(rs.getInt("CuLevel"));
 
                 listCustomer.add(customer);
             }
@@ -49,7 +49,7 @@ public class CustomerDAOImplement implements DAOCustomer {
 
     @Override
     public void insertCustomer(String customerCode, String name, String addrees, String phone, String email, Integer level) {
-        String sql = "INSERT INTO customer (customerCode,name,addrees,phone,email,levers ) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO customer (CuCode,CuName,CuAddrees,CuPhone,CuEmail,CuLevel ) VALUES (?,?,?,?,?,?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, customerCode);
@@ -71,7 +71,7 @@ public class CustomerDAOImplement implements DAOCustomer {
 
     @Override
     public void updateCustomer(String customerCode, String name, String addrees, String phone, String email, Integer level) {
-        String sql = "UPDATE customer SET name=?,addrees=?,phone=?,email=?,levers=? WHERE customerCode=?";
+        String sql = "UPDATE customer SET CuName=?,CuAddrees=?,CuPhone=?,CuEmail=?,CuLevel=? WHERE CuCode=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, name);
@@ -95,7 +95,7 @@ public class CustomerDAOImplement implements DAOCustomer {
 
     @Override
     public void deleteCustomer(String customerCode) {
-        String sql = "DELETE FROM customer WHERE customerCode=(?)";
+        String sql = "DELETE FROM customer WHERE CuCode=(?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, customerCode);

@@ -22,14 +22,12 @@
          <children>
             <TableView id="tableView" fx:id="tableView" prefHeight="550.0" prefWidth="600.0">
               <columns>
-                <TableColumn fx:id="columnName" minWidth="70.0" prefWidth="70.0" text="NAME" />
-                <TableColumn fx:id="columnType" minWidth="70.0" prefWidth="70.0" text="TYPE" />
-                  <TableColumn fx:id="columnAddrees" minWidth="70.0" prefWidth="70.0" text="ADDREES" />
-                  <TableColumn fx:id="columnPhone" minWidth="70.0" prefWidth="70.0" text="PHONE" />
-                  <TableColumn fx:id="columnTIN" minWidth="100.0" prefWidth="100.0" text="TAXINUMBER" />
-                  <TableColumn fx:id="columnEmail" minWidth="70.0" prefWidth="70.0" text="EMAIL" />
-                  <TableColumn fx:id="columnWebsite" minWidth="90.0" prefWidth="90.0" text="WEBSITE" />
-                  <TableColumn fx:id="columnNotice" minWidth="60.0" prefWidth="60.0" text="NOTICE" />
+                <TableColumn fx:id="columnCode" minWidth="80.0" text="CODE" />
+                  <TableColumn fx:id="columnName" minWidth="100.0" prefWidth="100.0" text="NAME" />
+                  <TableColumn fx:id="columnAddrees" minWidth="120.0" prefWidth="120.0" text="ADDREES" />
+                  <TableColumn fx:id="columnPhone" minWidth="100.0" prefWidth="100.0" text="PHONE" />
+                  <TableColumn fx:id="columnEmail" minWidth="100.0" prefWidth="100.0" text="EMAIL" />
+                  <TableColumn fx:id="columnTax" minWidth="100.0" prefWidth="100.0" text="TAXNUMBER" />
               </columns>
             </TableView>
          </children>
@@ -51,16 +49,23 @@
             <JFXButton id="btnHander" layoutX="10.0" layoutY="10.0" onAction="#handleClear" prefHeight="33.0" prefWidth="64.0" text="CLEAR" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <VBox layoutX="602.0" layoutY="128.0" prefHeight="339.0" prefWidth="194.0">
+      <VBox layoutX="602.0" layoutY="127.0" prefHeight="432.0" prefWidth="194.0">
          <children>
             <AnchorPane prefHeight="40.0" prefWidth="196.0">
+               <children>
+                  <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Code" />
+                  <JFXTextField fx:id="txtCode" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
+                  <Label fx:id="lbCode" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="196.0">
                <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Name" />
                   <JFXTextField fx:id="txtName" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
                   <Label fx:id="lbName" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="196.0">
+            <AnchorPane layoutX="10.0" layoutY="60.0" prefHeight="40.0" prefWidth="196.0">
                <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Type" />
                   <JFXTextField fx:id="txtType" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
@@ -74,21 +79,21 @@
                   <Label fx:id="lbAddrees" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="60.0" prefHeight="40.0" prefWidth="196.0">
+            <AnchorPane layoutX="10.0" layoutY="160.0" prefHeight="40.0" prefWidth="196.0">
                <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Phone" />
                   <JFXTextField fx:id="txtPhone" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
                   <Label fx:id="lbPhone" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="160.0" prefHeight="40.0" prefWidth="196.0">
+            <AnchorPane layoutX="10.0" layoutY="210.0" prefHeight="40.0" prefWidth="196.0">
                <children>
-                  <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="TIN" />
-                  <JFXTextField fx:id="txtTIN" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
-                  <Label fx:id="lbTIN" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
+                  <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Tax" />
+                  <JFXTextField fx:id="txtTax" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
+                  <Label fx:id="lbTax" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="210.0" prefHeight="40.0" prefWidth="196.0">
+            <AnchorPane layoutX="10.0" layoutY="260.0" prefHeight="40.0" prefWidth="196.0">
                <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Email" />
                   <JFXTextField fx:id="txtEmail" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
@@ -102,7 +107,7 @@
                   <Label fx:id="lbWebsite" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="260.0" prefHeight="40.0" prefWidth="196.0">
+            <AnchorPane layoutX="10.0" layoutY="360.0" prefHeight="40.0" prefWidth="196.0">
                <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Notice" />
                   <JFXTextField fx:id="txtNotice" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
