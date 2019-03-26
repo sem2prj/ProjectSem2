@@ -40,9 +40,20 @@ public class Employee {
     private StringProperty Role;
 
     private IntegerProperty id;
-
+    private StringProperty fullname;
+    
+    
     public Employee() {
     }
+    
+    
+    public Employee(String userName, String password, String fullname,String Role) {
+        this.userName =new SimpleStringProperty(userName);
+        this.Pass = new SimpleStringProperty(password);
+        this.fullname = new SimpleStringProperty(fullname);
+        this.Role = new SimpleStringProperty(Role);
+    }
+    
 
     public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String position, String department, Blob imageBlob, Date dateWork) {
         this.EplCode = new SimpleStringProperty(eplCode);
@@ -90,6 +101,16 @@ public class Employee {
         return id.get();
     }
 
+    public String getFullname() {
+        return fullname.get();
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = new SimpleStringProperty(fullname);
+    }
+
+    
+    
     public void setId(Integer id) {
         this.id = new SimpleIntegerProperty(id);
     }

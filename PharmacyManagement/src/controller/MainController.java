@@ -296,8 +296,8 @@ public class MainController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
-        stage.resizableProperty().setValue(Boolean.FALSE);
-//        stage.initStyle(StageStyle.UTILITY);
+//        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setTitle("Supplier");
         stage.setScene(scene);
         stage.show();

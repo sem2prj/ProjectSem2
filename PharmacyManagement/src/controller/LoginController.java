@@ -28,13 +28,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Member;
-import model.MemberDAOIplement;
 import model.User;
 import model.UsernameDAOImplement;
 
@@ -64,8 +60,6 @@ public class LoginController implements Initializable {
     private PreparedStatement pst;
     private ResultSet rs;
 
-//    public static ObservableList<Member> ListMember = FXCollections.observableArrayList();
-//    public static ObservableList<Member> ListMemberLogin = FXCollections.observableArrayList();
     public static ObservableList<User> ListUser = FXCollections.observableArrayList();
     public static ObservableList<User> ListUserLogin = FXCollections.observableArrayList();
 
@@ -77,8 +71,6 @@ public class LoginController implements Initializable {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        MemberDAOIplement mberDAO = new MemberDAOIplement();
-//        ListMember = mberDAO.getAllMember();
         UsernameDAOImplement userDAOIm = new UsernameDAOImplement();
         ListUser = userDAOIm.getAllUser();
 
@@ -114,11 +106,6 @@ public class LoginController implements Initializable {
 
             if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
                 boolean check = false;
-//            for (Member member : ListMember) {
-//                if (txt_user.getText().equals(member.getuserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(member.getpassword())) {
-//                    check = true;
-//                    ListMemberLogin.add(member);
-
                 for (User user : ListUser) {
                     if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
                         check = true;
@@ -178,8 +165,8 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleExit(ActionEvent event) {
-//        Stage stage = (Stage) aPane_Login.getScene().getWindow();
-//        stage.close();
+        Stage stage = (Stage) aPane_Login.getScene().getWindow();
+        stage.close();
 //        System.exit(0);
     }
 

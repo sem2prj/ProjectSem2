@@ -13,7 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -54,7 +54,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             stage.setTitle("Login");
-
+//            stage.initStyle(StageStyle.DECORATED);
             stage.setScene(scene);
             stage.show();
 
@@ -66,7 +66,9 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
 
             Scene scene = new Scene(root);
+//            stage.initStyle(StageStyle.UNDECORATED);
 
+             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
