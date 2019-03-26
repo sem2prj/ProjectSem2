@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9cc4e716-0fe3-4667-bfa9-99663f435943">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="421" pageHeight="595" columnWidth="381" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="909c1c8c-c30c-4c64-946a-7e32a622ee42">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="cashier" class="java.lang.String"/>
+	<parameter name="grandTotal" class="java.lang.String"/>
+	<parameter name="invoiceNo" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="price" class="java.lang.String"/>
+	<field name="pqty" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="73" splitType="Stretch">
 			<staticText>
-				<reportElement x="200" y="21" width="162" height="31" uuid="5542969c-49fe-4f54-b1bf-6fe4675cf9d2"/>
+				<reportElement x="116" y="19" width="162" height="31" uuid="ff78bf43-0b10-436a-a3be-f5d57d391256"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
@@ -18,73 +25,77 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
-			<textField>
-				<reportElement x="432" y="15" width="100" height="20" uuid="a733ed53-5b8b-46c7-be42-9a26045aa794"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{cashier}]]></textFieldExpression>
-			</textField>
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement x="362" y="15" width="49" height="20" uuid="7ce46ccd-bc1c-4a6c-9bf2-f92541558b9c"/>
+				<reportElement x="222" y="0" width="49" height="20" uuid="606c41de-3ccb-4461-96c0-405929b12952"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cashier]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="278" y="0" width="100" height="20" uuid="c351e00b-f547-486b-955c-502a3ba5d090"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cashier}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="460" y="41" width="95" height="20" backcolor="#CCFFFF" uuid="73daf5dc-914d-47ac-9069-4507246668aa"/>
-				<text><![CDATA[amount($)]]></text>
+				<reportElement mode="Opaque" x="0" y="0" width="95" height="20" backcolor="#CCFFFF" uuid="272d994e-d44c-4b54-896e-f61bb83f2f29"/>
+				<text><![CDATA[productName]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="337" y="41" width="95" height="20" backcolor="#CCFFFF" uuid="1f1b6b25-886e-4826-8794-5d6caae1b59b"/>
-				<text><![CDATA[qty]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="200" y="41" width="95" height="20" backcolor="#CCFFFF" uuid="01d21fed-4e37-4144-a331-4b204dcd8b26"/>
+				<reportElement mode="Opaque" x="95" y="0" width="95" height="20" backcolor="#CCFFFF" uuid="533b10a1-1687-4760-a2da-f06fc8e05f54"/>
 				<text><![CDATA[price]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="55" y="41" width="95" height="20" backcolor="#CCFFFF" uuid="4ae8cc01-7406-4abb-aca2-72f0cc7f7098"/>
-				<text><![CDATA[productName]]></text>
+				<reportElement mode="Opaque" x="190" y="0" width="95" height="20" backcolor="#CCFFFF" uuid="9ed094d1-ae00-44ef-bf7b-b270d77d1d39"/>
+				<text><![CDATA[qty]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="285" y="0" width="95" height="20" backcolor="#CCFFFF" uuid="35c77899-a178-4e00-ad63-1a86166c1721"/>
+				<text><![CDATA[amount($)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="21" width="378" height="1" uuid="b927e5b0-bab3-49f1-8fbb-4284b79be7f1"/>
+			</line>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="460" y="27" width="95" height="20" uuid="b492755a-96ac-494e-a9c6-75cb60e45edc"/>
-				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
-			</textField>
-			<line>
-				<reportElement x="13" y="10" width="378" height="1" uuid="2ba0434e-5016-4f6e-bc3a-4892e7e8f2ac"/>
-			</line>
-			<textField>
-				<reportElement x="337" y="27" width="95" height="20" uuid="e8eb3423-257f-455e-afc9-b26aa55311ca"/>
-				<textFieldExpression><![CDATA[$F{pqty}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="55" y="27" width="95" height="20" uuid="412d5f04-1228-4f23-bb80-b3f55c0c0219"/>
+				<reportElement x="0" y="0" width="95" height="20" uuid="779e6421-2e75-496a-a585-dccef1e53195"/>
 				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="27" width="95" height="20" uuid="fa7a518a-dda3-4ab6-912c-9f37e1f87ecb"/>
+				<reportElement x="95" y="0" width="95" height="20" uuid="aaca5ac5-3a32-40ba-850b-9c0e31b6a20e"/>
 				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="95" height="20" uuid="768b2ee7-fe65-4d9f-bf28-8f8af02a9e4b"/>
+				<textFieldExpression><![CDATA[$F{pqty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="0" width="95" height="20" uuid="e9bc644b-0a50-4f3a-89c5-6237fe7bb1d2"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="9" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="3" y="0" width="378" height="1" uuid="5c4aebb6-3538-444a-960f-110d39ea9875"/>
+			</line>
+		</band>
 	</summary>
 </jasperReport>
