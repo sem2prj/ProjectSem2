@@ -106,30 +106,30 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleAdd(ActionEvent event) {
-        boolean txtLevelnotNumber = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level is requied");
+        boolean txtLevelnotNumber = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
         if (!txtLevelnotNumber) {
             txtLevel.requestFocus();
         }
 
-        boolean txtEmailnotEmpty = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Email is requied ,example :voduc204@gmail.com");
+        boolean txtEmailnotEmpty = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
         if (!txtEmailnotEmpty) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotEmpty = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone is requied,example :+84 945 333 666, 0905123456,01233456789");
+        boolean txtPhonenotEmpty = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotEmpty) {
             txtPhone.requestFocus();
         }
-        boolean txtAddreesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied");
+        boolean txtAddreesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees must be filled out");
         if (!txtAddreesnotEmpty) {
             txtAddrees.requestFocus();
         }
 
-        boolean txttxtNameEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is requied");
+        boolean txttxtNameEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is must be filled out");
         if (!txttxtNameEmpty) {
             txtName.requestFocus();
         }
-        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Customer code is requied");
+        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Code  must be filled out");
         if (!txtCCodenotEmpty) {
             txtCCode.requestFocus();
         }
@@ -146,30 +146,30 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleUpdate(ActionEvent event) {
-        boolean txtLevelnotNumber = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level is requied");
+        boolean txtLevelnotNumber = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
         if (!txtLevelnotNumber) {
             txtLevel.requestFocus();
         }
 
-        boolean txtEmailnotEmpty = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Email is requied ,example :voduc204@gmail.com");
+        boolean txtEmailnotEmpty = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
         if (!txtEmailnotEmpty) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotEmpty = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone is requied,example :+84 945 333 666, 0905123456,01233456789");
+        boolean txtPhonenotEmpty = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotEmpty) {
             txtPhone.requestFocus();
         }
-        boolean txtAddreesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied");
+        boolean txtAddreesnotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees must be filled out");
         if (!txtAddreesnotEmpty) {
             txtAddrees.requestFocus();
         }
 
-        boolean txttxtNameEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name is requied");
+        boolean txttxtNameEmpty = controller.ValidationController.isTextFieldNotEmpty(txtName, lbName, "Name must be filled out");
         if (!txttxtNameEmpty) {
             txtName.requestFocus();
         }
-        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Customer code is requied");
+        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Code must be filled out");
         if (!txtCCodenotEmpty) {
             txtCCode.requestFocus();
         }
@@ -185,7 +185,7 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleDelete(ActionEvent event) {
-        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Customer code is requied");
+        boolean txtCCodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtCCode, lbCode, "Code must be filled out");
         if (!txtCCodenotEmpty) {
             txtCCode.requestFocus();
         }
@@ -237,12 +237,12 @@ public class CustomerController implements Initializable {
     }
 
     private void css() {
-        lbCode.setStyle("-fx-text-fill:orange");
-        lbName.setStyle("-fx-text-fill:orange");
-        lbPhone.setStyle("-fx-text-fill:orange");
-        lbEmail.setStyle("-fx-text-fill:orange");
-        lbAddrees.setStyle("-fx-text-fill:orange");
-        lbLevel.setStyle("-fx-text-fill:orange");
+        lbCode.setStyle("-fx-text-fill:#daa520");
+        lbName.setStyle("-fx-text-fill:#daa520");
+        lbPhone.setStyle("-fx-text-fill:#daa520");
+        lbEmail.setStyle("-fx-text-fill:#daa520");
+        lbAddrees.setStyle("-fx-text-fill:#daa520");
+        lbLevel.setStyle("-fx-text-fill:#daa520");
     }
 
     @FXML
@@ -263,9 +263,6 @@ public class CustomerController implements Initializable {
                     } else if (customer.getEmail().toLowerCase().contains(lowerCaseFilter)) {
                         return true;
                     }
-//                    else if (customer.getName().toLowerCase().contains(lowerCaseFilter)) {
-//                        return true;
-//                    }
                     return false;
                 });
             });

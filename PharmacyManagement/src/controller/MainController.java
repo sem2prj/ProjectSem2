@@ -9,12 +9,11 @@ import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -28,17 +27,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import model.Member;
+import model.User;
 
 /**
  * FXML Controller class
@@ -47,8 +43,8 @@ import model.Member;
  */
 public class MainController implements Initializable {
 
-    public static ObservableList<Member> Info_Member_Login = FXCollections.observableArrayList();
-
+//    public static ObservableList<Member> Info_Member_Login = FXCollections.observableArrayList();
+    public static ObservableList<User> infoUser = FXCollections.observableArrayList();
 
     @FXML
     private JFXButton btnEmployee;
@@ -83,13 +79,14 @@ public class MainController implements Initializable {
     @FXML
     private JFXButton btnIE;
     @FXML
-    private JFXButton btnExit;
-    @FXML
     private Label lbDateYear;
     @FXML
     private Label lbDateM;
     @FXML
     private Label lbDateDay;
+
+    final private Timer timer = new Timer(true);
+    final private LinkedList<TimerTask> taskList = new LinkedList<TimerTask>();
 
     /**
      * Initializes the controller class.
@@ -110,6 +107,13 @@ public class MainController implements Initializable {
 //            }
 
 //        }
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("User")) {
+                btnIE.setDisable(true);
+            }
+        }
+        //Animation 
         opacityPane.setVisible(false);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), opacityPane);
         fadeTransition.setFromValue(1);
@@ -139,14 +143,72 @@ public class MainController implements Initializable {
             fadeTransition1.setToValue(0);
             fadeTransition1.play();
             fadeTransition1.setOnFinished(event1 -> {
-                opacityPane.setVisible(false);
+            opacityPane.setVisible(false);
             });
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), drawerPane);
             translateTransition1.setByX(-600);
             translateTransition1.play();
         });
-        Timer timer = new Timer(true); //set it as a deamon
-        timer.schedule(new MyTimer(), 0, 1000);
+        //Multi-threaded Timer 
+        multiThreadedTimer();
+    }
+
+    private void multiThreadedTimer() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minute = calendar.get(Calendar.MINUTE);
+                int second = calendar.get(Calendar.SECOND);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                int AM_PM = calendar.get(Calendar.AM_PM);
+                if (AM_PM == 0) {
+                    if (minute < 10 && minute >= 0) {
+                        String times = hour + ":" + ("0" + minute) + ":" + second;
+                        String date = (month + 1) + "/" + day + "/" + (year);
+                        Platform.runLater(() -> {
+                            lbDateDay.setText(times);
+                            lbDateYear.setText(date);
+                            lbDateM.setText("AM");
+                        });
+                    } else if (minute >= 10 && minute <= 60) {
+                        String times = hour + ":" + (minute) + ":" + second;
+                        String date = (month + 1) + "/" + day + "/" + (year);
+                        Platform.runLater(() -> {
+                            lbDateDay.setText(times);
+                            lbDateYear.setText(date);
+                            lbDateM.setText("AM");
+                        });
+                    }
+                } else if (AM_PM == 1) {
+                    if (minute < 10 && minute >= 0) {
+                        String times = hour + ":" + ("0" + minute) + ":" + second;
+                        String date = (month + 1) + "/" + day + "/" + (year);
+                        Platform.runLater(() -> {
+                            lbDateDay.setText(times);
+                            lbDateYear.setText(date);
+                            lbDateM.setText("PM");
+                        });
+                    } else if (minute >= 10 && minute <= 60) {
+                        String times = hour + ":" + (minute) + ":" + second;
+                        String date = (month + 1) + "/" + day + "/" + (year);
+                        Platform.runLater(() -> {
+                            lbDateDay.setText(times);
+                            lbDateYear.setText(date);
+                            lbDateM.setText("PM");
+                        });
+                    }
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        taskList.add(task);
+        if (taskList.isEmpty()) {
+            taskList.removeFirst().cancel();
+        }
     }
 
     private void animationPane() {
@@ -187,41 +249,6 @@ public class MainController implements Initializable {
                 });
             });
         });
-    }
-
-    public class MyTimer extends TimerTask {
-
-        @Override
-        public void run() {
-            Calendar calendar = Calendar.getInstance();
-            int hour = calendar.get(Calendar.HOUR);
-            int minute = calendar.get(Calendar.MINUTE);
-            int second = calendar.get(Calendar.SECOND);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            int month = calendar.get(Calendar.MONTH);
-            int year = calendar.get(Calendar.YEAR);
-            int AM_PM = calendar.get(Calendar.AM_PM);
-            if (AM_PM == 1) {
-                lbDateM.setText("PM");
-            } else {
-                lbDateM.setText("AM");
-            }
-            if (minute < 10 && minute >= 0) {
-                String times = hour + ":" + ("0" + minute) + ":" + second;
-                String date = (month + 1) + "/" + day + "/" + (year);
-                Platform.runLater(() -> {
-                    lbDateDay.setText(times);
-                    lbDateYear.setText(date);
-                });
-            } else if (minute >= 10 && minute <= 60) {
-                String times = hour + ":" + (minute) + ":" + second;
-                String date = (month + 1) + "/" + day + "/" + (year);
-                Platform.runLater(() -> {
-                    lbDateDay.setText(times);
-                    lbDateYear.setText(date);
-                });
-            }
-        }
     }
 
     @FXML
@@ -270,7 +297,7 @@ public class MainController implements Initializable {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
 //        stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
         stage.setTitle("Supplier");
         stage.setScene(scene);
         stage.show();
@@ -279,21 +306,22 @@ public class MainController implements Initializable {
     @FXML
     private void handleLogOut(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Logout Form");
+        alert.setTitle("Logout");
         alert.setHeaderText(null);
         alert.setContentText("Are You Sure?");
         ButtonType okButton = new ButtonType("Yes");
         ButtonType noButton = new ButtonType("No");
-        alert.getButtonTypes().setAll(okButton, noButton);  
+        alert.getButtonTypes().setAll(okButton, noButton);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get()==okButton) {
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  
-                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-                    stage.centerOnScreen();
-                    stage.show();
-        }else if(result.get()==noButton){            
-        }  
+        if (result.get() == okButton) {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.show();
+        } else if (result.get() == noButton) {
+        }
     }
 }

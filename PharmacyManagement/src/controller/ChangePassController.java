@@ -10,13 +10,14 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+//import javafx.collections.FXCollections;
+//import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import model.Member;
+//import model.Employee;
+//import model.Member;
 import model.UsernameDAOImplement;
 
 /**
@@ -39,7 +40,7 @@ public class ChangePassController implements Initializable {
     @FXML
     private JFXPasswordField txtConfirm;
 
-    public static ObservableList<Member> ListMembers = FXCollections.observableArrayList();
+//    public static ObservableList<Employee> ListMembers = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -52,13 +53,23 @@ public class ChangePassController implements Initializable {
 
     @FXML
     private void handleChangePassword(ActionEvent event) throws SQLException {
-        boolean txtUsernotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtUser, lbUser, "User is requied");
-        boolean txtPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "Password is requied");
-        boolean txtRePass = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirm, lbConfirm, "Not match");
+        
+        boolean txtUsernotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtUser, lbUser, "UserName must be filled out");
+        if (!txtUsernotEmpty) {
+            txtUser.requestFocus();
+        }
+        boolean txtPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "7-16 character,special symbols");
+        if (!txtPasswordTrue) {
+            txtPass.requestFocus();
+        }
+        boolean txtRePass = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirm, lbConfirm, "Password and confirmation do not match");
+        if (!txtRePass) {
+            txtConfirm.requestFocus();
+        }
         if (txtUsernotEmpty && txtPasswordTrue && txtRePass) {
             UsernameDAOImplement userImp = new UsernameDAOImplement();
             String password = PasswordHash.encryptPass(txtConfirm.getText());
-            userImp.updateUser(txtUser.getText(), txtConfirm.getText());
+            userImp.updateUser(txtUser.getText(), password);
             clear();
         }
     }

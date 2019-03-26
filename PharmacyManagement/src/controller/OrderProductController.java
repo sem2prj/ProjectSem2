@@ -248,7 +248,7 @@ public class OrderProductController implements Initializable {
                     for (OrderList2 item : orderData) {
                         String str1 = item.getBarcode();
 
-                        if (ValidationController.sosanhchuoi(barcode, str1)) {
+                        if (!ValidationController.sosanhchuoi(barcode, str1)) {
                             int table_qty = item.getQty() + qty;
                             double table_amount = item.getAmount() + amount;
                             item.setQty(table_qty);

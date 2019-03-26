@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.sql.Blob;
+import java.sql.Date;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -17,101 +20,168 @@ import javafx.beans.property.StringProperty;
  * @author PC
  */
 public class Drug {
+
     private StringProperty DCode;
-    private StringProperty nameDrug;
-    private StringProperty type;
-    private StringProperty UNit;
-    private DoubleProperty priceIn;
-    private DoubleProperty saleprice;
-    private StringProperty supplier;
-    private IntegerProperty amount;
-    private StringProperty desciption;
+    private StringProperty Name;
+    private StringProperty Categories;
+    private StringProperty Unit;
+    private Blob Image;
+    private StringProperty Status;
+    private DoubleProperty BuyPrice;
+    private DoubleProperty SellPrice;
+    private SimpleObjectProperty<Date> Experied;
+    private IntegerProperty Quantity;
+    private StringProperty Supplier;
+    private StringProperty description;
+    private IntegerProperty Id1;
+    private IntegerProperty Id2;
 
     public Drug() {
     }
 
-    public Drug(String dCode, String nameDrug, String type, String uNit, Double priceIn, Double saleprice, String supplier, Integer amount, String desciption) {
-        this.DCode =new SimpleStringProperty(dCode);
-        this.nameDrug = new SimpleStringProperty(nameDrug);
-        this.type = new SimpleStringProperty(type);
-        this.UNit = new SimpleStringProperty(uNit);
-        this.priceIn = new SimpleDoubleProperty(priceIn);
-        this.saleprice = new SimpleDoubleProperty(saleprice);
-        this.supplier = new SimpleStringProperty(supplier);
-        this.amount = new SimpleIntegerProperty(amount);
-        this.desciption =  new SimpleStringProperty(desciption);
+    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description) {
+        this.DCode = new SimpleStringProperty(DCode);
+        this.Name = new SimpleStringProperty(Name);
+        this.Categories = new SimpleStringProperty(Categories);
+        this.Unit = new SimpleStringProperty(Unit);
+        this.Image = Image;
+        this.Status = new SimpleStringProperty(Status);
+        this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
+        this.SellPrice = new SimpleDoubleProperty(SellPrice);
+        this.Experied = new SimpleObjectProperty<>(Experied);
+        this.Quantity = new SimpleIntegerProperty(Quantity);
+        this.Supplier = new SimpleStringProperty(Supplier);
+        this.description = new SimpleStringProperty(description);
     }
+
+    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description, Integer Id1, Integer Id2) {
+        this.DCode = new SimpleStringProperty(DCode);
+        this.Name = new SimpleStringProperty(Name);
+        this.Categories = new SimpleStringProperty(Categories);
+        this.Unit = new SimpleStringProperty(Unit);
+        this.Image = Image;
+        this.Status = new SimpleStringProperty(Status);
+        this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
+        this.SellPrice = new SimpleDoubleProperty(SellPrice);
+        this.Experied = new SimpleObjectProperty<>(Experied);
+        this.Quantity = new SimpleIntegerProperty(Quantity);
+        this.Supplier = new SimpleStringProperty(Supplier);
+        this.description = new SimpleStringProperty(description);
+        this.Id1 = new SimpleIntegerProperty(Id1);
+        this.Id2 = new SimpleIntegerProperty(Id2);
+    }
+
 
     public String getDCode() {
         return DCode.get();
     }
 
-    public void setDCode(String dCode) {
-        this.DCode = new SimpleStringProperty(dCode);
+    public void setDCode(String DCode) {
+        this.DCode = new SimpleStringProperty(DCode);
     }
 
-    public String getNameDrug() {
-        return nameDrug.get();
+    public String getName() {
+        return Name.get();
     }
 
-    public void setNameDrug(String nameDrug) {
-        this.nameDrug = new SimpleStringProperty(nameDrug);
+    public void setName(String Name) {
+        this.Name = new SimpleStringProperty(Name);
     }
 
-    public String getUNit() {
-        return UNit.get();
+    public String getCategories() {
+        return Categories.get();
     }
 
-    public void setUNit(String uNit) {
-        this.UNit =new SimpleStringProperty(uNit);
+    public void setCategories(String Categories) {
+        this.Categories = new SimpleStringProperty(Categories);
     }
 
-    public String getType() {
-        return type.get();
+    public String getUnit() {
+        return Unit.get();
     }
 
-    public void setType(String type) {
-        this.type = new SimpleStringProperty(type);
+    public void setUnit(String Unit) {
+        this.Unit = new SimpleStringProperty(Unit);
     }
 
-    public Double getPriceIn() {
-        return priceIn.get();
+    public Blob getImage() {
+        return Image;
     }
 
-    public void setPriceIn(Double priceIn) {
-        this.priceIn = new SimpleDoubleProperty(priceIn);
+    public void setImage(Blob Image) {
+        this.Image = Image;
     }
 
-    public Double getSaleprice() {
-        return saleprice.get();
+    public String getStatus() {
+        return Status.get();
     }
 
-    public void setSaleprice(Double saleprice) {
-        this.saleprice =new SimpleDoubleProperty(saleprice);
+    public void setStatus(String Status) {
+        this.Status = new SimpleStringProperty(Status);
+    }
+
+    public Double getBuyPrice() {
+        return BuyPrice.get();
+    }
+
+    public void setBuyPrice(Double BuyPrice) {
+        this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
+    }
+
+    public Double getSellPrice() {
+        return SellPrice.get();
+    }
+
+    public void setSellPrice(Double SellPrice) {
+        this.SellPrice = new SimpleDoubleProperty(SellPrice);
+    }
+
+    public Object getExperied() {
+        return Experied.get();
+    }
+
+    public void setExperied(Date Experied) {
+        this.Experied = new SimpleObjectProperty<>(Experied);
+    }
+
+    public Integer getQuantity() {
+        return Quantity.get();
+    }
+
+    public void setQuantity(Integer Quantity) {
+        this.Quantity = new SimpleIntegerProperty(Quantity);
     }
 
     public String getSupplier() {
-        return supplier.get();
+        return Supplier.get();
     }
 
-    public void setSupplier(String supplier) {
-        this.supplier = new SimpleStringProperty(supplier);
+    public void setSupplier(String Supplier) {
+        this.Supplier = new SimpleStringProperty(Supplier);
     }
 
-    public Integer getAmount() {
-        return amount.get();
+    public String getDescription() {
+        return description.get();
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = new SimpleIntegerProperty(amount);
-    }
-
-    public String getDesciption() {
-        return desciption.get();
-    }
-
-    public void setDesciption(String desciption) {
-        this.desciption = new SimpleStringProperty(desciption);
+    public void setDesciption(String description) {
+        this.description = new SimpleStringProperty(description);
     }
     
+        public Integer getId1() {
+        return Id1.get();
+    }
+
+    public void setId1(Integer Id1) {
+        this.Id1 = new SimpleIntegerProperty(Id1);
+    }
+
+    public Integer getId2() {
+        return Id2.get();
+    }
+
+    public void setId2(Integer Id2) {
+        this.Id2 = new SimpleIntegerProperty(Id2);
+    }
+
 }

@@ -15,26 +15,26 @@
                <children>
                   <Label id="labelInfo" layoutX="14.0" layoutY="14.0" text="Code" />
                   <JFXTextField fx:id="txtUser" layoutX="79.0" layoutY="10.0" prefHeight="25.0" prefWidth="165.0" />
-                  <Label fx:id="lbUser" layoutX="79.0" layoutY="49.0" prefHeight="17.0" prefWidth="165.0" />
+                  <Label fx:id="lbUser" layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="230.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0">
                <children>
                   <Label id="labelInfo" layoutX="14.0" layoutY="14.0" text="Password" />
-                  <Label fx:id="lbPass" layoutX="79.0" layoutY="49.0" prefHeight="17.0" prefWidth="165.0" />
+                  <Label fx:id="lbPass" layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="230.0" />
                   <JFXPasswordField fx:id="txtPass" layoutX="79.0" layoutY="10.0" prefHeight="25.0" prefWidth="165.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="250.0">
                <children>
                   <Label id="labelInfo" layoutX="14.0" layoutY="14.0" text="Confirm" />
-                  <Label fx:id="lbConfirm" layoutX="79.0" layoutY="49.0" prefHeight="17.0" prefWidth="165.0" />
+                  <Label fx:id="lbConfirm" layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="230.0" />
                   <JFXPasswordField fx:id="txtConfirm" layoutX="79.0" layoutY="10.0" prefHeight="25.0" prefWidth="165.0" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <JFXButton id="btnChange" layoutX="198.0" layoutY="288.0" onAction="#handleChangePassword" prefHeight="41.0" prefWidth="70.0" text="Change" />
+      <JFXButton id="btnChange" layoutX="216.0" layoutY="303.0" onAction="#handleChangePassword" prefHeight="41.0" prefWidth="70.0" text="Change" />
       <AnchorPane id="paneHeader" prefHeight="41.0" prefWidth="300.0">
          <children>
             <Label id="labelTitle" layoutX="81.0" layoutY="12.0" text="Change password" />

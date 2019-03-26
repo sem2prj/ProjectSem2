@@ -21,9 +21,9 @@ public class ConnectDB {
     //Test
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String DB_URL = "jdbc:sqlserver://localhost:1433;";
-    static String DATABASENAME = "databaseName=pharmacy2;";
+    static String DATABASENAME = "databaseName=pharmacy;";
     static String USER = "user=sa;";
-    static String PASS = "password=sa";
+    static String PASS = "password=123";
     
 //    static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 //    static String DB_URL = "jdbc:sqlserver://dbpharmacymanagement.chalwz8sezq8.us-east-2.rds.amazonaws.com:1433;";
@@ -34,7 +34,7 @@ public class ConnectDB {
     static public Connection connectSQLServer() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         Connection connection = DriverManager.getConnection(DB_URL + DATABASENAME + USER + PASS);
-          System.out.println("Connection success");
+//          System.out.println("Connection success");
         return connection;
     }
 
@@ -48,7 +48,7 @@ public class ConnectDB {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-         System.out.println("Connection success");
+//         System.out.println("Connection success");
         return conn;
     }
 }

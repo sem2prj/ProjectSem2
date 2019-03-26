@@ -72,7 +72,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public class EmployeeController implements Initializable {
 
     private ObservableList<Employee> orderData;
-    private static ObservableList<Employee> data;
+    private ObservableList<Employee> data;
 
     //FXML
     @FXML
@@ -104,7 +104,7 @@ public class EmployeeController implements Initializable {
     //combobox
     private final String position[] = {"Manager", "Employee"};
     private final String department[] = {"Store", "Sell", "Bussiness"};
-    private final String roles[]={"1","2","3","4","5"};
+    private final String roles[] = {"User", "Supervision", "Admin", "President"};
 
     //image
     private FileChooser fileChooser;
@@ -170,7 +170,7 @@ public class EmployeeController implements Initializable {
     private Label labelRoles;
     @FXML
     private JFXComboBox<String> cbRoles;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -202,47 +202,50 @@ public class EmployeeController implements Initializable {
     //add
     @FXML
     private void handleAdd(ActionEvent event) {
-        //error
-        
-        boolean isPasswordNotEmpty=controller.ValidationController.isPasswordFieldHavingText(txtPass, labelPass, "Password is requied ");
-           
-        boolean arePasswordsametoREPassword = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirmPass, lbConfirm, "Password and Re-password not match");
-        
-        boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied ");
+
+        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordTrueType(txtPass, labelPass, "7-16 character,special symbols");
+        if (isPasswordNotEmpty) {
+            txtPass.requestFocus();
+        }
+        boolean arePasswordsametoREPassword = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirmPass, lbConfirm, "Your password and confirmation password do not match");
+        if (arePasswordsametoREPassword) {
+            txtConfirmPass.requestFocus();
+        }
+        boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees must be filled out ");
         if (!txtAddreenotEmpty) {
             txtAddrees.requestFocus();
         }
 
-        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Email is requied ,example :voduc204@gmail.com");
+        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
         if (!txtEmailnotSuitable) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone is requied ,example ex: +84 945 333 666, 0905123456,01233456789");
+        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotSuitable) {
             txtPhone.requestFocus();
         }
-        boolean txtUserNamenotEmpty = controller.ValidationController.isTextFieldHavingText(txtUsername, lbUser, "UserName is requied");
+        boolean txtUserNamenotEmpty = controller.ValidationController.isTextFieldHavingText(txtUsername, lbUser, "Name must be filled out");
         if (!txtUserNamenotEmpty) {
             txtUsername.requestFocus();
         }
 
-        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "EPLCode is requied");
+        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "Code must be filled out");
         if (!txtBarcodenotEmpty) {
             txtEplCode.requestFocus();
         }
 
-        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
+        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary must be filled out");
         if (!txtSalarynotNumber) {
             txtSalary.requestFocus();
         }
         if (txtDateBirth.getValue() == null) {
-            lbDofBirth.setText("Date is required");
+            lbDofBirth.setText("Date must be filled out");
         } else if (txtDateBirth.getValue() != null) {
             lbDofBirth.setText("");
         }
         if (txtDateWork.getValue() == null) {
-            lbAWork.setText("Date is required");
+            lbAWork.setText("Date must be filled out");
         } else if (txtDateWork.getValue() != null) {
             lbAWork.setText("");
         }
@@ -252,77 +255,83 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
+        if (ValidationController.checkPolymerCode(txtEplCode.getText())) { 
+            if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
 
-        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty&&isPasswordNotEmpty&&arePasswordsametoREPassword&&txtSalarynotNumber) {
-            if (rdMale.isSelected()) {
-                gendercheck = true;
-            } else if (rdFemale.isSelected()) {
-                gendercheck = false;
-            }
-            Employee employee = new Employee();
-            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            byte[] res;
-            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
-                ImageIO.write(bImage, "png", s);
-                res = s.toByteArray();
-                Blob blob = new SerialBlob(res);
-                employee.setImageBlob(blob);
-                EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                String password = PasswordHash.encryptPass(txtConfirmPass.getText());
-                String username =txtUsername.getText().trim().replaceAll("\\s+","");
-                String addrees =txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()),cbRoles.getSelectionModel().getSelectedItem() + "", username,password);
+                if (rdMale.isSelected()) {
+                    gendercheck = true;
+                } else if (rdFemale.isSelected()) {
+                    gendercheck = false;
+                }
 
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+                BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                byte[] res;
+                try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                    ImageIO.write(bImage, "png", s);
+                    res = s.toByteArray();
+                    Blob blob = new SerialBlob(res);
+                    Employee employee = new Employee();
+                    employee.setImageBlob(blob);
+                    EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
+                    String password = PasswordHash.encryptPass(txtConfirmPass.getText());
+                    String username = txtUsername.getText().trim().replaceAll("\\s+", "");
+                    String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+                    eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                            Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", username, password);
+
+                } catch (IOException | SQLException ex) {
+                    Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                emptyLabel();
+                clear();
+
+            } else {
+//               AlertDialog.display("Info", "Not found);
             }
-            emptyLabel();
-            clear();
+
         }
         loadTableForm();
     }
-    
 
     //update
     @FXML
     private void handleUpdate(ActionEvent event) {
 
-        boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees is requied ");
+        boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees must be filled out");
         if (!txtAddreenotEmpty) {
             txtAddrees.requestFocus();
         }
 
-        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Email is requied ,example :voduc204@gmail.com");
+        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
         if (!txtEmailnotSuitable) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone is requied ,example ex: +84 945 333 666, 0905123456,01233456789");
+        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotSuitable) {
             txtPhone.requestFocus();
         }
-        boolean txtUserNamenotEmpty = controller.ValidationController.isTextFieldHavingText(txtUsername, lbUser, "UserName is requied");
+        boolean txtUserNamenotEmpty = controller.ValidationController.isTextFieldHavingText(txtUsername, lbUser, "Name must be filled out");
         if (!txtUserNamenotEmpty) {
             txtUsername.requestFocus();
         }
 
-        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "EPLCode is requied");
+        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "Code must be filled out");
         if (!txtBarcodenotEmpty) {
             txtEplCode.requestFocus();
         }
 
-        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary is number");
+        boolean txtSalarynotNumber = controller.ValidationController.isTextFieldTypeNumber(txtSalary, lbSalary, "Salary must be filled out");
         if (!txtSalarynotNumber) {
             txtSalary.requestFocus();
         }
         if (txtDateBirth.getValue() == null) {
-            lbDofBirth.setText("Date is required");
+            lbDofBirth.setText("Date must be filled out");
         } else if (txtDateBirth.getValue() != null) {
             lbDofBirth.setText("");
         }
         if (txtDateWork.getValue() == null) {
-            lbAWork.setText("Date is required");
+            lbAWork.setText("Date must be filled out");
         } else if (txtDateWork.getValue() != null) {
             lbAWork.setText("");
         }
@@ -331,7 +340,7 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty&&txtSalarynotNumber) {
+        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && txtSalarynotNumber) {
             if (rdMale.isSelected()) {
                 gendercheck = true;
             } else if (rdFemale.isSelected()) {
@@ -346,9 +355,9 @@ public class EmployeeController implements Initializable {
                 Blob blob = new SerialBlob(res);
                 employee.setImageBlob(blob);
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                String addrees =txtAddrees.getText().trim().replaceAll("\\s+", " "); 
+                String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
                 eDAOIpl.updateEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()),cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(),id);
+                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(), id);
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -363,7 +372,7 @@ public class EmployeeController implements Initializable {
     //delete
     @FXML
     private void HandleDelete(ActionEvent event) {
-        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "EPLCode is requied");
+        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "Code must be filled out");
         if (!txtBarcodenotEmpty) {
             txtEplCode.requestFocus();
         }
@@ -422,7 +431,7 @@ public class EmployeeController implements Initializable {
             cbDepartment.setValue(employee.getDepartment());
             cbRoles.setValue(employee.getRole());
             //Transaction id employee to update
-            id=employee.getId();
+            id = employee.getId();
         });
     }
 
@@ -440,7 +449,7 @@ public class EmployeeController implements Initializable {
         }
         ObservableList obListDP = FXCollections.observableArrayList(listDP);
         cbDepartment.setItems(obListDP);
-        
+
         List<String> listRL = new ArrayList<>();
         for (String listSRL : roles) {
             listRL.add(listSRL);
@@ -451,17 +460,17 @@ public class EmployeeController implements Initializable {
 
     //Css error
     private void errorValidate() {
-        lbCode.setStyle("-fx-text-fill:orange");
-        lbUser.setStyle("-fx-text-fill:orange");
-        lbPhone.setStyle("-fx-text-fill:orange");
-        lbEmail.setStyle("-fx-text-fill:orange");
-        lbAddrees.setStyle("-fx-text-fill:orange");
-        lbSalary.setStyle("-fx-text-fill:orange");
-        lbImage.setStyle("-fx-text-fill:orange");
-        lbDofBirth.setStyle("-fx-text-fill:orange");
-        lbAWork.setStyle("-fx-text-fill:orange");
-        labelPass.setStyle("-fx-text-fill:orange");
-        lbConfirm.setStyle("-fx-text-fill:orange");
+        lbCode.setStyle("-fx-text-fill:#daa520");
+        lbUser.setStyle("-fx-text-fill:#daa520");
+        lbPhone.setStyle("-fx-text-fill:#daa520");
+        lbEmail.setStyle("-fx-text-fill:#daa520");
+        lbAddrees.setStyle("-fx-text-fill:#daa520");
+        lbSalary.setStyle("-fx-text-fill:#daa520");
+        lbImage.setStyle("-fx-text-fill:#daa520");
+        lbDofBirth.setStyle("-fx-text-fill:#daa520");
+        lbAWork.setStyle("-fx-text-fill:#daa520");
+        labelPass.setStyle("-fx-text-fill:#daa520");
+        lbConfirm.setStyle("-fx-text-fill:#daa520");
     }
 
     @FXML
@@ -519,7 +528,7 @@ public class EmployeeController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    FileOutputStream fileOut = new FileOutputStream("E:\\Excel\\ExcelEmployee.xls");
+                    FileOutputStream fileOut = new FileOutputStream("E:\\ExcelEmployee.xls");
                     HSSFWorkbook workbook = new HSSFWorkbook();
                     HSSFSheet worksheet = workbook.createSheet("Employee");
                     //row 0
@@ -589,7 +598,7 @@ public class EmployeeController implements Initializable {
                     }
                     workbook.write(fileOut);
                     if (!data.isEmpty()) {
-                        AlertDialog.display("Info", "Excel Insert E:\\Excel\\ExcelEmployee Successfully");
+                        AlertDialog.display("Info", "Excel Insert E:\\ExcelEmployee.xls Successfully");
                     } else {
                         AlertDialog.display("Info", "Excel Insert Failure");
                     }
@@ -640,6 +649,6 @@ public class EmployeeController implements Initializable {
         stage.setTitle("Change Password");
         stage.setScene(scene);
         stage.show();
-        
+
     }
 }
