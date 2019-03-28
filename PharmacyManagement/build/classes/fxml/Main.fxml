@@ -82,7 +82,7 @@
                   <JFXButton id="btnHandleMain" fx:id="btnDrug" layoutX="10.0" layoutY="10.0" onAction="#handleDrug" prefHeight="128.0" prefWidth="212.0" text="DRUG" GridPane.columnIndex="1" />
                   <JFXButton id="btnHandleMain" fx:id="btnCustomer" layoutX="10.0" layoutY="10.0" onAction="#handleCustomer" prefHeight="128.0" prefWidth="212.0" text="CUSTOMER" GridPane.columnIndex="2" />
                   <JFXButton id="btnHandleMain" fx:id="btnStore" layoutX="10.0" layoutY="10.0" prefHeight="128.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="1" />
-                  <JFXButton id="btnHandleMain" fx:id="btnPayment" layoutX="10.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="PAYMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXButton id="btnHandleMain" fx:id="btnPayment" layoutX="10.0" layoutY="130.0" onAction="#handlePayment" prefHeight="128.0" prefWidth="212.0" text="PAYMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" fx:id="btnReport" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="REPORT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" fx:id="btnSupplier" layoutX="10.0" layoutY="130.0" onAction="#handleSuppier" prefHeight="128.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="2" />
                   <JFXButton id="btnHandleMain" fx:id="btnIE" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="IMPORT/EXPORT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
