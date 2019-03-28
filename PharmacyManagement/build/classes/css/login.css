@@ -1,0 +1,16 @@
+
+#imageLogo{
+    -fx-background-color: #4169e1;
+}
+#btnHandle{
+    -fx-background-color: #4169e1;
+}
+#btnHandle:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+#labelLogo{
+    -fx-text-fill: #daa520;
+    -fx-font-size: 24px;
+    -fx-font-family: sans-serif;
+}
