@@ -330,11 +330,11 @@ public class OrderProductController implements Initializable {
     }
     
     private void printInvoice(){
-        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice.jrxml";
+        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
         try {
             JasperReport jr = JasperCompileManager.compileReport(file);
             HashMap<String, Object >para = new HashMap<>();
-            para.put("cashier","ai do");
+//            para.put("cashier","ai do");
             
             ArrayList<Products> plist = new ArrayList<>();
             
