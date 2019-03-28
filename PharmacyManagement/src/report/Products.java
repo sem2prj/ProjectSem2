@@ -22,6 +22,7 @@ public class Products {
     private String amount;
 
     public Products(){}
+    
     public Products(String pname, String price, String pqty, String amount) {
         this.pname = pname;
         this.price = price;
@@ -91,6 +92,10 @@ public class Products {
              for (OrderList2 item : orderData){
                  Products products = new Products();
                  products.setPname(item.getProductName());
+                 products.setPrice(""+item.getPriceOut());
+                 products.setPqty(""+item.getQty());
+                 products.setAmount(""+item.getAmount());
+                 productsList.add(products);
                  
              }
         
