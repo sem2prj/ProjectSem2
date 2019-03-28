@@ -298,7 +298,7 @@ public class OrderProductController implements Initializable {
                 }
             
             }
-            printInvoice();
+//            printInvoice();
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -329,34 +329,34 @@ public class OrderProductController implements Initializable {
         return orderID;
     }
     
-    private void printInvoice(){
-        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
-        try {
-            JasperReport jr = JasperCompileManager.compileReport(file);
-            HashMap<String, Object >para = new HashMap<>();
-//            para.put("cashier","ai do");
-            
-            ArrayList<Products> plist = new ArrayList<>();
-            
-            for (OrderList2 item : orderData){
-                
-            plist.add(new Products(item.getProductName(),""+item.getPriceOut(),""+item.getQty(),""+item.getAmount()));
-            
-                   
-            }
-            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
-            JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
-//            JasperViewer jv= new JasperViewer(jp,false );
-            JasperViewer.viewReport(jp);
-//            jv.setVisible(true);
+//    private void printInvoice(){
+//        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
+//        try {
+//            JasperReport jr = JasperCompileManager.compileReport(file);
+//            HashMap<String, Object >para = new HashMap<>();
+////            para.put("cashier","ai do");
+//            
+//            ArrayList<Products> plist = new ArrayList<>();
+//            
+//            for (OrderList2 item : orderData){
+//                
+//            plist.add(new Products(item.getProductName(),""+item.getPriceOut(),""+item.getQty(),""+item.getAmount()));
+//            
+//                   
+//            }
+//            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
+//            JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
+////            JasperViewer jv= new JasperViewer(jp,false );
 //            JasperViewer.viewReport(jp);
-            
-        } catch (JRException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
+////            jv.setVisible(true);
+////            JasperViewer.viewReport(jp);
+//            
+//        } catch (JRException ex) {
+//            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        
+//    }
 } 
 
 
