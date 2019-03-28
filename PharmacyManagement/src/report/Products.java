@@ -89,15 +89,16 @@ public class Products {
     public static Collection getProductsList(ObservableList<OrderList2> orderData){
         Vector productsList  = new Vector();
         try {
-             for (OrderList2 item : orderData){
-                 Products products = new Products();
-                 products.setPname(item.getProductName());
-                 products.setPrice(""+item.getPriceOut());
-                 products.setPqty(""+item.getQty());
-                 products.setAmount(""+item.getAmount());
-                 productsList.add(products);
-                 
-             }
+            orderData.stream().map((item) -> {
+                Products products = new Products();
+                products.setPname(item.getProductName());
+                products.setPrice(""+item.getPriceOut());
+                products.setPqty(""+item.getQty());
+                products.setAmount(""+item.getAmount());
+                return products;
+            }).forEachOrdered((products) -> {
+                productsList.add(products);
+            });
         
         } catch(Exception ex){
             System.out.println(ex);
