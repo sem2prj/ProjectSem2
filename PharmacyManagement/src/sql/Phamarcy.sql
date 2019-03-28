@@ -245,3 +245,4 @@ SELECT *FROM Users
 
 select *from DetailUser
 
+use pharmacy2

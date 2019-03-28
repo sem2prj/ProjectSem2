@@ -324,4 +324,18 @@ public class MainController implements Initializable {
         } else if (result.get() == noButton) {
         }
     }
+
+    @FXML
+    private void handlePayment(ActionEvent event)  throws IOException {       
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+//        scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Customer");
+        stage.setScene(scene);
+        stage.show();
+    
+    }
 }
