@@ -6,6 +6,11 @@
  */
 package report;
 
+import java.util.Collection;
+import java.util.Vector;
+import javafx.collections.ObservableList;
+import model.OrderList2;
+
 /**
  *
  * @author LeakSmey
@@ -16,6 +21,7 @@ public class Products {
     private String pqty;
     private String amount;
 
+    public Products(){}
     public Products(String pname, String price, String pqty, String amount) {
         this.pname = pname;
         this.price = price;
@@ -79,6 +85,22 @@ public class Products {
         this.amount = amount;
     }
     
+    public static Collection getProductsList(ObservableList<OrderList2> orderData){
+        Vector productsList  = new Vector();
+        try {
+             for (OrderList2 item : orderData){
+                 Products products = new Products();
+                 products.setPname(item.getProductName());
+                 
+             }
+        
+        } catch(Exception ex){
+            System.out.println(ex);
+        }
+        
+        
+        return productsList;
+    }
     
     
 }
