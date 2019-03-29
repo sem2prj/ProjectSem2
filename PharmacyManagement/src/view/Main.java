@@ -43,7 +43,7 @@ public class Main extends Application {
         rs = pst.executeQuery();
         if (rs.next()) {
             System.out.println(rs.getString(1));
-            System.out.println(rs.getString(1).length());
+            if(rs.getString(1)==null){System.out.println("lalalal");}
         } else {
             System.out.println("Khong co gi");
         }
