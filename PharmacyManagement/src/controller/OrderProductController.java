@@ -321,6 +321,8 @@ public class OrderProductController implements Initializable {
                 orderID = orderID.substring(0, 10 -x) + String.valueOf(n);
                 
             
+            }else {
+                orderID = "Order00000";
             }
             rs.close();
             pst.close();
