@@ -310,26 +310,29 @@ public class OrderProductController implements Initializable {
 
     private String autoOrderID(){
         String orderID = "Order00000";
-        
+
         try {
             pst = con.prepareStatement("select max(OrderID) from Orders");
             rs = pst.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 orderID = rs.getString(1);
-                int n = Integer.parseInt(orderID.substring(5)) +1 ;
-                int x = String.valueOf(n).length();
-                orderID = orderID.substring(0, 10 -x) + String.valueOf(n);
-                
-            
-            } 
+                if (orderID.isEmpty()) {
+                    orderID = "Order00000";
+                } else {
+                    int n = Integer.parseInt(orderID.substring(5)) + 1;
+                    int x = String.valueOf(n).length();
+                    orderID = orderID.substring(0, 10 - x) + String.valueOf(n);
+                }
+
+            }
             rs.close();
             pst.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return orderID;
     }
     
