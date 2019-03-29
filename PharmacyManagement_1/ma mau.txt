@@ -1,4 +1,0 @@
-#ffffff : white
-#f80000 : red
-#000000 : black
-
