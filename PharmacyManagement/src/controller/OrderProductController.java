@@ -298,6 +298,7 @@ public class OrderProductController implements Initializable {
                 }
             
             }
+            AlertDialog.display("Info", "Data added into order success !!!");
 //            printInvoice();
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,7 +330,7 @@ public class OrderProductController implements Initializable {
         return orderID;
     }
     
-//    private void printInvoice(){
+    private void printInvoice(){
 //        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
 //        try {
 //            JasperReport jr = JasperCompileManager.compileReport(file);
@@ -356,7 +357,7 @@ public class OrderProductController implements Initializable {
 //        }
 //        
 //        
-//    }
+    }
 } 
 
 
