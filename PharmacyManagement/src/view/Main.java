@@ -41,7 +41,19 @@ public class Main extends Application {
 
         pst = con.prepareStatement("select max(OrderID) from Orders");
         rs = pst.executeQuery();
-        System.out.println(rs.getString(1));
+        if (rs.next()) {
+            System.out.println(rs.getString(1));
+            if (rs.getString(1).equals(null)) {
+                System.out.println("lalalal");
+            }
+        } else {
+            System.out.println("Khong co gi");
+        }
+        
+        rs.close();
+        pst.close();
+        con.close();
+       
 
         
         
