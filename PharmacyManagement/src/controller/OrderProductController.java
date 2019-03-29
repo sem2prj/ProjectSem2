@@ -316,7 +316,9 @@ public class OrderProductController implements Initializable {
             rs = pst.executeQuery();
             
             if (rs.next()) {
-                if (rs.getString(1) != null) {
+                if (rs.getString(1) == null) 
+                { orderID = "Order00000";}
+                else{
                     orderID = rs.getString(1);
                     
                     int n = Integer.parseInt(orderID.substring(5)) + 1;
