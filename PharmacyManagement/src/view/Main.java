@@ -39,41 +39,44 @@ public class Main extends Application {
         //Start
         con = controller.ConnectDB.connectSQLServer();
 
-        pst = con.prepareStatement("select * from users");
+        pst = con.prepareStatement("select max(OrderID) from Orders");
         rs = pst.executeQuery();
+        System.out.println(rs.getString(1));
 
-        if (rs.next()) {
-            rs.close();
-            pst.close();
-            con.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-
-//            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-//            stage.getIcons().add(applicationIcon);
+        
+        
+//        if (rs.next()) {
+//            rs.close();
+//            pst.close();
+//            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+//
+////            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
+////            stage.getIcons().add(applicationIcon);
+////            stage.setResizable(false);
+//            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+//            stage.setTitle("Login");
+////            stage.initStyle(StageStyle.DECORATED);
+//            stage.setScene(scene);
+//            stage.show();
+//
+//        } else {
+//
+//            rs.close();
+//            pst.close();
+//            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
+//
+//            Scene scene = new Scene(root);
+////            stage.initStyle(StageStyle.UNDECORATED);
+//
+//             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
+//            stage.setScene(scene);
 //            stage.setResizable(false);
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
-            stage.setTitle("Login");
-//            stage.initStyle(StageStyle.DECORATED);
-            stage.setScene(scene);
-            stage.show();
-
-        } else {
-
-            rs.close();
-            pst.close();
-            con.close();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
-
-            Scene scene = new Scene(root);
-//            stage.initStyle(StageStyle.UNDECORATED);
-
-             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-
-        }
+//            stage.show();
+//
+//        }
 
         //End
 //
