@@ -112,6 +112,8 @@ public class OrderProductController implements Initializable {
     private Button btn_addtomenu;
     @FXML
     private Button btn_printInvoice;
+    @FXML
+    private Button btn_remove;
 
     /**
      * Initializes the controller class.
@@ -357,6 +359,17 @@ public class OrderProductController implements Initializable {
 //        }
 //        
 //        
+    }
+
+    @FXML
+    private void action_removeItem(ActionEvent event) {
+        double pricelast = orderData.get(orderData.size() - 1).getPriceOut();
+        int qtylast = orderData.get(orderData.size() - 1).getQty();
+        grandTotal -= (pricelast * qtylast);
+        orderData.remove(orderData.get(orderData.size() - 1));
+        table_order.setItems(orderData);
+        lb_total.setText("" + grandTotal);
+        
     }
 } 
 
