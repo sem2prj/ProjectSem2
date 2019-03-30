@@ -29,13 +29,24 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
 //        //Test MainController
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//
+//            Scene scene = new Scene(root);
+//
+//            stage.setScene(scene);
+////            stage.setResizable(false);
+//            stage.show();
+            
+            con = controller.ConnectDB.connectSQLServer();
+            String sql = "INSERT INTO stockdetail2(stockid,Pid,Qty,ExOutDate)";
+            pst 
 
-            Scene scene = new Scene(root);
 
-            stage.setScene(scene);
-//            stage.setResizable(false);
-            stage.show();
+
+        
+
+
+
         //Start
 
        
