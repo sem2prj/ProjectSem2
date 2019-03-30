@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import org.controlsfx.control.textfield.TextFields;
 import report.Products;
 
 /**
@@ -114,6 +115,8 @@ public class OrderProductController implements Initializable {
     private Button btn_printInvoice;
     @FXML
     private Button btn_remove;
+    @FXML
+    private TextField tf_customer;
 
     /**
      * Initializes the controller class.
@@ -155,8 +158,16 @@ public class OrderProductController implements Initializable {
 
             }
         });
-
-
+        
+        ArrayList<String> result;
+        try {
+            result = autoFillCustomer();
+            TextFields.bindAutoCompletion(tf_customer, result);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
 
         orderData = FXCollections.observableArrayList();
         column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
@@ -215,6 +226,18 @@ public class OrderProductController implements Initializable {
         tf_qty.clear();
 
     }
+    
+    public ArrayList<String> autoFillCustomer() throws SQLException{
+        ArrayList<String> customerList = new ArrayList<>();
+        pst = con.prepareStatement("select CuName,CuPhone from Customer");
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            customerList.add(rs.getString(1) + " " + rs.getString(2));           
+        }
+        rs.close();
+        pst.close();
+        return customerList;
+   }
 
     public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where Code = ?");
