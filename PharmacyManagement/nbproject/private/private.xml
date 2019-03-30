@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
             <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/view/Main.java</file>
             <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/OrderProductController.java</file>
-=======
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/model/Drug.java</file>
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/model/DAODrug.java</file>
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/controller/DrugController.java</file>
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/model/DrugDAOImplement.java</file>
->>>>>>> 45524ea959edf5bdef5476402008d1d0fdd4896d
         </group>
     </open-files>
 </project-private>
