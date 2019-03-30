@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -87,24 +86,6 @@
                         <Label fx:id="lbSell" layoutX="15.0" layoutY="48.0" prefHeight="17.0" prefWidth="168.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="200.0">
-                     <children>
-                        <Label id="labelInfo" layoutX="15.0" layoutY="2.0" prefHeight="17.0" prefWidth="73.0" text="ExpiredTime" />
-                        <Label fx:id="lbExpiredTime" layoutX="15.0" layoutY="48.0" prefHeight="17.0" prefWidth="168.0" />
-                        <JFXDatePicker fx:id="txtExpiredTime" layoutX="15.0" layoutY="18.0" prefHeight="25.0" prefWidth="168.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="200.0">
-                     <children>
-                        <Label id="labelInfo" layoutX="15.0" layoutY="2.0" prefHeight="17.0" prefWidth="60.0" text="Quantity" />
-                        <JFXTextField fx:id="txtQty" layoutX="15.0" layoutY="18.0" prefHeight="25.0" prefWidth="168.0" />
-                        <Label fx:id="lbQuantity" layoutX="15.0" layoutY="48.0" prefHeight="17.0" prefWidth="168.0" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="800.0">
-               <children>
                   <AnchorPane prefHeight="65.0" prefWidth="200.0">
                      <children>
                         <Label id="labelInfo" layoutX="15.0" layoutY="2.0" prefHeight="17.0" prefWidth="60.0" text="Supplier" />
@@ -112,13 +93,17 @@
                         <Label fx:id="lbSupplier" layoutX="15.0" layoutY="48.0" prefHeight="17.0" prefWidth="168.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="65.0" prefWidth="200.0">
                      <children>
                         <Label id="labelInfo" layoutX="15.0" layoutY="2.0" prefHeight="17.0" prefWidth="73.0" text="Status" />
                         <Label layoutX="15.0" layoutY="48.0" prefHeight="17.0" prefWidth="168.0" />
                         <ChoiceBox fx:id="cbStatus" layoutX="15.0" layoutY="18.0" prefHeight="25.0" prefWidth="168.0" />
                      </children>
                   </AnchorPane>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="57.0" prefWidth="800.0">
+               <children>
                   <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="65.0" prefWidth="200.0">
                      <children>
                         <Label id="labelInfo" layoutX="15.0" layoutY="2.0" prefHeight="17.0" prefWidth="95.0" text="Description" />
@@ -134,7 +119,6 @@
           <TableColumn fx:id="columnCode" minWidth="100.0" prefWidth="100.0" text="CODE" />
           <TableColumn fx:id="columnName" minWidth="120.0" prefWidth="120.0" text="NAME" />
             <TableColumn fx:id="columnSup" minWidth="120.0" prefWidth="120.0" text="SUPPLIER" />
-            <TableColumn fx:id="columnExpired" minWidth="120.0" prefWidth="120.0" text="EXPIREDDATE" />
             <TableColumn fx:id="columnStatus" minWidth="120.0" prefWidth="120.0" text="STATUS" />
             <TableColumn fx:id="columnDes" minWidth="220.0" prefWidth="220.0" text="DESCRIPTION" />
         </columns>

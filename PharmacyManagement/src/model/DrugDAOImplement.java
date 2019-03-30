@@ -44,12 +44,9 @@ public class DrugDAOImplement implements DAODrug {
                 drug.setStatus(rs.getString("Statuses"));
                 drug.setBuyPrice(rs.getDouble("Buy"));
                 drug.setSellPrice(rs.getDouble("Sell"));
-                drug.setExperied(rs.getDate("ExTime"));
-                drug.setQuantity(rs.getInt("Quantity"));
                 drug.setSupplier(rs.getString("Supplier"));
                 drug.setDesciption(rs.getString("Descriptions"));
                 drug.setId1(rs.getInt("CatID"));
-                drug.setId2(rs.getInt("EID"));
                 listDrug.add(drug);
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -59,9 +56,8 @@ public class DrugDAOImplement implements DAODrug {
     }
 
     @Override
-    public void insertDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description) {
+    public void insertDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description) {
         String sql = "INSERT INTO Categories (CatName) VALUES(?)";
-        System.out.println("ddddddddddd");
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             pst.setString(1, Categories);
@@ -82,30 +78,30 @@ public class DrugDAOImplement implements DAODrug {
             pst1.setString(8, Supplier);
             pst1.setString(9, description);
             pst1.setInt(10, Integer.parseInt(String.valueOf(key)));
-            pst1.executeUpdate();
+            int i = pst1.executeUpdate();
 
-            ResultSet rs1 = pst1.getGeneratedKeys();
-            rs1.next();
-            Object key1 = rs.getObject(1);
-
-            String sql2 = "INSERT INTO ExpiredTime(ExDate,PId,Qty) VALUES(?,?,?)";
-            PreparedStatement pst2 = connection.prepareStatement(sql2);
-            pst2.setDate(1, Experied);
-            pst2.setInt(2, Integer.parseInt(String.valueOf(key1)));
-            pst2.setInt(3, Quantity);
-            int i = pst2.executeUpdate();
+//            ResultSet rs1 = pst1.getGeneratedKeys();
+//            rs1.next();
+//            Object key1 = rs.getObject(1);
+//
+//            String sql2 = "INSERT INTO ExpiredTime(ExDate,PId,Qty) VALUES(?,?,?)";
+//            PreparedStatement pst2 = connection.prepareStatement(sql2);
+//            pst2.setDate(1, Experied);
+//            pst2.setInt(2, Integer.parseInt(String.valueOf(key1)));
+//            pst2.setInt(3, Quantity);
+//            int i = pst2.executeUpdate();
             if (i != 0) {
                 AlertDialog.display("Info", "Data Insert Successfully");
             } else {
                 AlertDialog.display("Info", "Data Insert Failure");
             }
-        } catch (ClassNotFoundException | SQLException ex) {    
-             Logger.getLogger(DrugDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DrugDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void updateDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description, int id, int id1) {
+    public void updateDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description, int id) {
         String sql = "UPDATE Categories SET CatName=?  WHERE CatId=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
@@ -124,17 +120,16 @@ public class DrugDAOImplement implements DAODrug {
             pst1.setDouble(6, SellPrice);
             pst1.setString(7, Supplier);
             pst1.setString(8, description);
-            pst1.setString(9,DCode);
-            pst1.executeUpdate();
+            pst1.setString(9, DCode);
+            int i = pst1.executeUpdate();
 
-            String sql2 = "UPDATE ExpiredTime SET ExDate=?,Qty=? WHERE ExId=?";
-
-            PreparedStatement pst2 = connection.prepareStatement(sql2);
-            pst2.setDate(1, Experied);
-            pst2.setInt(2, Quantity);
-            pst2.setInt(3, id1);
-            int i = pst2.executeUpdate();
-
+//            String sql2 = "UPDATE ExpiredTime SET ExDate=?,Qty=? WHERE ExId=?";
+//
+//            PreparedStatement pst2 = connection.prepareStatement(sql2);
+//            pst2.setDate(1, Experied);
+//            pst2.setInt(2, Quantity);
+//            pst2.setInt(3, id1);
+//            int i = pst2.executeUpdate();
             if (i != 0) {
                 AlertDialog.display("Info", "Data Update Successfully");
             } else {

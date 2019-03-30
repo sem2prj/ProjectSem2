@@ -67,13 +67,6 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="60.0" prefHeight="40.0" prefWidth="196.0">
                <children>
-                  <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Type" />
-                  <JFXTextField fx:id="txtType" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
-                  <Label fx:id="lbType" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="60.0" prefHeight="40.0" prefWidth="196.0">
-               <children>
                   <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Addrees" />
                   <JFXTextField fx:id="txtAddrees" layoutX="55.0" layoutY="5.0" prefHeight="25.0" prefWidth="135.0" />
                   <Label fx:id="lbAddrees" layoutX="55.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" />

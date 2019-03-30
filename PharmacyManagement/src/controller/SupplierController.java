@@ -39,10 +39,6 @@ public class SupplierController implements Initializable {
     @FXML
     private Label lbName;
     @FXML
-    private JFXTextField txtType;
-    @FXML
-    private Label lbType;
-    @FXML
     private JFXTextField txtAddrees;
     @FXML
     private Label lbAddrees;
@@ -120,7 +116,7 @@ public class SupplierController implements Initializable {
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
 
             SupplierDAOIplement sDI = new SupplierDAOIplement();
-            sDI.insertSupplier(txtCode.getText(), txtName.getText(), txtType.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+            sDI.insertSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
             clear();
             labelEmpty();
             loadTable();
@@ -152,7 +148,7 @@ public class SupplierController implements Initializable {
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
 
             SupplierDAOIplement sDI = new SupplierDAOIplement();
-            sDI.updateSupplier(txtCode.getText(), txtName.getText(), txtType.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+            sDI.updateSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
             clear();
             labelEmpty();
             loadTable();
@@ -211,7 +207,6 @@ public class SupplierController implements Initializable {
     private void clear() {
         txtCode.clear();
         txtName.clear();
-        txtType.clear();
         txtAddrees.clear();
         txtPhone.clear();
         txtTax.clear();
@@ -225,7 +220,6 @@ public class SupplierController implements Initializable {
             Supplier supplier = tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
             txtCode.setText(supplier.getCode());
             txtName.setText(supplier.getNameSupplier());
-            txtType.setText(supplier.getType());
             txtAddrees.setText(supplier.getAddrees());
             txtPhone.setText(supplier.getPhone());
             txtTax.setText(supplier.getTaxINumber());
