@@ -332,7 +332,7 @@ public class MainController implements Initializable {
 //        scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
-        stage.setTitle("Customer");
+        stage.setTitle("Payment");
         stage.setScene(scene);
         stage.show();
     
