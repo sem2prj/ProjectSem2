@@ -29,17 +29,14 @@ public class Drug {
     private StringProperty Status;
     private DoubleProperty BuyPrice;
     private DoubleProperty SellPrice;
-    private SimpleObjectProperty<Date> Experied;
-    private IntegerProperty Quantity;
     private StringProperty Supplier;
     private StringProperty description;
     private IntegerProperty Id1;
-    private IntegerProperty Id2;
 
     public Drug() {
     }
 
-    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description) {
+    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description) {
         this.DCode = new SimpleStringProperty(DCode);
         this.Name = new SimpleStringProperty(Name);
         this.Categories = new SimpleStringProperty(Categories);
@@ -48,13 +45,11 @@ public class Drug {
         this.Status = new SimpleStringProperty(Status);
         this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
         this.SellPrice = new SimpleDoubleProperty(SellPrice);
-        this.Experied = new SimpleObjectProperty<>(Experied);
-        this.Quantity = new SimpleIntegerProperty(Quantity);
         this.Supplier = new SimpleStringProperty(Supplier);
         this.description = new SimpleStringProperty(description);
     }
 
-    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied, Integer Quantity, String Supplier, String description, Integer Id1, Integer Id2) {
+    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice,String Supplier, String description, Integer Id1) {
         this.DCode = new SimpleStringProperty(DCode);
         this.Name = new SimpleStringProperty(Name);
         this.Categories = new SimpleStringProperty(Categories);
@@ -63,12 +58,9 @@ public class Drug {
         this.Status = new SimpleStringProperty(Status);
         this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
         this.SellPrice = new SimpleDoubleProperty(SellPrice);
-        this.Experied = new SimpleObjectProperty<>(Experied);
-        this.Quantity = new SimpleIntegerProperty(Quantity);
         this.Supplier = new SimpleStringProperty(Supplier);
         this.description = new SimpleStringProperty(description);
         this.Id1 = new SimpleIntegerProperty(Id1);
-        this.Id2 = new SimpleIntegerProperty(Id2);
     }
 
 
@@ -136,22 +128,6 @@ public class Drug {
         this.SellPrice = new SimpleDoubleProperty(SellPrice);
     }
 
-    public Object getExperied() {
-        return Experied.get();
-    }
-
-    public void setExperied(Date Experied) {
-        this.Experied = new SimpleObjectProperty<>(Experied);
-    }
-
-    public Integer getQuantity() {
-        return Quantity.get();
-    }
-
-    public void setQuantity(Integer Quantity) {
-        this.Quantity = new SimpleIntegerProperty(Quantity);
-    }
-
     public String getSupplier() {
         return Supplier.get();
     }
@@ -174,14 +150,6 @@ public class Drug {
 
     public void setId1(Integer Id1) {
         this.Id1 = new SimpleIntegerProperty(Id1);
-    }
-
-    public Integer getId2() {
-        return Id2.get();
-    }
-
-    public void setId2(Integer Id2) {
-        this.Id2 = new SimpleIntegerProperty(Id2);
     }
 
 }

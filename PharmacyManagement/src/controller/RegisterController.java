@@ -148,6 +148,9 @@ public class RegisterController implements Initializable {
                 new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
 
+        combobox_position.setDisable(true);
+        combobox_department.setDisable(true);
+        combobox_mission.setDisable(true);
         comboboxInit();
         cssError();
 //        imageClose();
@@ -271,17 +274,17 @@ public class RegisterController implements Initializable {
 
     private void comboboxInit() {
         //Combobox_position
-        combobox_position.getItems().addAll("Employee", "Manager");
+        combobox_position.getItems().addAll("Manager");
         combobox_position.getSelectionModel().selectFirst();
         combobox_position.getValue();
 
         //Combobox_department
-        combobox_department.getItems().addAll("Store", "Sell", "Bussiness");
+        combobox_department.getItems().addAll("Bussiness");
         combobox_department.getSelectionModel().selectFirst();
         combobox_department.getValue();
 
         //Combobox_mission
-        combobox_mission.getItems().addAll("User", "Supervision", "Admin", "President");
+        combobox_mission.getItems().addAll("President");
         combobox_mission.getSelectionModel().selectFirst();
         combobox_mission.getValue();
 

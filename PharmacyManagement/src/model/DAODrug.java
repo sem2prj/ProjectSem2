@@ -18,9 +18,9 @@ public interface DAODrug {
 
     ObservableList<Drug> getAllDrug();
 
-    void insertDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied,Integer Quantity,String Supplier,String description);
+    void insertDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier,String description);
 
-    void updateDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, Date Experied,Integer Quantity,String Supplier,String description,int id,int id1);
+    void updateDrug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier,String description,int id);
 
     void deleteDrug(String dCode);
     

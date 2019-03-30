@@ -36,20 +36,12 @@ CREATE TABLE Product(
 	Supplier varchar(50),
 	PDescription varchar(max),
 	CatID int,
-	/*AmId int,
-	SnId int,*/
 	CONSTRAINT pk_PId PRIMARY KEY (PId),
 	CONSTRAINT fk_CatID FOREIGN KEY (CatID) REFERENCES Categories(CatID)
 	on delete cascade 
 	on update cascade ,
-	/*CONSTRAINT fk_AmId FOREIGN KEY (AmId) REFERENCES ActiveMaterial(AmId)
-	on delete cascade 
-	on update cascade ,
-	CONSTRAINT fk_SnId FOREIGN KEY (SnId) REFERENCES ScienitificName(SnId)
-	on delete cascade 
-	on update cascade ,*/
 )
-
+/*
 CREATE TABLE ExpiredTime(
 	ExId int identity,
 	ExDate date ,
@@ -59,7 +51,7 @@ CREATE TABLE ExpiredTime(
 	CONSTRAINT fk_PId FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
-)
+)*/
 /*
 CREATE TABLE Countries(
 	CountryID int identity,
@@ -78,6 +70,18 @@ CREATE TABLE Cities(
 	on update cascade ,
 )*/
 
+CREATE TABLE stock(
+	stockid int,
+	PId bigint,
+	Qty int,
+	ExpiredTime date,
+	DateIn date,
+	CONSTRAINT pk_stockid PRIMARY KEY (stockid),
+	CONSTRAINT fk_PId_stock FOREIGN KEY (PId) REFERENCES Product(PId)
+	on delete cascade 
+	on update cascade ,
+)
+
 CREATE TABLE Customer(
 	CuId int identity,
 	CuCode varchar(50),
@@ -94,11 +98,10 @@ CREATE TABLE Customer(
 )
 
 CREATE TABLE Orders(
-	OrderID bigint identity PRIMARY KEY,
+	OrderID varchar(50) PRIMARY KEY,
 	OrderDate date ,
-	Total varchar(50),
+	Total float,
 	CuId int,
-
 	CONSTRAINT fk_CuId FOREIGN KEY (CuId) REFERENCES Customer(CuId)
 	on delete cascade 
 	on update cascade ,
@@ -106,23 +109,22 @@ CREATE TABLE Orders(
 
 CREATE TABLE OrderDetail(
 	OrderDetailID bigint identity PRIMARY KEY,
+	OrderID varchar(50) ,
 	PId bigint ,
-	Qty varchar(50),
-	CONSTRAINT fk_PId_Order FOREIGN KEY (PId) REFERENCES Product(PId)
+	Qty int,
+	SellPrice float,
+	CONSTRAINT fk_Order_Detail FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
+	on delete cascade 
+	on update cascade ,
+	CONSTRAINT fk_PId_Detail FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
 )
-
-
-alter table OrderDetail add
-CONSTRAINT FK_OrderDetail_Orders FOREIGN KEY (OrderDetailID) REFERENCES Orders(OrderID)
-	
 
 CREATE TABLE Supplier(
 	SuID int identity,
 	SuCode varchar(50),
 	SuName varchar(50) ,
-	SuType varchar(50),
 	SuAddrees varchar(50),
 	SuPhone varchar(50),
 	SuTax varchar(50),
@@ -135,7 +137,7 @@ CREATE TABLE Supplier(
 CREATE TABLE Requests(
 	ReqID bigint identity,
 	ReqDate date ,
-	Total varchar(50),
+	Total float,
 	SuId int,
 	CONSTRAINT pk_ReqID PRIMARY KEY (ReqID),
 	CONSTRAINT fk_SuId FOREIGN KEY (SuId) REFERENCES Supplier(SuId)
@@ -144,17 +146,18 @@ CREATE TABLE Requests(
 )
 
 CREATE TABLE RequestsDetail(
-	ReqID bigint identity,
+	ReqIdDeTail bigint identity,
+	ReqID bigint,
 	PId bigint ,
-	Qty varchar(50),
+	Qty int,
 	CONSTRAINT ReqID PRIMARY KEY (ReqID),
-	CONSTRAINT fk_Detail_Requests FOREIGN KEY (ReqID) REFERENCES Requests(ReqID),
+	CONSTRAINT fk_Detail_Requests FOREIGN KEY (ReqID) REFERENCES Requests(ReqID)
+	on delete cascade 
+	on update cascade,
 	CONSTRAINT fk_PIdReques FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
 )
-
-
 
 CREATE TABLE DetailUser(
 	DetailID int identity,
@@ -172,8 +175,6 @@ CREATE TABLE DetailUser(
 	Mission varchar(50) ,
 	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
 )
-
-drop table DetailUser
 
 CREATE TABLE Users(
 	UsersID int identity,
@@ -230,14 +231,13 @@ FROM Users A INNER JOIN DetailUser B ON  A.DetailID=B.DetailID
 WHERE B.Code=@code 
 GO
 
-CREATE PROCEDURE getAllProduct
+ALTER PROCEDURE getAllProduct
 AS
 BEGIN
 SELECT PRD.PCode AS Code,PRD.PName AS Name,CT.CatName AS Categories,PRD.Unit AS Unit,PRD.PImage AS Images,
-PRD.Statuses AS Statuses,PRD.BuyPrice AS Buy,PRD.SellPrice AS Sell,PRD.Supplier AS Supplier,EXT.ExDate AS ExTime,EXt.Qty AS Quantity
-,PRD.PDescription AS Descriptions,CT.CatID AS CatID,EXT.ExId AS EID
+PRD.Statuses AS Statuses,PRD.BuyPrice AS Buy,PRD.SellPrice AS Sell,PRD.Supplier AS Supplier,
+PRD.PDescription AS Descriptions,CT.CatID AS CatID
 FROM Categories CT JOIN Product PRD ON CT.CatID=PRD.CatID
-JOIN ExpiredTime EXT ON PRD.PId=EXT.PId
 END
 
 
@@ -245,4 +245,3 @@ SELECT *FROM Users
 
 select *from DetailUser
 
-use pharmacy2

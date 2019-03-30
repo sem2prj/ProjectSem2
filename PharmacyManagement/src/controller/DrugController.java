@@ -82,10 +82,6 @@ public class DrugController implements Initializable {
     @FXML
     private JFXTextField txtSell;
     @FXML
-    private JFXDatePicker txtExpiredTime;
-    @FXML
-    private JFXTextField txtQty;
-    @FXML
     private JFXTextField txtSup;
     @FXML
     private ChoiceBox<String> cbStatus;
@@ -97,8 +93,6 @@ public class DrugController implements Initializable {
     private TableColumn<Drug, String> columnName;
     @FXML
     private TableColumn<Drug, String> columnSup;
-    @FXML
-    private TableColumn<Drug, Date> columnExpired;
     @FXML
     private TableColumn<Drug, String> columnStatus;
     @FXML
@@ -121,9 +115,7 @@ public class DrugController implements Initializable {
     private Label lbBuy;
     @FXML
     private Label lbSell;
-    @FXML
     private Label lbExpiredTime;
-    @FXML
     private Label lbQuantity;
     @FXML
     private Label lbSupplier;
@@ -155,7 +147,6 @@ public class DrugController implements Initializable {
         css();
     }
 
-
     @FXML
     private void handleAdd(ActionEvent event) {
 
@@ -179,25 +170,16 @@ public class DrugController implements Initializable {
         if (!txtSellNotEmpty) {
             txtSell.requestFocus();
         }
-        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity must be filled out");
-        if (!txtQtyNotEmpty) {
-            txtQty.requestFocus();
-        }
         boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier must be filled out");
         if (!txtSupNotEmpty) {
             txtSup.requestFocus();
-        }
-        if (txtExpiredTime.getValue() == null) {
-            lbExpiredTime.setText("Date must be filled out");
-        } else if (txtExpiredTime.getValue() != null) {
-            lbExpiredTime.setText("");
         }
         if (imageView.getImage() == null) {
             lbImage.setText("Image is required");
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtQtyNotEmpty && txtSupNotEmpty) {
+        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
             BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
             byte[] res;
             try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
@@ -209,7 +191,7 @@ public class DrugController implements Initializable {
                 DrugDAOImplement dDI = new DrugDAOImplement();
                 dDI.insertDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
                         cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
-                        java.sql.Date.valueOf(txtExpiredTime.getValue()), Integer.parseInt(txtQty.getText()), txtSup.getText(), txtAreaDes.getText());
+                        txtSup.getText(), txtAreaDes.getText());
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,25 +226,18 @@ public class DrugController implements Initializable {
         if (!txtSellNotEmpty) {
             txtSell.requestFocus();
         }
-        boolean txtQtyNotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtQty, lbQuantity, "Quantity must be filled out");
-        if (!txtQtyNotEmpty) {
-            txtQty.requestFocus();
-        }
+
         boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier must be filled out");
         if (!txtSupNotEmpty) {
             txtSup.requestFocus();
         }
-        if (txtExpiredTime.getValue() == null) {
-            lbExpiredTime.setText("Date must be filled out");
-        } else if (txtExpiredTime.getValue() != null) {
-            lbExpiredTime.setText("");
-        }
+
         if (imageView.getImage() == null) {
             lbImage.setText("Image is required");
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtQtyNotEmpty && txtSupNotEmpty) {
+        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
 
             Drug drug = new Drug();
             BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
@@ -275,7 +250,7 @@ public class DrugController implements Initializable {
                 DrugDAOImplement dDI = new DrugDAOImplement();
                 dDI.updateDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
                         Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
-                        java.sql.Date.valueOf(txtExpiredTime.getValue()), Integer.parseInt(txtQty.getText()), txtSup.getText(), txtAreaDes.getText(), id1, id2);
+                        txtSup.getText(), txtAreaDes.getText(), id1);
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,7 +307,6 @@ public class DrugController implements Initializable {
         columnCode.setCellValueFactory(new PropertyValueFactory<>("DCode"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         columnSup.setCellValueFactory(new PropertyValueFactory<>("Supplier"));
-        columnExpired.setCellValueFactory(new PropertyValueFactory<>("Experied"));
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("Status"));
         columnDes.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
@@ -344,8 +318,6 @@ public class DrugController implements Initializable {
         cUnit.getSelectionModel().clearSelection();
         txtBuy.clear();
         txtSell.clear();
-        txtExpiredTime.getEditor().clear();
-        txtQty.clear();
         txtSup.clear();
         cbStatus.getSelectionModel().clearSelection();
         txtAreaDes.clear();
@@ -359,9 +331,7 @@ public class DrugController implements Initializable {
         lbCategories.setText("");
         lbImage.setText("");
         lbSell.setText("");
-        lbQuantity.setText("");
         lbBuy.setText("");
-        lbExpiredTime.setText("");
     }
 
     private void css() {
@@ -371,9 +341,7 @@ public class DrugController implements Initializable {
         lbCategories.setStyle("-fx-text-fill:#daa520");
         lbImage.setStyle("-fx-text-fill:#daa520");
         lbSell.setStyle("-fx-text-fill:#daa520");
-        lbQuantity.setStyle("-fx-text-fill:#daa520");
         lbBuy.setStyle("-fx-text-fill:#daa520");
-        lbExpiredTime.setStyle("-fx-text-fill:#daa520");
 
     }
 
@@ -386,9 +354,6 @@ public class DrugController implements Initializable {
             cUnit.setValue(drug.getUnit());
             txtBuy.setText(String.format("%.1f", drug.getBuyPrice()));
             txtSell.setText(String.format("%.1f", drug.getSellPrice()));
-            Date dt = (Date) drug.getExperied();
-            txtExpiredTime.setValue(LocalDate.parse(dt.toString()));
-            txtQty.setText(String.format("%d", drug.getQuantity()));
             txtSup.setText(drug.getSupplier());
             cbStatus.setValue(drug.getStatus());
             txtAreaDes.setText(drug.getDescription());
@@ -396,7 +361,6 @@ public class DrugController implements Initializable {
             DrugDAOImplement DrugIm = new DrugDAOImplement();
             imageView.setImage(DrugIm.getImage(drug.getDCode()));
             id1 = drug.getId1();
-            id2 = drug.getId2();
         });
     }
 

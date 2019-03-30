@@ -309,18 +309,44 @@ public class OrderProductController implements Initializable {
     }
 
     private String autoOrderID(){
-        String orderID = "Order00000";
-        
+//        String orderID = "Order00000";
+//        
+//        try {
+//            pst = con.prepareStatement("select max(OrderID) from Orders");
+//            rs = pst.executeQuery();
+//            if(rs.next()){
+//                orderID = rs.getString(1);
+//                int n = Integer.parseInt(orderID.substring(5)) +1 ;
+//                int x = String.valueOf(n).length();
+//                orderID = orderID.substring(0, 10 -x) + String.valueOf(n);
+//                
+//            
+//            }
+//            rs.close();
+//            pst.close();
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        return orderID;
+            String orderID = "Order00000";
+            
         try {
             pst = con.prepareStatement("select max(OrderID) from Orders");
             rs = pst.executeQuery();
-            if(rs.next()){
-                orderID = rs.getString(1);
-                int n = Integer.parseInt(orderID.substring(5)) +1 ;
-                int x = String.valueOf(n).length();
-                orderID = orderID.substring(0, 10 -x) + String.valueOf(n);
-                
             
+            if (rs.next()) {
+                if (rs.getString(1) == null) 
+                { orderID = "Order00000";}
+                else{
+                    orderID = rs.getString(1);
+                    
+                    int n = Integer.parseInt(orderID.substring(5)) + 1;
+                    int x = String.valueOf(n).length();
+                    orderID = orderID.substring(0, 10 - x) + String.valueOf(n);
+                }
+                
             }
             rs.close();
             pst.close();
@@ -330,7 +356,8 @@ public class OrderProductController implements Initializable {
         }
         
         return orderID;
-    }
+
+  }
     
     private void printInvoice(){
 //        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";

@@ -12,6 +12,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -48,8 +49,9 @@ public class Main extends Application {
             con.close();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
-//            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-//            stage.getIcons().add(applicationIcon);
+            Image applicationIcon = new  Image(getClass().getResource("/image/Logohygiea.png").toURI().toURL().toString(), 40, 200, true, true);
+            
+            stage.getIcons().add(applicationIcon);
 //            stage.setResizable(false);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
@@ -68,8 +70,11 @@ public class Main extends Application {
             Scene scene = new Scene(root);
 //            stage.initStyle(StageStyle.UNDECORATED);
 
-             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
             stage.setScene(scene);
+            Image applicationIcon = new  Image(getClass().getResource("/image/Logohygiea.png").toURI().toURL().toString(), 100, 100, true, true);
+            stage.getIcons().add(applicationIcon);
+            stage.setTitle("Register");
             stage.setResizable(false);
             stage.show();
 

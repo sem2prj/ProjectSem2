@@ -15,7 +15,6 @@ import javafx.beans.property.StringProperty;
 public class Supplier {
     private StringProperty Code;
     private StringProperty nameSupplier;
-    private StringProperty type;
     private StringProperty addrees;
     private StringProperty phone;
     private StringProperty taxINumber;
@@ -26,10 +25,9 @@ public class Supplier {
     public Supplier() {
     }
 
-    public Supplier(String Code,String nameSupplier, String type, String addrees, String phone, String taxINumber, String email, String website, String notice) {
+    public Supplier(String Code,String nameSupplier, String addrees, String phone, String taxINumber, String email, String website, String notice) {
         this.Code= new SimpleStringProperty(Code);
         this.nameSupplier =new SimpleStringProperty(nameSupplier);
-        this.type = new SimpleStringProperty(type);
         this.addrees = new SimpleStringProperty(addrees);
         this.phone = new SimpleStringProperty(phone);
         this.taxINumber = new SimpleStringProperty(taxINumber);
@@ -53,14 +51,6 @@ public class Supplier {
 
     public void setNameSupplier(String nameSupplier) {
         this.nameSupplier = new SimpleStringProperty(nameSupplier);
-    }
-
-    public String getType() {
-        return type.get();
-    }
-
-    public void setType(String type) {
-        this.type = new SimpleStringProperty(type);
     }
 
     public String getAddrees() {
