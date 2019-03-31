@@ -238,6 +238,9 @@ public class OrderProductController implements Initializable {
         pst.close();
         return customerList;
    }
+   
+    
+    
 
     public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where PCode = ?");
@@ -304,6 +307,7 @@ public class OrderProductController implements Initializable {
     @FXML
     private void action_printInvoice(ActionEvent event) {
         String sql = "insert into Orders (OrderID,OrderDate)values(?,?)";
+        String sql2 = "insert into Customer (MoneySpend) values(?) where CuId = ?";
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, tf_invoiceID.getText() );
@@ -321,6 +325,8 @@ public class OrderProductController implements Initializable {
                     
                            
                 }
+                
+                
             
             }
             AlertDialog.display("Info", "Data added into order success !!!");

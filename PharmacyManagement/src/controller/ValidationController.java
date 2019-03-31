@@ -318,8 +318,33 @@ public class ValidationController {
     }
     
     
+// Vi du : Nguyen Van Tam 0908888888 se tra ve Nguyen Van Tam    
+    public static String getStringFromText(String s) {
+        String abc = "";
+        Pattern pattern = Pattern.compile("([A-Za-z_])+");
+        Matcher matcher = pattern.matcher(s);
+        while (matcher.find()) {
+            abc += matcher.group() + " ";
+        }
+        abc.trim();
+        return abc;
+
+    }
+  
+// Vi du : Nguyen Van Tam 0908888888 se tra ve 0908888888    
+    public static String getNumberFromText(String s){
+        String abc = "";
+        Pattern pattern = Pattern.compile("([0-9_])+");
+        Matcher matcher = pattern.matcher(s);
+        while (matcher.find()) {
+            abc += matcher.group() + " ";
+        }
+        abc.trim();
+        return abc;
+    }
     
 }
+
 
 //    @([A-Za-z0-9_]{3,15})
 
