@@ -32,6 +32,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
+import model.UserCurrentLogin;
 import model.UsernameDAOImplement;
 
 /**
@@ -110,6 +111,7 @@ public class LoginController implements Initializable {
                     if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
                         check = true;
                         ListUserLogin.add(user);
+                        UserCurrentLogin.setCurrentLogin(txt_user.getText());
                         Stage stage = (Stage) aPane_Login.getScene().getWindow();
                         stage.getIcons().clear();
                         stage.close();
