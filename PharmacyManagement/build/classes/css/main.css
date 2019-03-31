@@ -1,0 +1,50 @@
+#homeWork{
+    -fx-background-color: #1fd625;
+}
+
+#homeWork:hover {
+    -fx-background-color: #ff895e;
+}
+
+#paneHeaderMain{
+     -fx-background-color: #4169e1;
+}
+
+#btnHandleMain{
+    -fx-background-color: #4169e1;
+}
+#btnHandleMain:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnLogOut{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/logOut.png");
+    -fx-background-size: 25 25;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;
+}
+#btnLogOut:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+#btnEmployee{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/employee.png");
+    -fx-background-size: 30 30;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+}
+#btnEmployee:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+
+
+#lbYear{
+    -fx-font-size: 14px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: #daa520;
+}
