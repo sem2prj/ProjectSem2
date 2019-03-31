@@ -187,13 +187,13 @@ public class OrderProductController implements Initializable {
         try {
             
 
-            pst = con.prepareStatement("select code,pname from Product where pname LIKE ?");
+            pst = con.prepareStatement("select PCode,PName from Product where pname LIKE ?");
             pst.setString(1, "%" + tf_search.getText() + "%");
             rs = pst.executeQuery();
 
             while (rs.next()) {
 //                searchData.add(new ProductList(rs.getInt("pid"),rs.getString("barcode"), rs.getString("productname"),""+ rs.getDouble("priceIn"),""+rs.getDouble("priceOut")));
-                searchData.add(new ProductListForSearchInInvoice(rs.getString("Code"), rs.getString("PName")));
+                searchData.add(new ProductListForSearchInInvoice(rs.getString("PCode"), rs.getString("PName")));
                 table_search.setItems(searchData);
 
 //                        searchData.add(new ProductList2(rs.getString("barcode"), rs.getString("productname"), "" + rs.getDouble("priceIn"), "" + rs.getDouble("priceOut")));
