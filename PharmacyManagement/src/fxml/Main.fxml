@@ -23,7 +23,7 @@
             </HBox>
             <ImageView fx:id="drawImage" fitHeight="30.0" fitWidth="63.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../image/drawer.png" />
+                  <Image url="@../image/menu.png" />
                </image>
             </ImageView>
          </children>
@@ -51,8 +51,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="btnHandleMain" onAction="#handleLogOut" prefHeight="87.0" prefWidth="212.0" text="LOGOUT" />
-                  <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" text="EMPLOYEES" GridPane.rowIndex="1" />
+                  <JFXButton id="btnLogOut" onAction="#handleLogOut" prefHeight="87.0" prefWidth="212.0" text="LOGOUT" />
+                  <JFXButton id="btnEmployee" layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" text="EMPLOYEES" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="84.0" prefWidth="212.0" text="DRUG" GridPane.rowIndex="2" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="146.0" prefHeight="77.0" prefWidth="212.0" text="CUSTOMER" GridPane.rowIndex="3" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="214.0" prefHeight="82.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="4" />

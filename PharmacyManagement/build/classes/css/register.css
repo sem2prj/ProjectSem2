@@ -1,0 +1,36 @@
+#labelInformation{
+    -fx-font-size: 12px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: #4f61ea;
+
+}
+#information{
+    -fx-font-size: 10px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: #4f61ea;
+}
+#handleButton{
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white; 
+
+}
+
+#titlePane{
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff; 
+    -fx-font-family: sans-serif;
+
+}
+#anchorImage{
+    -fx-border-color:blue;
+    -fx-background-radius: 50;
+/*    -fx-background-image:url('file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/image/User-Add.png');
+    -fx-background-size: 100% 100%;    */
+}
+
+#imageview{
+    
+    
+}
