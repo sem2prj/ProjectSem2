@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-//        //Test MainController
+        //Test MainController
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
 
             Scene scene = new Scene(root);
@@ -37,7 +37,27 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
-            
+//            
+//       con = controller.ConnectDB.getConnectTable();
+//        System.out.println("Connect successs99999555555321235235");
+//        String sql = "if not exists (select * from Product where PCode like ? )"
+//                + "\n" 
+//                +"INSERT INTO Product (PCode) VALUES (?)";
+//       pst = con.prepareStatement(sql);
+//  
+//       int i = pst.executeUpdate();
+//        System.out.println(i);
+////       if(i){
+////           System.out.println("insert OK!!!");
+////       } else {
+////           System.out.println("insert Khong thanh cong");
+////       }
+//       
+//       
+////       rs.close();
+//       pst.close();
+//       con.close();
+//
 
 
 
@@ -47,7 +67,7 @@ public class Main extends Application {
        
 //        con = controller.ConnectDB.getConnectTable();
 //        pst = con.prepareStatement("select * from Users");
-//        rs = pst.executeQuery();
+//        rs = pst.executeQuery();  
 //        
 //        if (rs.next()) {
 //            rs.close();
