@@ -30,7 +30,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         //Test MainController
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
 
             Scene scene = new Scene(root);
 
