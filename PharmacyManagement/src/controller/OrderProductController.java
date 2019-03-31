@@ -69,7 +69,7 @@ public class OrderProductController implements Initializable {
 
     private Connection con;
     private PreparedStatement pst;
-//    private PreparedStatement pst2;
+    private PreparedStatement pst2;
     private ResultSet rs;
 
     private ObservableList<OrderList2> orderData;
@@ -343,10 +343,10 @@ public class OrderProductController implements Initializable {
                            
                 }
             
-                pst = con.prepareStatement(sql2);
-                pst.setDouble(1,grandTotal);
-                pst.setInt(2, getCuId());
-                pst.executeQuery();
+                pst2 = con.prepareStatement(sql2);
+                pst2.setDouble(1,grandTotal);
+                pst2.setInt(2, getCuId());
+                pst2.executeQuery();
                 
             
             }
