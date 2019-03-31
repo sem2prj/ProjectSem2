@@ -69,6 +69,7 @@ public class OrderProductController implements Initializable {
 
     private Connection con;
     private PreparedStatement pst;
+//    private PreparedStatement pst2;
     private ResultSet rs;
 
     private ObservableList<OrderList2> orderData;
@@ -163,6 +164,7 @@ public class OrderProductController implements Initializable {
         try {
             result = autoFillCustomer();
             TextFields.bindAutoCompletion(tf_customer, result);
+            
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,7 +240,22 @@ public class OrderProductController implements Initializable {
         pst.close();
         return customerList;
    }
+    
+    
+   public int getCuId() throws SQLException{
+       int cuid =0;
+       pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
+       pst.setString(1, ValidationController.getStringFromText(tf_customer.getText()));
+       pst.setString(2, ValidationController.getNumberFromText(tf_customer.getText()));
+       rs = pst.executeQuery();
+       if(rs.next()){
+           cuid = rs.getInt("CuId ");
+       }
+       rs.close();
+       pst.close();
+       return cuid;
    
+   }
     
     
 
@@ -325,7 +342,11 @@ public class OrderProductController implements Initializable {
                     
                            
                 }
-                
+            
+                pst = con.prepareStatement(sql2);
+                pst.setDouble(1,grandTotal);
+                pst.setInt(2, getCuId());
+                pst.executeQuery();
                 
             
             }
