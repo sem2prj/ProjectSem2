@@ -42,7 +42,7 @@
           <TableColumn fx:id="column_search_barcode" minWidth="0.0" prefWidth="114.0" text="Barcode" />
         </columns>
       </TableView>
-      <Label fx:id="error_qty" layoutX="198.0" layoutY="124.0" prefHeight="17.0" prefWidth="118.0" textFill="RED" />
+      <Label fx:id="error_qty" layoutX="32.0" layoutY="146.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
       <Button fx:id="btn_addtomenu" layoutX="198.0" layoutY="81.0" mnemonicParsing="false" onAction="#action_addtomenu" prefHeight="25.0" prefWidth="98.0" text="Add to menu" />
       <Button fx:id="btn_printInvoice" layoutX="527.0" layoutY="483.0" mnemonicParsing="false" onAction="#action_printInvoice" prefHeight="25.0" prefWidth="98.0" text="Print Invoice" />
       <Button fx:id="btn_remove" layoutX="426.0" layoutY="483.0" mnemonicParsing="false" onAction="#action_removeItem" prefHeight="25.0" prefWidth="88.0" text="Remove Item" />

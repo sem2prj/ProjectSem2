@@ -69,6 +69,7 @@ public class OrderProductController implements Initializable {
 
     private Connection con;
     private PreparedStatement pst;
+    private PreparedStatement pst2;
     private ResultSet rs;
 
     private ObservableList<OrderList2> orderData;
@@ -163,6 +164,7 @@ public class OrderProductController implements Initializable {
         try {
             result = autoFillCustomer();
             TextFields.bindAutoCompletion(tf_customer, result);
+            
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,13 +189,21 @@ public class OrderProductController implements Initializable {
         try {
             
 
+
+            pst = con.prepareStatement("select PCode,PName from Product where pname LIKE ?");
+
             pst = con.prepareStatement("select PCode,PName from Product where PName LIKE ?");
+
             pst.setString(1, "%" + tf_search.getText() + "%");
             rs = pst.executeQuery();
 
             while (rs.next()) {
 //                searchData.add(new ProductList(rs.getInt("pid"),rs.getString("barcode"), rs.getString("productname"),""+ rs.getDouble("priceIn"),""+rs.getDouble("priceOut")));
+
+                searchData.add(new ProductListForSearchInInvoice(rs.getString("PCode"), rs.getString("PName")));
+
                 searchData.add(new ProductListForSearchInInvoice(rs.getString(1), rs.getString(2)));
+
                 table_search.setItems(searchData);
 
 //                        searchData.add(new ProductList2(rs.getString("barcode"), rs.getString("productname"), "" + rs.getDouble("priceIn"), "" + rs.getDouble("priceOut")));
@@ -231,13 +241,49 @@ public class OrderProductController implements Initializable {
         ArrayList<String> customerList = new ArrayList<>();
         pst = con.prepareStatement("select CuName,CuPhone from Customer");
         rs = pst.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
             customerList.add(rs.getString(1) + " " + rs.getString(2));           
         }
         rs.close();
         pst.close();
         return customerList;
    }
+    
+    
+   public int getCuId() throws SQLException{
+       System.out.println("Test789");
+       System.out.println(tf_customer.getText());
+       int cuid = 0;
+       pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
+       pst.setString(1, "%"+ValidationController.getStringFromText(tf_customer.getText()) +"%" );
+       System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
+       pst.setString(2, "%"+ValidationController.getNumberFromText(tf_customer.getText()) + "%" );
+       System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
+       rs = pst.executeQuery();
+       if (rs.next()) {
+           cuid = rs.getInt(1);
+       }
+       rs.close();
+       pst.close();
+       System.out.println(cuid);
+       return cuid;
+   
+   }
+   
+   
+   public int getDetailID() throws SQLException {
+       int detailID = 0;
+       pst = con.prepareStatement("select DetailID from Users where UsersName like ?");
+       pst.setString(1,UserCurrentLogin.getCurrentLogin());
+       rs = pst.executeQuery();
+       if(rs.next()){
+        detailID =rs.getInt(1);
+       }
+       rs.close();
+       pst.close();
+       return detailID;
+   }
+    
 
     public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where PCode = ?");
@@ -303,24 +349,51 @@ public class OrderProductController implements Initializable {
 
     @FXML
     private void action_printInvoice(ActionEvent event) {
-        String sql = "insert into Orders (OrderID,OrderDate)values(?,?)";
+        String sql = "insert into Orders (OrderID,OrderDate,AmountTotal)values(?,?,?)";
+        String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
+        String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
+                
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, tf_invoiceID.getText() );
             pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
+            pst.setDouble(3, grandTotal);
             int  i = pst.executeUpdate();
+            
             if(i==1){
-                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice)values(?,?,?,?)";
+                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
                 for(OrderList2 item : orderData){
                     pst = con.prepareStatement(sql);
                     pst.setString(1,tf_invoiceID.getText());
                     pst.setInt(2,item.getPid());
                     pst.setInt(3, item.getQty());
                     pst.setString(4,""+item.getPriceOut());
+                    pst.setDouble(5, item.getAmount());
                     pst.executeUpdate();
                     
                            
                 }
+                
+            if (getCuId() != 0) {
+                    pst2 = con.prepareStatement(sql2);
+                    pst2.setDouble(1, grandTotal);
+                    pst2.setInt(2, getCuId());
+                    int j = pst2.executeUpdate();
+
+                    pst2.close();
+                }
+                
+            if (getDetailID() !=0){
+                pst2= con.prepareStatement(sql3);
+                pst2.setDouble(1, grandTotal);
+                pst2.setInt(2,getDetailID());
+                int k = pst2.executeUpdate();
+                
+                pst2.close();
+                
+            }    
+                
+                
             
             }
             AlertDialog.display("Info", "Data added into order success !!!");
