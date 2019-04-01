@@ -243,13 +243,13 @@ public class OrderProductController implements Initializable {
     
     
    public int getCuId() throws SQLException{
-       System.out.println("Test456");
+       System.out.println("Test789");
        System.out.println(tf_customer.getText());
        int cuid = 0;
        pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
-       pst.setString(1, ValidationController.getStringFromText(tf_customer.getText()) );
+       pst.setString(1, "%"+ValidationController.getStringFromText(tf_customer.getText()) +"%" );
        System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
-       pst.setString(2, ValidationController.getNumberFromText(tf_customer.getText()) );
+       pst.setString(2, "%"+ValidationController.getNumberFromText(tf_customer.getText()) + "%" );
        System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
        rs = pst.executeQuery();
        if (rs.next()) {

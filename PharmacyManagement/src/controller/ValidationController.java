@@ -321,26 +321,28 @@ public class ValidationController {
 // Vi du : Nguyen Van Tam 0908888888 se tra ve Nguyen Van Tam    
     public static String getStringFromText(String s) {
         String abc = "";
+        String d = "";
         Pattern pattern = Pattern.compile("([A-Za-z_])+");
         Matcher matcher = pattern.matcher(s);
         while (matcher.find()) {
             abc += matcher.group() + " ";
         }
-        abc = abc.trim();
-        return abc;
+        d = abc.trim();
+        return d;
 
     }
   
 // Vi du : Nguyen Van Tam 0908888888 se tra ve 0908888888    
     public static String getNumberFromText(String s){
         String abc = "";
+        String d = "";
         Pattern pattern = Pattern.compile("([0-9_])+");
         Matcher matcher = pattern.matcher(s);
         while (matcher.find()) {
             abc += matcher.group() + " ";
         }
-        abc = abc.trim();
-        return abc;
+        d = abc.trim();
+        return d;
     }
     
 }
