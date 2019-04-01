@@ -341,7 +341,7 @@ public class OrderProductController implements Initializable {
 
     @FXML
     private void action_printInvoice(ActionEvent event) {
-        String sql = "insert into Orders (OrderID,OrderDate)values(?,?)";
+        String sql = "insert into Orders (OrderID,OrderDate,AmountTotal)values(?,?,?)";
         String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
         String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
                 
@@ -349,16 +349,18 @@ public class OrderProductController implements Initializable {
             pst = con.prepareStatement(sql);
             pst.setString(1, tf_invoiceID.getText() );
             pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
+            pst.setDouble(3, grandTotal);
             int  i = pst.executeUpdate();
             
             if(i==1){
-                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice)values(?,?,?,?)";
+                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
                 for(OrderList2 item : orderData){
                     pst = con.prepareStatement(sql);
                     pst.setString(1,tf_invoiceID.getText());
                     pst.setInt(2,item.getPid());
                     pst.setInt(3, item.getQty());
                     pst.setString(4,""+item.getPriceOut());
+                    pst.setDouble(5, item.getAmount());
                     pst.executeUpdate();
                     
                            
