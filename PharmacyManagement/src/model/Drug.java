@@ -6,12 +6,10 @@
 package model;
 
 import java.sql.Blob;
-import java.sql.Date;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -21,6 +19,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Drug {
 
+    private StringProperty Code1;
     private StringProperty DCode;
     private StringProperty Name;
     private StringProperty Categories;
@@ -36,19 +35,6 @@ public class Drug {
     public Drug() {
     }
 
-    public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description) {
-        this.DCode = new SimpleStringProperty(DCode);
-        this.Name = new SimpleStringProperty(Name);
-        this.Categories = new SimpleStringProperty(Categories);
-        this.Unit = new SimpleStringProperty(Unit);
-        this.Image = Image;
-        this.Status = new SimpleStringProperty(Status);
-        this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
-        this.SellPrice = new SimpleDoubleProperty(SellPrice);
-        this.Supplier = new SimpleStringProperty(Supplier);
-        this.description = new SimpleStringProperty(description);
-    }
-
     public Drug(String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice,String Supplier, String description, Integer Id1) {
         this.DCode = new SimpleStringProperty(DCode);
         this.Name = new SimpleStringProperty(Name);
@@ -62,8 +48,31 @@ public class Drug {
         this.description = new SimpleStringProperty(description);
         this.Id1 = new SimpleIntegerProperty(Id1);
     }
+    
+    public Drug(String Code1,String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice,String Supplier, String description, Integer Id1) {
+        this.Code1 = new SimpleStringProperty(Code1);
+        this.DCode = new SimpleStringProperty(DCode);
+        this.Name = new SimpleStringProperty(Name);
+        this.Categories = new SimpleStringProperty(Categories);
+        this.Unit = new SimpleStringProperty(Unit);
+        this.Image = Image;
+        this.Status = new SimpleStringProperty(Status);
+        this.BuyPrice = new SimpleDoubleProperty(BuyPrice);
+        this.SellPrice = new SimpleDoubleProperty(SellPrice);
+        this.Supplier = new SimpleStringProperty(Supplier);
+        this.description = new SimpleStringProperty(description);
+        this.Id1 = new SimpleIntegerProperty(Id1);
+    }
+    
+    public String getCode1() {
+        return Code1.get();
+    }
 
+    public void setCode1(String Code1) {
+        this.Code1 = new SimpleStringProperty(Code1);
+    }
 
+    
     public String getDCode() {
         return DCode.get();
     }
