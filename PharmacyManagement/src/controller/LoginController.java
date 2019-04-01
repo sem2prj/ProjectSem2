@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
@@ -127,6 +128,7 @@ public class LoginController implements Initializable {
                         root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
                         Scene scene = new Scene(root);
                         scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
+                        stage.getIcons().add(new Image("/image/hyhy.png"));
                         stage.setScene(scene);
                         stage.show();
                     } catch (IOException ex) {

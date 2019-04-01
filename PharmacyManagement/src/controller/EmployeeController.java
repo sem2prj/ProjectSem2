@@ -86,8 +86,6 @@ public class EmployeeController implements Initializable {
     @FXML
     private JFXTextField txtEmail;
     @FXML
-    private ComboBox<String> cbPosition;
-    @FXML
     private RadioButton rdMale;
     @FXML
     private RadioButton rdFemale;
@@ -102,7 +100,6 @@ public class EmployeeController implements Initializable {
     @FXML
     private JFXTextField txtSalary;
     //combobox
-    private final String position[] = {"Manager", "Employee"};
     private final String department[] = {"Store", "Sell", "Business"};
     private final String roles[] = {"User", "Admin",};
 
@@ -144,8 +141,6 @@ public class EmployeeController implements Initializable {
     private TableColumn<Employee, String> columPhone;
     @FXML
     private TableColumn<Employee, String> columEmail;
-    @FXML
-    private TableColumn<Employee, String> columnPosition;
     @FXML
     private TableColumn<Employee, String> columDPM;
     @FXML
@@ -277,7 +272,7 @@ public class EmployeeController implements Initializable {
                     String username = txtUsername.getText().trim().replaceAll("\\s+", "");
                     String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
                     eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                            Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", username, password);
+                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", username, password);
 
                 } catch (IOException | SQLException ex) {
                     Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -357,7 +352,7 @@ public class EmployeeController implements Initializable {
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
                 String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
                 eDAOIpl.updateEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbPosition.getSelectionModel().getSelectedItem() + "", cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(), id);
+                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(), id);
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -427,7 +422,6 @@ public class EmployeeController implements Initializable {
             //Show Datepicker
             Date datetW = (Date) employee.getDateWork();
             txtDateWork.setValue(LocalDate.parse(datetW.toString()));
-            cbPosition.setValue(employee.getPosition());
             cbDepartment.setValue(employee.getDepartment());
             cbRoles.setValue(employee.getRole());
             //Transaction id employee to update
@@ -436,12 +430,6 @@ public class EmployeeController implements Initializable {
     }
 
     private void initCombobox() {
-        List<String> listPS = new ArrayList<>();
-        for (String listSPS : position) {
-            listPS.add(listSPS);
-        }
-        ObservableList obListPS = FXCollections.observableArrayList(listPS);
-        cbPosition.setItems(obListPS);
 
         List<String> listDP = new ArrayList<>();
         for (String listSDP : department) {
@@ -505,7 +493,6 @@ public class EmployeeController implements Initializable {
         txtDateWork.getEditor().clear();
         txtPass.clear();
         txtConfirmPass.clear();
-        cbPosition.getSelectionModel().clearSelection();
         cbDepartment.getSelectionModel().clearSelection();
         cbRoles.getSelectionModel().clearSelection();
     }
@@ -519,7 +506,6 @@ public class EmployeeController implements Initializable {
         columuserName.setCellValueFactory(new PropertyValueFactory<>("userName"));
         columPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         columEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        columnPosition.setCellValueFactory(new PropertyValueFactory<>("position"));
         columDPM.setCellValueFactory(new PropertyValueFactory<>("department"));
     }
 
@@ -574,12 +560,7 @@ public class EmployeeController implements Initializable {
                     cellStyle = workbook.createCellStyle();
                     cellH1.setCellStyle(cellStyle);
                     //add cell 9
-                    HSSFCell cellI1 = row1.createCell((short) 8);
-                    cellI1.setCellValue("Position");
-                    cellStyle = workbook.createCellStyle();
-                    cellI1.setCellStyle(cellStyle);
-                    //add cell 10
-                    HSSFCell cellK1 = row1.createCell((short) 9);
+                    HSSFCell cellK1 = row1.createCell((short) 8);
                     cellK1.setCellValue("Date At Work");
                     cellStyle = workbook.createCellStyle();
                     cellK1.setCellStyle(cellStyle);
@@ -593,8 +574,7 @@ public class EmployeeController implements Initializable {
                         row2.createCell(5).setCellValue(((Employee) data.get(i)).getDateBirth().toString());
                         row2.createCell(6).setCellValue(((Employee) data.get(i)).getDepartment());
                         row2.createCell(7).setCellValue(((Employee) data.get(i)).getSalary());
-                        row2.createCell(8).setCellValue(((Employee) data.get(i)).getPosition());
-                        row2.createCell(9).setCellValue(((Employee) data.get(i)).getDateWork().toString());
+                        row2.createCell(8).setCellValue(((Employee) data.get(i)).getDateWork().toString());
                     }
                     workbook.write(fileOut);
                     if (!data.isEmpty()) {
@@ -644,6 +624,7 @@ public class EmployeeController implements Initializable {
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/changepass.css").toExternalForm());
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.resizableProperty().setValue(Boolean.FALSE);
         stage.initStyle(StageStyle.UTILITY);
         stage.setTitle("Change Password");

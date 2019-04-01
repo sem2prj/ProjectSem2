@@ -37,18 +37,11 @@ public class Main extends Application {
 //            stage.setScene(scene);
 //            stage.setResizable(false);
 //            stage.show();
-            
-
-
-
-
         //Start
-
-       
         con = controller.ConnectDB.getConnectTable();
         pst = con.prepareStatement("select * from Users");
         rs = pst.executeQuery();
-        
+
         if (rs.next()) {
             rs.close();
             pst.close();
@@ -61,6 +54,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             stage.setTitle("Login");
+            stage.getIcons().add(new Image("/image/hyhy.png"));
             stage.initStyle(StageStyle.DECORATED);
             stage.setScene(scene);
             stage.show();
@@ -75,7 +69,9 @@ public class Main extends Application {
             Scene scene = new Scene(root);
 //            stage.initStyle(StageStyle.UNDECORATED);
 
-             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
+            stage.getIcons().add(new Image("/image/hyhy.png"));
+            stage.setTitle("Register");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();

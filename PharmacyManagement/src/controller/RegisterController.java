@@ -84,7 +84,6 @@ public class RegisterController implements Initializable {
     private PasswordField pf_repassword;
 
     //combobox
-    @FXML
     private JFXComboBox<String> combobox_position;
     @FXML
     private JFXComboBox<String> combobox_department;
@@ -133,8 +132,6 @@ public class RegisterController implements Initializable {
     @FXML
     private Label lbImage;
 
-    
-    
     /**
      * Initializes the controller class.
      */
@@ -148,7 +145,6 @@ public class RegisterController implements Initializable {
                 new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
 
-        combobox_position.setDisable(true);
         combobox_department.setDisable(true);
         combobox_mission.setDisable(true);
         comboboxInit();
@@ -163,7 +159,6 @@ public class RegisterController implements Initializable {
 //        imageView.setFitHeight(20);
 //        btnClose.setGraphic(imageView);
 //    }
-
     @FXML
     private void loginFirst_action(ActionEvent event) throws IOException {
         boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_username, error_username, "Username is requied");
@@ -185,7 +180,7 @@ public class RegisterController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
+        if (imageView.getImage()!=null&&isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
                 && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty) {
             if (isUsernameTrue && isPasswordTrue && isEmailTrue && isPhoneTrue) {
                 try {
@@ -196,7 +191,7 @@ public class RegisterController implements Initializable {
                     String phone = tf_phone.getText();
                     Date datebirth = java.sql.Date.valueOf(date_birth.getValue());
 
-                    String position = combobox_position.getValue();
+//                    String position = combobox_position.getValue();
                     String department = combobox_department.getValue();
                     String mission = combobox_mission.getValue();
                     Date workday = java.sql.Date.valueOf(date_work.getValue());
@@ -216,18 +211,18 @@ public class RegisterController implements Initializable {
                         Blob blob = new SerialBlob(res);
                         employee.setImageBlob(blob);
                         con = controller.ConnectDB.connectSQLServer();
-                        pst = con.prepareStatement("INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Position,Department,ImageBlob,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                        pst = con.prepareStatement("INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Department,ImageBlob,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                         pst.setString(1, "ENUM001");
                         pst.setString(2, phone);
                         pst.setString(3, email);
                         pst.setString(4, addrees);
                         pst.setBoolean(5, gendercheck);
                         pst.setDate(6, datebirth);
-                        pst.setString(7, position);
-                        pst.setString(8, department);
-                        pst.setBlob(9, blob);
-                        pst.setString(10, mission);
-                        pst.setDate(11, workday);
+//                        pst.setString(7, position);
+                        pst.setString(7, department);
+                        pst.setBlob(8, blob);
+                        pst.setString(9, mission);
+                        pst.setDate(10, workday);
 
                         pst.executeUpdate();
                         rs = pst.getGeneratedKeys();
@@ -258,6 +253,7 @@ public class RegisterController implements Initializable {
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+                stage.getIcons().add(new Image("/image/hyhy.png"));
 //                stage.initStyle(StageStyle.DECORATED);
 //                Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
 //                stage.getIcons().add(applicationIcon);
@@ -274,9 +270,9 @@ public class RegisterController implements Initializable {
 
     private void comboboxInit() {
         //Combobox_position
-        combobox_position.getItems().addAll("Manager");
-        combobox_position.getSelectionModel().selectFirst();
-        combobox_position.getValue();
+//        combobox_position.getItems().addAll("Manager");
+//        combobox_position.getSelectionModel().selectFirst();
+//        combobox_position.getValue();
 
         //Combobox_department
         combobox_department.getItems().addAll("Business");
@@ -309,7 +305,6 @@ public class RegisterController implements Initializable {
 //        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 //        stage.close();
 //    }
-
     @FXML
     private void handleChooseImage(ActionEvent event) {
         stage = (Stage) anchorPane.getScene().getWindow();

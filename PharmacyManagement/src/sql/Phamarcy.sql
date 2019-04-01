@@ -168,7 +168,7 @@ CREATE TABLE DetailUser(
 	Sex bit,
 	BirthDay date,
 	Salary float,
-	Position varchar(50),
+	/*Position varchar(50),*/
 	Department varchar(50),
 	ImageBlob varbinary(max),
 	WorkDay date,
@@ -193,7 +193,7 @@ as
 begin 
 select dtu.Code as eplCode,us.UsersName as username,dtu.Phone as phone,dtu.Email as email
 ,dtu.Addrees as addrees ,dtu.Sex as gender,dtu.BirthDay as dateOfBirth,dtu.Salary as salary
-,dtu.Position as position,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork ,us.UsersID as UserId,dtu.Mission as roles
+,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork ,us.UsersID as UserId,dtu.Mission as roles
 from Users AS us
  INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
 end
@@ -208,17 +208,17 @@ GO
 CREATE PROCEDURE ProceDetailUser
 (@eplCode varchar(20),@phone varchar(20),@email varchar(20),
 @addrees varchar(20),@gender bit,@birthday date,
-@salary float,@position varchar(20),@department varchar(20),
+@salary float,@department varchar(20),
 @image varbinary(max),@workday date)   
 AS 
-INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salary],[Position],[Department],[ImageBlob],[WorkDay])
- VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@position,@department,@image,@workday)  
+INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salary],[Department],[ImageBlob],[WorkDay])
+ VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@department,@image,@workday)  
 GO 
 
 CREATE PROCEDURE getUserMission
 as
 begin
-select us.UsersName as username,us.UsersPass AS pass,us.UsersFullName as fullname,dtu.mission as mission
+select us.UsersName as username,us.UsersPass AS pass,us.UsersFullName as fullname,dtu.mission as mission,dtu.Department as department
 from Users AS us
  INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
 end
@@ -231,7 +231,7 @@ FROM Users A INNER JOIN DetailUser B ON  A.DetailID=B.DetailID
 WHERE B.Code=@code 
 GO
 
-ALTER PROCEDURE getAllProduct
+CREATE PROCEDURE getAllProduct
 AS
 BEGIN
 SELECT PRD.PCode AS Code,PRD.PName AS Name,CT.CatName AS Categories,PRD.Unit AS Unit,PRD.PImage AS Images,
@@ -244,4 +244,6 @@ END
 SELECT *FROM Users
 
 select *from DetailUser
+
+delete from Users
 
