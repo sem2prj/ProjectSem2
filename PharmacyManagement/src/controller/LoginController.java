@@ -102,7 +102,7 @@ public class LoginController implements Initializable {
         if (isPasswordNotEmpty) {
             txt_password.requestFocus();
         }
-<<<<<<< HEAD
+
         if (isUserNameNotEmpty && isPasswordNotEmpty) {
 
             if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
@@ -171,8 +171,7 @@ public class LoginController implements Initializable {
         stage.close();
 //        System.exit(0);
     }
-=======
->>>>>>> da0d0839987022ab35d7de5131577be2d6d72311
+
 
 //        if (txt_user.getText().equalsIgnoreCase("")) {
 //            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email", ButtonType.OK);
@@ -184,36 +183,36 @@ public class LoginController implements Initializable {
 //            txt_password.requestFocus();
 //            return;
 //        }
-        if (isUserNameNotEmpty && isPasswordNotEmpty) {
-            boolean check = false;
-            for (User user : ListUser) {
-                if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
-                    check = true;
-                    ListUserLogin.add(user);
-                    Stage stage = (Stage) aPane_Login.getScene().getWindow();
-                    stage.getIcons().clear();
-                    stage.close();
-
-                    stage.setTitle("Main");
-                    Parent root;
-                    try {
-                        root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
-                        stage.getIcons().add(new Image("/image/hyhy.png"));
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException ex) {
-                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-            if (check == false) {
-                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-                alert.setTitle("Invalid");
-                alert.showAndWait();
-            }
-        }
+//        if (isUserNameNotEmpty && isPasswordNotEmpty) {
+//            boolean check = false;
+//            for (User user : ListUser) {
+//                if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
+//                    check = true;
+//                    ListUserLogin.add(user);
+//                    Stage stage = (Stage) aPane_Login.getScene().getWindow();
+//                    stage.getIcons().clear();
+//                    stage.close();
+//
+//                    stage.setTitle("Main");
+//                    Parent root;
+//                    try {
+//                        root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//                        Scene scene = new Scene(root);
+//                        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
+//                        stage.getIcons().add(new Image("/image/hyhy.png"));
+//                        stage.setScene(scene);
+//                        stage.show();
+//                    } catch (IOException ex) {
+//                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            }
+//            if (check == false) {
+//                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+//                alert.setTitle("Invalid");
+//                alert.showAndWait();
+//            }
+//        }
     }
 
 //    private void handleExit(ActionEvent event) {
@@ -222,4 +221,5 @@ public class LoginController implements Initializable {
 //
 //    }
 
-}
+
+
