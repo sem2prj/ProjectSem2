@@ -28,7 +28,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
@@ -74,18 +73,17 @@ public class LoginController implements Initializable {
         UsernameDAOImplement userDAOIm = new UsernameDAOImplement();
         ListUser = userDAOIm.getAllUser();
 
-        txt_user.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-                login();
-            }
-        });
-        
-        txt_password.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER) {
-                login();
-            }
-        });
-
+//        txt_user.setOnKeyPressed(e -> {
+//            if (e.getCode() == KeyCode.ENTER) {
+//                login();
+//            }
+//        });
+//        
+//        txt_password.setOnKeyPressed(e -> {
+//            if (e.getCode() == KeyCode.ENTER) {
+//                login();
+//            }
+//        });
     }
 
     @FXML
@@ -102,75 +100,8 @@ public class LoginController implements Initializable {
         if (isPasswordNotEmpty) {
             txt_password.requestFocus();
         }
-        if (isUserNameNotEmpty && isPasswordNotEmpty) {
 
-            if (!txt_user.getText().isEmpty() && !txt_password.getText().isEmpty()) {
-                boolean check = false;
-                for (User user : ListUser) {
-                    if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
-                        check = true;
-                        ListUserLogin.add(user);
-                        Stage stage = (Stage) aPane_Login.getScene().getWindow();
-                        stage.getIcons().clear();
-                        stage.close();
-
-                        stage.setTitle("Main");
-                        Parent root;
-                        try {
-                            root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-                            Scene scene = new Scene(root);
-                            scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-                        alert.setTitle("Invalid");
-                        alert.showAndWait();
-                        break;
-                    }
-                }
-//            Stage stage = (Stage) aPane_Login.getScene().getWindow();
-//            stage.getIcons().clear();
-//            stage.close();
-                //loading scene main
-
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
-//                    Image applicationIcon = new Image(getClass().getResourceAsStream("/image/main.png"));
-//                    stage.getIcons().add(applicationIcon);
-//            stage.setTitle("Main");
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
-//        } else {
-//
-//            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-//            Stage stageicondialog = (Stage) alert.getDialogPane().getScene().getWindow();
-//            stageicondialog.getIcons().add(new Image("image/invalid.png"));
-//            alert.setTitle("Invalid");
-//            alert.showAndWait();
-//                }
-//            break;
-//            }
-//            if(check==false){
-//                
-//            }
-            }
-        }
-
-    }
-
-    @FXML
-    private void handleExit(ActionEvent event) {
-        Stage stage = (Stage) aPane_Login.getScene().getWindow();
-        stage.close();
-//        System.exit(0);
-    }
-
-    //        if (txt_user.getText().equalsIgnoreCase("")) {
+//        if (txt_user.getText().equalsIgnoreCase("")) {
 //            Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email", ButtonType.OK);
 //            txt_user.requestFocus();
 //            return;
@@ -180,4 +111,41 @@ public class LoginController implements Initializable {
 //            txt_password.requestFocus();
 //            return;
 //        }
+        if (isUserNameNotEmpty && isPasswordNotEmpty) {
+            boolean check = false;
+            for (User user : ListUser) {
+                if (txt_user.getText().equals(user.getUserName()) && PasswordHash.encryptPass(txt_password.getText()).equals(user.getPassword())) {
+                    check = true;
+                    ListUserLogin.add(user);
+                    Stage stage = (Stage) aPane_Login.getScene().getWindow();
+                    stage.getIcons().clear();
+                    stage.close();
+
+                    stage.setTitle("Main");
+                    Parent root;
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+                        Scene scene = new Scene(root);
+                        scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            if (check == false) {
+                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+                alert.setTitle("Invalid");
+                alert.showAndWait();
+            }
+        }
+    }
+
+//    private void handleExit(ActionEvent event) {
+//        Stage stage = (Stage) aPane_Login.getScene().getWindow();
+//        stage.close();
+//
+//    }
+
 }

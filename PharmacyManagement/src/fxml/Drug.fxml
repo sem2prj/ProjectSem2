@@ -120,7 +120,7 @@
           <TableColumn fx:id="columnName" minWidth="120.0" prefWidth="120.0" text="NAME" />
             <TableColumn fx:id="columnSup" minWidth="120.0" prefWidth="120.0" text="SUPPLIER" />
             <TableColumn fx:id="columnStatus" minWidth="120.0" prefWidth="120.0" text="STATUS" />
-            <TableColumn fx:id="columnDes" minWidth="220.0" prefWidth="220.0" text="DESCRIPTION" />
+            <TableColumn fx:id="columnDes" minWidth="220.0" prefWidth="329.0" text="DESCRIPTION" />
         </columns>
       </TableView>
       <AnchorPane id="panneImage" layoutX="317.0" layoutY="3.0" prefHeight="65.0" prefWidth="65.0">

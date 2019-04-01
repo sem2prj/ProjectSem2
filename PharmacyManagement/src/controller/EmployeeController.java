@@ -103,8 +103,8 @@ public class EmployeeController implements Initializable {
     private JFXTextField txtSalary;
     //combobox
     private final String position[] = {"Manager", "Employee"};
-    private final String department[] = {"Store", "Sell", "Bussiness"};
-    private final String roles[] = {"User", "Supervision", "Admin", "President"};
+    private final String department[] = {"Store", "Sell", "Business"};
+    private final String roles[] = {"User", "Admin",};
 
     //image
     private FileChooser fileChooser;
@@ -256,7 +256,7 @@ public class EmployeeController implements Initializable {
             lbImage.setText("");
         }
         if (ValidationController.checkPolymerCode(txtEplCode.getText())) { 
-            if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
+            if (imageView.getImage() != null&&txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
 
                 if (rdMale.isSelected()) {
                     gendercheck = true;

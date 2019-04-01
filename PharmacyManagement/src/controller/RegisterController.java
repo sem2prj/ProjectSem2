@@ -279,12 +279,12 @@ public class RegisterController implements Initializable {
         combobox_position.getValue();
 
         //Combobox_department
-        combobox_department.getItems().addAll("Bussiness");
+        combobox_department.getItems().addAll("Business");
         combobox_department.getSelectionModel().selectFirst();
         combobox_department.getValue();
 
         //Combobox_mission
-        combobox_mission.getItems().addAll("President");
+        combobox_mission.getItems().addAll("Admin");
         combobox_mission.getSelectionModel().selectFirst();
         combobox_mission.getValue();
 
