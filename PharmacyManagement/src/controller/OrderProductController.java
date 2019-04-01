@@ -233,7 +233,7 @@ public class OrderProductController implements Initializable {
         ArrayList<String> customerList = new ArrayList<>();
         pst = con.prepareStatement("select CuName,CuPhone from Customer");
         rs = pst.executeQuery();
-        if (rs.next()) {
+        while (rs.next()) {
             customerList.add(rs.getString(1) + " " + rs.getString(2));           
         }
         rs.close();
@@ -243,20 +243,38 @@ public class OrderProductController implements Initializable {
     
     
    public int getCuId() throws SQLException{
-       int cuid =0;
+       System.out.println("Test456");
+       System.out.println(tf_customer.getText());
+       int cuid = 0;
        pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
-       pst.setString(1, ValidationController.getStringFromText(tf_customer.getText()));
-       pst.setString(2, ValidationController.getNumberFromText(tf_customer.getText()));
+       pst.setString(1, ValidationController.getStringFromText(tf_customer.getText()) );
+       System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
+       pst.setString(2, ValidationController.getNumberFromText(tf_customer.getText()) );
+       System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
        rs = pst.executeQuery();
-       if(rs.next()){
-           cuid = rs.getInt("CuId ");
+       if (rs.next()) {
+           cuid = rs.getInt(1);
        }
        rs.close();
        pst.close();
+       System.out.println(cuid);
        return cuid;
    
    }
-    
+   
+   
+   public int getDetailID() throws SQLException {
+       int detailID = 0;
+       pst = con.prepareStatement("select DetailID from Users where UsersName like ?");
+       pst.setString(1,UserCurrentLogin.getCurrentLogin());
+       rs = pst.executeQuery();
+       if(rs.next()){
+        detailID =rs.getInt(1);
+       }
+       rs.close();
+       pst.close();
+       return detailID;
+   }
     
 
     public void autoFillWithBarcode() throws SQLException {
@@ -324,12 +342,15 @@ public class OrderProductController implements Initializable {
     @FXML
     private void action_printInvoice(ActionEvent event) {
         String sql = "insert into Orders (OrderID,OrderDate)values(?,?)";
-        String sql2 = "insert into Customer (MoneySpend) values(?) where CuId = ?";
+        String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
+        String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
+                
         try {
             pst = con.prepareStatement(sql);
             pst.setString(1, tf_invoiceID.getText() );
             pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
             int  i = pst.executeUpdate();
+            
             if(i==1){
                 sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice)values(?,?,?,?)";
                 for(OrderList2 item : orderData){
@@ -342,11 +363,26 @@ public class OrderProductController implements Initializable {
                     
                            
                 }
-            
-                pst2 = con.prepareStatement(sql2);
-                pst2.setDouble(1,grandTotal);
-                pst2.setInt(2, getCuId());
-                pst2.executeQuery();
+                
+            if (getCuId() != 0) {
+                    pst2 = con.prepareStatement(sql2);
+                    pst2.setDouble(1, grandTotal);
+                    pst2.setInt(2, getCuId());
+                    int j = pst2.executeUpdate();
+
+                    pst2.close();
+                }
+                
+            if (getDetailID() !=0){
+                pst2= con.prepareStatement(sql3);
+                pst2.setDouble(1, grandTotal);
+                pst2.setInt(2,getDetailID());
+                int k = pst2.executeUpdate();
+                
+                pst2.close();
+                
+            }    
+                
                 
             
             }

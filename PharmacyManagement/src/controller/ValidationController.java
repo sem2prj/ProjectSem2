@@ -326,7 +326,7 @@ public class ValidationController {
         while (matcher.find()) {
             abc += matcher.group() + " ";
         }
-        abc.trim();
+        abc = abc.trim();
         return abc;
 
     }
@@ -339,7 +339,7 @@ public class ValidationController {
         while (matcher.find()) {
             abc += matcher.group() + " ";
         }
-        abc.trim();
+        abc = abc.trim();
         return abc;
     }
     
