@@ -44,7 +44,7 @@
         </rowConstraints>
          <children>
             <JFXButton id="btnHander" onAction="#handleAdd" prefHeight="33.0" prefWidth="64.0" text="ADD" />
-            <JFXButton id="btnHander" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="33.0" prefWidth="64.0" text="UPDATE" GridPane.columnIndex="1" />
+            <JFXButton id="btnHander" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="33.0" prefWidth="64.0" text="EDIT" GridPane.columnIndex="1" />
             <JFXButton id="btnHander" layoutX="74.0" layoutY="10.0" onAction="#handleDelete" prefHeight="33.0" prefWidth="64.0" text="DELETE" GridPane.columnIndex="2" />
             <JFXButton id="btnHander" layoutX="10.0" layoutY="10.0" onAction="#handleClear" prefHeight="33.0" prefWidth="64.0" text="CLEAR" GridPane.rowIndex="1" />
          </children>

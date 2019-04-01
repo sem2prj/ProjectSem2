@@ -29,12 +29,11 @@
          <children>
             <TableView fx:id="tableView" prefHeight="550.0" prefWidth="450.0">
               <columns>
-                <TableColumn fx:id="columeCode" minWidth="50.0" prefWidth="50.0" text="CODE" />
-                <TableColumn fx:id="columuserName" minWidth="75.0" prefWidth="75.0" text="NAME" />
-                  <TableColumn fx:id="columPhone" minWidth="75.0" prefWidth="75.0" text="PHONE" />
-                  <TableColumn fx:id="columEmail" minWidth="75.0" prefWidth="75.0" text="EMAIL" />
-                  <TableColumn fx:id="columnPosition" minWidth="100.0" prefWidth="100.0" text="POSITION" />
-                  <TableColumn fx:id="columDPM" minWidth="75.0" prefWidth="75.0" text="DPM" />
+                <TableColumn fx:id="columeCode" minWidth="70.0" prefWidth="70.0" text="CODE" />
+                <TableColumn fx:id="columuserName" minWidth="90.0" prefWidth="90.0" text="NAME" />
+                  <TableColumn fx:id="columPhone" minWidth="90.0" prefWidth="90.0" text="PHONE" />
+                  <TableColumn fx:id="columEmail" minWidth="110.0" prefWidth="110.0" text="EMAIL" />
+                  <TableColumn fx:id="columDPM" minWidth="90.0" prefWidth="90.0" text="DPM" />
               </columns>
             </TableView>
          </children>
@@ -58,7 +57,7 @@
         </rowConstraints>
          <children>
             <JFXButton id="btnHandle" onAction="#handleAdd" prefHeight="36.0" prefWidth="100.0" text="ADD" />
-            <JFXButton id="btnHandle" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="39.0" prefWidth="100.0" text="UPDATE" GridPane.columnIndex="1" />
+            <JFXButton id="btnHandle" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="39.0" prefWidth="100.0" text="EDIT" GridPane.columnIndex="1" />
             <JFXButton id="btnHandle" layoutX="110.0" layoutY="10.0" onAction="#HandleDelete" prefHeight="39.0" prefWidth="100.0" text="DELETE" GridPane.columnIndex="2" />
             <JFXButton id="btnHandle" layoutX="210.0" layoutY="10.0" onAction="#handleClear" prefHeight="39.0" prefWidth="100.0" text="CLEAR" GridPane.rowIndex="1" />
             <JFXButton id="btnHandle" fx:id="btnExcel" layoutX="210.0" layoutY="10.0" prefHeight="39.0" prefWidth="100.0" text="EXCEL" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -104,27 +103,18 @@
                         <Label fx:id="lbAddrees" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="286.0" prefHeight="59.0" prefWidth="159.0">
-                     <children>
-                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Sex" />
-                        <Label layoutX="-2.0" layoutY="52.0" prefHeight="17.0" prefWidth="150.0" />
-                        <HBox layoutX="-2.0" layoutY="26.0" prefHeight="17.0" prefWidth="150.0">
-                           <children>
-                              <JFXRadioButton fx:id="rdMale" prefHeight="17.0" prefWidth="79.0" text="Male">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="sex" />
-                                 </toggleGroup>
-                              </JFXRadioButton>
-                              <JFXRadioButton fx:id="rdFemale" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="79.0" text="Female" toggleGroup="$sex" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
                   <AnchorPane layoutX="10.0" layoutY="355.0" prefHeight="59.0" prefWidth="159.0">
                      <children>
                         <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Password" />
                         <Label fx:id="labelPass" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
                         <JFXPasswordField fx:id="txtPass" layoutX="-2.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="59.0" prefWidth="159.0">
+                     <children>
+                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Confirm Password" />
+                        <Label fx:id="lbConfirm" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
+                        <JFXPasswordField fx:id="txtConfirmPass" layoutX="6.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -153,14 +143,6 @@
                         <Label fx:id="lbSalary" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="148.0" prefHeight="59.0" prefWidth="159.0">
-                     <children>
-                        <Label layoutX="5.0" layoutY="5.0" />
-                        <Label layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
-                        <JFXComboBox fx:id="cbPosition" layoutX="5.0" layoutY="20.0" prefHeight="25.0" prefWidth="150.0" />
-                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Position" />
-                     </children>
-                  </AnchorPane>
                   <AnchorPane layoutX="10.0" layoutY="217.0" prefHeight="59.0" prefWidth="159.0">
                      <children>
                         <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Department" />
@@ -175,11 +157,20 @@
                         <DatePicker fx:id="txtDateWork" layoutX="7.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="355.0" prefHeight="59.0" prefWidth="159.0">
+                  <AnchorPane prefHeight="59.0" prefWidth="159.0">
                      <children>
-                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Confirm Password" />
-                        <Label fx:id="lbConfirm" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
-                        <JFXPasswordField fx:id="txtConfirmPass" layoutX="6.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Sex" />
+                        <Label layoutX="-2.0" layoutY="52.0" prefHeight="17.0" prefWidth="150.0" />
+                        <HBox layoutX="-2.0" layoutY="26.0" prefHeight="17.0" prefWidth="150.0">
+                           <children>
+                              <JFXRadioButton fx:id="rdMale" prefHeight="17.0" prefWidth="79.0" text="Male">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="sex" />
+                                 </toggleGroup>
+                              </JFXRadioButton>
+                              <JFXRadioButton fx:id="rdFemale" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="79.0" text="Female" toggleGroup="$sex" />
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
                </children>

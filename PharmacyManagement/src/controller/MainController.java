@@ -29,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -142,7 +143,7 @@ public class MainController implements Initializable {
             fadeTransition1.setToValue(0);
             fadeTransition1.play();
             fadeTransition1.setOnFinished(event1 -> {
-            opacityPane.setVisible(false);
+                opacityPane.setVisible(false);
             });
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(0.5), drawerPane);
             translateTransition1.setByX(-600);
@@ -258,6 +259,7 @@ public class MainController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/drug.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Drug");
         stage.setScene(scene);
         stage.show();
@@ -271,6 +273,7 @@ public class MainController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/employee.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Employee");
         stage.setScene(scene);
         stage.show();
@@ -284,6 +287,7 @@ public class MainController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Customer");
         stage.setScene(scene);
         stage.show();
@@ -297,6 +301,7 @@ public class MainController implements Initializable {
         scene.getStylesheets().add(getClass().getResource("/css/supplier.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Supplier");
         stage.setScene(scene);
         stage.show();
@@ -315,6 +320,7 @@ public class MainController implements Initializable {
         if (result.get() == okButton) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            stage.getIcons().add(new Image("/image/hyhy.png"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             stage.setScene(scene);
@@ -325,16 +331,17 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void handlePayment(ActionEvent event)  throws IOException {       
+    private void handlePayment(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
 //        scene.getStylesheets().add(getClass().getResource("/css/customer.css").toExternalForm());
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Payment");
         stage.setScene(scene);
         stage.show();
-    
+
     }
 }

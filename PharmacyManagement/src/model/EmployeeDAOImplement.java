@@ -45,7 +45,6 @@ public class EmployeeDAOImplement implements DAOEmployee {
                 employee.setGender(rs.getBoolean("gender"));
                 employee.setDateBirth(rs.getDate("dateOfBirth"));
                 employee.setSalary(rs.getDouble("salary"));
-                employee.setPosition(rs.getString("position"));
                 employee.setDepartment(rs.getString("department"));
                 employee.setImageBlob(rs.getBlob("blogImage"));
                 employee.setDateWork(rs.getDate("dateWork"));
@@ -60,8 +59,8 @@ public class EmployeeDAOImplement implements DAOEmployee {
     }
 
     @Override
-    public void insertEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork, String roles, String username, String Pass) {
-        String sql2 = "INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Salary,Position,Department,ImageBlob,WorkDay,Mission) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    public void insertEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String department, Blob blobImage, Date dateWork, String roles, String username, String Pass) {
+        String sql2 = "INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Salary,Department,ImageBlob,WorkDay,Mission) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             Connection connection = controller.ConnectDB.connectSQLServer();
             PreparedStatement pst2 = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
@@ -72,11 +71,10 @@ public class EmployeeDAOImplement implements DAOEmployee {
             pst2.setBoolean(5, gender);
             pst2.setDate(6, dateofBirth);
             pst2.setDouble(7, salary);
-            pst2.setString(8, position);
-            pst2.setString(9, department);
-            pst2.setBlob(10, blobImage);
-            pst2.setDate(11, dateWork);
-            pst2.setString(12, roles);
+            pst2.setString(8, department);
+            pst2.setBlob(9, blobImage);
+            pst2.setDate(10, dateWork);
+            pst2.setString(11, roles);
             pst2.executeUpdate();
 
             ResultSet rs = pst2.getGeneratedKeys();
@@ -100,8 +98,8 @@ public class EmployeeDAOImplement implements DAOEmployee {
     }
 
     @Override
-    public void updateEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String position, String department, Blob blobImage, Date dateWork, String roles, String username, int id) {
-        String sql = "UPDATE DetailUser SET Phone=?,Email=?,Addrees=?,Sex=?,BirthDay=?,Salary=?,Position=?,Department=?,ImageBlob=?,WorkDay=?,Mission=? WHERE Code=?";
+    public void updateEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary, String department, Blob blobImage, Date dateWork, String roles, String username, int id) {
+        String sql = "UPDATE DetailUser SET Phone=?,Email=?,Addrees=?,Sex=?,BirthDay=?,Salary=?,Department=?,ImageBlob=?,WorkDay=?,Mission=? WHERE Code=?";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
 
@@ -111,12 +109,12 @@ public class EmployeeDAOImplement implements DAOEmployee {
             pst.setBoolean(4, gender);
             pst.setDate(5, dateofBirth);
             pst.setDouble(6, salary);
-            pst.setString(7, position);
-            pst.setString(8, department);
-            pst.setBlob(9, blobImage);
-            pst.setDate(10, dateWork);
-            pst.setString(11, roles);
-            pst.setString(12, eplCode);
+
+            pst.setString(7, department);
+            pst.setBlob(8, blobImage);
+            pst.setDate(9, dateWork);
+            pst.setString(10, roles);
+            pst.setString(11, eplCode);
             int i = pst.executeUpdate();
 
             String sql2 = "UPDATE Users SET UsersName=? WHERE UsersID=?";
@@ -171,7 +169,6 @@ public class EmployeeDAOImplement implements DAOEmployee {
                 employee.setGender(rs.getBoolean("gender"));
                 employee.setDateBirth(rs.getDate("dateOfBirth"));
                 employee.setSalary(rs.getDouble("salary"));
-                employee.setPosition(rs.getString("position"));
                 employee.setDepartment(rs.getString("department"));
                 employee.setImageBlob(rs.getBlob("blogImage"));
                 employee.setDateWork(rs.getDate("dateWork"));
@@ -223,7 +220,6 @@ public class EmployeeDAOImplement implements DAOEmployee {
                 employee.setGender(rs.getBoolean("gender"));
                 employee.setDateBirth(rs.getDate("dateOfBirth"));
                 employee.setSalary(rs.getDouble("salary"));
-                employee.setPosition(rs.getString("position"));
                 employee.setDepartment(rs.getString("department"));
                 employee.setImageBlob(rs.getBlob("blogImage"));
                 employee.setDateWork(rs.getDate("dateWork"));

@@ -189,7 +189,7 @@ public class DrugController implements Initializable {
                 Drug drug = new Drug();
                 drug.setImage(blob);
                 DrugDAOImplement dDI = new DrugDAOImplement();
-                dDI.insertDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
+                dDI.insertDrug(txtCode.getText(),txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
                         cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
                         txtSup.getText(), txtAreaDes.getText());
 

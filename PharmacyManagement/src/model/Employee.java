@@ -31,7 +31,6 @@ public class Employee {
     private BooleanProperty gender;
     private SimpleObjectProperty<Date> dateBirth;
     private DoubleProperty salary;
-    private StringProperty position;
     private StringProperty department;
     private Blob imageBlob;
     private SimpleObjectProperty<Date> dateWork;
@@ -55,7 +54,7 @@ public class Employee {
     }
     
 
-    public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String position, String department, Blob imageBlob, Date dateWork) {
+    public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork) {
         this.EplCode = new SimpleStringProperty(eplCode);
         this.userName = new SimpleStringProperty(userName);
         this.phone = new SimpleStringProperty(phone);
@@ -64,13 +63,12 @@ public class Employee {
         this.gender = new SimpleBooleanProperty(gender);
         this.dateBirth = new SimpleObjectProperty<>(dateBirth);
         this.salary = new SimpleDoubleProperty(salary);
-        this.position = new SimpleStringProperty(position);
         this.department = new SimpleStringProperty(department);
         this.imageBlob = imageBlob;
         this.dateWork = new SimpleObjectProperty<>(dateWork);
     }
 
-     public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String position, String department, Blob imageBlob, Date dateWork, String Pass, Integer id,String Role) {
+     public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork, String Pass, Integer id,String Role) {
         this.EplCode = new SimpleStringProperty(eplCode);
         this.userName = new SimpleStringProperty(userName);
         this.phone = new SimpleStringProperty(phone);
@@ -79,7 +77,6 @@ public class Employee {
         this.gender = new SimpleBooleanProperty(gender);
         this.dateBirth = new SimpleObjectProperty<>(dateBirth);
         this.salary = new SimpleDoubleProperty(salary);
-        this.position = new SimpleStringProperty(position);
         this.department = new SimpleStringProperty(department);
         this.imageBlob = imageBlob;
         this.dateWork = new SimpleObjectProperty<>(dateWork);
@@ -195,15 +192,6 @@ public class Employee {
     public void setSalary(Double salary) {
         this.salary = new SimpleDoubleProperty(salary);
     }
-
-    public String getPosition() {
-        return position.get();
-    }
-
-    public void setPosition(String position) {
-        this.position = new SimpleStringProperty(position);
-    }
-
     public String getDepartment() {
         return department.get();
     }

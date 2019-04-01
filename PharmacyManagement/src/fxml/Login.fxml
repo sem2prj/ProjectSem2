@@ -16,21 +16,11 @@
    <children>
       <AnchorPane prefHeight="480.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="360.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox layoutX="81.0" layoutY="382.0" prefHeight="60.0" prefWidth="223.0">
+            <HBox layoutX="81.0" layoutY="382.0" prefHeight="60.0" prefWidth="81.0">
                <children>
                   <AnchorPane prefHeight="74.0" prefWidth="116.0">
                      <children>
                         <JFXButton id="btnHandle" fx:id="btn_Login" defaultButton="true" layoutX="4.0" layoutY="4.0" onAction="#handle_Login" prefHeight="50.0" prefWidth="104.0" ripplerFill="BLACK" text="Login" textFill="GOLDENROD">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="116.0" />
-                  <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="74.0" prefWidth="116.0">
-                     <children>
-                        <JFXButton id="btnHandle" defaultButton="true" layoutX="4.0" layoutY="4.0" onAction="#handleExit" prefHeight="50.0" prefWidth="104.0" ripplerFill="BLACK" text="Exit" textFill="GOLDENROD">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>

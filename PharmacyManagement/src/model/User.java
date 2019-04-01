@@ -17,14 +17,16 @@ public class User {
     private StringProperty password;
     private StringProperty fullname;
     private StringProperty mission;
+    private StringProperty deparment;
 
     public User() {
     }
 
-    public User(String userName, String password, String fullname,String mission) {
+    public User(String userName, String password, String fullname,String deparment,String mission) {
         this.userName =new SimpleStringProperty(userName);
         this.password = new SimpleStringProperty(password);
         this.fullname = new SimpleStringProperty(fullname);
+        this.deparment = new SimpleStringProperty(deparment);
         this.mission = new SimpleStringProperty(mission);
     }
 
@@ -35,6 +37,16 @@ public class User {
     public void setUserName(String userName) {
         this.userName = new SimpleStringProperty(userName);
     }
+
+    public String getDeparment() {
+        return deparment.get();
+    }
+
+    public void setDeparment(String deparment) {
+        this.deparment = new SimpleStringProperty(deparment);
+    }
+    
+    
 
     public String getPassword() {
         return password.get();

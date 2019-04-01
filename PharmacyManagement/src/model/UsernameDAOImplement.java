@@ -33,7 +33,8 @@ public class UsernameDAOImplement implements DAOUser{
                 user.setUserName(rs.getString("username"));
                 user.setFullname(rs.getString("fullname"));
                 user.setPassword(rs.getString("pass"));
-                user.setMission("mission");
+                user.setDeparment(rs.getString("department"));
+                user.setMission(rs.getString("mission"));
                 listUser.add(user);
             }
         } catch (ClassNotFoundException | SQLException ex) {
