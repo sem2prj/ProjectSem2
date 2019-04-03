@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 public interface DAOSupplier {
     ObservableList<Supplier> getAllSupplier();
     
-    void insertSupplier(String Code,String nameSupplier,String addrees,String phone,String taxInumber,String email,String website,String notice);
+    void insertSupplier(String Code,String Code2,String nameSupplier,String addrees,String phone,String taxInumber,String email,String website,String notice);
     
     void updateSupplier(String Code,String nameSupplier,String addrees,String phone,String taxInumber,String email,String website,String notice);
    

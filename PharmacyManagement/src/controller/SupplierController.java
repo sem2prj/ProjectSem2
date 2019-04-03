@@ -137,7 +137,7 @@ public class SupplierController implements Initializable {
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
 
             SupplierDAOIplement sDI = new SupplierDAOIplement();
-            sDI.insertSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+            sDI.insertSupplier(txtCode.getText(),txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
             clear();
             labelEmpty();
             loadTable();
