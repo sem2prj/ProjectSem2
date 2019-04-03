@@ -48,21 +48,22 @@ public class CustomerDAOImplement implements DAOCustomer {
     }
 
     @Override
-    public void insertCustomer(String customerCode, String name, String addrees, String phone, String email, Integer level) {
-        String sql = "INSERT INTO customer (CuCode,CuName,CuAddrees,CuPhone,CuEmail,CuLevel ) VALUES (?,?,?,?,?,?)";
+    public void insertCustomer(String cucode1,String customerCode, String name, String addrees, String phone, String email, Integer level) {
+        String sql = "IF NOT EXISTS (SELECT * FROM  customer WHERE CuCode= ?) INSERT INTO customer (CuCode,CuName,CuAddrees,CuPhone,CuEmail,CuLevel ) VALUES (?,?,?,?,?,?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
-            pst.setString(1, customerCode);
-            pst.setString(2, name);
-            pst.setString(3, addrees);
-            pst.setString(4, phone);
-            pst.setString(5, email);
-            pst.setInt(6, level);
+            pst.setString(1, cucode1);
+            pst.setString(2, customerCode);
+            pst.setString(3, name);
+            pst.setString(4, addrees);
+            pst.setString(5, phone);
+            pst.setString(6, email);
+            pst.setInt(7, level);
             int i = pst.executeUpdate();
-            if (i != 0) {
+            if (i == 1) {
                 AlertDialog.display("Info", "Data Insert Successfully");
             } else {
-                AlertDialog.display("Info", "Data Insert Failing");
+                AlertDialog.display("Info", "Customer Code already exists");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(CustomerDAOImplement.class.getName()).log(Level.SEVERE, null, ex);

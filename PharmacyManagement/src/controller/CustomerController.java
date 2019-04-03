@@ -25,21 +25,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import model.Customer;
 import model.CustomerDAOImplement;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.swing.JRViewer;
 
 /**
  * FXML Controller class
@@ -157,7 +144,7 @@ public class CustomerController implements Initializable {
         if (txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty && txtLevelnotNumber) {
 
             CustomerDAOImplement cDI = new CustomerDAOImplement();
-            cDI.insertCustomer(txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+            cDI.insertCustomer(txtCCode.getText(),txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
             clear();
             loadTable();
 
