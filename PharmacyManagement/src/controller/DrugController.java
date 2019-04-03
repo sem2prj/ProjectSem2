@@ -145,6 +145,25 @@ public class DrugController implements Initializable {
         loadTable();
         click();
         css();
+        
+        FilteredList<Drug> filteredData = new FilteredList<>(data, e -> true);
+        txtSearch.setOnKeyReleased(e -> {
+            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Drug>) drug -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (drug.getDCode().contains(newValue)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+        });
+        SortedList<Drug> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedData);
     }
 
     @FXML
@@ -179,7 +198,7 @@ public class DrugController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+        if (imageView.getImage() != null&&textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
             BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
             byte[] res;
             try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
@@ -237,7 +256,7 @@ public class DrugController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+        if (imageView.getImage() != null&&textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
 
             Drug drug = new Drug();
             BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
@@ -374,30 +393,6 @@ public class DrugController implements Initializable {
             imageView.setImage(image);
             imageView.setPreserveRatio(true);
         }
-    }
-
-    @FXML
-    private void handleSearch(KeyEvent event) {
-        DrugDAOImplement dDI = new DrugDAOImplement();
-        data = dDI.getAllDrug();
-        FilteredList<Drug> filteredData = new FilteredList<>(data, e -> true);
-        txtSearch.setOnKeyReleased(e -> {
-            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filteredData.setPredicate((Predicate<? super Drug>) drug -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (drug.getDCode().contains(newValue)) {
-                        return true;
-                    }
-                    return false;
-                });
-            });
-        });
-        SortedList<Drug> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-        tableView.setItems(sortedData);
     }
 
 }

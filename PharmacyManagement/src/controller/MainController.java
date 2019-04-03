@@ -8,12 +8,16 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -35,6 +39,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.User;
+//import model.User;
 
 /**
  * FXML Controller class
@@ -87,6 +92,7 @@ public class MainController implements Initializable {
 
     final private Timer timer = new Timer(true);
     final private LinkedList<TimerTask> taskList = new LinkedList<TimerTask>();
+    Connection con;
 
     /**
      * Initializes the controller class.
@@ -95,7 +101,8 @@ public class MainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        animationPane();
+        try {
+            //        animationPane();
 //        dislayIcon();
 //        mnStatistical();
 //        Info_Member_Login = LoginController.ListMemberLogin;
@@ -107,12 +114,20 @@ public class MainController implements Initializable {
 //            }
 
 //        }
-        infoUser = LoginController.ListUserLogin;
-        for (User user : infoUser) {
-            if (user.getMission().equals("User")) {
-                btnIE.setDisable(true);
-            }
+            con = controller.ConnectDB.connectSQLServer();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        infoUser = LoginController.ListUserLogin;
+//        for (User user : infoUser) {
+//            System.out.println(user.getMission());
+//            if (user.getMission().equals("User")) {
+//                btnIE.setDisable(true);
+//            }
+//        }
         //Animation 
         opacityPane.setVisible(false);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), opacityPane);
@@ -308,7 +323,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void handleLogOut(ActionEvent event) throws IOException {
+    private void handleLogOut(ActionEvent event) throws IOException, SQLException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Logout");
         alert.setHeaderText(null);

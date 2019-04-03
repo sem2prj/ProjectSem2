@@ -89,6 +89,27 @@ public class SupplierController implements Initializable {
         loadTable();
         click();
         cssError();
+        SupplierDAOIplement sDI = new SupplierDAOIplement();
+        supplierData=sDI.getAllSupplier();
+        FilteredList<Supplier> filteredData = new FilteredList<>(supplierData, e -> true);
+        txtSearch.setOnKeyReleased(e -> {
+            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Supplier>) supplier -> {
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    if (supplier.getCode().contains(newValue)) {
+                        return true;
+                    }
+                    
+                    return false;
+                });
+            });
+            SortedList<Supplier> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedData);
+        });
     }
 
     @FXML
@@ -226,30 +247,6 @@ public class SupplierController implements Initializable {
             txtEmail.setText(supplier.getEmail());
             txtWebsite.setText(supplier.getWebsite());
             txtNotice.setText(supplier.getNotice());
-        });
-    }
-
-    @FXML
-    private void handleSearch(KeyEvent event) {
-        SupplierDAOIplement SupIpl = new SupplierDAOIplement();
-        supplierData = SupIpl.getAllSupplier();
-        FilteredList<Supplier> filteredData = new FilteredList<>(supplierData, e -> true);
-        txtSearch.setOnKeyReleased(e -> {
-            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filteredData.setPredicate((Predicate<? super Supplier>) supplier -> {
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (supplier.getCode().contains(newValue)) {
-                        return true;
-                    }
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    return false;
-                });
-            });
-            SortedList<Supplier> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-            tableView.setItems(sortedData);
         });
     }
 

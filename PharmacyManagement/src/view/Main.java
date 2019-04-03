@@ -29,10 +29,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-<<<<<<< HEAD
+
         //Test MainController
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-=======
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+
 //        //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
 //
@@ -45,7 +45,7 @@ public class Main extends Application {
         con = controller.ConnectDB.getConnectTable();
         pst = con.prepareStatement("select * from Users");
         rs = pst.executeQuery();
->>>>>>> da0d0839987022ab35d7de5131577be2d6d72311
+
 
         if (rs.next()) {
             rs.close();
@@ -63,7 +63,7 @@ public class Main extends Application {
             stage.initStyle(StageStyle.DECORATED);
             stage.setScene(scene);
             stage.show();
-<<<<<<< HEAD
+
 //            
 //       con = controller.ConnectDB.getConnectTable();
 //        System.out.println("Connect successs99999555555321235235");
@@ -85,8 +85,7 @@ public class Main extends Application {
 //       pst.close();
 //       con.close();
 //
-=======
->>>>>>> da0d0839987022ab35d7de5131577be2d6d72311
+
 
         } else {
 
@@ -105,7 +104,7 @@ public class Main extends Application {
             stage.setResizable(false);
             stage.show();
 
-<<<<<<< HEAD
+
        
 //        con = controller.ConnectDB.getConnectTable();
 //        pst = con.prepareStatement("select * from Users");
@@ -143,10 +142,7 @@ public class Main extends Application {
 //            stage.show();
 //
 //        }
-=======
-        }
->>>>>>> da0d0839987022ab35d7de5131577be2d6d72311
-//
+
 //        //End
 ////
 ////        } else {
@@ -164,6 +160,7 @@ public class Main extends Application {
 ////            con.close();
 ////
 //        }
+    }
     }
 
     /**

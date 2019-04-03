@@ -25,4 +25,5 @@ public interface DAODrug {
     void deleteDrug(String dCode);
     
     Image getImage(String DCode);
+    
 }
