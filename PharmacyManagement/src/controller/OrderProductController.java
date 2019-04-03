@@ -192,8 +192,7 @@ public class OrderProductController implements Initializable {
 
             pst = con.prepareStatement("select PCode,PName from Product where pname LIKE ?");
 
-            pst = con.prepareStatement("select PCode,PName from Product where PName LIKE ?");
-
+   
             pst.setString(1, "%" + tf_search.getText() + "%");
             rs = pst.executeQuery();
 
