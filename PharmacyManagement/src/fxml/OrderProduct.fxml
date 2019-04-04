@@ -16,7 +16,7 @@
       <TextField fx:id="tf_productname" layoutX="26.0" layoutY="80.0" promptText="Product name" />
       <TextField fx:id="tf_qty" layoutX="26.0" layoutY="120.0" promptText="Qty" />
       <TextField fx:id="tf_price" layoutX="26.0" layoutY="167.0" promptText="Price" />
-      <Button fx:id="btn_add" layoutX="190.0" layoutY="40.0" mnemonicParsing="false" onAction="#action_add" prefHeight="25.0" prefWidth="48.0" text="Get" />
+      <Button fx:id="btn_add" layoutX="190.0" layoutY="40.0" mnemonicParsing="false" onAction="#action_add" prefHeight="25.0" prefWidth="48.0" text="Take" />
       <JFXDatePicker fx:id="order_dateInvoice" layoutX="444.0" layoutY="175.0" prefHeight="17.0" prefWidth="135.0" />
       <TableView fx:id="table_order" layoutX="26.0" layoutY="215.0" prefHeight="254.0" prefWidth="598.0">
         <columns>

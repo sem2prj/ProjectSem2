@@ -70,6 +70,7 @@ public class OrderProductController implements Initializable {
     private Connection con;
     private PreparedStatement pst;
     private PreparedStatement pst2;
+    private PreparedStatement pst3;
     private ResultSet rs;
 
     private ObservableList<OrderList2> orderData;
@@ -118,6 +119,9 @@ public class OrderProductController implements Initializable {
     private Button btn_remove;
     @FXML
     private TextField tf_customer;
+    
+    int returnCuID = 0;
+    int returnUserID = 0;
 
     /**
      * Initializes the controller class.
@@ -132,19 +136,41 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         error_qty.setStyle("-fx-text-fill: red;");
-        tf_invoiceID.setText(autoOrderID());        
+        tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());
         searchData = FXCollections.observableArrayList();
         column_search_productname.setCellValueFactory(new PropertyValueFactory<>("pname"));
         column_search_barcode.setCellValueFactory(new PropertyValueFactory<>("code"));
 
+//        tf_search.setOnKeyReleased((KeyEvent ke) -> {
+//            if (ke.getCode().equals(KeyCode.ENTER)) {
+//                try {
+//                    doSearchAction();
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//            }
+//        });
+        
         tf_search.setOnKeyReleased((KeyEvent ke) -> {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
+             
                 try {
+                            searchData.clear();
+        table_search.setItems(searchData);
                     doSearchAction();
                 } catch (SQLException ex) {
                     Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+            
+        });
+        
+
+        tf_qty.setOnKeyReleased((KeyEvent ke) -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                addToMenu();
+                tf_barcode.requestFocus();
 
             }
         });
@@ -159,16 +185,24 @@ public class OrderProductController implements Initializable {
 
             }
         });
-        
-        ArrayList<String> result;
+
+        ArrayList<String> resultCustomer;
         try {
-            result = autoFillCustomer();
-            TextFields.bindAutoCompletion(tf_customer, result);
-            
+            resultCustomer = autoFillCustomer();
+            TextFields.bindAutoCompletion(tf_customer, resultCustomer);
+
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        ArrayList<String> resultBarcode;
+        try {
+            resultBarcode = autoFillBarcode();
+             TextFields.bindAutoCompletion(tf_barcode, resultBarcode);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         
 
         orderData = FXCollections.observableArrayList();
@@ -182,17 +216,14 @@ public class OrderProductController implements Initializable {
 
     public void doSearchAction() throws SQLException {
 
-        searchData.clear();
-        table_search.setItems(searchData);
+//        searchData.clear();
+//        table_search.setItems(searchData);
         System.out.println(tf_search.getText());
 
         try {
-            
-
 
             pst = con.prepareStatement("select PCode,PName from Product where pname LIKE ?");
 
-   
             pst.setString(1, "%" + tf_search.getText() + "%");
             rs = pst.executeQuery();
 
@@ -201,7 +232,6 @@ public class OrderProductController implements Initializable {
 
                 searchData.add(new ProductListForSearchInInvoice(rs.getString("PCode"), rs.getString("PName")));
 
-                searchData.add(new ProductListForSearchInInvoice(rs.getString(1), rs.getString(2)));
 
                 table_search.setItems(searchData);
 
@@ -209,9 +239,9 @@ public class OrderProductController implements Initializable {
 //                        table_search.setItems(searchData);
             }
 
-            rs.close();
+            rs.close(); pst.close();
 
-            pst.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,10 +251,9 @@ public class OrderProductController implements Initializable {
     @FXML
     public void action_add(ActionEvent event) throws SQLException {
 //        scanbarcode();
-    autoFillWithBarcode();
-
+        autoFillWithBarcode();
+        
 //
-
     }
 
     private void clearText() {
@@ -236,53 +265,78 @@ public class OrderProductController implements Initializable {
 
     }
     
-    public ArrayList<String> autoFillCustomer() throws SQLException{
+    public ArrayList<String> autoFillBarcode() throws SQLException{
+        ArrayList<String> barcodeList = new ArrayList<>();
+        pst = con.prepareStatement("select PCode from Product");
+        rs = pst.executeQuery();
+        while(rs.next()){
+            barcodeList.add(rs.getString("PCode"));
+            
+        }
+        rs.close(); pst.close();
+        
+        
+        return barcodeList;
+    }
+
+    public ArrayList<String> autoFillCustomer() throws SQLException {
         ArrayList<String> customerList = new ArrayList<>();
         pst = con.prepareStatement("select CuName,CuPhone from Customer");
         rs = pst.executeQuery();
         while (rs.next()) {
-            customerList.add(rs.getString(1) + " " + rs.getString(2));           
+            customerList.add(rs.getString(1) + " " + rs.getString(2));
         }
-        rs.close();
-        pst.close();
+        rs.close(); pst.close();
+        
         return customerList;
-   }
-    
-    
-   public int getCuId() throws SQLException{
-       System.out.println("Test789");
-       System.out.println(tf_customer.getText());
-       int cuid = 0;
-       pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
-       pst.setString(1, "%"+ValidationController.getStringFromText(tf_customer.getText()) +"%" );
-       System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
-       pst.setString(2, "%"+ValidationController.getNumberFromText(tf_customer.getText()) + "%" );
-       System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
-       rs = pst.executeQuery();
-       if (rs.next()) {
-           cuid = rs.getInt(1);
-       }
-       rs.close();
-       pst.close();
-       System.out.println(cuid);
-       return cuid;
-   
-   }
-   
-   
-   public int getDetailID() throws SQLException {
-       int detailID = 0;
-       pst = con.prepareStatement("select DetailID from Users where UsersName like ?");
-       pst.setString(1,UserCurrentLogin.getCurrentLogin());
-       rs = pst.executeQuery();
-       if(rs.next()){
-        detailID =rs.getInt(1);
-       }
-       rs.close();
-       pst.close();
-       return detailID;
-   }
-    
+    }
+
+    public int getCuId() throws SQLException {
+        System.out.println("Test789");
+        System.out.println(tf_customer.getText());
+        int cuid = 0;
+        pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
+        pst.setString(1, "%" + ValidationController.getStringFromText(tf_customer.getText()) + "%");
+        System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
+        pst.setString(2, "%" + ValidationController.getNumberFromText(tf_customer.getText()) + "%");
+        System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            cuid = rs.getInt(1);
+        }
+        rs.close(); 
+        System.out.println(cuid);
+        return cuid;
+
+    }
+
+    public int getUsersID() throws SQLException {
+        int userID = 0;
+        pst = con.prepareStatement("select UsersID from Users where UsersName like ?");
+        pst.setString(1, "%" + UserCurrentLogin.getCurrentLogin() + "%");
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            userID = rs.getInt("UsersID");
+        }
+        rs.close(); 
+        
+        
+
+        return userID;
+    }
+
+    public int getDetailID() throws SQLException {
+        int detailID = 0;
+        pst = con.prepareStatement("select DetailID from Users where UsersName like ?");
+        pst.setString(1, "%" + UserCurrentLogin.getCurrentLogin() + "%");
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            detailID = rs.getInt(1);
+        }
+        rs.close(); pst.close();
+        
+        return detailID;
+    }
 
     public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where PCode = ?");
@@ -298,176 +352,181 @@ public class OrderProductController implements Initializable {
             tf_qty.requestFocus();
 
         }
-        rs.close();
+        rs.close(); pst.close();
+        
     }
 
     @FXML
     private void action_addtomenu(ActionEvent event) {
 
+        addToMenu();
+
+    }
+
+    public void addToMenu() {
+
         boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
-        
-        
 
-            if (isQtyTrue) {
-                qty = Integer.parseInt(tf_qty.getText());
-                if (qty != 0) {
-                    
-                    amount = price * qty;
-                    grandTotal += amount;
-                    
-                    for (OrderList2 item : orderData) {
-                      
-                          
-                        if (ValidationController.sosanhchuoi(barcode, item.getBarcode())) {
-                            int table_qty = item.getQty() + qty;
-                            double table_amount = item.getAmount() + amount;
-                            item.setQty(table_qty);
-                            item.setAmount(table_amount);
-                            lb_total.setText("" + grandTotal);
-                            table_order.getItems().set(table_order.getItems().indexOf(item), item);
-                            clearText();
-                            return;
+        if (isQtyTrue) {
+            qty = Integer.parseInt(tf_qty.getText());
+            if (qty != 0) {
 
-                        }
+                amount = price * qty;
+                grandTotal += amount;
+
+                for (OrderList2 item : orderData) {
+
+                    if (ValidationController.sosanhchuoi(barcode, item.getBarcode())) {
+                        int table_qty = item.getQty() + qty;
+                        double table_amount = item.getAmount() + amount;
+                        item.setQty(table_qty);
+                        item.setAmount(table_amount);
+                        lb_total.setText("" + grandTotal);
+                        table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                        clearText();
+                        return;
 
                     }
 
-                    orderData.add(new OrderList2(++no,productId, barcode, productname, price, qty, amount));
-                    table_order.setItems(orderData);
-                    lb_total.setText("" + grandTotal);
-
                 }
 
-                clearText();
-            } else {
-                AlertDialog.display("Info", "Some information is wrong . Please check !!!");
+                orderData.add(new OrderList2(++no, productId, barcode, productname, price, qty, amount));
+                table_order.setItems(orderData);
+                lb_total.setText("" + grandTotal);
+
             }
 
-        
-    } 
+            clearText();
+        } else {
+            AlertDialog.display("Info", "Some information is wrong . Please check !!!");
+        }
+
+    }
 
     @FXML
-    private void action_printInvoice(ActionEvent event) {
-        String sql = "insert into Orders (OrderID,OrderDate,AmountTotal)values(?,?,?)";
-        String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
-        String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
-                
-        try {
-            pst = con.prepareStatement(sql);
-            pst.setString(1, tf_invoiceID.getText() );
-            pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue() ));
-            pst.setDouble(3, grandTotal);
-            int  i = pst.executeUpdate();
-            
-            if(i==1){
-                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
-                for(OrderList2 item : orderData){
-                    pst = con.prepareStatement(sql);
-                    pst.setString(1,tf_invoiceID.getText());
-                    pst.setInt(2,item.getPid());
-                    pst.setInt(3, item.getQty());
-                    pst.setString(4,""+item.getPriceOut());
-                    pst.setDouble(5, item.getAmount());
-                    pst.executeUpdate();
-                    
-                           
-                }
-                
-            if (getCuId() != 0) {
-                    pst2 = con.prepareStatement(sql2);
-                    pst2.setDouble(1, grandTotal);
-                    pst2.setInt(2, getCuId());
-                    int j = pst2.executeUpdate();
+    private void action_printInvoice(ActionEvent event) throws SQLException {
 
-                    pst2.close();
-                }
-                
-            if (getDetailID() !=0){
-                pst2= con.prepareStatement(sql3);
-                pst2.setDouble(1, grandTotal);
-                pst2.setInt(2,getDetailID());
-                int k = pst2.executeUpdate();
-                
-                pst2.close();
-                
-            }    
-                
-                
-            
-            }
-            AlertDialog.display("Info", "Data added into order success !!!");
-//            printInvoice();
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Invoice();
         
     }
 
-    private String autoOrderID(){
-//        String orderID = "Order00000";
-//        
-//        try {
-//            pst = con.prepareStatement("select max(OrderID) from Orders");
-//            rs = pst.executeQuery();
-//            if(rs.next()){
-//                orderID = rs.getString(1);
-//                int n = Integer.parseInt(orderID.substring(5)) +1 ;
-//                int x = String.valueOf(n).length();
-//                orderID = orderID.substring(0, 10 -x) + String.valueOf(n);
-//                
-//            
-//            }
-//            rs.close();
-//            pst.close();
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        return orderID;
-            String orderID = "Order00000";
-            
+    public void Invoice() throws SQLException {
+
+//        if (getUsersID() != 0) {
+            String sql = "insert into Orders (OrderID,OrderDate,AmountTotal,CuId,UsersID)values(?,?,?,?,?)";
+            String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
+            String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
+
+            try {
+                returnCuID = getCuId();
+                returnUserID = getUsersID();
+                pst = con.prepareStatement(sql);
+                pst.setString(1, tf_invoiceID.getText());
+                pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
+                pst.setDouble(3, grandTotal);
+                System.out.println(returnCuID);
+                pst.setInt(4, returnCuID );
+                pst.setInt(5, returnUserID);
+//                System.out.println("ytgyygyg");
+//                pst3.setInt(4, returnCuid);
+//                pst.setInt(5, 1); //Phai thay lai khi update
+
+                int i = pst.executeUpdate();
+
+                if (i==1) {
+                    sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
+                    for (OrderList2 item : orderData) {
+                        pst = con.prepareStatement(sql);
+                        pst.setString(1, tf_invoiceID.getText());
+                        pst.setInt(2, item.getPid());
+                        pst.setInt(3, item.getQty());
+                        pst.setString(4, "" + item.getPriceOut());
+                        pst.setDouble(5, item.getAmount());
+                        pst.executeUpdate();
+
+                    }
+
+                    if (getCuId() != 0) {
+                        pst2 = con.prepareStatement(sql2);
+                        pst2.setDouble(1, grandTotal);
+                        pst2.setInt(2, getCuId());
+                        int j = pst2.executeUpdate();
+
+                        pst2.close();
+                    }
+
+                    if (getDetailID() != 0) {
+                        pst2 = con.prepareStatement(sql3);
+                        pst2.setDouble(1, grandTotal);
+                        pst2.setInt(2, getDetailID());
+                        int k = pst2.executeUpdate();
+
+                        pst2.close();
+
+                    }
+                    AlertDialog.display("Info", "Data added into order success !!!");
+                    clearText();
+                    tf_invoiceID.setText(autoOrderID());
+
+                }
+
+//            printInvoice();
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+//        } else {
+//            AlertDialog.display("Warning", "Please check your user 's condition or relogin user !!!");
+//
+//        }   // Phai thay khi update
+
+    }
+
+    private String autoOrderID() {
+
+        String orderID = "Order00000";
+
         try {
             pst = con.prepareStatement("select max(OrderID) from Orders");
             rs = pst.executeQuery();
-            
+
             if (rs.next()) {
-                if (rs.getString(1) == null) 
-                { orderID = "Order00000";}
-                else{
+                if (rs.getString(1) == null) {
+                    orderID = "Order00000";
+                } else {
                     orderID = rs.getString(1);
-                    
+
                     int n = Integer.parseInt(orderID.substring(5)) + 1;
                     int x = String.valueOf(n).length();
                     orderID = orderID.substring(0, 10 - x) + String.valueOf(n);
                 }
-                
+
             }
-            rs.close();
-            pst.close();
+            rs.close(); pst.close();
             
+
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return orderID;
 
-  }
-    
-    private void printInvoice(){
+    }
+
+    private void printInvoice() {
 //        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
 //        try {
 //            JasperReport jr = JasperCompileManager.compileReport(file);
 //            HashMap<String, Object >para = new HashMap<>();
 ////            para.put("cashier","ai do");
-//            
+//
 //            ArrayList<Products> plist = new ArrayList<>();
-//            
+//
 //            for (OrderList2 item : orderData){
-//                
+//
 //            plist.add(new Products(item.getProductName(),""+item.getPriceOut(),""+item.getQty(),""+item.getAmount()));
-//            
-//                   
+//
+//
 //            }
 //            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
 //            JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
@@ -475,12 +534,12 @@ public class OrderProductController implements Initializable {
 //            JasperViewer.viewReport(jp);
 ////            jv.setVisible(true);
 ////            JasperViewer.viewReport(jp);
-//            
+//
 //        } catch (JRException ex) {
 //            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-//        
-//        
+//
+//
     }
 
     @FXML
@@ -491,8 +550,7 @@ public class OrderProductController implements Initializable {
         orderData.remove(orderData.get(orderData.size() - 1));
         table_order.setItems(orderData);
         lb_total.setText("" + grandTotal);
-        
+
     }
-} 
 
-
+}
