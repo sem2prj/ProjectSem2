@@ -44,8 +44,8 @@
          </children>
       </AnchorPane>
       <JFXButton id="btnHandle" layoutX="542.0" layoutY="15.0" onAction="#handleChoose" prefHeight="32.0" prefWidth="92.0" text="Choose Image" />
-      <JFXTextField fx:id="fldSearch" layoutX="646.0" layoutY="19.0" onKeyReleased="#handleKeySearch" prefHeight="25.0" prefWidth="140.0" promptText="Search Code" />
-      <GridPane layoutX="588.0" layoutY="61.0" prefHeight="39.0" prefWidth="207.0">
+      <JFXTextField fx:id="fldSearch" layoutX="646.0" layoutY="19.0" prefHeight="25.0" prefWidth="140.0" promptText="Search Code" />
+      <GridPane layoutX="588.0" layoutY="50.0" prefHeight="50.0" prefWidth="207.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -56,12 +56,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton id="btnHandle" onAction="#handleAdd" prefHeight="36.0" prefWidth="100.0" text="ADD" />
-            <JFXButton id="btnHandle" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="39.0" prefWidth="100.0" text="EDIT" GridPane.columnIndex="1" />
-            <JFXButton id="btnHandle" layoutX="110.0" layoutY="10.0" onAction="#HandleDelete" prefHeight="39.0" prefWidth="100.0" text="DELETE" GridPane.columnIndex="2" />
-            <JFXButton id="btnHandle" layoutX="210.0" layoutY="10.0" onAction="#handleClear" prefHeight="39.0" prefWidth="100.0" text="CLEAR" GridPane.rowIndex="1" />
-            <JFXButton id="btnHandle" fx:id="btnExcel" layoutX="210.0" layoutY="10.0" prefHeight="39.0" prefWidth="100.0" text="EXCEL" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <JFXButton id="btnHandle" layoutX="79.0" layoutY="27.0" onAction="#handleChangePass" prefHeight="39.0" prefWidth="100.0" text="CPASS" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <JFXButton id="btnHandle" fx:id="buttonAdd" onAction="#handleAdd" prefHeight="36.0" prefWidth="100.0" text="ADD" />
+            <JFXButton id="btnHandle" fx:id="buttonEdit" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="39.0" prefWidth="100.0" text="EDIT" GridPane.columnIndex="1" />
+            <JFXButton id="btnHandle" fx:id="buttonDelete" layoutX="110.0" layoutY="10.0" onAction="#HandleDelete" prefHeight="39.0" prefWidth="100.0" text="DELETE" GridPane.columnIndex="2" />
+            <JFXButton id="btnHandle" fx:id="buttonClear" layoutX="210.0" layoutY="10.0" onAction="#handleClear" prefHeight="39.0" prefWidth="100.0" text="CLEAR" GridPane.rowIndex="1" />
+            <JFXButton id="btnHandle" fx:id="buttonExcel" layoutX="210.0" layoutY="10.0" prefHeight="39.0" prefWidth="100.0" text="EXCEL" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXButton id="btnHandle" fx:id="buttonChangePass" layoutX="79.0" layoutY="27.0" onAction="#handleChangePass" prefHeight="39.0" prefWidth="100.0" text="CPASS" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <HBox layoutX="461.0" layoutY="100.0" prefHeight="496.0" prefWidth="325.0">

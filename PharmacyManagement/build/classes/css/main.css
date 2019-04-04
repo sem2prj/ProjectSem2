@@ -12,6 +12,8 @@
 
 #btnHandleMain{
     -fx-background-color: #4169e1;
+    -fx-text-fill: red;
+    -fx-font-family: sans-serif;
 }
 #btnHandleMain:hover{
     -fx-background-color:#daa520;

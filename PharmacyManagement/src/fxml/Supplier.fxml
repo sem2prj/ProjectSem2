@@ -109,6 +109,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <JFXTextField fx:id="txtSearch" layoutX="602.0" layoutY="25.0" onKeyReleased="#handleSearch" prefHeight="25.0" prefWidth="194.0" promptText="Search" />
+      <JFXTextField fx:id="txtSearch" layoutX="602.0" layoutY="25.0" prefHeight="25.0" prefWidth="194.0" promptText="Search" />
    </children>
 </AnchorPane>

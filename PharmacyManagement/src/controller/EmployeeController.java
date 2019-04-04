@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import static controller.MainController.infoUser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -58,6 +59,7 @@ import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import model.Employee;
 import model.EmployeeDAOImplement;
+import model.User;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -100,7 +102,7 @@ public class EmployeeController implements Initializable {
     @FXML
     private JFXTextField txtSalary;
     //combobox
-    private final String department[] = {"Store", "Sell", "Business"};
+    private final String department[] = {"Warehouse", "Sell", "Business"};
     private final String roles[] = {"User", "Admin",};
 
     //image
@@ -129,7 +131,6 @@ public class EmployeeController implements Initializable {
     private DatePicker txtDateWork;
     @FXML
     private Label lbAddrees;
-    @FXML
     private JFXButton btnExcel;
     @FXML
     private JFXTextField fldSearch;
@@ -165,6 +166,18 @@ public class EmployeeController implements Initializable {
     private Label labelRoles;
     @FXML
     private JFXComboBox<String> cbRoles;
+    @FXML
+    private JFXButton buttonAdd;
+    @FXML
+    private JFXButton buttonEdit;
+    @FXML
+    private JFXButton buttonDelete;
+    @FXML
+    private JFXButton buttonClear;
+    @FXML
+    private JFXButton buttonExcel;
+    @FXML
+    private JFXButton buttonChangePass;
 
     /**
      * Initializes the controller class.
@@ -192,6 +205,28 @@ public class EmployeeController implements Initializable {
         //Notice Excel get all data !
         data = eDAOIpl.getAllEmployee();
         excel();
+        mission();
+        //search
+        FilteredList<Employee> filteredData = new FilteredList<>(data, e -> true);
+        fldSearch.setOnKeyReleased(e -> {
+            fldSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Employee>) employee -> {
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (employee.getEplCode().contains(newValue)) {
+                        return true;
+                    }
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            SortedList<Employee> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedData);
+        });
+        
+        
     }
 
     //add
@@ -250,8 +285,8 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (ValidationController.checkPolymerCode(txtEplCode.getText())) { 
-            if (imageView.getImage() != null&&txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
+        if (ValidationController.checkPolymerCode(txtEplCode.getText())) {
+            if (imageView.getImage() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
 
                 if (rdMale.isSelected()) {
                     gendercheck = true;
@@ -260,6 +295,8 @@ public class EmployeeController implements Initializable {
                 }
 
                 BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                String password = PasswordHash.encryptPass(txtConfirmPass.getText());
+                System.out.println(password);
                 byte[] res;
                 try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
                     ImageIO.write(bImage, "png", s);
@@ -267,8 +304,10 @@ public class EmployeeController implements Initializable {
                     Blob blob = new SerialBlob(res);
                     Employee employee = new Employee();
                     employee.setImageBlob(blob);
+                    System.out.println("1");
+                    System.out.println(password);
+                    System.out.println("1");
                     EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                    String password = PasswordHash.encryptPass(txtConfirmPass.getText());
                     String username = txtUsername.getText().trim().replaceAll("\\s+", "");
                     String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
                     eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
@@ -510,7 +549,7 @@ public class EmployeeController implements Initializable {
     }
 
     public void excel() {
-        btnExcel.setOnAction(new EventHandler<ActionEvent>() {
+        buttonExcel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
@@ -595,30 +634,6 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    private void handleKeySearch(KeyEvent event) {
-        EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-        data = eDAOIpl.getAllEmployee();
-        FilteredList<Employee> filteredData = new FilteredList<>(data, e -> true);
-        fldSearch.setOnKeyReleased(e -> {
-            fldSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filteredData.setPredicate((Predicate<? super Employee>) employee -> {
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (employee.getEplCode().contains(newValue)) {
-                        return true;
-                    }
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    return false;
-                });
-            });
-            SortedList<Employee> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-            tableView.setItems(sortedData);
-        });
-    }
-
-    @FXML
     private void handleChangePass(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChangePass.fxml"));
         Stage stage = new Stage();
@@ -630,6 +645,30 @@ public class EmployeeController implements Initializable {
         stage.setTitle("Change Password");
         stage.setScene(scene);
         stage.show();
+    }
 
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission() == "Admin" && user.getDeparment().equals("Business")) {
+                buttonAdd.setDisable(false);
+                buttonDelete.setDisable(false);
+                buttonEdit.setDisable(false);
+                buttonExcel.setDisable(false);
+                buttonChangePass.setDisable(false);
+            } else if (user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(true);
+                buttonChangePass.setDisable(true);
+            } else if (user.getMission().equals("User")) {
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(true);
+                buttonChangePass.setDisable(true);
+            }
+        }
     }
 }

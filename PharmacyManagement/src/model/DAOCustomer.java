@@ -14,7 +14,7 @@ import javafx.collections.ObservableList;
 public interface DAOCustomer {
     ObservableList<Customer> getAllCustomer();
     
-    void insertCustomer(String customerCode,String name,String addrees,String phone,String email,Integer level );
+    void insertCustomer(String cucode1,String customerCode,String name,String addrees,String phone,String email,Integer level );
     
     void updateCustomer(String customerCode,String name,String addrees,String phone,String email,Integer level);
 

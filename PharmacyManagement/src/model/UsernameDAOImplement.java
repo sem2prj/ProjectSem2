@@ -37,6 +37,9 @@ public class UsernameDAOImplement implements DAOUser{
                 user.setMission(rs.getString("mission"));
                 listUser.add(user);
             }
+            rs.close();
+            statement.close();
+            connection.close();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(UsernameDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }

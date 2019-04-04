@@ -81,7 +81,7 @@ public class EmployeeDAOImplement implements DAOEmployee {
             rs.next();
             Object key = rs.getObject(1);
 
-            String sql = "{call dbo.InsertUser(?,?,?)}";
+            String sql = "INSERT INTO Users (UsersName,UsersPass,DetailID) VALUES (?,?,?)";
             CallableStatement pst = connection.prepareCall(sql);
             pst.setString(1, username);
             pst.setString(2, Pass);

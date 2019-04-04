@@ -48,24 +48,25 @@ public class SupplierDAOIplement implements DAOSupplier {
     }
 
     @Override
-    public void insertSupplier(String Code, String nameSupplier, String addrees, String phone, String taxInumber, String email, String website, String notice) {
-        String sql = "INSERT INTO Supplier(SuCode,SuName,SuAddrees,SuPhone,SuTax,SuEmail,SuWebsite,SuNotice) VALUES(?,?,?,?,?,?,?,?)";
+    public void insertSupplier(String Code,String Code2, String nameSupplier, String addrees, String phone, String taxInumber, String email, String website, String notice) {
+        String sql = "IF NOT EXISTS (SELECT * FROM  Supplier WHERE SuCode= ?)  INSERT INTO Supplier(SuCode,SuName,SuAddrees,SuPhone,SuTax,SuEmail,SuWebsite,SuNotice) VALUES(?,?,?,?,?,?,?,?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql);) {
             pst.setString(1, Code);
-            pst.setString(2, nameSupplier);
-            pst.setString(3, addrees);
-            pst.setString(4, phone);
-            pst.setString(5, taxInumber);
-            pst.setString(6, email);
-            pst.setString(7, website);
-            pst.setString(8, notice);
+            pst.setString(2, Code2);
+            pst.setString(3, nameSupplier);
+            pst.setString(4, addrees);
+            pst.setString(5, phone);
+            pst.setString(6, taxInumber);
+            pst.setString(7, email);
+            pst.setString(8, website);
+            pst.setString(9, notice);
 
             int i = pst.executeUpdate();
-            if (i != 0) {
+            if (i ==1) {
                 AlertDialog.display("Info", "Data Insert Successfully");
             } else {
-                AlertDialog.display("Info", "Data Insert Failing");
+                AlertDialog.display("Info", "Supplier Code already exists");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(SupplierDAOIplement.class.getName()).log(Level.SEVERE, null, ex);

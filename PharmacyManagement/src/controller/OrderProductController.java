@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,7 +120,7 @@ public class OrderProductController implements Initializable {
     private Button btn_remove;
     @FXML
     private TextField tf_customer;
-    
+
     int returnCuID = 0;
     int returnUserID = 0;
 
@@ -152,20 +153,17 @@ public class OrderProductController implements Initializable {
 //
 //            }
 //        });
-        
         tf_search.setOnKeyReleased((KeyEvent ke) -> {
-             
-                try {
-                            searchData.clear();
-        table_search.setItems(searchData);
-                    doSearchAction();
-                } catch (SQLException ex) {
-                    Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-                }
 
-            
+            try {
+                searchData.clear();
+                table_search.setItems(searchData);
+                doSearchAction();
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
-        
 
         tf_qty.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
@@ -186,39 +184,48 @@ public class OrderProductController implements Initializable {
             }
         });
 
-        ArrayList<String> resultCustomer;
-        try {
-            resultCustomer = autoFillCustomer();
-            TextFields.bindAutoCompletion(tf_customer, resultCustomer);
+  
 
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        ArrayList<String> resultBarcode;
-        try {
-            resultBarcode = autoFillBarcode();
-             TextFields.bindAutoCompletion(tf_barcode, resultBarcode);
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-        
+            ArrayList<String> result;
+            try {
+                result = autoFillCustomer();
+                TextFields.bindAutoCompletion(tf_customer, result);
 
-        orderData = FXCollections.observableArrayList();
-        column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
-        column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
-        column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
-        column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
-        column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-        column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-    }
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            
+            
+            
+            ArrayList<String> resultBarcode;
+            try {
+                resultBarcode = autoFillBarcode();
+                TextFields.bindAutoCompletion(tf_barcode, resultBarcode);
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            orderData = FXCollections.observableArrayList();
+            column_invoice_no.setCellValueFactory(new PropertyValueFactory<>("no"));
+            column_invoice_barcode.setCellValueFactory(new PropertyValueFactory<>("barcode"));
+            column_invoice_productname.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            column_invoice_priceout.setCellValueFactory(new PropertyValueFactory<>("priceOut"));
+            column_invoice_qty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+            column_invoice_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        }
+
+    
 
     public void doSearchAction() throws SQLException {
 
 //        searchData.clear();
 //        table_search.setItems(searchData);
         System.out.println(tf_search.getText());
+
+        searchData.clear();
+        table_search.setItems(searchData);
+//        System.out.println(tf_search.getText());
 
         try {
 
@@ -232,16 +239,15 @@ public class OrderProductController implements Initializable {
 
                 searchData.add(new ProductListForSearchInInvoice(rs.getString("PCode"), rs.getString("PName")));
 
-
                 table_search.setItems(searchData);
 
 //                        searchData.add(new ProductList2(rs.getString("barcode"), rs.getString("productname"), "" + rs.getDouble("priceIn"), "" + rs.getDouble("priceOut")));
 //                        table_search.setItems(searchData);
             }
 
-            rs.close(); pst.close();
+            rs.close();
+            pst.close();
 
-            
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,32 +256,34 @@ public class OrderProductController implements Initializable {
 
     @FXML
     public void action_add(ActionEvent event) throws SQLException {
+
 //        scanbarcode();
         autoFillWithBarcode();
-        
+
 //
+        autoFillWithBarcode();
+
     }
 
     private void clearText() {
         tf_barcode.clear();
-
         tf_productname.clear();
         tf_price.clear();
         tf_qty.clear();
 
     }
-    
-    public ArrayList<String> autoFillBarcode() throws SQLException{
+
+    public ArrayList<String> autoFillBarcode() throws SQLException {
         ArrayList<String> barcodeList = new ArrayList<>();
         pst = con.prepareStatement("select PCode from Product");
         rs = pst.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             barcodeList.add(rs.getString("PCode"));
-            
+
         }
-        rs.close(); pst.close();
-        
-        
+        rs.close();
+        pst.close();
+
         return barcodeList;
     }
 
@@ -286,12 +294,14 @@ public class OrderProductController implements Initializable {
         while (rs.next()) {
             customerList.add(rs.getString(1) + " " + rs.getString(2));
         }
-        rs.close(); pst.close();
-        
+        rs.close();
+        pst.close();
+
         return customerList;
     }
 
     public int getCuId() throws SQLException {
+
         System.out.println("Test789");
         System.out.println(tf_customer.getText());
         int cuid = 0;
@@ -300,12 +310,21 @@ public class OrderProductController implements Initializable {
         System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
         pst.setString(2, "%" + ValidationController.getNumberFromText(tf_customer.getText()) + "%");
         System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
+
+//       System.out.println("Test789");
+//       System.out.println(tf_customer.getText());
+//       System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
+//       System.out.println(ValidationController.getNumberFromText(tf_customer.getText()));
         rs = pst.executeQuery();
         if (rs.next()) {
             cuid = rs.getInt(1);
         }
-        rs.close(); 
+
+        rs.close();
         System.out.println(cuid);
+
+
+
         return cuid;
 
     }
@@ -318,23 +337,28 @@ public class OrderProductController implements Initializable {
         if (rs.next()) {
             userID = rs.getInt("UsersID");
         }
-        rs.close(); 
-        
-        
+        rs.close();
 
         return userID;
     }
 
+        
+
     public int getDetailID() throws SQLException {
         int detailID = 0;
         pst = con.prepareStatement("select DetailID from Users where UsersName like ?");
-        pst.setString(1, "%" + UserCurrentLogin.getCurrentLogin() + "%");
+        pst.setString(1, UserCurrentLogin.getCurrentLogin());
+
         rs = pst.executeQuery();
         if (rs.next()) {
             detailID = rs.getInt(1);
         }
-        rs.close(); pst.close();
-        
+
+        rs.close();
+
+
+   
+
         return detailID;
     }
 
@@ -350,10 +374,10 @@ public class OrderProductController implements Initializable {
             tf_price.setText(rs.getString("SellPrice"));
             price = Double.parseDouble(tf_price.getText());
             tf_qty.requestFocus();
-
         }
-        rs.close(); pst.close();
-        
+        rs.close();
+        pst.close();
+
     }
 
     @FXML
@@ -390,11 +414,10 @@ public class OrderProductController implements Initializable {
 
                 }
 
-                orderData.add(new OrderList2(++no, productId, barcode, productname, price, qty, amount));
-                table_order.setItems(orderData);
-                lb_total.setText("" + grandTotal);
-
             }
+            orderData.add(new OrderList2(++no, productId, barcode, productname, price, qty, amount));
+            table_order.setItems(orderData);
+            lb_total.setText("" + grandTotal);
 
             clearText();
         } else {
@@ -407,79 +430,78 @@ public class OrderProductController implements Initializable {
     private void action_printInvoice(ActionEvent event) throws SQLException {
 
         Invoice();
-        
+
     }
 
     public void Invoice() throws SQLException {
 
 //        if (getUsersID() != 0) {
-            String sql = "insert into Orders (OrderID,OrderDate,AmountTotal,CuId,UsersID)values(?,?,?,?,?)";
-            String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
-            String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
+        String sql = "insert into Orders (OrderID,OrderDate,AmountTotal,CuId,UsersID)values(?,?,?,?,?)";
+        String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
+        String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
 
-            try {
-                returnCuID = getCuId();
-                returnUserID = getUsersID();
-                pst = con.prepareStatement(sql);
-                pst.setString(1, tf_invoiceID.getText());
-                pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
-                pst.setDouble(3, grandTotal);
-                System.out.println(returnCuID);
-                pst.setInt(4, returnCuID );
-                pst.setInt(5, returnUserID);
+        try {
+            returnCuID = getCuId();
+            returnUserID = getUsersID();
+            pst = con.prepareStatement(sql);
+            pst.setString(1, tf_invoiceID.getText());
+            pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
+            pst.setDouble(3, grandTotal);
+            System.out.println(returnCuID);
+            pst.setInt(4, returnCuID);
+            pst.setInt(5, returnUserID);
 //                System.out.println("ytgyygyg");
 //                pst3.setInt(4, returnCuid);
 //                pst.setInt(5, 1); //Phai thay lai khi update
 
-                int i = pst.executeUpdate();
+            int i = pst.executeUpdate();
 
-                if (i==1) {
-                    sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
-                    for (OrderList2 item : orderData) {
-                        pst = con.prepareStatement(sql);
-                        pst.setString(1, tf_invoiceID.getText());
-                        pst.setInt(2, item.getPid());
-                        pst.setInt(3, item.getQty());
-                        pst.setString(4, "" + item.getPriceOut());
-                        pst.setDouble(5, item.getAmount());
-                        pst.executeUpdate();
-
-                    }
-
-                    if (getCuId() != 0) {
-                        pst2 = con.prepareStatement(sql2);
-                        pst2.setDouble(1, grandTotal);
-                        pst2.setInt(2, getCuId());
-                        int j = pst2.executeUpdate();
-
-                        pst2.close();
-                    }
-
-                    if (getDetailID() != 0) {
-                        pst2 = con.prepareStatement(sql3);
-                        pst2.setDouble(1, grandTotal);
-                        pst2.setInt(2, getDetailID());
-                        int k = pst2.executeUpdate();
-
-                        pst2.close();
-
-                    }
-                    AlertDialog.display("Info", "Data added into order success !!!");
-                    clearText();
-                    tf_invoiceID.setText(autoOrderID());
+            if (i == 1) {
+                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
+                for (OrderList2 item : orderData) {
+                    pst = con.prepareStatement(sql);
+                    pst.setString(1, tf_invoiceID.getText());
+                    pst.setInt(2, item.getPid());
+                    pst.setInt(3, item.getQty());
+                    pst.setString(4, "" + item.getPriceOut());
+                    pst.setDouble(5, item.getAmount());
+                    pst.executeUpdate();
 
                 }
 
-//            printInvoice();
-            } catch (SQLException ex) {
-                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+                if (getCuId() != 0) {
+                    pst2 = con.prepareStatement(sql2);
+                    pst2.setDouble(1, grandTotal);
+                    pst2.setInt(2, getCuId());
+                    int j = pst2.executeUpdate();
+
+                    pst2.close();
+                }
+
+                if (getDetailID() != 0) {
+                    pst2 = con.prepareStatement(sql3);
+                    pst2.setDouble(1, grandTotal);
+                    pst2.setInt(2, getDetailID());
+                    int k = pst2.executeUpdate();
+
+                    pst2.close();
+
+                }
+                AlertDialog.display("Info", "Data added into order success !!!");
+                clearText();
+                tf_invoiceID.setText(autoOrderID());
+
             }
+
+//            printInvoice();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 //        } else {
 //            AlertDialog.display("Warning", "Please check your user 's condition or relogin user !!!");
 //
 //        }   // Phai thay khi update
-
     }
 
     private String autoOrderID() {
@@ -502,8 +524,8 @@ public class OrderProductController implements Initializable {
                 }
 
             }
-            rs.close(); pst.close();
-            
+            rs.close();
+            pst.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -513,33 +535,37 @@ public class OrderProductController implements Initializable {
 
     }
 
+    
+
+    @FXML
+    
+
+    //report
     private void printInvoice() {
-//        String file = "D:\\Git final\\ProjectSem2\\PharmacyManagement\\src\\report\\Invoice2.jrxml";
-//        try {
-//            JasperReport jr = JasperCompileManager.compileReport(file);
-//            HashMap<String, Object >para = new HashMap<>();
-////            para.put("cashier","ai do");
-//
-//            ArrayList<Products> plist = new ArrayList<>();
-//
-//            for (OrderList2 item : orderData){
-//
-//            plist.add(new Products(item.getProductName(),""+item.getPriceOut(),""+item.getQty(),""+item.getAmount()));
-//
-//
-//            }
-//            JRBeanCollectionDataSource jcs = new JRBeanCollectionDataSource(plist);
-//            JasperPrint jp = JasperFillManager.fillReport(jr,para,jcs);
-////            JasperViewer jv= new JasperViewer(jp,false );
-//            JasperViewer.viewReport(jp);
-////            jv.setVisible(true);
-////            JasperViewer.viewReport(jp);
-//
-//        } catch (JRException ex) {
-//            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//
+
+        String souceFile = "src\\report\\invoice.jrxml";
+
+        try {
+            Connection connection = controller.ConnectDB.connectSQLServer();
+            JasperReport jr = JasperCompileManager.compileReport(souceFile);
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("Cashier", UserCurrentLogin.getCurrentLogin());
+//            System.out.println(UserCurrentLogin.getCurrentLogin());
+//            System.out.println(tf_invoiceID.getText());
+            params.put("Customer", "fdsfsd");
+            params.put("OrderID", tf_invoiceID.getText());
+            params.put("Total", grandTotal);
+            JasperPrint jp = JasperFillManager.fillReport(jr, params, connection);
+            JasperViewer jv = new JasperViewer(jp, false);
+
+            jv.setVisible(true);
+            jv.setTitle("ORDER");
+
+        } catch (ClassNotFoundException | SQLException | JRException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @FXML
@@ -554,3 +580,5 @@ public class OrderProductController implements Initializable {
     }
 
 }
+
+

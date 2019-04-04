@@ -25,21 +25,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import model.Customer;
 import model.CustomerDAOImplement;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.swing.JRViewer;
 
 /**
  * FXML Controller class
@@ -102,6 +89,26 @@ public class CustomerController implements Initializable {
         loadTable();
         click();
         css();
+        FilteredList<Customer> filteredData = new FilteredList<>(data, e -> true);
+        txtSearch.setOnKeyReleased(e -> {
+            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+                filteredData.setPredicate((Predicate<? super Customer>) customer -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (customer.getCustomerCode().contains(newValue)) {
+                        return true;
+                    } else if (customer.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                        return true;
+                    }
+                    return false;
+                });
+            });
+            SortedList<Customer> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+            tableView.setItems(sortedData);
+        });
     }
 
     @FXML
@@ -137,10 +144,10 @@ public class CustomerController implements Initializable {
         if (txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty && txtLevelnotNumber) {
 
             CustomerDAOImplement cDI = new CustomerDAOImplement();
-            cDI.insertCustomer(txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
-             clear();
+            cDI.insertCustomer(txtCCode.getText(),txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+            clear();
             loadTable();
-        
+
         }
     }
 
@@ -178,7 +185,7 @@ public class CustomerController implements Initializable {
 
             CustomerDAOImplement cDI = new CustomerDAOImplement();
             cDI.updateCustomer(txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
-             clear();
+            clear();
             loadTable();
         }
     }
@@ -192,7 +199,7 @@ public class CustomerController implements Initializable {
         if (txtCCodenotEmpty) {
             CustomerDAOImplement cDI = new CustomerDAOImplement();
             cDI.deleteCustomer(txtCCode.getText());
-             clear();
+            clear();
             loadTable();
         }
     }
@@ -201,8 +208,8 @@ public class CustomerController implements Initializable {
     private void handleClear(ActionEvent event) {
         clear();
     }
-    
-    private void clear(){
+
+    private void clear() {
         txtCCode.clear();
         txtName.clear();
         txtAddrees.clear();
@@ -210,7 +217,6 @@ public class CustomerController implements Initializable {
         txtEmail.clear();
         txtLevel.clear();
     }
-
 
     private void loadTable() {
         CustomerDAOImplement cDI = new CustomerDAOImplement();
@@ -244,74 +250,4 @@ public class CustomerController implements Initializable {
         lbAddrees.setStyle("-fx-text-fill:#daa520");
         lbLevel.setStyle("-fx-text-fill:#daa520");
     }
-
-    @FXML
-    private void handleKeySearch(KeyEvent event) {
-        CustomerDAOImplement cDI = new CustomerDAOImplement();
-        data = cDI.getAllCustomer();
-        FilteredList<Customer> filteredData = new FilteredList<>(data, e -> true);
-        txtSearch.setOnKeyReleased(e -> {
-            txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
-                filteredData.setPredicate((Predicate<? super Customer>) customer -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (customer.getCustomerCode().contains(newValue)) {
-                        return true;
-                    } else if (customer.getEmail().toLowerCase().contains(lowerCaseFilter)) {
-                        return true;
-                    }
-                    return false;
-                });
-            });
-            SortedList<Customer> sortedData = new SortedList<>(filteredData);
-            sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-            tableView.setItems(sortedData);
-        });
-    }
-
-    private void handleJaspert(ActionEvent event) {
-
-        CustomerDAOImplement cDI = new CustomerDAOImplement();
-        data = cDI.getAllCustomer();
-        showReport();
-
-    }
-
-    private void showReport() {
-        try {
-
-            Connection connection = controller.ConnectDB.connectSQLServer();
-            JasperDesign jasperDesign = JRXmlLoader.load("E:\\Java\\ProjectSem2\\PharmacyManagement\\src\\model\\reportCustomer.jrxml");
-            String sql = "SELECT * FROM customer";
-
-            JRDesignQuery jrquery = new JRDesignQuery();
-
-            jrquery.setText(sql);
-
-            jasperDesign.setQuery(jrquery);
-
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-
-            Map<String, Object> parameters = new HashMap<String, Object>();
-
-            JasperPrint JasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
-
-            JRViewer viewer = new JRViewer(JasperPrint);
-
-            viewer.setOpaque(true);
-
-            viewer.setVisible(true);
-            System.out.println(JasperPrint.getName());
-
-            JasperExportManager.exportReportToPdfFile(JasperPrint, "D:/test.pdf");
-            System.out.println("done");
-
-        } catch (JRException | ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(CustomerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
 }

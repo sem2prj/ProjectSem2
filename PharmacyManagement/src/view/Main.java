@@ -29,8 +29,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
+
         //Test MainController
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+
+
+        //Test MainController
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+
+
 //        //Test MainController
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
@@ -61,8 +68,35 @@ public class Main extends Application {
 //            stage.initStyle(StageStyle.DECORATED);
 //            stage.setScene(scene);
 //            stage.show();
+
 //
 ////
+
+        //Start
+//        con = controller.ConnectDB.getConnectTable();
+//        pst = con.prepareStatement("select * from Users");
+//        rs = pst.executeQuery();
+//
+//
+//        if (rs.next()) {
+//            rs.close();
+//            pst.close();
+//            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+//
+////            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
+////            stage.getIcons().add(applicationIcon);
+//            stage.setResizable(false);
+//            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
+//            stage.setTitle("Login");
+//            stage.getIcons().add(new Image("/image/hyhy.png"));
+//            stage.initStyle(StageStyle.DECORATED);
+//            stage.setScene(scene);
+//            stage.show();
+
+//            
+
 //       con = controller.ConnectDB.getConnectTable();
 //        System.out.println("Connect successs99999555555321235235");
 //        String sql = "if not exists (select * from Product where PCode like ? )"
@@ -82,7 +116,7 @@ public class Main extends Application {
 ////       rs.close();
 //       pst.close();
 //       con.close();
-//
+
 
 //        } else {
 //
@@ -101,6 +135,29 @@ public class Main extends Application {
 //            stage.setResizable(false);
 //            stage.show();
 //
+
+
+
+//        } else {
+//
+//            rs.close();
+//            pst.close();
+//            con.close();
+//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
+//
+//            Scene scene = new Scene(root);
+////            stage.initStyle(StageStyle.UNDECORATED);
+//
+//            scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
+//            stage.getIcons().add(new Image("/image/hyhy.png"));
+//            stage.setTitle("Register");
+//            stage.setScene(scene);
+//            stage.setResizable(false);
+//            stage.show();
+//
+//
+//       
+
 //        con = controller.ConnectDB.getConnectTable();
 //        pst = con.prepareStatement("select * from Users");
 //        rs = pst.executeQuery();
@@ -137,9 +194,13 @@ public class Main extends Application {
 //            stage.show();
 //
 //        }
+
     }
 
 //
+
+
+
 //        //End
 ////
 ////        } else {
@@ -157,6 +218,12 @@ public class Main extends Application {
 ////            con.close();
 ////
 //        }
+
+
+//    }
+//    }
+
+
     /**
      * @param args the command line arguments
      */
