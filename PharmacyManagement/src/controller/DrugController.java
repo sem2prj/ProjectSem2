@@ -189,7 +189,7 @@ public class DrugController implements Initializable {
         if (!txtSellNotEmpty) {
             txtSell.requestFocus();
         }
-        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbBuy, "Supplier must be filled out");
+        boolean txtSupNotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtSup, lbSupplier, "Supplier must be filled out");
         if (!txtSupNotEmpty) {
             txtSup.requestFocus();
         }

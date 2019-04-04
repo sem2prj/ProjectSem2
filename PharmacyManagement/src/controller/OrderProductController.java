@@ -304,7 +304,7 @@ public class OrderProductController implements Initializable {
 
         System.out.println("Test789");
         System.out.println(tf_customer.getText());
-        int cuid = 0;
+        int cuid = 2;
         pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
         pst.setString(1, "%" + ValidationController.getStringFromText(tf_customer.getText()) + "%");
         System.out.println(ValidationController.getStringFromText(tf_customer.getText()));
@@ -469,7 +469,7 @@ public class OrderProductController implements Initializable {
 
                 }
 
-                if (getCuId() != 0) {
+                if (getCuId() != 2) {
                     pst2 = con.prepareStatement(sql2);
                     pst2.setDouble(1, grandTotal);
                     pst2.setInt(2, getCuId());
