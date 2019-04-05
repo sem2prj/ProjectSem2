@@ -7,6 +7,8 @@ package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javax.imageio.ImageIO;
 import model.*;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -490,10 +493,11 @@ public class OrderProductController implements Initializable {
                 AlertDialog.display("Info", "Data added into order success !!!");
                 clearText();
                 tf_invoiceID.setText(autoOrderID());
+                // printInvoice();
 
             }
 
-//            printInvoice();
+           
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -541,21 +545,24 @@ public class OrderProductController implements Initializable {
     
 
     //report
-    private void printInvoice() {
+    private void printInvoice() throws IOException {
 
         String souceFile = "src\\report\\invoice.jrxml";
 
         try {
             Connection connection = controller.ConnectDB.connectSQLServer();
             JasperReport jr = JasperCompileManager.compileReport(souceFile);
+            
 
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("Cashier", UserCurrentLogin.getCurrentLogin());
+            BufferedImage image = ImageIO.read(getClass().getResource("/image/hyhy.png"));
+            params.put("image", image);
+            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
 //            System.out.println(UserCurrentLogin.getCurrentLogin());
 //            System.out.println(tf_invoiceID.getText());
-            params.put("Customer", "fdsfsd");
-            params.put("OrderID", tf_invoiceID.getText());
-            params.put("Total", grandTotal);
+            params.put("Customer","aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
+            params.put("OrderID", "Order00000");
+            params.put("Total", "123123");
             JasperPrint jp = JasperFillManager.fillReport(jr, params, connection);
             JasperViewer jv = new JasperViewer(jp, false);
 

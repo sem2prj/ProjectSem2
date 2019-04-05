@@ -1,31 +1,31 @@
-﻿create database pharmacy2
+﻿create database pharmacy3
 
-use pharmacy2
+use pharmacy3
  
 use master 
-drop database pharmacy
+drop database pharmacy3
 
 CREATE TABLE Categories(
-	CatID int identity,
+	CatID int identity(1,1),
 	CatName varchar(50) ,
 	CONSTRAINT pk_CatID PRIMARY KEY (CatID),	
 )
 /*
 CREATE TABLE ActiveMaterial(
-	AmId int identity,
+	AmId int identity(1,1),
 	AmName varchar(50) ,
 	AmDescription varchar(max),
 	CONSTRAINT pk_AmId PRIMARY KEY (AmId),
 )
 
 CREATE TABLE ScienitificName(
-	SnId int identity,
+	SnId int identity(1,1),
 	SnName varchar(50) ,
 	CONSTRAINT pk_SnId PRIMARY KEY (SnId),
 )
 */
 CREATE TABLE Product(
-	PId bigint identity,
+	PId bigint identity(1,1),
 	PCode varchar(50) unique,
 	PName varchar(50) ,
 	PImage varbinary(max),
@@ -43,7 +43,7 @@ CREATE TABLE Product(
 )
 /*
 CREATE TABLE ExpiredTime(
-	ExId int identity,
+	ExId int identity(1,1),
 	ExDate date ,
 	PId bigint,
 	Qty varchar(50),
@@ -54,14 +54,14 @@ CREATE TABLE ExpiredTime(
 )*/
 /*
 CREATE TABLE Countries(
-	CountryID int identity,
+	CountryID int identity(1,1),
 	CountryName varchar(50) ,
 	CONSTRAINT pk_CountryID PRIMARY KEY (CountryID),
 )
 
 
 CREATE TABLE Cities(
-	CityID int identity,
+	CityID int identity(1,1),
 	CityName varchar(50) ,
 	CountryID int,
 	CONSTRAINT pk_CityID PRIMARY KEY (CityID),
@@ -83,7 +83,7 @@ CREATE TABLE stock(
 )
 
 CREATE TABLE Customer(
-	CuId int identity,
+	CuId int identity(1,1),
 	CuCode varchar(50),
 	CuName varchar(50) ,
 	CuAddrees varchar(max),
@@ -109,7 +109,7 @@ CREATE TABLE Orders(
 )
 
 CREATE TABLE OrderDetail(
-	OrderDetailID bigint identity PRIMARY KEY,
+	OrderDetailID bigint identity(1,1) PRIMARY KEY,
 	OrderID varchar(50) ,
 	PId bigint ,
 	Qty int,
@@ -123,7 +123,7 @@ CREATE TABLE OrderDetail(
 )
 
 CREATE TABLE Supplier(
-	SuID int identity,
+	SuID int identity(1,1),
 	SuCode varchar(50),
 	SuName varchar(50) ,
 	SuAddrees varchar(50),
@@ -136,7 +136,7 @@ CREATE TABLE Supplier(
 )
 
 CREATE TABLE Requests(
-	ReqID bigint identity,
+	ReqID bigint identity(1,1),
 	ReqDate date ,
 	Total float,
 	SuId int,
@@ -147,7 +147,7 @@ CREATE TABLE Requests(
 )
 
 CREATE TABLE RequestsDetail(
-	ReqIdDeTail bigint identity,
+	ReqIdDeTail bigint identity(1,1),
 	ReqID bigint,
 	PId bigint ,
 	Qty int,
@@ -161,7 +161,7 @@ CREATE TABLE RequestsDetail(
 )
 
 CREATE TABLE DetailUser(
-	DetailID int identity,
+	DetailID int identity(1,1),
 	Code varchar(50),
 	Phone varchar(50),
 	Email varchar(50),
@@ -178,7 +178,7 @@ CREATE TABLE DetailUser(
 )
 
 CREATE TABLE Users(
-	UsersID int identity,
+	UsersID int identity(1,1),
 	UsersName varchar(50) ,
 	UsersPass varchar(50) ,
 	UsersFullName varchar(50) ,
@@ -285,3 +285,11 @@ drop column OrderDetailID
 alter table OrderDetail
 add OrderDetailID int identity(1,1) Primary Key
 
+select * from Customer
+
+select * from DetailUser
+
+SELECT od.OrderDate ,dt.Amount,od.OrderID,dt.Qty,dt.SellPrice,prod.PName
+FROM Orders od
+JOIN OrderDetail dt ON od.OrderID = dt.OrderID
+JOIN Product prod ON dt.PId = prod.PId
