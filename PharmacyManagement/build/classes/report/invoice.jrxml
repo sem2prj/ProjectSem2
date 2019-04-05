@@ -11,6 +11,7 @@
 	<parameter name="Total" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="parameter1" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT od.OrderDate ,dt.Amount,od.OrderID,dt.Qty,dt.SellPrice,prod.PName
 FROM Orders od
@@ -50,10 +51,6 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				</textElement>
 				<text><![CDATA[Email: tuyensinh@softech.vn]]></text>
 			</staticText>
-			<image>
-				<reportElement x="0" y="0" width="142" height="146" uuid="1b02f28f-4df0-4996-bb89-3bf3009db7eb"/>
-				<imageExpression><![CDATA["../image/hyhy.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="246" y="86" width="143" height="44" uuid="48132b9c-805f-4d9f-a3e9-19825fb76004"/>
 				<textElement>
@@ -61,6 +58,10 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				</textElement>
 				<text><![CDATA[INVOICE]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="32" uuid="686ea3e7-cc59-469a-a1a2-ccf69270dff5"/>
+				<textFieldExpression><![CDATA[$P{logo}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
