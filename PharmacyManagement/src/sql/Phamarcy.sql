@@ -90,6 +90,7 @@ CREATE TABLE Customer(
 	CuPhone varchar(50),
 	CuEmail varchar(50),
 	CuLevel int,
+
 	/*CityId int,*/
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
 	/*CONSTRAINT fk_CityId FOREIGN KEY (CityId) REFERENCES Cities(CityId)
@@ -246,4 +247,41 @@ SELECT *FROM Users
 select *from DetailUser
 
 delete from Users
+
+
+
+alter table Orders
+add UsersID int 
+
+ALTER TABLE Orders
+ADD CONSTRAINT fk_users FOREIGN KEY (UsersID) REFERENCES Users(UsersID) 
+on delete cascade 
+on update cascade
+
+
+select * from Orders
+
+delete from Orders
+delete from OrderDetail
+
+alter table Orders
+add AmountTotal float DEFAULT 0 
+
+delete from Orders
+delete from OrderDetail
+
+alter table OrderDetail
+add Amount float DEFAULT 0
+
+alter table DetailUser
+add MoneySold float DEFAULT 0
+
+alter table Customer
+add MoneySpend float DEFAULT 0
+
+alter table OrderDetail
+drop column OrderDetailID 
+
+alter table OrderDetail
+add OrderDetailID int identity(1,1) Primary Key
 

@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package view;
 
@@ -31,16 +31,23 @@ public class Main extends Application {
 
 
         //Test MainController
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+
+
+        //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
+
 //        //Test MainController
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Main.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //
-//            Scene scene = new Scene(root);
+//        Scene scene = new Scene(root);
 //
-//            stage.setScene(scene);
-//            stage.setResizable(false);
-//            stage.show();
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.show();
+
+
         //Start
         con = controller.ConnectDB.getConnectTable();
         pst = con.prepareStatement("select * from Users");
@@ -53,9 +60,9 @@ public class Main extends Application {
             con.close();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
-//            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-//            stage.getIcons().add(applicationIcon);
-            stage.setResizable(false);
+           // Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
+         //   stage.getIcons().add(applicationIcon);
+            //stage.setResizable(false);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             stage.setTitle("Login");
@@ -64,27 +71,6 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.show();
 
-//            
-//       con = controller.ConnectDB.getConnectTable();
-//        System.out.println("Connect successs99999555555321235235");
-//        String sql = "if not exists (select * from Product where PCode like ? )"
-//                + "\n" 
-//                +"INSERT INTO Product (PCode) VALUES (?)";
-//       pst = con.prepareStatement(sql);
-//  
-//       int i = pst.executeUpdate();
-//        System.out.println(i);
-////       if(i){
-////           System.out.println("insert OK!!!");
-////       } else {
-////           System.out.println("insert Khong thanh cong");
-////       }
-//       
-//       
-////       rs.close();
-//       pst.close();
-//       con.close();
-//
 
 
         } else {
@@ -101,48 +87,14 @@ public class Main extends Application {
             stage.getIcons().add(new Image("/image/hyhy.png"));
             stage.setTitle("Register");
             stage.setScene(scene);
-            stage.setResizable(false);
+//            stage.setResizable(false);
             stage.show();
 
-
+        }
        
-//        con = controller.ConnectDB.getConnectTable();
-//        pst = con.prepareStatement("select * from Users");
-//        rs = pst.executeQuery();  
-//        
-//        if (rs.next()) {
-//            rs.close();
-//            pst.close();
-//            con.close();
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-//
-//            Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-//            stage.getIcons().add(applicationIcon);
-//            stage.setResizable(false);
-//            Scene scene = new Scene(root);
-//            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
-//            stage.setTitle("Login");
-//            stage.initStyle(StageStyle.DECORATED);
-//            stage.setScene(scene);
-//            stage.show();
-//
-//        } else {
-//
-//            rs.close();
-//            pst.close();
-//            con.close();
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
-//
-//            Scene scene = new Scene(root);
-////            stage.initStyle(StageStyle.UNDECORATED);
-//
-//             scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
-//            stage.setScene(scene);
-//            stage.setResizable(false);
-//            stage.show();
-//
-//        }
 
+
+    }
 //        //End
 ////
 ////        } else {
@@ -160,8 +112,11 @@ public class Main extends Application {
 ////            con.close();
 ////
 //        }
-    }
-    }
+
+
+//    }
+//    }
+
 
     /**
      * @param args the command line arguments

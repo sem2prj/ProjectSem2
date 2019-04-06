@@ -74,6 +74,9 @@ public class LoginController implements Initializable {
 
         UsernameDAOImplement userDAOIm = new UsernameDAOImplement();
         ListUser = userDAOIm.getAllUser();
+        for (User user : ListUser) {
+            System.out.println(user.getUserName());
+        }
 
 //        txt_user.setOnKeyPressed(e -> {
 //            if (e.getCode() == KeyCode.ENTER) {
