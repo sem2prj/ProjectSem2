@@ -7,6 +7,8 @@ package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javax.imageio.ImageIO;
 import model.*;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -320,7 +323,7 @@ public class OrderProductController implements Initializable {
     }
 
     @FXML
-    private void action_printInvoice(ActionEvent event) {
+    private void action_printInvoice(ActionEvent event) throws IOException {
         String sql = "insert into Orders (OrderID,OrderDate,AmountTotal)values(?,?,?)";
         String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
         String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
@@ -372,15 +375,16 @@ public class OrderProductController implements Initializable {
     }
 
     //report
-    private void printInvoice() {
+    private void printInvoice() throws IOException {
 
-        String souceFile = "src\\report\\invoice.jrxml";
-
+        String souceFile = "src/report/invoice.jrxml";
+        String urlImage="/image/hyhy.png";
         try {
             Connection connection = controller.ConnectDB.connectSQLServer();
             JasperReport jr = JasperCompileManager.compileReport(souceFile);
-
+            
             Map<String, Object> params = new HashMap<String, Object>();
+            params.put("logo",this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());
 //            System.out.println(UserCurrentLogin.getCurrentLogin());
 //            System.out.println(tf_invoiceID.getText());
