@@ -315,14 +315,11 @@ public class EmployeeController implements Initializable {
                     Blob blob = new SerialBlob(res);
                     Employee employee = new Employee();
                     employee.setImageBlob(blob);
-                    System.out.println("1");
-                    System.out.println(password);
-                    System.out.println("1");
                     EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
                     String username = txtUsername.getText().trim().replaceAll("\\s+", "");
                     String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                    eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", username, password);
+                    eDAOIpl.insertEmployee(username,username, password,txtFullName.getText(),txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
 
                 } catch (IOException | SQLException ex) {
                     Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -401,8 +398,8 @@ public class EmployeeController implements Initializable {
                 employee.setImageBlob(blob);
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
                 String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                eDAOIpl.updateEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(), id);
+                eDAOIpl.updateEmployee(txtUsername.getText(),txtFullName.getText(),id, txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -417,13 +414,13 @@ public class EmployeeController implements Initializable {
     //delete
     @FXML
     private void HandleDelete(ActionEvent event) {
-        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "Code must be filled out");
-        if (!txtBarcodenotEmpty) {
-            txtEplCode.requestFocus();
+        boolean txtUsernamenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtUsername, lbUser, "Code must be filled out");
+        if (!txtUsernamenotEmpty) {
+            txtUsername.requestFocus();
         }
-        if (txtBarcodenotEmpty) {
+        if (txtUsernamenotEmpty) {
             EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-            eDAOIpl.deleteEmployee(txtEplCode.getText());
+            eDAOIpl.deleteEmployee(txtUsername.getText());
             emptyLabel();
             clear();
         }

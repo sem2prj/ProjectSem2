@@ -45,32 +45,33 @@ public class Employee {
     public Employee() {
     }
     
-    
-    public Employee(String userName, String password, String fullname,String Role) {
-        this.userName =new SimpleStringProperty(userName);
-        this.Pass = new SimpleStringProperty(password);
-        this.fullname = new SimpleStringProperty(fullname);
-        this.Role = new SimpleStringProperty(Role);
-    }
-    
+//    
+//    public Employee(String userName, String password, String fullname,String Role) {
+//        this.userName =new SimpleStringProperty(userName);
+//        this.Pass = new SimpleStringProperty(password);
+//        this.fullname = new SimpleStringProperty(fullname);
+//        this.Role = new SimpleStringProperty(Role);
+//    }
+//    
+//
+//    public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork) {
+//        this.EplCode = new SimpleStringProperty(eplCode);
+//        this.userName = new SimpleStringProperty(userName);
+//        this.phone = new SimpleStringProperty(phone);
+//        this.email = new SimpleStringProperty(email);
+//        this.addrees = new SimpleStringProperty(addrees);
+//        this.gender = new SimpleBooleanProperty(gender);
+//        this.dateBirth = new SimpleObjectProperty<>(dateBirth);
+//        this.salary = new SimpleDoubleProperty(salary);
+//        this.department = new SimpleStringProperty(department);
+//        this.imageBlob = imageBlob;
+//        this.dateWork = new SimpleObjectProperty<>(dateWork);
+//    }
 
-    public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork) {
+     public Employee(String eplCode, String userName,String fullname, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork, String Pass, Integer id,String Role) {
         this.EplCode = new SimpleStringProperty(eplCode);
         this.userName = new SimpleStringProperty(userName);
-        this.phone = new SimpleStringProperty(phone);
-        this.email = new SimpleStringProperty(email);
-        this.addrees = new SimpleStringProperty(addrees);
-        this.gender = new SimpleBooleanProperty(gender);
-        this.dateBirth = new SimpleObjectProperty<>(dateBirth);
-        this.salary = new SimpleDoubleProperty(salary);
-        this.department = new SimpleStringProperty(department);
-        this.imageBlob = imageBlob;
-        this.dateWork = new SimpleObjectProperty<>(dateWork);
-    }
-
-     public Employee(String eplCode, String userName, String phone, String email, String addrees, Boolean gender, Date dateBirth, Double salary, String department, Blob imageBlob, Date dateWork, String Pass, Integer id,String Role) {
-        this.EplCode = new SimpleStringProperty(eplCode);
-        this.userName = new SimpleStringProperty(userName);
+        this.fullname=new SimpleStringProperty(fullname);
         this.phone = new SimpleStringProperty(phone);
         this.email = new SimpleStringProperty(email);
         this.addrees = new SimpleStringProperty(addrees);
