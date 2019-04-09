@@ -486,6 +486,14 @@ public class OrderProductController implements Initializable {
                 AlertDialog.display("Info", "Data added into order success !!!");
                 printInvoice();
                 clearText();
+<<<<<<< HEAD
+                tf_invoiceID.setText(autoOrderID());
+                // printInvoice();
+
+            }
+
+           
+=======
                 
                 //để đây nó set rỗng tài liệu nhé ông
 //                tf_invoiceID.setText(autoOrderID());
@@ -494,6 +502,7 @@ public class OrderProductController implements Initializable {
             }
 
             
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -535,16 +544,35 @@ public class OrderProductController implements Initializable {
 
     }
 
+<<<<<<< HEAD
+    
+
+    private void printInvoice() throws IOException {
+
+        String souceFile = "src\\report\\invoice.jrxml";
+=======
     //report
     private void printInvoice() throws IOException {
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
         String souceFile = "src/report/invoice.jrxml";
         String urlImage = "/image/hyhy.png";
         try {
             Connection connection = controller.ConnectDB.connectSQLServer();
             JasperReport jr = JasperCompileManager.compileReport(souceFile);
+            
 
             Map<String, Object> params = new HashMap<String, Object>();
+<<<<<<< HEAD
+            BufferedImage image = ImageIO.read(getClass().getResource("/image/hyhy.png"));
+            params.put("image", image);
+            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
+//            System.out.println(UserCurrentLogin.getCurrentLogin());
+//            System.out.println(tf_invoiceID.getText());
+            params.put("Customer","aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
+            params.put("OrderID", "Order00000");
+            params.put("Total", "123123");
+=======
             
             params.put("logo", this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());         
@@ -552,6 +580,7 @@ public class OrderProductController implements Initializable {
             params.put("OrderID", tf_invoiceID.getText());
             params.put("Total", grandTotal);
             
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
             JasperPrint jp = JasperFillManager.fillReport(jr, params, connection);
             JasperViewer jv = new JasperViewer(jp, false);
 

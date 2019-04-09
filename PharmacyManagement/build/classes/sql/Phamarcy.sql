@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+﻿create database pharmacy3
+
+use pharmacy3
+ 
+use master 
+drop database pharmacy3
+=======
 ﻿
 use master 
 use pharmacy
@@ -7,13 +15,31 @@ create database pharmacy
 /*
 drop database pharmacy
 */
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 CREATE TABLE Categories(
 	CatID int identity(1,1),
 	CatName varchar(50) ,
 	CONSTRAINT pk_CatID PRIMARY KEY (CatID),	
 )
+<<<<<<< HEAD
+/*
+CREATE TABLE ActiveMaterial(
+	AmId int identity(1,1),
+	AmName varchar(50) ,
+	AmDescription varchar(max),
+	CONSTRAINT pk_AmId PRIMARY KEY (AmId),
+)
 
+CREATE TABLE ScienitificName(
+	SnId int identity(1,1),
+	SnName varchar(50) ,
+	CONSTRAINT pk_SnId PRIMARY KEY (SnId),
+)
+*/
+=======
+
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 CREATE TABLE Product(
 	PId bigint identity(1,1),
 	PCode varchar(50) unique,
@@ -31,6 +57,37 @@ CREATE TABLE Product(
 	on delete cascade 
 	on update cascade ,
 )
+<<<<<<< HEAD
+/*
+CREATE TABLE ExpiredTime(
+	ExId int identity(1,1),
+	ExDate date ,
+	PId bigint,
+	Qty varchar(50),
+	CONSTRAINT pk_ExId PRIMARY KEY (ExId),
+	CONSTRAINT fk_PId FOREIGN KEY (PId) REFERENCES Product(PId)
+	on delete cascade 
+	on update cascade ,
+)*/
+/*
+CREATE TABLE Countries(
+	CountryID int identity(1,1),
+	CountryName varchar(50) ,
+	CONSTRAINT pk_CountryID PRIMARY KEY (CountryID),
+)
+
+
+CREATE TABLE Cities(
+	CityID int identity(1,1),
+	CityName varchar(50) ,
+	CountryID int,
+	CONSTRAINT pk_CityID PRIMARY KEY (CityID),
+	CONSTRAINT fk_CountryID FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
+	on delete cascade 
+	on update cascade ,
+)*/
+=======
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 
 CREATE TABLE stock(
@@ -53,7 +110,12 @@ CREATE TABLE Customer(
 	CuPhone varchar(50),
 	CuEmail varchar(50),
 	CuLevel int,
+<<<<<<< HEAD
+
+	/*CityId int,*/
+=======
 	MoneySpend float DEFAULT 0,
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
 )
 
@@ -107,7 +169,11 @@ CREATE TABLE Orders(
 )
 
 CREATE TABLE OrderDetail(
+<<<<<<< HEAD
+	OrderDetailID bigint identity(1,1) PRIMARY KEY,
+=======
 	OrderDetailID int identity(1,1) PRIMARY KEY,
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 	OrderID varchar(50) ,
 	PId bigint ,
 	Qty int,
@@ -159,7 +225,38 @@ CREATE TABLE RequestsDetail(
 	on update cascade ,
 )
 
+<<<<<<< HEAD
+CREATE TABLE DetailUser(
+	DetailID int identity(1,1),
+	Code varchar(50),
+	Phone varchar(50),
+	Email varchar(50),
+	Addrees varchar(50),
+	Sex bit,
+	BirthDay date,
+	Salary float,
+	/*Position varchar(50),*/
+	Department varchar(50),
+	ImageBlob varbinary(max),
+	WorkDay date,
+	Mission varchar(50) ,
+	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
+)
 
+CREATE TABLE Users(
+	UsersID int identity(1,1),
+	UsersName varchar(50) ,
+	UsersPass varchar(50) ,
+	UsersFullName varchar(50) ,
+	DetailID int,
+	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
+	CONSTRAINT fk_DetailID FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
+	on delete cascade 
+	on update cascade ,
+)
+=======
+
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 CREATE procedure getAllEmployee
 AS
@@ -237,3 +334,48 @@ alter table OrderDetail
 add OrderDetailID int identity(1,1)(1,1) Primary Key
 */
 
+
+
+alter table Orders
+add UsersID int 
+
+ALTER TABLE Orders
+ADD CONSTRAINT fk_users FOREIGN KEY (UsersID) REFERENCES Users(UsersID) 
+on delete cascade 
+on update cascade
+
+
+select * from Orders
+
+delete from Orders
+delete from OrderDetail
+
+alter table Orders
+add AmountTotal float DEFAULT 0 
+
+delete from Orders
+delete from OrderDetail
+
+alter table OrderDetail
+add Amount float DEFAULT 0
+
+alter table DetailUser
+add MoneySold float DEFAULT 0
+
+alter table Customer
+add MoneySpend float DEFAULT 0
+
+alter table OrderDetail
+drop column OrderDetailID 
+
+alter table OrderDetail
+add OrderDetailID int identity(1,1) Primary Key
+
+select * from Customer
+
+select * from DetailUser
+
+SELECT od.OrderDate ,dt.Amount,od.OrderID,dt.Qty,dt.SellPrice,prod.PName
+FROM Orders od
+JOIN OrderDetail dt ON od.OrderID = dt.OrderID
+JOIN Product prod ON dt.PId = prod.PId

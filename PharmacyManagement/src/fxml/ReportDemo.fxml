@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="611.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemoController">
+   <children>
+      <Button fx:id="report_button1" layoutX="36.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_1" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report  thuoc het date" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="report_button2" layoutX="466.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_2" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report thong ke doanh thu" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="report_button3" layoutX="181.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_3" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report nhan vien cua nam" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="report_button4" layoutX="331.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_4" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report khach hang than thiet" textAlignment="CENTER" wrapText="true" />
+   </children>
+</AnchorPane>
