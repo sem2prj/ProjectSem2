@@ -13,8 +13,10 @@ import static controller.MainController.infoUser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Blob;
@@ -27,6 +29,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,6 +42,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -111,6 +115,11 @@ public class EmployeeController implements Initializable {
     private Stage stage;
     private Image image;
 
+    //excel 
+    private Stage stageExcel;
+//    private Stage stageImportExcel;
+//    private File fileImport;
+
     //gender
     private boolean gendercheck;
 
@@ -131,7 +140,6 @@ public class EmployeeController implements Initializable {
     private DatePicker txtDateWork;
     @FXML
     private Label lbAddrees;
-    private JFXButton btnExcel;
     @FXML
     private JFXTextField fldSearch;
     @FXML
@@ -178,6 +186,10 @@ public class EmployeeController implements Initializable {
     private JFXButton buttonExcel;
     @FXML
     private JFXButton buttonChangePass;
+    @FXML
+    private JFXTextField txtFullName;
+    @FXML
+    private Label lbFullName;
 
     /**
      * Initializes the controller class.
@@ -225,8 +237,7 @@ public class EmployeeController implements Initializable {
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
             tableView.setItems(sortedData);
         });
-        
-        
+
     }
 
     //add
@@ -304,14 +315,11 @@ public class EmployeeController implements Initializable {
                     Blob blob = new SerialBlob(res);
                     Employee employee = new Employee();
                     employee.setImageBlob(blob);
-                    System.out.println("1");
-                    System.out.println(password);
-                    System.out.println("1");
                     EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
                     String username = txtUsername.getText().trim().replaceAll("\\s+", "");
                     String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                    eDAOIpl.insertEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", username, password);
+                    eDAOIpl.insertEmployee(username,username, password,txtFullName.getText(),txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
 
                 } catch (IOException | SQLException ex) {
                     Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -374,7 +382,7 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && txtSalarynotNumber) {
+        if (imageView.getImage() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && txtSalarynotNumber) {
             if (rdMale.isSelected()) {
                 gendercheck = true;
             } else if (rdFemale.isSelected()) {
@@ -390,8 +398,8 @@ public class EmployeeController implements Initializable {
                 employee.setImageBlob(blob);
                 EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
                 String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                eDAOIpl.updateEmployee(txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "", txtUsername.getText(), id);
+                eDAOIpl.updateEmployee(txtUsername.getText(),txtFullName.getText(),id, txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
 
             } catch (IOException | SQLException ex) {
                 Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -406,13 +414,13 @@ public class EmployeeController implements Initializable {
     //delete
     @FXML
     private void HandleDelete(ActionEvent event) {
-        boolean txtBarcodenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtEplCode, lbCode, "Code must be filled out");
-        if (!txtBarcodenotEmpty) {
-            txtEplCode.requestFocus();
+        boolean txtUsernamenotEmpty = controller.ValidationController.isTextFieldHavingBarcode(txtUsername, lbUser, "Code must be filled out");
+        if (!txtUsernamenotEmpty) {
+            txtUsername.requestFocus();
         }
-        if (txtBarcodenotEmpty) {
+        if (txtUsernamenotEmpty) {
             EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-            eDAOIpl.deleteEmployee(txtEplCode.getText());
+            eDAOIpl.deleteEmployee(txtUsername.getText());
             emptyLabel();
             clear();
         }
@@ -552,7 +560,202 @@ public class EmployeeController implements Initializable {
         buttonExcel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try {
+
+                FileChooser fileChooserExCel = new FileChooser();
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                HSSFSheet worksheet = workbook.createSheet("Employee");
+                //row 0
+                HSSFRow row1 = worksheet.createRow((short) 0);
+                //add cell 1
+                HSSFCell cellA1 = row1.createCell((short) 0);
+                cellA1.setCellValue("EmployeeCode");
+                HSSFCellStyle cellStyle = workbook.createCellStyle();
+                cellA1.setCellStyle(cellStyle);
+                //add cell 2
+                HSSFCell cellB1 = row1.createCell((short) 1);
+                cellB1.setCellValue("Name");
+                cellStyle = workbook.createCellStyle();
+                cellB1.setCellStyle(cellStyle);
+                //add cell 3
+                HSSFCell cellC1 = row1.createCell((short) 2);
+                cellC1.setCellValue("Phone");
+                cellStyle = workbook.createCellStyle();
+                cellC1.setCellStyle(cellStyle);
+                //add cell 4
+                HSSFCell cellD1 = row1.createCell((short) 3);
+                cellD1.setCellValue("Email");
+                cellStyle = workbook.createCellStyle();
+                cellD1.setCellStyle(cellStyle);
+                //add cell 5
+                HSSFCell cellE1 = row1.createCell((short) 4);
+                cellE1.setCellValue("Addrees");
+                cellStyle = workbook.createCellStyle();
+                cellE1.setCellStyle(cellStyle);
+                //add cell 6
+                HSSFCell cellG1 = row1.createCell((short) 5);
+                cellG1.setCellValue("Department");
+                cellStyle = workbook.createCellStyle();
+                cellG1.setCellStyle(cellStyle);
+                //add cell 7
+                HSSFCell cellH1 = row1.createCell((short) 6);
+                cellH1.setCellValue("Salary");
+                cellStyle = workbook.createCellStyle();
+                cellH1.setCellStyle(cellStyle);
+                //add cell 8
+                HSSFCell cellK1 = row1.createCell((short) 7);
+                cellK1.setCellValue("Date At Work");
+                cellStyle = workbook.createCellStyle();
+                cellK1.setCellStyle(cellStyle);
+                for (int i = 0; i < data.size(); i++) {
+                    HSSFRow row2 = worksheet.createRow((short) i + 1);
+                    row2.createCell(0).setCellValue(((Employee) data.get(i)).getEplCode());
+                    row2.createCell(1).setCellValue(((Employee) data.get(i)).getUserName());
+                    row2.createCell(2).setCellValue(((Employee) data.get(i)).getPhone());
+                    row2.createCell(3).setCellValue(((Employee) data.get(i)).getEmail());
+                    row2.createCell(4).setCellValue(((Employee) data.get(i)).getAddrees());
+                    row2.createCell(5).setCellValue(((Employee) data.get(i)).getDepartment());
+                    row2.createCell(6).setCellValue(((Employee) data.get(i)).getSalary());
+                    row2.createCell(7).setCellValue(((Employee) data.get(i)).getDateWork().toString());
+                }
+
+                //Set extension filter to .xlsx files
+//                FileChooser.ExtensionFilter extFilterXLSX = new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx");
+                fileChooserExCel.getExtensionFilters().addAll(
+                        new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"),
+                        new FileChooser.ExtensionFilter("Excel files (*.xlsm)", "*.xlsm"),
+                        new FileChooser.ExtensionFilter("Excel files (*.xls)", "*.xls")
+                );
+                //Show save file dialog
+                stageExcel = (Stage) acPane.getScene().getWindow();
+                File fileExcel = fileChooserExCel.showSaveDialog(stageExcel);
+
+                //If file is not null, write to file using output stream.
+                if (fileExcel != null) {
+                    try (FileOutputStream outputStream = new FileOutputStream(fileExcel.getAbsolutePath())) {
+                        workbook.write(outputStream);
+
+                        outputStream.flush();
+                        outputStream.close();
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+    }
+
+//    private void importExcelData() {
+//        btnImport.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                data.clear();
+//                FileChooser fileChooserImport = new FileChooser();
+//                fileChooserImport.getExtensionFilters().addAll(
+//                        new FileChooser.ExtensionFilter("Excel files (*.xlsx)", "*.xlsx"),
+//                        new FileChooser.ExtensionFilter("Excel files (*.xlsm)", "*.xlsm"),
+//                        new FileChooser.ExtensionFilter("Excel files (*.xls)", "*.xls")
+//                );
+//
+//                stageImportExcel = (Stage) acPane.getScene().getWindow();
+//                fileImport = fileChooser.showOpenDialog(stage);
+//
+//                HSSFWorkbook workbook;
+//                try {
+//                    workbook = new HSSFWorkbook(new FileInputStream(fileImport.getAbsolutePath()));
+//                    HSSFSheet sheet = workbook.getSheetAt(0);
+//                    HSSFRow row;
+//                    for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+//                        row = sheet.getRow(i);
+//                        //add constructor 
+//                        data.add(new Employee(
+//                                row.getCell(0).getStringCellValue(),
+//                                row.getCell(1).getStringCellValue(),
+//                                row.getCell(2).getStringCellValue(),
+//                                row.getCell(3).getStringCellValue(),
+//                                row.getCell(4).getStringCellValue(),
+//                                row.getCell(5).getStringCellValue(),
+//                                row.getCell(6).getStringCellValue(),
+//                                row.getCell(7).getStringCellValue()
+//                                )
+//                        );
+//                        
+//                    }
+//                } catch (IOException ex) {
+//                    Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//
+//            }
+//
+//        });
+//    }
+
+    @FXML
+    private void handleChangePass(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChangePass.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/changepass.css").toExternalForm());
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Change Password");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("Admin") && user.getDeparment().equals("Business")) {
+                buttonAdd.setDisable(false);
+                buttonDelete.setDisable(false);
+                buttonEdit.setDisable(false);
+                buttonExcel.setDisable(false);
+                buttonChangePass.setDisable(false);
+            } else if (user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(true);
+                buttonChangePass.setDisable(true);
+            } else if (user.getMission().equals("User")&&user.getDeparment().equals("Warehouse")||user.getMission().equals("User")&&user.getDeparment().equals("Sell")) {
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(true);
+                buttonChangePass.setDisable(true);
+            }else if(user.getMission().equals("User")&&user.getDeparment().equals("Business")){
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(false);
+                buttonChangePass.setDisable(true);
+            }
+            if (user.getMission().equals("") && user.getDeparment().equals("")) {
+                buttonAdd.setDisable(true);
+                buttonDelete.setDisable(true);
+                buttonEdit.setDisable(true);
+                buttonExcel.setDisable(true);
+                buttonChangePass.setDisable(true);
+            }
+        }
+    }
+
+    /*
+    private void SaveFile(String content, File file) {
+        try {
+            FileWriter fileWriter = null;
+
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    try {
                     FileOutputStream fileOut = new FileOutputStream("E:\\ExcelEmployee.xls");
                     HSSFWorkbook workbook = new HSSFWorkbook();
                     HSSFSheet worksheet = workbook.createSheet("Employee");
@@ -629,46 +832,5 @@ public class EmployeeController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-        });
-    }
-
-    @FXML
-    private void handleChangePass(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChangePass.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/changepass.css").toExternalForm());
-        stage.getIcons().add(new Image("/image/hyhy.png"));
-        stage.resizableProperty().setValue(Boolean.FALSE);
-        stage.initStyle(StageStyle.UTILITY);
-        stage.setTitle("Change Password");
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private void mission() {
-        infoUser = LoginController.ListUserLogin;
-        for (User user : infoUser) {
-            if (user.getMission() == "Admin" && user.getDeparment().equals("Business")) {
-                buttonAdd.setDisable(false);
-                buttonDelete.setDisable(false);
-                buttonEdit.setDisable(false);
-                buttonExcel.setDisable(false);
-                buttonChangePass.setDisable(false);
-            } else if (user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
-                buttonAdd.setDisable(true);
-                buttonDelete.setDisable(true);
-                buttonEdit.setDisable(true);
-                buttonExcel.setDisable(true);
-                buttonChangePass.setDisable(true);
-            } else if (user.getMission().equals("User")) {
-                buttonAdd.setDisable(true);
-                buttonDelete.setDisable(true);
-                buttonEdit.setDisable(true);
-                buttonExcel.setDisable(true);
-                buttonChangePass.setDisable(true);
-            }
-        }
-    }
+     */
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a06b719-8a67-4ed9-aa27-81e2edcda570">
 	<property name="ireport.zoom" value="1.5"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="4"/>
+	<property name="ireport.y" value="102"/>
 	<parameter name="OrderID" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -11,7 +11,11 @@
 	<parameter name="Total" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+<<<<<<< HEAD
 	<parameter name="parameter1" class="java.lang.String"/>
+=======
+	<parameter name="logo" class="java.io.InputStream"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 	<queryString>
 		<![CDATA[SELECT od.OrderDate ,dt.Amount,od.OrderID,dt.Qty,dt.SellPrice,prod.PName
 FROM Orders od
@@ -58,14 +62,21 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				</textElement>
 				<text><![CDATA[INVOICE]]></text>
 			</staticText>
+<<<<<<< HEAD
 			<textField>
 				<reportElement x="0" y="0" width="100" height="32" uuid="686ea3e7-cc59-469a-a1a2-ccf69270dff5"/>
 				<textFieldExpression><![CDATA[$P{logo}]]></textFieldExpression>
 			</textField>
+=======
+			<image>
+				<reportElement x="0" y="0" width="146" height="146"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 		</band>
 	</title>
 	<pageHeader>
-		<band height="127" splitType="Stretch">
+		<band height="119" splitType="Stretch">
 			<staticText>
 				<reportElement x="115" y="5" width="64" height="20" uuid="fac7c916-bbd2-4255-88fd-ad0c37d88792"/>
 				<textElement>
@@ -183,9 +194,13 @@ WHERE dt.OrderID=$P{OrderID}]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="195" y="7" width="108" height="20" uuid="e75ba54b-2ff6-429d-927f-8b7ed343e7df"/>
+=======
+				<reportElement x="195" y="0" width="108" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -199,7 +214,11 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
 			</textField>
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="41" y="7" width="154" height="20" uuid="5103c8c4-91c2-48b9-8ac2-7bbdb8e44049"/>
+=======
+				<reportElement x="41" y="0" width="154" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -213,7 +232,11 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textFieldExpression><![CDATA[$F{PName}]]></textFieldExpression>
 			</textField>
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="413" y="7" width="142" height="20" uuid="ef651faa-a451-4363-8a4e-fff548450d1c"/>
+=======
+				<reportElement x="413" y="0" width="142" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -227,7 +250,11 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
 			</textField>
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="303" y="7" width="110" height="20" uuid="18135119-2b2b-4a61-b0f8-23983926cd70"/>
+=======
+				<reportElement x="303" y="0" width="110" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -241,7 +268,11 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textFieldExpression><![CDATA[$F{SellPrice}]]></textFieldExpression>
 			</textField>
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="0" y="7" width="41" height="20" uuid="f4d1fe2f-4f3e-4ce3-bda8-15731243a77a"/>
+=======
+				<reportElement x="0" y="0" width="41" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -259,38 +290,62 @@ WHERE dt.OrderID=$P{OrderID}]]>
 	<pageFooter>
 		<band height="120" splitType="Stretch">
 			<staticText>
+<<<<<<< HEAD
 				<reportElement x="41" y="57" width="154" height="20" uuid="42fc27eb-1a7b-40b8-bb2a-b09c2207ca93"/>
+=======
+				<reportElement x="41" y="45" width="154" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Customer]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement x="57" y="77" width="122" height="20" uuid="3a2da19a-30a8-4c38-bce5-9c323723889f"/>
+=======
+				<reportElement x="57" y="65" width="122" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[( Sign )]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement x="339" y="57" width="154" height="20" uuid="31f73f7b-da9d-49b5-8a93-1e0c165017e7"/>
+=======
+				<reportElement x="339" y="45" width="154" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Cashier]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement x="360" y="77" width="122" height="20" uuid="615554b6-0ac5-483d-8515-76c0d7a107c5"/>
+=======
+				<reportElement x="360" y="65" width="122" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[( Sign )]]></text>
 			</staticText>
 			<staticText>
+<<<<<<< HEAD
 				<reportElement x="303" y="19" width="110" height="20" uuid="6aa3e0a7-6520-4e9d-b7cc-b652a0062df8"/>
+=======
+				<reportElement x="303" y="9" width="110" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Total :]]></text>
 			</staticText>
 			<textField>
+<<<<<<< HEAD
 				<reportElement x="432" y="19" width="100" height="20" uuid="1e1cc67f-92ad-4f24-be6b-0327ee5f6bb2"/>
+=======
+				<reportElement x="432" y="9" width="100" height="20"/>
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 				<textElement>
 					<font size="12"/>
 				</textElement>

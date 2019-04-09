@@ -103,18 +103,18 @@
                         <Label fx:id="lbAddrees" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="10.0" layoutY="355.0" prefHeight="59.0" prefWidth="159.0">
+                  <AnchorPane layoutX="10.0" layoutY="286.0" prefHeight="59.0" prefWidth="159.0">
                      <children>
-                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Password" />
-                        <Label fx:id="labelPass" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
-                        <JFXPasswordField fx:id="txtPass" layoutX="-2.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="FullName" />
+                        <JFXTextField fx:id="txtFullName" layoutY="20.0" prefHeight="0.0" prefWidth="150.0" />
+                        <Label fx:id="lbFullName" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="59.0" prefWidth="159.0">
                      <children>
-                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Confirm Password" />
-                        <Label fx:id="lbConfirm" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
-                        <JFXPasswordField fx:id="txtConfirmPass" layoutX="6.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
+                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Password" />
+                        <Label fx:id="labelPass" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
+                        <JFXPasswordField fx:id="txtPass" layoutX="-2.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -171,6 +171,13 @@
                               <JFXRadioButton fx:id="rdFemale" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="79.0" text="Female" toggleGroup="$sex" />
                            </children>
                         </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="59.0" prefWidth="159.0">
+                     <children>
+                        <Label id="labelInfo" layoutX="5.0" layoutY="5.0" text="Confirm Password" />
+                        <Label fx:id="lbConfirm" layoutX="-2.0" layoutY="52.0" prefHeight="0.0" prefWidth="150.0" />
+                        <JFXPasswordField fx:id="txtConfirmPass" layoutX="6.0" layoutY="22.0" prefHeight="25.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
                </children>

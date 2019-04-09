@@ -18,11 +18,11 @@ public interface DAOEmployee {
 
     ObservableList<Employee> getAllEmployee();
 
-   void insertEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary,  String department, Blob blobImage, Date dateWork,String roles,String username,String Pass);
+   void insertEmployee(String username1,String username,String Pass,String Fullname,String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary,  String department, Blob blobImage, Date dateWork,String roles);
 
-    void updateEmployee(String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary,  String department, Blob blobImage, Date dateWork,String roles,String username,int id);
+    void updateEmployee(String username,String Fullname,int id,String eplCode, String phone, String email, String addrees, boolean gender, Date dateofBirth, double salary,  String department, Blob blobImage, Date dateWork,String roles);
 
-    void deleteEmployee(String eplCode);
+    void deleteEmployee(String username);
     
     ObservableList<Employee> searchCodeEmployee(String eplCode);
     ObservableList<Employee> searchCodeEmployee(String username, String email, Date dateofBirth);

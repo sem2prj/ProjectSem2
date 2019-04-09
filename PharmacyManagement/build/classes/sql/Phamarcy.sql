@@ -1,15 +1,28 @@
+<<<<<<< HEAD
 ﻿create database pharmacy3
 
 use pharmacy3
  
 use master 
 drop database pharmacy3
+=======
+﻿
+use master 
+use pharmacy
+ 
+create database pharmacy
+
+/*
+drop database pharmacy
+*/
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 CREATE TABLE Categories(
 	CatID int identity(1,1),
 	CatName varchar(50) ,
 	CONSTRAINT pk_CatID PRIMARY KEY (CatID),	
 )
+<<<<<<< HEAD
 /*
 CREATE TABLE ActiveMaterial(
 	AmId int identity(1,1),
@@ -24,6 +37,9 @@ CREATE TABLE ScienitificName(
 	CONSTRAINT pk_SnId PRIMARY KEY (SnId),
 )
 */
+=======
+
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 CREATE TABLE Product(
 	PId bigint identity(1,1),
 	PCode varchar(50) unique,
@@ -41,6 +57,7 @@ CREATE TABLE Product(
 	on delete cascade 
 	on update cascade ,
 )
+<<<<<<< HEAD
 /*
 CREATE TABLE ExpiredTime(
 	ExId int identity(1,1),
@@ -69,9 +86,11 @@ CREATE TABLE Cities(
 	on delete cascade 
 	on update cascade ,
 )*/
+=======
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 CREATE TABLE stock(
-	stockid int,
+	stockid int identity(1,1),
 	PId bigint,
 	Qty int,
 	ExpiredTime date,
@@ -90,30 +109,71 @@ CREATE TABLE Customer(
 	CuPhone varchar(50),
 	CuEmail varchar(50),
 	CuLevel int,
+<<<<<<< HEAD
 
 	/*CityId int,*/
+=======
+	MoneySpend float DEFAULT 0,
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
-	/*CONSTRAINT fk_CityId FOREIGN KEY (CityId) REFERENCES Cities(CityId)
+)
+
+CREATE TABLE DetailUser(
+	DetailID int identity(1,1),
+	Code varchar(50),
+	Phone varchar(50),
+	Email varchar(50),
+	Addrees varchar(50),
+	Sex bit,
+	BirthDay date,
+	Salary float,
+	MoneySold float DEFAULT 0,
+	/*Position varchar(50),*/
+	Department varchar(50),
+	ImageBlob varbinary(max),
+	WorkDay date,
+	Mission varchar(50) ,
+	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
+)
+
+CREATE TABLE Users(
+	UsersID int identity(1,1),
+	UsersName varchar(50) ,
+	UsersPass varchar(50) ,
+	UsersFullName varchar(50) ,
+	DetailID int,
+	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
+	CONSTRAINT fk_DetailID FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
 	on delete cascade 
-	on update cascade ,*/
+	on update cascade ,
 )
 
 CREATE TABLE Orders(
 	OrderID varchar(50) PRIMARY KEY,
 	OrderDate date ,
 	Total float,
+	AmountTotal float DEFAULT 0 ,
 	CuId int,
+	UsersID int ,
+	CONSTRAINT fk_users_Order FOREIGN KEY (UsersID) REFERENCES Users(UsersID)
+	on delete cascade 
+	on update cascade ,
 	CONSTRAINT fk_CuId FOREIGN KEY (CuId) REFERENCES Customer(CuId)
 	on delete cascade 
 	on update cascade ,
 )
 
 CREATE TABLE OrderDetail(
+<<<<<<< HEAD
 	OrderDetailID bigint identity(1,1) PRIMARY KEY,
+=======
+	OrderDetailID int identity(1,1) PRIMARY KEY,
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 	OrderID varchar(50) ,
 	PId bigint ,
 	Qty int,
 	SellPrice float,
+	 Amount float DEFAULT 0,
 	CONSTRAINT fk_Order_Detail FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 	on delete cascade 
 	on update cascade ,
@@ -160,6 +220,7 @@ CREATE TABLE RequestsDetail(
 	on update cascade ,
 )
 
+<<<<<<< HEAD
 CREATE TABLE DetailUser(
 	DetailID int identity(1,1),
 	Code varchar(50),
@@ -188,6 +249,9 @@ CREATE TABLE Users(
 	on delete cascade 
 	on update cascade ,
 )
+=======
+
+>>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
 
 CREATE procedure getAllEmployee
 as
@@ -245,8 +309,41 @@ END
 SELECT *FROM Users
 
 select *from DetailUser
+/*
+delete from Users*/
 
-delete from Users
+
+/*
+alter table Orders
+add UsersID int 
+
+ALTER TABLE Orders
+ADD CONSTRAINT fk_users FOREIGN KEY (UsersID) REFERENCES Users(UsersID) 
+on delete cascade 
+on update cascade
+*/
+
+
+/*
+alter table Orders
+add AmountTotal float DEFAULT 0 */
+
+/*
+alter table OrderDetail
+add Amount float DEFAULT 0*/
+/*
+alter table DetailUser
+add MoneySold float DEFAULT 0*/
+/*
+alter table Customer
+add MoneySpend float DEFAULT 0*/
+/*
+alter table OrderDetail
+drop column OrderDetailID 
+
+alter table OrderDetail
+add OrderDetailID int identity(1,1)(1,1) Primary Key
+*/
 
 
 

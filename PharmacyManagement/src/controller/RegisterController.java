@@ -180,14 +180,14 @@ public class RegisterController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (imageView.getImage()!=null&&isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
+        if (imageView.getImage() != null && isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
                 && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty) {
             if (isUsernameTrue && isPasswordTrue && isEmailTrue && isPhoneTrue) {
                 try {
                     String username = tf_username.getText();
                     String password = PasswordHash.encryptPass(pf_password.getText());
                     String addrees = tf_address.getText().trim().replaceAll("\\s+", " ");
-                    String tennhanvien = tf_name.getText().trim().replaceAll("\\s+", " ");
+                    String fullname = tf_name.getText().trim().replaceAll("\\s+", " ");
                     String phone = tf_phone.getText();
                     Date datebirth = java.sql.Date.valueOf(date_birth.getValue());
 
@@ -202,6 +202,7 @@ public class RegisterController implements Initializable {
                     } else if (rdFemale.isSelected()) {
                         gendercheck = false;
                     }
+
                     Employee employee = new Employee();
                     BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
                     byte[] res;
@@ -211,45 +212,87 @@ public class RegisterController implements Initializable {
                         Blob blob = new SerialBlob(res);
                         employee.setImageBlob(blob);
                         con = controller.ConnectDB.connectSQLServer();
-                        pst = con.prepareStatement("INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Department,ImageBlob,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+
+                        pst = con.prepareStatement("insert into Users(UsersName,UsersPass,UsersFullName)values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                        pst.setString(1, username);
+                        pst.setString(2, password);
+                        pst.setString(3, fullname);
+                        pst.executeUpdate();
+
+                        rs = pst.getGeneratedKeys();
+                        rs.next();
+                        Object key = rs.getObject(1);
+
+                        pst = con.prepareStatement("INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Department,ImageBlob,Mission,WorkDay,UsersID) VALUES(?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                         pst.setString(1, "ENUM001");
                         pst.setString(2, phone);
                         pst.setString(3, email);
                         pst.setString(4, addrees);
                         pst.setBoolean(5, gendercheck);
                         pst.setDate(6, datebirth);
-//                        pst.setString(7, position);
                         pst.setString(7, department);
                         pst.setBlob(8, blob);
                         pst.setString(9, mission);
                         pst.setDate(10, workday);
-
-                        pst.executeUpdate();
-                        rs = pst.getGeneratedKeys();
-                        rs.next();
-                        Object key = rs.getObject(1);
-                        String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)values (?,?,?,?)";
-                        pst = con.prepareStatement(sql);
-
-                        pst.setInt(1, Integer.parseInt(String.valueOf(key)));
-
-                        pst.setString(2, username);
-                        pst.setString(3, password);
-                        pst.setString(4, tennhanvien);
-                        int a = pst.executeUpdate();
-
-                        if (a == 1) {
-                            System.out.println("Add success !");
+                        pst.setInt(11, Integer.parseInt(String.valueOf(key)));
+                        
+                        int i = pst.executeUpdate();
+                        if (i==1) {
+                            System.out.println("Success");
                         }
                     }
-
                     pst.close();
                     con.close();
-
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+//                    Employee employee = new Employee();
+//                    BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+//                    byte[] res;
+//                    try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+//                        ImageIO.write(bImage, "png", s);
+//                        res = s.toByteArray();
+//                        Blob blob = new SerialBlob(res);
+//                        employee.setImageBlob(blob);
+//                        con = controller.ConnectDB.connectSQLServer();
+//                        pst = con.prepareStatement("INSERT INTO DetailUser(Code,Phone,Email,Addrees,Sex,BirthDay,Department,ImageBlob,Mission,WorkDay) VALUES(?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+//                        pst.setString(1, "ENUM001");
+//                        pst.setString(2, phone);
+//                        pst.setString(3, email);
+//                        pst.setString(4, addrees);
+//                        pst.setBoolean(5, gendercheck);
+//                        pst.setDate(6, datebirth);
+//                        pst.setString(7, department);
+//                        pst.setBlob(8, blob);
+//                        pst.setString(9, mission);
+//                        pst.setDate(10, workday);
+//
+//                        pst.executeUpdate();
+//                        rs = pst.getGeneratedKeys();
+//                        rs.next();
+//                        Object key = rs.getObject(1);
+//                        String sql = "insert into Users(DetailID,UsersName,UsersPass,UsersFullName)values (?,?,?,?)";
+//                        pst = con.prepareStatement(sql);
+//
+//                        pst.setInt(1, Integer.parseInt(String.valueOf(key)));
+//
+//                        pst.setString(2, username);
+//                        pst.setString(3, password);
+//                        pst.setString(4, tennhanvien);
+//                        int a = pst.executeUpdate();
+//
+//                        if (a == 1) {
+//                            System.out.println("Add success !");
+//                        }
+//                    }
+//
+//                    pst.close();
+//                    con.close();
+//
+//                } catch (ClassNotFoundException | SQLException ex) {
+//                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+//                }
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 stage.close();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
