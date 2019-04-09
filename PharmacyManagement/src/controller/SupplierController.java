@@ -5,7 +5,9 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import static controller.MainController.infoUser;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -23,6 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import model.Supplier;
 import model.SupplierDAOIplement;
+import model.User;
 
 /**
  * FXML Controller class
@@ -80,6 +83,12 @@ public class SupplierController implements Initializable {
     private TableColumn<Supplier, String> columnEmail;
 
     private ObservableList<Supplier> supplierData;
+    @FXML
+    private JFXButton btnAdd;
+    @FXML
+    private JFXButton btnEdit;
+    @FXML
+    private JFXButton btnDelete;
 
     /**
      * Initializes the controller class.
@@ -90,7 +99,7 @@ public class SupplierController implements Initializable {
         click();
         cssError();
         SupplierDAOIplement sDI = new SupplierDAOIplement();
-        supplierData=sDI.getAllSupplier();
+        supplierData = sDI.getAllSupplier();
         FilteredList<Supplier> filteredData = new FilteredList<>(supplierData, e -> true);
         txtSearch.setOnKeyReleased(e -> {
             txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -102,7 +111,7 @@ public class SupplierController implements Initializable {
                     if (supplier.getCode().contains(newValue)) {
                         return true;
                     }
-                    
+
                     return false;
                 });
             });
@@ -110,6 +119,8 @@ public class SupplierController implements Initializable {
             sortedData.comparatorProperty().bind(tableView.comparatorProperty());
             tableView.setItems(sortedData);
         });
+
+        mission();
     }
 
     @FXML
@@ -126,21 +137,32 @@ public class SupplierController implements Initializable {
         if (!txtAddreesNotEmpty) {
             txtAddrees.requestFocus();
         }
-        boolean txtPhoneNotEmpty = ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
+        boolean txtPhoneNotEmpty = ValidationController.isTextFieldHavingText(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhoneNotEmpty) {
             txtPhone.requestFocus();
         }
-        boolean txtEmailNotEmpty = ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
+        boolean txtEmailNotEmpty = ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailNotEmpty) {
             txtEmail.requestFocus();
         }
-        if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
 
-            SupplierDAOIplement sDI = new SupplierDAOIplement();
-            sDI.insertSupplier(txtCode.getText(),txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
-            clear();
-            labelEmpty();
-            loadTable();
+        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+        System.out.println("lalalala3");
+        
+        System.out.println(txtnameNotEmpty);
+         System.out.println(isUsernameTrue);
+        if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
+                
+            if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
+               
+                SupplierDAOIplement sDI = new SupplierDAOIplement();
+                sDI.insertSupplier(txtCode.getText(), txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+                clear();
+                labelEmpty();
+                loadTable();
+            }
         }
     }
 
@@ -162,17 +184,23 @@ public class SupplierController implements Initializable {
         if (!txtPhoneNotEmpty) {
             txtPhone.requestFocus();
         }
-        boolean txtEmailNotEmpty = ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
+        boolean txtEmailNotEmpty = ValidationController.isEmailSuitable(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailNotEmpty) {
             txtEmail.requestFocus();
         }
-        if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
 
-            SupplierDAOIplement sDI = new SupplierDAOIplement();
-            sDI.updateSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
-            clear();
-            labelEmpty();
-            loadTable();
+        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+        
+        if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
+            if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
+                SupplierDAOIplement sDI = new SupplierDAOIplement();
+                sDI.updateSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+                clear();
+                labelEmpty();
+                loadTable();
+            }
         }
     }
 
@@ -205,11 +233,11 @@ public class SupplierController implements Initializable {
     }
 
     private void cssError() {
-        lbCode.setStyle("-fx-text-fill:#daa520");
-        lbName.setStyle("-fx-text-fill:#daa520");
-        lbAddrees.setStyle("-fx-text-fill:#daa520");
-        lbPhone.setStyle("-fx-text-fill:#daa520");
-        lbEmail.setStyle("-fx-text-fill:#daa520");
+        lbCode.setStyle("-fx-text-fill:#FF0000");
+        lbName.setStyle("-fx-text-fill:#FF0000");
+        lbAddrees.setStyle("-fx-text-fill:#FF0000");
+        lbPhone.setStyle("-fx-text-fill:#FF0000");
+        lbEmail.setStyle("-fx-text-fill:#FF0000");
     }
 
     private void loadTable() {
@@ -250,4 +278,24 @@ public class SupplierController implements Initializable {
         });
     }
 
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+
+            if (user.getMission().equals("User") && user.getDeparment().equals("Sell")) {
+                btnAdd.setDisable(true);
+                btnEdit.setDisable(false);
+                btnDelete.setDisable(true);
+            } else {
+                btnAdd.setDisable(false);
+                btnEdit.setDisable(false);
+                btnDelete.setDisable(false);
+            }
+            if (user.getMission().equals("") && user.getDeparment().equals("")) {
+                btnAdd.setDisable(true);
+                btnEdit.setDisable(true);
+                btnDelete.setDisable(true);
+            }
+        }
+    }
 }

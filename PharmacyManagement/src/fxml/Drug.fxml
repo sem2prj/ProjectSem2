@@ -29,10 +29,10 @@
           <RowConstraints maxHeight="20.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <JFXButton id="btnHander" onAction="#handleAdd" prefHeight="48.0" prefWidth="64.0" text="ADD" />
-            <JFXButton id="btnHander" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="48.0" prefWidth="64.0" text="EDIT" GridPane.columnIndex="1" />
+            <JFXButton id="btnHander" fx:id="btnAdd" onAction="#handleAdd" prefHeight="48.0" prefWidth="64.0" text="ADD" />
+            <JFXButton id="btnHander" fx:id="btnEdit" layoutX="10.0" layoutY="10.0" onAction="#handleUpdate" prefHeight="48.0" prefWidth="64.0" text="EDIT" GridPane.columnIndex="1" />
             <JFXButton id="btnHander" layoutX="74.0" layoutY="10.0" onAction="#handleClear" prefHeight="36.0" prefWidth="76.0" text="CLEAR" GridPane.columnIndex="3" />
-            <JFXButton id="btnHander" layoutX="74.0" layoutY="10.0" onAction="#handleDelete" prefHeight="48.0" prefWidth="64.0" text="DELETE" GridPane.columnIndex="2" />
+            <JFXButton id="btnHander" fx:id="btnDelete" layoutX="74.0" layoutY="10.0" onAction="#handleDelete" prefHeight="48.0" prefWidth="64.0" text="DELETE" GridPane.columnIndex="2" />
          </children>
       </GridPane>
       <JFXTextField fx:id="txtSearch" layoutX="524.0" layoutY="14.0" prefHeight="25.0" prefWidth="267.0" promptText="Search" />

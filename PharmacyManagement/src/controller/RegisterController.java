@@ -170,10 +170,7 @@ public class RegisterController implements Initializable {
         boolean isAddressNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_address, error_address, "Address is requied");
         boolean isPhoneNotEmpty = controller.ValidationController.isTextFieldHavingText(tf_phone, error_phone, "Phone is requied");
 
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(tf_email, error_email, "Ex: xxx@yyy.vn");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone, "Ex: +84 925 111 4456, 0905999999,...");
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(tf_username, error_username, "Username is not suitable");
-        boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(pf_password, error_password, "Password is not suitable");
+        
 
         if (imageView.getImage() == null) {
             lbImage.setText("Image is required");
@@ -182,6 +179,10 @@ public class RegisterController implements Initializable {
         }
         if (imageView.getImage() != null && isUserNameNotEmpty && isPasswordNotEmpty && isREPasswordNotEmpty && arePasswordsametoREPassword
                 && isEmailNotEmpty && isNameNotEmpty && isAddressNotEmpty && isPhoneNotEmpty) {
+            boolean isEmailTrue = controller.ValidationController.isEmailSuitable(tf_email, error_email, "Ex: xxx@yyy.vn");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(tf_phone, error_phone, "Ex: +84 925 111 4456, 0905999999,...");
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(tf_username, error_username, "Username is not suitable");
+        boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(pf_password, error_password, "Password is not suitable");
             if (isUsernameTrue && isPasswordTrue && isEmailTrue && isPhoneTrue) {
                 try {
                     String username = tf_username.getText();

@@ -32,6 +32,7 @@ CREATE TABLE Product(
 	on update cascade ,
 )
 
+
 CREATE TABLE stock(
 	stockid int identity(1,1),
 	PId bigint,
@@ -56,6 +57,17 @@ CREATE TABLE Customer(
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
 )
 
+
+
+CREATE TABLE Users(
+	UsersID int identity(1,1),
+	UsersName varchar(50) ,
+	UsersPass varchar(50) ,
+	UsersFullName varchar(50) ,
+	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
+)
+
+
 CREATE TABLE DetailUser(
 	DetailID int identity(1,1),
 	Code varchar(50),
@@ -71,20 +83,13 @@ CREATE TABLE DetailUser(
 	ImageBlob varbinary(max),
 	WorkDay date,
 	Mission varchar(50) ,
+	UsersID int,
 	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
-)
-
-CREATE TABLE Users(
-	UsersID int identity(1,1),
-	UsersName varchar(50) ,
-	UsersPass varchar(50) ,
-	UsersFullName varchar(50) ,
-	DetailID int,
-	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
-	CONSTRAINT fk_DetailID FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
+	CONSTRAINT fk_UsersID FOREIGN KEY (UsersID) REFERENCES Users(UsersID)
 	on delete cascade 
 	on update cascade ,
 )
+
 
 CREATE TABLE Orders(
 	OrderID varchar(50) PRIMARY KEY,
@@ -157,45 +162,29 @@ CREATE TABLE RequestsDetail(
 
 
 CREATE procedure getAllEmployee
-as
-begin 
-select dtu.Code as eplCode,us.UsersName as username,dtu.Phone as phone,dtu.Email as email
-,dtu.Addrees as addrees ,dtu.Sex as gender,dtu.BirthDay as dateOfBirth,dtu.Salary as salary
-,dtu.Department as department,dtu.ImageBlob as blogImage,dtu.WorkDay as dateWork ,us.UsersID as UserId,dtu.Mission as roles
-from Users AS us
- INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
-end
+AS
+BEGIN 
+SELECT dtu.Code AS eplCode,us.UsersName AS username,us.UsersFullName AS FullName ,dtu.Phone AS phone,dtu.Email AS email
+,dtu.Addrees AS addrees ,dtu.Sex AS gender,dtu.BirthDay AS dateOfBirth,dtu.Salary AS salary
+,dtu.Department AS department,dtu.ImageBlob AS blogImage,dtu.WorkDay AS dateWork ,dtu.UsersID AS UserId,dtu.Mission AS roles
+FROM Users AS us
+ INNER JOIN DetailUser AS dtu ON us.UsersID=dtu.UsersID
+END
 
-CREATE PROCEDURE InsertUser 
-(@UserName varchar(20),@Pass varchar(20),@DetailID int)   
-AS 
-INSERT INTO Users ([UsersName],[UsersPass],[DetailID]) VALUES (@UserName,@Pass,@DetailID)  
-GO 
-
-
-CREATE PROCEDURE ProceDetailUser
-(@eplCode varchar(20),@phone varchar(20),@email varchar(20),
-@addrees varchar(20),@gender bit,@birthday date,
-@salary float,@department varchar(20),
-@image varbinary(max),@workday date)   
-AS 
-INSERT INTO DetailUser ([Code],[Phone],[Email],[Addrees],[Sex],[BirthDay],[Salary],[Department],[ImageBlob],[WorkDay])
- VALUES (@eplCode,@phone,@email,@addrees,@gender,@birthday,@salary,@department,@image,@workday)  
-GO 
 
 CREATE PROCEDURE getUserMission
 as
 begin
 select us.UsersName as username,us.UsersPass AS pass,us.UsersFullName as fullname,dtu.mission as mission,dtu.Department as department
 from Users AS us
- INNER JOIN DetailUser AS dtu ON us.DetailID=dtu.DetailID
+ INNER JOIN DetailUser AS dtu ON us.UsersID=dtu.UsersID
 end
 
 CREATE PROCEDURE updatePassCode
 (@password varchar(50),@code varchar(50))
 AS
 UPDATE A SET A.UsersPass =@password
-FROM Users A INNER JOIN DetailUser B ON  A.DetailID=B.DetailID
+FROM Users A INNER JOIN DetailUser B ON  A.UsersID=B.UsersID
 WHERE B.Code=@code 
 GO
 

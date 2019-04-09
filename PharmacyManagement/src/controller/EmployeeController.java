@@ -244,25 +244,31 @@ public class EmployeeController implements Initializable {
     @FXML
     private void handleAdd(ActionEvent event) {
 
-        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordTrueType(txtPass, labelPass, "7-16 character,special symbols");
-        if (isPasswordNotEmpty) {
+        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txtPass, labelPass, "Password must be filled out");
+        if (!isPasswordNotEmpty) {
             txtPass.requestFocus();
         }
-        boolean arePasswordsametoREPassword = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirmPass, lbConfirm, "Your password and confirmation password do not match");
-        if (arePasswordsametoREPassword) {
+
+        boolean isConfirmNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txtConfirmPass, lbConfirm, "Confirm password must be filled out");
+        if (!isConfirmNotEmpty) {
             txtConfirmPass.requestFocus();
+        }
+
+        boolean arePasswordsametoREPassword = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirmPass, lbConfirm, "Your password and confirmation password do not match");
+        if (!arePasswordsametoREPassword) {
+            txtPass.requestFocus();
         }
         boolean txtAddreenotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtAddrees, lbAddrees, "Addrees must be filled out ");
         if (!txtAddreenotEmpty) {
             txtAddrees.requestFocus();
         }
 
-        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
+        boolean txtEmailnotSuitable = controller.ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailnotSuitable) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
+        boolean txtPhonenotSuitable = controller.ValidationController.isTextFieldHavingText(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotSuitable) {
             txtPhone.requestFocus();
         }
@@ -296,37 +302,43 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
+
+        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtUsername, lbUser, "Username is not suitable");
+        boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, labelPass, "Password is not suitable");
+
         if (ValidationController.checkPolymerCode(txtEplCode.getText())) {
-            if (imageView.getImage() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
+            if (imageView.getImage() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && isPasswordNotEmpty && isConfirmNotEmpty && arePasswordsametoREPassword && txtSalarynotNumber) {
+                if (isPhoneTrue && isEmailTrue && isUsernameTrue && isPasswordTrue) {
+                    if (rdMale.isSelected()) {
+                        gendercheck = true;
+                    } else if (rdFemale.isSelected()) {
+                        gendercheck = false;
+                    }
 
-                if (rdMale.isSelected()) {
-                    gendercheck = true;
-                } else if (rdFemale.isSelected()) {
-                    gendercheck = false;
+                    BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                    String password = PasswordHash.encryptPass(txtConfirmPass.getText());
+                    System.out.println(password);
+                    byte[] res;
+                    try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                        ImageIO.write(bImage, "png", s);
+                        res = s.toByteArray();
+                        Blob blob = new SerialBlob(res);
+                        Employee employee = new Employee();
+                        employee.setImageBlob(blob);
+                        EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
+                        String username = txtUsername.getText().trim().replaceAll("\\s+", "");
+                        String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+                        eDAOIpl.insertEmployee(username, username, password, txtFullName.getText(), txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                                Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
+
+                    } catch (IOException | SQLException ex) {
+                        Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    emptyLabel();
+                    clear();
                 }
-
-                BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-                String password = PasswordHash.encryptPass(txtConfirmPass.getText());
-                System.out.println(password);
-                byte[] res;
-                try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
-                    ImageIO.write(bImage, "png", s);
-                    res = s.toByteArray();
-                    Blob blob = new SerialBlob(res);
-                    Employee employee = new Employee();
-                    employee.setImageBlob(blob);
-                    EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                    String username = txtUsername.getText().trim().replaceAll("\\s+", "");
-                    String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                    eDAOIpl.insertEmployee(username,username, password,txtFullName.getText(),txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
-
-                } catch (IOException | SQLException ex) {
-                    Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                emptyLabel();
-                clear();
-
             } else {
 //               AlertDialog.display("Info", "Not found);
             }
@@ -344,12 +356,12 @@ public class EmployeeController implements Initializable {
             txtAddrees.requestFocus();
         }
 
-        boolean txtEmailnotSuitable = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Format:xxx@yyy.com");
+        boolean txtEmailnotSuitable = controller.ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailnotSuitable) {
             txtEmail.requestFocus();
         }
 
-        boolean txtPhonenotSuitable = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Phone must be filled out");
+        boolean txtPhonenotSuitable = controller.ValidationController.isTextFieldHavingText(txtPhone, lbPhone, "Phone must be filled out");
         if (!txtPhonenotSuitable) {
             txtPhone.requestFocus();
         }
@@ -382,30 +394,38 @@ public class EmployeeController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (imageView.getImage() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && txtSalarynotNumber) {
-            if (rdMale.isSelected()) {
-                gendercheck = true;
-            } else if (rdFemale.isSelected()) {
-                gendercheck = false;
-            }
-            Employee employee = new Employee();
-            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            byte[] res;
-            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
-                ImageIO.write(bImage, "png", s);
-                res = s.toByteArray();
-                Blob blob = new SerialBlob(res);
-                employee.setImageBlob(blob);
-                EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
-                String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-                eDAOIpl.updateEmployee(txtUsername.getText(),txtFullName.getText(),id, txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
-                        Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
 
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtUsername, lbUser, "Username is not suitable");
+
+        if (imageView.getImage() != null&&txtDateWork.getValue() != null&&txtDateBirth.getValue() != null && txtBarcodenotEmpty && txtUserNamenotEmpty && txtPhonenotSuitable && txtEmailnotSuitable && txtAddreenotEmpty && txtSalarynotNumber) {
+            if (isEmailTrue && isPhoneTrue && isUsernameTrue) {
+                if (rdMale.isSelected()) {
+                    gendercheck = true;
+                } else if (rdFemale.isSelected()) {
+                    gendercheck = false;
+                }
+                Employee employee = new Employee();
+                BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                byte[] res;
+                try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                    ImageIO.write(bImage, "png", s);
+                    res = s.toByteArray();
+                    Blob blob = new SerialBlob(res);
+                    employee.setImageBlob(blob);
+                    EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
+                    String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+                    eDAOIpl.updateEmployee(txtUsername.getText(), txtFullName.getText(), id, txtEplCode.getText(), txtPhone.getText(), txtEmail.getText(), addrees, gendercheck, java.sql.Date.valueOf(txtDateBirth.getValue()),
+                            Double.parseDouble(txtSalary.getText()), cbDepartment.getSelectionModel().getSelectedItem() + "", blob, java.sql.Date.valueOf(txtDateWork.getValue()), cbRoles.getSelectionModel().getSelectedItem() + "");
+
+                } catch (IOException | SQLException ex) {
+                    Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                emptyLabel();
+                clear();
             }
-            emptyLabel();
-            clear();
+
         }
         loadTableForm();
 
@@ -495,17 +515,17 @@ public class EmployeeController implements Initializable {
 
     //Css error
     private void errorValidate() {
-        lbCode.setStyle("-fx-text-fill:#daa520");
-        lbUser.setStyle("-fx-text-fill:#daa520");
-        lbPhone.setStyle("-fx-text-fill:#daa520");
-        lbEmail.setStyle("-fx-text-fill:#daa520");
-        lbAddrees.setStyle("-fx-text-fill:#daa520");
-        lbSalary.setStyle("-fx-text-fill:#daa520");
-        lbImage.setStyle("-fx-text-fill:#daa520");
-        lbDofBirth.setStyle("-fx-text-fill:#daa520");
-        lbAWork.setStyle("-fx-text-fill:#daa520");
-        labelPass.setStyle("-fx-text-fill:#daa520");
-        lbConfirm.setStyle("-fx-text-fill:#daa520");
+        lbCode.setStyle("-fx-text-fill:#FF0000");
+        lbUser.setStyle("-fx-text-fill:#FF0000");
+        lbPhone.setStyle("-fx-text-fill:#FF0000");
+        lbEmail.setStyle("-fx-text-fill:#FF0000");
+        lbAddrees.setStyle("-fx-text-fill:#FF0000");
+        lbSalary.setStyle("-fx-text-fill:#FF0000");
+        lbImage.setStyle("-fx-text-fill:#FF0000");
+        lbDofBirth.setStyle("-fx-text-fill:#FF0000");
+        lbAWork.setStyle("-fx-text-fill:#FF0000");
+        labelPass.setStyle("-fx-text-fill:#FF0000");
+        lbConfirm.setStyle("-fx-text-fill:#FF0000");
     }
 
     @FXML
@@ -689,7 +709,6 @@ public class EmployeeController implements Initializable {
 //
 //        });
 //    }
-
     @FXML
     private void handleChangePass(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ChangePass.fxml"));
@@ -719,13 +738,13 @@ public class EmployeeController implements Initializable {
                 buttonEdit.setDisable(true);
                 buttonExcel.setDisable(true);
                 buttonChangePass.setDisable(true);
-            } else if (user.getMission().equals("User")&&user.getDeparment().equals("Warehouse")||user.getMission().equals("User")&&user.getDeparment().equals("Sell")) {
+            } else if (user.getMission().equals("User") && user.getDeparment().equals("Warehouse") || user.getMission().equals("User") && user.getDeparment().equals("Sell")) {
                 buttonAdd.setDisable(true);
                 buttonDelete.setDisable(true);
                 buttonEdit.setDisable(true);
                 buttonExcel.setDisable(true);
                 buttonChangePass.setDisable(true);
-            }else if(user.getMission().equals("User")&&user.getDeparment().equals("Business")){
+            } else if (user.getMission().equals("User") && user.getDeparment().equals("Business")) {
                 buttonAdd.setDisable(true);
                 buttonDelete.setDisable(true);
                 buttonEdit.setDisable(true);

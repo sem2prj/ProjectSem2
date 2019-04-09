@@ -5,9 +5,11 @@
  */
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import static controller.MainController.infoUser;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -46,6 +48,7 @@ import javax.imageio.ImageIO;
 import javax.sql.rowset.serial.SerialBlob;
 import model.Drug;
 import model.DrugDAOImplement;
+import model.User;
 
 /**
  * FXML Controller class
@@ -115,12 +118,16 @@ public class DrugController implements Initializable {
     private Label lbBuy;
     @FXML
     private Label lbSell;
-    private Label lbExpiredTime;
-    private Label lbQuantity;
     @FXML
     private Label lbSupplier;
     @FXML
     private Label lbImage;
+    @FXML
+    private JFXButton btnAdd;
+    @FXML
+    private JFXButton btnEdit;
+    @FXML
+    private JFXButton btnDelete;
 
     /**
      * Initializes the controller class.
@@ -145,7 +152,7 @@ public class DrugController implements Initializable {
         loadTable();
         click();
         css();
-        
+
         FilteredList<Drug> filteredData = new FilteredList<>(data, e -> true);
         txtSearch.setOnKeyReleased(e -> {
             txtSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -164,6 +171,8 @@ public class DrugController implements Initializable {
         SortedList<Drug> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableView.comparatorProperty());
         tableView.setItems(sortedData);
+
+        mission();
     }
 
     @FXML
@@ -198,25 +207,31 @@ public class DrugController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (imageView.getImage() != null&&textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
-            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            byte[] res;
-            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
-                ImageIO.write(bImage, "png", s);
-                res = s.toByteArray();
-                Blob blob = new SerialBlob(res);
-                Drug drug = new Drug();
-                drug.setImage(blob);
-                DrugDAOImplement dDI = new DrugDAOImplement();
-                dDI.insertDrug(txtCode.getText(),txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
-                        cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
-                        txtSup.getText(), txtAreaDes.getText());
 
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+
+        if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+            if (isUsernameTrue) {
+                BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                byte[] res;
+                try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                    ImageIO.write(bImage, "png", s);
+                    res = s.toByteArray();
+                    Blob blob = new SerialBlob(res);
+                    Drug drug = new Drug();
+                    drug.setImage(blob);
+                    DrugDAOImplement dDI = new DrugDAOImplement();
+                    dDI.insertDrug(txtCode.getText(), txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
+                            cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
+                            txtSup.getText(), txtAreaDes.getText());
+
+                } catch (IOException | SQLException ex) {
+                    Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                clear();
+                clearLabel();
             }
-            clear();
-            clearLabel();
+
         }
         loadTable();
 
@@ -256,29 +271,32 @@ public class DrugController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-        if (imageView.getImage() != null&&textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
 
-            Drug drug = new Drug();
-            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
-            byte[] res;
-            try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
-                ImageIO.write(bImage, "png", s);
-                res = s.toByteArray();
-                Blob blob = new SerialBlob(res);
-                drug.setImage(blob);
-                DrugDAOImplement dDI = new DrugDAOImplement();
-                dDI.updateDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
-                        Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
-                        txtSup.getText(), txtAreaDes.getText(), id1);
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
 
-            } catch (IOException | SQLException ex) {
-                Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+        if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+            if (isUsernameTrue) {
+                Drug drug = new Drug();
+                BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+                byte[] res;
+                try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
+                    ImageIO.write(bImage, "png", s);
+                    res = s.toByteArray();
+                    Blob blob = new SerialBlob(res);
+                    drug.setImage(blob);
+                    DrugDAOImplement dDI = new DrugDAOImplement();
+                    dDI.updateDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
+                            Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
+                            txtSup.getText(), txtAreaDes.getText(), id1);
+
+                } catch (IOException | SQLException ex) {
+                    Logger.getLogger(DrugController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                clear();
+                clearLabel();
             }
-            clear();
-            clearLabel();
         }
         loadTable();
-
     }
 
     @FXML
@@ -354,13 +372,13 @@ public class DrugController implements Initializable {
     }
 
     private void css() {
-        lbCode.setStyle("-fx-text-fill:#daa520");
-        lbName.setStyle("-fx-text-fill:#daa520");
-        lbSupplier.setStyle("-fx-text-fill:#daa520");
-        lbCategories.setStyle("-fx-text-fill:#daa520");
-        lbImage.setStyle("-fx-text-fill:#daa520");
-        lbSell.setStyle("-fx-text-fill:#daa520");
-        lbBuy.setStyle("-fx-text-fill:#daa520");
+        lbCode.setStyle("-fx-text-fill:#FF0000");
+        lbName.setStyle("-fx-text-fill:#FF0000");
+        lbSupplier.setStyle("-fx-text-fill:#FF0000");
+        lbCategories.setStyle("-fx-text-fill:#FF0000");
+        lbImage.setStyle("-fx-text-fill:#FF0000");
+        lbSell.setStyle("-fx-text-fill:#FF0000");
+        lbBuy.setStyle("-fx-text-fill:#FF0000");
 
     }
 
@@ -392,6 +410,17 @@ public class DrugController implements Initializable {
             image = new Image(file.getAbsoluteFile().toURI().toString(), imageView.getFitWidth(), imageView.getFitHeight(), true, true);
             imageView.setImage(image);
             imageView.setPreserveRatio(true);
+        }
+    }
+
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("") && user.getDeparment().equals("") || user.getDeparment().equals("Sell")) {
+                btnAdd.setDisable(true);
+                btnEdit.setDisable(true);
+                btnDelete.setDisable(true);
+            }
         }
     }
 
