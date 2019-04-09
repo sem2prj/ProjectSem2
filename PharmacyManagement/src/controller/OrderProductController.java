@@ -541,10 +541,6 @@ public class OrderProductController implements Initializable {
 
     
 
-    @FXML
-    
-
-    //report
     private void printInvoice() throws IOException {
 
         String souceFile = "src\\report\\invoice.jrxml";
