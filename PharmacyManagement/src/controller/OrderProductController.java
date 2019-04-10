@@ -127,6 +127,7 @@ public class OrderProductController implements Initializable {
     private TextField tf_customer;
     
     int UserIDReal ;
+    String returnTempOrderID ;
 
     /**
      * Initializes the controller class.
@@ -370,13 +371,26 @@ public class OrderProductController implements Initializable {
     @FXML
 
     private void action_printInvoice(ActionEvent event) throws IOException {
-        String sql = "insert into Orders (OrderID,OrderDate,AmountTotal)values(?,?,?)";
+      
+//        boolean check_barcode = ValidationController.isTextFieldHavingText(tf_barcode);
+//        boolean check_productname = ValidationController.isTextFieldHavingText(tf_productname);
+//        boolean check_qty = ValidationController.isTextFieldHavingText(tf_qty);
+//        boolean check_price = ValidationController.isTextFieldHavingText(tf_price);
+               
+        //AlertDialog.display("Info", "May be some fields are missing, just check !!!");
+            try {
+                Invoice();
+                returnTempOrderID = tf_invoiceID.getText();
+                tf_invoiceID.setText(autoOrderID());
+                tf_customer.clear();
+                printInvoice();
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       
 
-        try {
-            Invoice();
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
     }
     
@@ -384,14 +398,14 @@ public class OrderProductController implements Initializable {
         
         int cuid = 1;
         pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
-        pst.setString(1, "%" + ValidationController.getStringFromText(tf_customer.getText()) + "%");
-        pst.setString(2, "%" + ValidationController.getNumberFromText(tf_customer.getText()) + "%");
+        pst.setString(1,  ValidationController.getStringFromText(tf_customer.getText()) );
+        pst.setString(2,  ValidationController.getNumberFromText(tf_customer.getText()) );
         rs = pst.executeQuery();
         if (rs.next()) {
-            cuid = rs.getInt(1);
+            cuid = rs.getInt("CuId");
         }
         rs.close();
-        System.out.println(cuid);
+
 
         return cuid;
 
@@ -411,7 +425,7 @@ public class OrderProductController implements Initializable {
     }
 
     public int getDetailID() throws SQLException {
-        int detailID = 0;
+        int detailID = 1;
         pst = con.prepareStatement("select DetailID from DetailUser where UsersID = ?");
         pst.setInt(1, UserIDReal);
 
@@ -419,9 +433,7 @@ public class OrderProductController implements Initializable {
         if (rs.next()) {
             detailID = rs.getInt(1);
         }
-
         rs.close();
-
         return detailID;
     }
 
@@ -432,7 +444,7 @@ public class OrderProductController implements Initializable {
         String sql = "insert into Orders (OrderID,OrderDate,AmountTotal,CuId,UsersID)values(?,?,?,?,?)";
         String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
         String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
-
+    if (orderData.isEmpty()){AlertDialog.display("Info", "May be some fields are missing, just check !!!");} else {
         try {
             returnCuID = getCuId();
             returnUserID = getUsersID();
@@ -440,15 +452,11 @@ public class OrderProductController implements Initializable {
             pst.setString(1, tf_invoiceID.getText());
             pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
             pst.setDouble(3, grandTotal);
-            System.out.println(returnCuID);
             pst.setInt(4, returnCuID);
             pst.setInt(5, returnUserID);
-//                System.out.println("ytgyygyg");
-//                pst3.setInt(4, returnCuid);
-//                pst.setInt(5, 1); //Phai thay lai khi update
+
 
             int i = pst.executeUpdate();
-
             if (i == 1) {
                 sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
                 for (OrderList2 item : orderData) {
@@ -462,10 +470,10 @@ public class OrderProductController implements Initializable {
 
                 }
 
-                if (getCuId() != 2) {
+                if (getCuId() != 0) {
                     pst2 = con.prepareStatement(sql2);
-                    pst2.setDouble(1, grandTotal);
-                    pst2.setInt(2, getCuId());
+                    pst2.setDouble(1,grandTotal );
+                    pst2.setInt(2, returnCuID);
                     int j = pst2.executeUpdate();
 
                     pst2.close();
@@ -482,25 +490,30 @@ public class OrderProductController implements Initializable {
                 }
 
                 AlertDialog.display("Info", "Data added into order success !!!");
-                printInvoice();
+           
       
                 clearText();
-
-                tf_invoiceID.setText(autoOrderID());
+                returnTempOrderID = tf_invoiceID.getText();
+                orderData.clear();
+                table_order.setItems(orderData);
+                
                 // printInvoice();
-
-            }
+                
+            }  
 
 //để đây nó set rỗng tài liệu nhé ông
 //                tf_invoiceID.setText(autoOrderID());
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    }
         //        } else {
         //            AlertDialog.display("Warning", "Please check your user 's condition or relogin user !!!");
         //
         //        }   // Phai thay khi update
 
+//        printInvoice();
     }
     
     private String autoOrderID() {
@@ -556,18 +569,12 @@ public class OrderProductController implements Initializable {
 
             params.put("logo", this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());
-            params.put("Customer", tf_customer.getText());
-            params.put("OrderID", tf_invoiceID.getText());
+            params.put("Customer", "ABC"); //tf_customer.getText()
+            params.put("OrderID", "Order00005"); //tf_invoiceID.getText()
             params.put("Total", grandTotal);
 
             JasperPrint jp = JasperFillManager.fillReport(jr, params, connection);
             JasperViewer jv = new JasperViewer(jp, false);
-
-            System.out.println(UserCurrentLogin.getCurrentLogin());
-            System.out.println(tf_invoiceID.getText());
-            System.out.println(this.getClass().getResourceAsStream(urlImage));
-            System.out.println(tf_customer.getText());
-            System.out.println(grandTotal);
 
             jv.setVisible(true);
             jv.setTitle("Bill");

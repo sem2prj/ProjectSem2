@@ -54,7 +54,6 @@ CREATE TABLE Product(
 	on delete cascade 
 	on update cascade ,
 )
-<<<<<<< HEAD
 CREATE TABLE Supplier(
 	SuID int identity(1,1),
 	SuCode varchar(50),
@@ -66,80 +65,7 @@ CREATE TABLE Supplier(
 	SuWebsite varchar(50),
 	SuNotice varchar(max),
 	CONSTRAINT pk_SuID PRIMARY KEY (SuID),
-=======
-<<<<<<< HEAD
-/*
-CREATE TABLE ExpiredTime(
-	ExId int identity(1,1),
-	ExDate date ,
-	PId bigint,
-	Qty varchar(50),
-	CONSTRAINT pk_ExId PRIMARY KEY (ExId),
-	CONSTRAINT fk_PId FOREIGN KEY (PId) REFERENCES Product(PId)
-	on delete cascade 
-	on update cascade ,
-)*/
-/*
-CREATE TABLE Countries(
-	CountryID int identity(1,1),
-	CountryName varchar(50) ,
-	CONSTRAINT pk_CountryID PRIMARY KEY (CountryID),
 )
-
-
-CREATE TABLE Cities(
-	CityID int identity(1,1),
-	CityName varchar(50) ,
-	CountryID int,
-	CONSTRAINT pk_CityID PRIMARY KEY (CityID),
-	CONSTRAINT fk_CountryID FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
-	on delete cascade 
-	on update cascade ,
-)*/
-=======
->>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
-
-
-CREATE TABLE stock(
-	stockid int identity(1,1),
-	PId bigint,
-	Qty int,
-	ExpiredTime date,
-	DateIn date,
-	CONSTRAINT pk_stockid PRIMARY KEY (stockid),
-	CONSTRAINT fk_PId_stock FOREIGN KEY (PId) REFERENCES Product(PId)
-	on delete cascade 
-	on update cascade ,
-)
-
-CREATE TABLE Customer(
-	CuId int identity(1,1),
-	CuCode varchar(50),
-	CuName varchar(50) ,
-	CuAddrees varchar(max),
-	CuPhone varchar(50),
-	CuEmail varchar(50),
-	CuLevel int,
-<<<<<<< HEAD
-
-	/*CityId int,*/
-=======
-	MoneySpend float DEFAULT 0,
->>>>>>> d8871c6dbd9575eb09c2e648c31104b95981e2fa
-	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
->>>>>>> de93dfab268ec0072179711352054ea6b45e43f2
-)
-
-
-
-CREATE TABLE Users(
-	UsersID int identity(1,1),
-	UsersName varchar(50) ,
-	UsersPass varchar(50) ,
-	UsersFullName varchar(50) ,
-	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
-)
-
 
 CREATE TABLE DetailUser(
 	DetailID int identity(1,1),
@@ -161,7 +87,6 @@ CREATE TABLE DetailUser(
 	CONSTRAINT fk_UsersID FOREIGN KEY (UsersID) REFERENCES Users(UsersID)
 	on delete cascade 
 	on update cascade ,
-<<<<<<< HEAD
 )
 
 CREATE TABLE Users(
@@ -182,10 +107,7 @@ CREATE TABLE Customer(
 	CuLevel int,
 	MoneySpend float DEFAULT 0,
 	CONSTRAINT pk_CuId PRIMARY KEY (CuId),
-=======
->>>>>>> de93dfab268ec0072179711352054ea6b45e43f2
 )
-
 
 CREATE TABLE Orders(
 	OrderID varchar(50) PRIMARY KEY,
@@ -283,7 +205,6 @@ CREATE TABLE Countries(
 )
 
 
-<<<<<<< HEAD
 CREATE TABLE Cities(
 	CityID int identity(1,1),
 	CityName varchar(50) ,
@@ -334,18 +255,6 @@ FROM Users AS us
  INNER JOIN DetailUser AS dtu ON us.UsersID=dtu.UsersID
 END
 
-=======
-CREATE procedure getAllEmployee
-AS
-BEGIN 
-SELECT dtu.Code AS eplCode,us.UsersName AS username,us.UsersFullName AS FullName ,dtu.Phone AS phone,dtu.Email AS email
-,dtu.Addrees AS addrees ,dtu.Sex AS gender,dtu.BirthDay AS dateOfBirth,dtu.Salary AS salary
-,dtu.Department AS department,dtu.ImageBlob AS blogImage,dtu.WorkDay AS dateWork ,dtu.UsersID AS UserId,dtu.Mission AS roles
-FROM Users AS us
- INNER JOIN DetailUser AS dtu ON us.UsersID=dtu.UsersID
-END
-
->>>>>>> de93dfab268ec0072179711352054ea6b45e43f2
 
 CREATE PROCEDURE getUserMission
 as
