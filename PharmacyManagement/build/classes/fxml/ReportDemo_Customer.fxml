@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controller.ReportDemo_CustomerController">
    <children>
-      <ImageView fx:id="image_view" fitHeight="80.0" fitWidth="80.0" layoutX="706.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="image_view" fitHeight="89.0" fitWidth="106.0" layoutX="680.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
       <TableView fx:id="table_view" layoutX="49.0" layoutY="110.0" prefHeight="435.0" prefWidth="720.0">
          <columns>
             <TableColumn fx:id="column_tenkh" minWidth="100.0" prefWidth="77.0" text="Ten KH" />
