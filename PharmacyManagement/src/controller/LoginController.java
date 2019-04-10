@@ -97,11 +97,11 @@ public class LoginController implements Initializable {
     }
 
     private void login() {
-        boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "username is requied");
+        boolean isUserNameNotEmpty = controller.ValidationController.isTextFieldHavingText(txt_user, error_username, "Username must be filled out");
         if (isUserNameNotEmpty) {
             txt_user.requestFocus();
         }
-        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txt_password, error_password, "password is requied");
+        boolean isPasswordNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txt_password, error_password, "Password must be filled out");
         if (isPasswordNotEmpty) {
             txt_password.requestFocus();
         }

@@ -41,7 +41,6 @@ public class ChangePassController implements Initializable {
     private JFXPasswordField txtConfirm;
 
 //    public static ObservableList<Employee> ListMembers = FXCollections.observableArrayList();
-
     /**
      * Initializes the controller class.
      */
@@ -53,33 +52,46 @@ public class ChangePassController implements Initializable {
 
     @FXML
     private void handleChangePassword(ActionEvent event) throws SQLException {
-        
+
         boolean txtUsernotEmpty = controller.ValidationController.isTextFieldNotEmpty(txtUser, lbUser, "UserName must be filled out");
         if (!txtUsernotEmpty) {
             txtUser.requestFocus();
         }
-        boolean txtPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "7-16 character,special symbols");
+        boolean txtPasswordTrue = controller.ValidationController.isPasswordFieldHavingText(txtPass, lbPass, "Password must be filled out");
         if (!txtPasswordTrue) {
             txtPass.requestFocus();
         }
+
+        boolean isConfirmNotEmpty = controller.ValidationController.isPasswordFieldHavingText(txtConfirm, lbConfirm, "Confirm password must be filled out");
+        if (!isConfirmNotEmpty) {
+            txtConfirm.requestFocus();
+        }
+
         boolean txtRePass = controller.ValidationController.arePasswordAndREPasswordSame(txtPass, txtConfirm, lbConfirm, "Password and confirmation do not match");
         if (!txtRePass) {
             txtConfirm.requestFocus();
         }
+
+        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtUser, lbUser, "Username is not suitable");
+        boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "Password is not suitable");
+
         if (txtUsernotEmpty && txtPasswordTrue && txtRePass) {
-            UsernameDAOImplement userImp = new UsernameDAOImplement();
-            String password = PasswordHash.encryptPass(txtConfirm.getText());
-            userImp.updateUser(txtUser.getText(), password);
-            clear();
+            if (isPasswordTrue && isUsernameTrue) {
+                UsernameDAOImplement userImp = new UsernameDAOImplement();
+                String password = PasswordHash.encryptPass(txtConfirm.getText());
+                userImp.updateUser(txtUser.getText(), password);
+                clear();
+            }
         }
     }
 
     private void cssError() {
-        lbUser.setStyle("-fx-text-fill:orange");
-        lbPass.setStyle("-fx-text-fill:orange");
-        lbConfirm.setStyle("-fx-text-fill:orange");
+        lbUser.setStyle("-fx-text-fill:#FF0000");
+        lbPass.setStyle("-fx-text-fill:#FF0000");
+        lbConfirm.setStyle("-fx-text-fill:#FF0000");
     }
-    private void clear(){
+
+    private void clear() {
         txtUser.clear();
         txtPass.clear();
         txtConfirm.clear();

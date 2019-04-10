@@ -12,41 +12,148 @@
 
 #btnHandleMain{
     -fx-background-color: #4169e1;
-    -fx-text-fill: red;
-    -fx-font-family: sans-serif;
+    -fx-text-fill: #daa520;;
+    -fx-font-family: "Advent Pro";
+    -fx-font-size: 16px;
 }
 #btnHandleMain:hover{
     -fx-background-color:#daa520;
     -fx-text-fill: #4169e1;
 }
 
-#btnLogOut{
-    -fx-background-color: #4169e1;
-    -fx-background-image: url("/image/logOut.png");
-    -fx-background-size: 25 25;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position:left;
+#lbYear{
+    -fx-font-size: 14px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: #daa520;
 }
-#btnLogOut:hover{
-    -fx-background-color:#daa520;
-    -fx-text-fill: #4169e1;
-}
+
 #btnEmployee{
     -fx-background-color: #4169e1;
     -fx-background-image: url("/image/employee.png");
-    -fx-background-size: 30 30;
+    -fx-background-size: 36 36;
     -fx-background-repeat: no-repeat;
     -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
 }
 #btnEmployee:hover{
     -fx-background-color:#daa520;
     -fx-text-fill: #4169e1;
 }
 
+#btnDrug{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/drug.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
 
+#btnDrug:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
 
-#lbYear{
-    -fx-font-size: 14px;
-    -fx-font-family: sans-serif;
-    -fx-text-fill: #daa520;
+#btnCustomer{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/customer.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+#btnCustomer:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnStore{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/store.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+#btnStore:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnpayment{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/sell.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+
+#btnpayment:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnReport{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/reports.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+
+#btnReport:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnSupplier{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/supplier.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+
+#btnSupplier:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnStatistic{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/statistic.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+
+#btnStatistic:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
+}
+
+#btnLogout{
+    -fx-background-color: #4169e1;
+    -fx-background-image: url("/image/logOut.png");
+    -fx-background-size: 36 36;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:top;
+    -fx-text-fill:#fd311d;
+    -fx-font-size: 16px;
+}
+#btnLogout:hover{
+    -fx-background-color:#daa520;
+    -fx-text-fill: #4169e1;
 }

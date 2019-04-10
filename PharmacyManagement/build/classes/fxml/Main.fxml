@@ -51,8 +51,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="btnLogOut" onAction="#handleLogOut" prefHeight="87.0" prefWidth="212.0" text="LOGOUT" />
-                  <JFXButton id="btnEmployee" layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" text="EMPLOYEES" GridPane.rowIndex="1" />
+                  <JFXButton id="btnHandleMain" onAction="#handleLogOut" prefHeight="87.0" prefWidth="212.0" text="LOGOUT" />
+                  <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="87.0" prefWidth="212.0" text="EMPLOYEES" GridPane.rowIndex="1" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="10.0" prefHeight="84.0" prefWidth="212.0" text="DRUG" GridPane.rowIndex="2" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="146.0" prefHeight="77.0" prefWidth="212.0" text="CUSTOMER" GridPane.rowIndex="3" />
                   <JFXButton id="btnHandleMain" layoutX="10.0" layoutY="214.0" prefHeight="82.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="4" />
@@ -66,7 +66,7 @@
       </AnchorPane>
       <HBox layoutX="212.0" layoutY="330.0" prefHeight="360.0" prefWidth="600.0">
          <children>
-            <GridPane id="#homeWork" opacity="0.7" prefHeight="360.0" prefWidth="600.0">
+            <GridPane id="#homeWork" opacity="0.8" prefHeight="360.0" prefWidth="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -78,15 +78,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="btnHandleMain" fx:id="btnEmployee" onAction="#handleEmployee" prefHeight="128.0" prefWidth="212.0" text="EMPLOYEES" />
-                  <JFXButton id="btnHandleMain" fx:id="btnDrug" layoutX="10.0" layoutY="10.0" onAction="#handleDrug" prefHeight="128.0" prefWidth="212.0" text="DRUG" GridPane.columnIndex="1" />
-                  <JFXButton id="btnHandleMain" fx:id="btnCustomer" layoutX="10.0" layoutY="10.0" onAction="#handleCustomer" prefHeight="128.0" prefWidth="212.0" text="CUSTOMER" GridPane.columnIndex="2" />
-                  <JFXButton id="btnHandleMain" fx:id="btnStore" layoutX="10.0" layoutY="10.0" prefHeight="128.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="1" />
-                  <JFXButton id="btnHandleMain" fx:id="btnPayment" layoutX="10.0" layoutY="130.0" onAction="#handlePayment" prefHeight="128.0" prefWidth="212.0" text="PAYMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXButton id="btnHandleMain" fx:id="btnReport" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="REPORT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <JFXButton id="btnHandleMain" fx:id="btnSupplier" layoutX="10.0" layoutY="130.0" onAction="#handleSuppier" prefHeight="128.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="2" />
-                  <JFXButton id="btnHandleMain" fx:id="btnIE" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="IMPORT/EXPORT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXButton id="btnHandleMain" layoutX="210.0" layoutY="130.0" onAction="#handleLogOut" prefHeight="128.0" prefWidth="212.0" text="LOGOUT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <JFXButton id="btnEmployee" fx:id="btnEmployee" onAction="#handleEmployee" prefHeight="128.0" prefWidth="212.0" text="EMPLOYEES" />
+                  <JFXButton id="btnDrug" fx:id="btnDrug" layoutX="10.0" layoutY="10.0" onAction="#handleDrug" prefHeight="128.0" prefWidth="212.0" text="DRUG" GridPane.columnIndex="1" />
+                  <JFXButton id="btnCustomer" fx:id="btnCustomer" layoutX="10.0" layoutY="10.0" onAction="#handleCustomer" prefHeight="128.0" prefWidth="212.0" text="CUSTOMER" GridPane.columnIndex="2" />
+                  <JFXButton id="btnStore" fx:id="btnStore" layoutX="10.0" layoutY="10.0" prefHeight="128.0" prefWidth="212.0" text="STORE" GridPane.rowIndex="1" />
+                  <JFXButton id="btnpayment" fx:id="btnPayment" layoutX="10.0" layoutY="130.0" onAction="#handlePayment" prefHeight="128.0" prefWidth="212.0" text="PAYMENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXButton id="btnReport" fx:id="btnReport" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="REPORT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <JFXButton id="btnSupplier" fx:id="btnSupplier" layoutX="10.0" layoutY="130.0" onAction="#handleSuppier" prefHeight="128.0" prefWidth="212.0" text="SUPPLIER" GridPane.rowIndex="2" />
+                  <JFXButton id="btnStatistic" fx:id="btnIE" layoutX="210.0" layoutY="130.0" prefHeight="128.0" prefWidth="212.0" text="STATISTIC" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXButton id="btnLogout" layoutX="210.0" layoutY="130.0" onAction="#handleLogOut" prefHeight="128.0" prefWidth="212.0" text="LOGOUT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
