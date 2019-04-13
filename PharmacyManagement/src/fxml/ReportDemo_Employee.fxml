@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_EmployeeController">
+<AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_EmployeeController">
    <children>
       <Label layoutX="29.0" layoutY="14.0" prefHeight="23.0" prefWidth="114.0" text="Employees" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="14.0">
          <font>
@@ -30,8 +30,8 @@
       <JFXComboBox fx:id="combobox" layoutX="39.0" layoutY="56.0" onAction="#action_combobox" prefHeight="25.0" prefWidth="161.0" />
       <Label fx:id="lb_tu" layoutX="226.0" layoutY="60.0" prefHeight="17.0" prefWidth="44.0" text="Tu" />
       <Button fx:id="button" layoutX="329.0" layoutY="550.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="142.0" text="Thoat nhe" />
-      <JFXDatePicker fx:id="date_1" layoutX="255.0" layoutY="56.0" />
+      <JFXDatePicker fx:id="date_1" layoutX="255.0" layoutY="56.0" onAction="#action_date1" />
       <Label fx:id="lb_den" layoutX="457.0" layoutY="60.0" prefHeight="17.0" prefWidth="44.0" text="Den" />
-      <JFXDatePicker fx:id="date_2" layoutX="501.0" layoutY="56.0" />
+      <JFXDatePicker fx:id="date_2" layoutX="501.0" layoutY="56.0" onAction="#action_date2" />
    </children>
 </AnchorPane>

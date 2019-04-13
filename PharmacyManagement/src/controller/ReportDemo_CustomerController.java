@@ -1,13 +1,19 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +27,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,11 +50,11 @@ public class ReportDemo_CustomerController implements Initializable {
     @FXML
     private TableColumn<CustomerReport, String> column_sdt;
     @FXML
-    private TableColumn<CustomerReport, String> column_email;
+    private TableColumn<CustomerReport, String> column_ngaymua;
     @FXML
-    private TableColumn<CustomerReport, String> column_level;
+    private TableColumn<CustomerReport, String> column_sohoadon;
     @FXML
-    private TableColumn<CustomerReport, String> column_tien;
+    private TableColumn<CustomerReport, String> column_sotien;
     @FXML
     private Button button;
     @FXML
@@ -58,117 +68,267 @@ public class ReportDemo_CustomerController implements Initializable {
     @FXML
     private JFXTextField tf_search;
 
+    private Connection con;
+    private PreparedStatement pst;
+    private PreparedStatement pst2;
+    private PreparedStatement pst3;
+    private ResultSet rs;
+
     private ObservableList<CustomerReport> data;
     @FXML
     private ImageView image_view;
+    @FXML
+    private AnchorPane anchorpane;
+
+    double grandTotal = 0;
+    int count=0;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        data=FXCollections.observableArrayList(
-                new CustomerReport("Adam", "KH0001", "HaiChau", "0908122588", "a@gmail.com", "Vip", "1000000"),
-                new CustomerReport("Adam", "KH0001", "HaiChau", "0908122588", "a@gmail.com", "Vip", "1000000"),
-                new CustomerReport("Adam", "KH0001", "HaiChau", "0908122588", "a@gmail.com", "Vip", "1000000"),
-                new CustomerReport("Adam", "KH0001", "HaiChau", "0908122588", "a@gmail.com", "Vip", "1000000")
-                
-        
-        );
-        column_tenkh.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("tenkh"));
-        column_makh.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("makh"));
-        column_diachi.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("diachi"));
-        column_sdt.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("sdt"));
-        column_email.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("email"));        
-         column_level.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("level"));       
-        column_tien.setCellValueFactory(new PropertyValueFactory<CustomerReport, String>("tien"));       
-                
-        lb_tien.setText("999999999999");
-        lb_lan.setText("10");
+        try {
+            con = controller.ConnectDB.connectSQLServer();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        data = FXCollections.observableArrayList();
+
+        column_tenkh.setCellValueFactory(new PropertyValueFactory<>("tenkh"));
+        column_makh.setCellValueFactory(new PropertyValueFactory<>("makh"));
+        column_diachi.setCellValueFactory(new PropertyValueFactory<>("diachi"));
+        column_sdt.setCellValueFactory(new PropertyValueFactory<>("sdt"));
+        column_ngaymua.setCellValueFactory(new PropertyValueFactory<>("ngaymua"));
+        column_sohoadon.setCellValueFactory(new PropertyValueFactory<>("sohoadon"));
+        column_sotien.setCellValueFactory(new PropertyValueFactory<>("sotien"));
+
+        lb_tien.setText("");
+        lb_lan.setText("");
+        tf_search.setOnKeyReleased((KeyEvent ke) -> {
+
+            data.clear();
+            table_view.setItems(data);
+            doSearchAction();
+
+        });
         table_view.setItems(data);
-        
+
         Image image = new Image("/image/jimmy.jpg");
         image_view.setImage(image);
-    }    
+    }
+
+    private void doSearchAction() {
+        System.out.println(tf_search.getText());
+        data.clear();
+        table_view.setItems(data);
+
+        try {
+            pst = con.prepareStatement(""
+                    + " select Customer.CuCode,Customer.CuName,Customer.CuAddrees,Customer.CuPhone,Orders.OrderDate,Orders.OrderID,Orders.AmountTotal\n"
+                    + " from Customer\n"
+                    + " INNER JOIN  Orders  \n"
+                    + " on  Customer.CuId = Orders.CuId \n"
+                    + " where CuName like ?");
+            pst.setString(1, "%" + tf_search.getText() + "%");
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                data.add(new CustomerReport(rs.getString("CuCode"),
+                        rs.getString("CuName"),
+                        rs.getString("CuAddrees"),
+                        rs.getString("CuPhone"),
+                        rs.getString("OrderDate"),
+                        rs.getString("OrderID"),
+                        rs.getString("AmountTotal")));
+                table_view.setItems(data);
+
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_CustomerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+
 
     @FXML
     private void deleteAction(ActionEvent event) {
+        Stage stage = (Stage) anchorpane.getScene().getWindow();
+        stage.close();
     }
-    
-    
-    public static class CustomerReport{
-        
-        private final SimpleStringProperty tenkh;
-        private final SimpleStringProperty makh;
-        private final SimpleStringProperty diachi;
-        private final SimpleStringProperty sdt;
-        private final SimpleStringProperty email;
-        private final SimpleStringProperty level;
-        private final SimpleStringProperty tien;
 
-        CustomerReport(String ftenkh, String fmakh, String fdiachi, String fsdt, String femail, String flevel, String ftien) {
-            this.tenkh = new SimpleStringProperty(ftenkh);
-            this.makh = new SimpleStringProperty(fmakh);
-            this.diachi = new SimpleStringProperty(fdiachi);
-            this.sdt = new SimpleStringProperty(fsdt);
-            this.email = new SimpleStringProperty(femail);
-            this.level = new SimpleStringProperty(flevel);
-            this.tien = new SimpleStringProperty(ftien);
+    @FXML
+    private void action_clicked(MouseEvent event) {
+        grandTotal = 0;
+        count = 0;
+        CustomerReport him = table_view.getItems().get(table_view.getSelectionModel().getSelectedIndex());
+        for(CustomerReport her : data){
+            if(her.getTenkh().equalsIgnoreCase(him.getTenkh())){
+                grandTotal += Double.parseDouble(String.valueOf(her.getSotien()));
+                count ++;
+            }
         }
         
-        public String getTenkh(){
-            return tenkh.get();
+        lb_tien.setText(String.valueOf(grandTotal));
+        lb_lan.setText(String.valueOf(count));
+    }
+
+    public static class CustomerReport {
+
+//        private final SimpleStringProperty makh;
+//        private final SimpleStringProperty tenkh;
+//        private final SimpleStringProperty diachi;
+//        private final SimpleStringProperty sdt;
+//        private final SimpleStringProperty ngaymua;
+//        private final SimpleStringProperty sohoadon;
+//        private final SimpleStringProperty sotien;
+//
+//        CustomerReport(String ftenkh, String fmakh, String fdiachi, String fsdt, String fngaymua, String fsohoadon, String fsotien) {
+//            this.tenkh = new SimpleStringProperty(ftenkh);
+//            this.makh = new SimpleStringProperty(fmakh);
+//            this.diachi = new SimpleStringProperty(fdiachi);
+//            this.sdt = new SimpleStringProperty(fsdt);
+//            this.ngaymua = new SimpleStringProperty(fngaymua);
+//            this.sohoadon = new SimpleStringProperty(fsohoadon);
+//            this.sotien = new SimpleStringProperty(fsotien);
+//        }
+//
+//        public String getMakh() {
+//            return makh.get();
+//        }
+//
+//        public void setMakh(String fmakh) {
+//            makh.set(fmakh);
+//        }
+//
+//        public String getTenkh() {
+//            return tenkh.get();
+//        }
+//
+//        public void setTenkh(String ftenkh) {
+//            tenkh.set(ftenkh);
+//        }
+//
+//
+//
+//        public String getDiachi() {
+//            return diachi.get();
+//        }
+//
+//        public void setDiachi(String fdiachi) {
+//            diachi.set(fdiachi);
+//        }
+//
+//        public String getSdt() {
+//            return sdt.get();
+//        }
+//
+//        public void setSdt(String fsdt) {
+//            sdt.set(fsdt);
+//        }
+//
+//        public String getNgaymua() {
+//            return ngaymua.get();
+//        }
+//
+//        public void setNgaymua(String fngaymua) {
+//            ngaymua.set(fngaymua);
+//        }
+//
+//        public String getSohoadon() {
+//            return sohoadon.get();
+//        }
+//
+//        public void setSohoadon(String fsohoadon) {
+//            sohoadon.set(fsohoadon);
+//        }
+//
+//        public String getSotien() {
+//            return sotien.get();
+//        }
+//
+//        public void setSotien(String fsotien) {
+//            sotien.set(fsotien);
+//        }
+        private String makh;
+        private String tenkh;
+        private String diachi;
+        private String sdt;
+        private String ngaymua;
+        private String sohoadon;
+        private String sotien;
+
+        public CustomerReport(String makh, String tenkh, String diachi, String sdt, String ngaymua, String sohoadon, String sotien) {
+            this.makh = makh;
+            this.tenkh = tenkh;
+            this.diachi = diachi;
+            this.sdt = sdt;
+            this.ngaymua = ngaymua;
+            this.sohoadon = sohoadon;
+            this.sotien = sotien;
         }
-        
-        public void setTenkh(String ftenkh){
-            tenkh.set(ftenkh);
+
+        public String getMakh() {
+            return makh;
         }
-        
-        public String getMakh(){
-            return makh.get();
+
+        public void setMakh(String makh) {
+            this.makh = makh;
         }
-        
-        public void setMakh(String fmakh){
-            makh.set(fmakh);
+
+        public String getTenkh() {
+            return tenkh;
         }
-        
-        public String getDiachi(){
-            return diachi.get();
+
+        public void setTenkh(String tenkh) {
+            this.tenkh = tenkh;
         }
-        
-        public void setDiachi(String fdiachi){
-            diachi.set(fdiachi);
+
+        public String getDiachi() {
+            return diachi;
         }
-        
-        public String getSdt(){
-            return sdt.get();
+
+        public void setDiachi(String diachi) {
+            this.diachi = diachi;
         }
-        
-        public void setSdt(String fsdt){
-            sdt.set(fsdt);
+
+        public String getSdt() {
+            return sdt;
         }
-        
-        public String getEmail(){
-            return email.get();
+
+        public void setSdt(String sdt) {
+            this.sdt = sdt;
         }
-        
-        public void setEmail(String femail){
-            email.set(femail);
+
+        public String getNgaymua() {
+            return ngaymua;
         }
-        
-        public String getLevel(){
-            return level.get();
+
+        public void setNgaymua(String ngaymua) {
+            this.ngaymua = ngaymua;
         }
-        
-        public void setLevel(String flevel){
-            level.set(flevel);
+
+        public String getSohoadon() {
+            return sohoadon;
         }
-        
-        public String getTien(){
-            return tien.get();
+
+        public void setSohoadon(String sohoadon) {
+            this.sohoadon = sohoadon;
         }
-        
-        public void setTien(String ftien){
-            tien.set(ftien);
+
+        public String getSotien() {
+            return sotien;
         }
+
+        public void setSotien(String sotien) {
+            this.sotien = sotien;
+        }
+
     }
 }

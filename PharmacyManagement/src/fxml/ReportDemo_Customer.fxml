@@ -9,19 +9,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controller.ReportDemo_CustomerController">
+<AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_CustomerController">
    <children>
       <ImageView fx:id="image_view" fitHeight="89.0" fitWidth="106.0" layoutX="680.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-      <TableView fx:id="table_view" layoutX="49.0" layoutY="110.0" prefHeight="435.0" prefWidth="720.0">
+      <TableView fx:id="table_view" layoutX="49.0" layoutY="110.0" onMouseClicked="#action_clicked" prefHeight="435.0" prefWidth="720.0">
          <columns>
             <TableColumn fx:id="column_tenkh" minWidth="100.0" prefWidth="77.0" text="Ten KH" />
             <TableColumn fx:id="column_makh" minWidth="100.0" prefWidth="73.0" text="Ma KH" />
             <TableColumn fx:id="column_diachi" minWidth="100.0" prefWidth="77.0" text="Dia Chi" />
             <TableColumn fx:id="column_sdt" minWidth="100.0" prefWidth="77.0" text="SDT" />
-            <TableColumn fx:id="column_email" minWidth="100.0" prefWidth="77.0" text="Email" />
-            <TableColumn fx:id="column_level" minWidth="100.0" prefWidth="77.0" text="Level" />
-            <TableColumn fx:id="column_tien" minWidth="100.0" prefWidth="119.0" text="Tien" />
+            <TableColumn fx:id="column_ngaymua" minWidth="100.0" prefWidth="77.0" text="Ngay Mua" />
+            <TableColumn fx:id="column_sohoadon" minWidth="100.0" prefWidth="77.0" text="So Hoa Don" />
+            <TableColumn fx:id="column_sotien" minWidth="100.0" prefWidth="119.0" text="So Tien" />
          </columns>
       </TableView>
       <Label fx:id="lb_tongtien" layoutX="49.0" layoutY="83.0" prefHeight="23.0" prefWidth="114.0" text="Tong Tien">

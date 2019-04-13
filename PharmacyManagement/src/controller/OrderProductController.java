@@ -383,7 +383,7 @@ public class OrderProductController implements Initializable {
                 returnTempOrderID = tf_invoiceID.getText();
                 tf_invoiceID.setText(autoOrderID());
                 tf_customer.clear();
-                printInvoice();
+//                printInvoice();
                 
                 
             } catch (SQLException ex) {

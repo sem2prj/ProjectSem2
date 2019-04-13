@@ -8,7 +8,16 @@ package controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +30,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -57,23 +68,33 @@ public class ReportDemo_EmployeeController implements Initializable {
     private Label lb_den;
     @FXML
     private JFXDatePicker date_2;
-    
+
     private ObservableList<EmployeeReport> data;
-   
-// AlertDialog.display("Info", "Ngay");  
+
+    private Connection con;
+    private PreparedStatement pst;
+    private PreparedStatement pst2;
+    private ResultSet rs;
+    
+    @FXML
+    private AnchorPane anchorpane;
+
+// AlertDialog.display("Info", "Ngay");
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {      
-        data = FXCollections.observableArrayList(
-             new EmployeeReport("NV001", "Adam", "0090541551", "01-01-1991", "Sale", "Nhan vien", "10000000"),
-                new EmployeeReport("NV002", "Frank", "0090541551", "01-01-1991", "Sale", "Nhan vien", "20000000"),
-                new EmployeeReport("NV003", "Rook", "0090541551", "01-01-1991", "Sale", "Nhan vien", "30000000"),
-                new EmployeeReport("NV004", "Michael", "0090541551", "01-01-1991", "Sale", "Nhan vien", "40000000"),
-                new EmployeeReport("NV005", "Scot", "0090541551", "01-01-1991", "Sale", "Nhan vien", "50000000")
-        );
-      
+    public void initialize(URL url, ResourceBundle rb) {
+        try {
+            con = controller.ConnectDB.connectSQLServer();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        data = FXCollections.observableArrayList();
+
         column_manv.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("manv"));
         column_tennv.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("tennv"));
         column_sdt.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("sdt"));
@@ -81,24 +102,37 @@ public class ReportDemo_EmployeeController implements Initializable {
         column_bophan.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("bophan"));
         column_chucvu.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("chucvu"));
         column_tiendaban.setCellValueFactory(new PropertyValueFactory<EmployeeReport, String>("tiendaban"));
-        
+
+        try {
+            setDate1InCombobox();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        date_2.setValue(LocalDate.now());
+
         comboboxDefault();
-        comboboxDo();
+        try {
+            comboboxDo();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         table_view.setItems(data);
+
     }
 
     private void comboboxDefault() {
-        combobox.getItems().addAll("Ngay", "Tuan", "Thang", "Nam", "Custom");
+        combobox.getItems().addAll("Ngay", "Tuan", "Thang", "Nam", "Tat Ca", "Tuy Chon");
         combobox.getSelectionModel().selectFirst();
         combobox.getValue();
     }
 
     @FXML
-    private void action_combobox(ActionEvent event) {
+    private void action_combobox(ActionEvent event) throws SQLException {
         comboboxDo();
     }
 
-    private void comboboxDo() {
+    private void comboboxDo() throws SQLException {
         if (combobox.getValue() != null) {
             switch (combobox.getValue().toLowerCase()) {
                 case "ngay":
@@ -106,49 +140,232 @@ public class ReportDemo_EmployeeController implements Initializable {
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
                     date_2.setVisible(false);
-                    
+                    comboboxDo_ngay();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
                     break;
                 case "tuan":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
                     date_2.setVisible(false);
-               
+                    comboboxDo_tuan();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
                     break;
                 case "thang":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
                     date_2.setVisible(false);
-                    
+                    comboboxDo_thang();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
                     break;
                 case "nam":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
                     date_2.setVisible(false);
-            
+                    comboboxDo_nam();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
                     break;
-                case "custom":
+                case "tat ca":
+                    lb_tu.setVisible(false);
+                    lb_den.setVisible(false);
+                    date_1.setVisible(false);
+                    date_2.setVisible(false);
+                    comboboxDo_alltime();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
+                    break;
+                case "tuy chon":
                     lb_tu.setVisible(true);
                     lb_den.setVisible(true);
                     date_1.setVisible(true);
                     date_2.setVisible(true);
-                  
+                    comboboxDo_custom();
+                    column_tiendaban.setSortType(TableColumn.SortType.ASCENDING);
+                    table_view.getSortOrder().add(column_tiendaban);
+                    column_tiendaban.setSortable(true);
                     break;
                 default:
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
                     date_2.setVisible(false);
-                   
+
                     break;
             }
         }
     }
 
+    private void comboboxDo_custom() throws SQLException {
+        String sql_custom = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " where OrderDate between ? and ?\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_custom);
+        pst.setDate(1, java.sql.Date.valueOf(date_1.getValue()));
+        pst.setDate(2, java.sql.Date.valueOf(date_2.getValue()));
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void comboboxDo_alltime() throws SQLException {
+        String sql_alltime = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_alltime);
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void comboboxDo_nam() throws SQLException {
+        String sql_custom = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " where OrderDate between DATEADD(year, -1,  ? ) and ?\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_custom);
+        pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        pst.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void comboboxDo_thang() throws SQLException {
+        String sql_custom = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " where OrderDate between DATEADD(month, -1,  ? ) and ?\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_custom);
+        pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        pst.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void comboboxDo_tuan() throws SQLException {
+        String sql_custom = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " where OrderDate between DATEADD(day, -7,  ?) and ?\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_custom);
+        pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        pst.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void comboboxDo_ngay() throws SQLException {
+        String sql_custom = "select DetailUser.code,Users.UsersName ,DetailUser.phone,DetailUser.workday,DetailUser.department,DetailUser.mission,max(AmountTotal)\n"
+                + " from DetailUser   \n"
+                + " INNER JOIN  Orders   \n"
+                + " on DetailUser.UsersID = Orders.UsersID   \n"
+                + "  INNER JOIN Users\n"
+                + "  on DetailUser.UsersID = Users.UsersID\n"
+                + " where OrderDate = ?\n"
+                + " group by DetailUser.Code,Users.UsersName,DetailUser.Phone,DetailUser.WorkDay,DetailUser.Department,DetailUser.Mission";
+        pst = con.prepareStatement(sql_custom);
+        pst.setDate(1, java.sql.Date.valueOf(LocalDate.now()));
+        rs = pst.executeQuery();
+        data.clear();
+        while (rs.next()) {
+
+            data.add(new EmployeeReport(rs.getString("code"), rs.getString("usersname"), rs.getString("phone"), rs.getString("workday"), rs.getString("department"), rs.getString("mission"), rs.getString(7)));
+
+        }
+        table_view.setItems(data);
+
+    }
+
+    private void setDate1InCombobox() throws SQLException {
+        LocalDate date = LocalDate.now();
+
+        pst = con.prepareStatement("select MIN(OrderDate) from Orders");
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            date = rs.getDate(1).toLocalDate();
+        }
+        date_1.setValue(date);
+
+    }
+
     @FXML
     private void deleteAction(ActionEvent event) {
+        Stage stage = (Stage) anchorpane.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void action_date1(ActionEvent event) throws SQLException {
+        comboboxDo_custom();
+    }
+
+    @FXML
+    private void action_date2(ActionEvent event) throws SQLException {
+        comboboxDo_custom();
     }
 
     public static class EmployeeReport {

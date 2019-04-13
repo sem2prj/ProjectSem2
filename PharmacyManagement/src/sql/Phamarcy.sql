@@ -66,6 +66,13 @@ CREATE TABLE Supplier(
 	SuNotice varchar(max),
 	CONSTRAINT pk_SuID PRIMARY KEY (SuID),
 )
+CREATE TABLE Users(
+	UsersID int identity(1,1),
+	UsersName varchar(50) ,
+	UsersPass varchar(50) ,
+	UsersFullName varchar(50) ,
+	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
+)
 
 CREATE TABLE DetailUser(
 	DetailID int identity(1,1),
@@ -89,13 +96,7 @@ CREATE TABLE DetailUser(
 	on update cascade ,
 )
 
-CREATE TABLE Users(
-	UsersID int identity(1,1),
-	UsersName varchar(50) ,
-	UsersPass varchar(50) ,
-	UsersFullName varchar(50) ,
-	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
-)
+
 
 CREATE TABLE Customer(
 	CuId int identity(1,1),
@@ -112,7 +113,7 @@ CREATE TABLE Customer(
 CREATE TABLE Orders(
 	OrderID varchar(50) PRIMARY KEY,
 	OrderDate date ,
-	Total float,
+
 	AmountTotal float DEFAULT 0 ,
 	CuId int,
 	UsersID int ,
@@ -122,6 +123,15 @@ CREATE TABLE Orders(
 	CONSTRAINT fk_CuId FOREIGN KEY (CuId) REFERENCES Customer(CuId)
 	on delete cascade 
 	on update cascade ,
+/*	CuId int, 
+	CONSTRAINT fk_CuID_Detail FOREIGN KEY (CuId) REFERENCES Customer(CuId)
+	on delete cascade 
+	on update cascade ,
+	DetailID int,
+	CONSTRAINT fk_DetailID_Detail FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
+	on delete cascade 
+	on update cascade 
+	*/
 )
 
 
@@ -133,13 +143,15 @@ CREATE TABLE OrderDetail(
 	PId bigint ,
 	Qty int,
 	SellPrice float,
-	 Amount float DEFAULT 0,
+	Amount float DEFAULT 0,
 	CONSTRAINT fk_Order_Detail FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 	on delete cascade 
 	on update cascade ,
 	CONSTRAINT fk_PId_Detail FOREIGN KEY (PId) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
+	
+
 )
 
 CREATE TABLE stock(
@@ -282,9 +294,16 @@ FROM Categories CT JOIN Product PRD ON CT.CatID=PRD.CatID
 END
 
 
+insert into Customer (CuCode,CuName,CuLevel)
+		values ('KH001','vanglai',1)
+
 SELECT *FROM Users
 
 select *from DetailUser
+
+
+
+
 /*
 delete from Users*/
 
@@ -338,9 +357,14 @@ JOIN Product prod ON dt.PId = prod.PId
 delete from user
 
 select * from Orders
+select * from OrderDetail
 
-select * from Customer 
+
 delete from Customer
 
-insert into Customer (CuCode,CuName,CuLevel)
-		values ('KH001','vanglai',1)
+
+select * from Customer 
+
+
+Update Customer  set MoneySpend +=147547 where CuId = 1
+Select CuId from Customer where CuName like '' and CuPhone like ''

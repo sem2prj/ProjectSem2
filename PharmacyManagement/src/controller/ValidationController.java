@@ -345,6 +345,20 @@ public class ValidationController {
         return d;
     }
     
+//Vi du : 100000000 se tra ve 100.000.000
+    public static String addDotForASeriesOfNumber(String s){
+        String abc = "";
+        Pattern pattern = Pattern.compile("([0-9][0-9][0-9])");
+        Matcher matcher = pattern.matcher(s);
+        while (matcher.find()) {
+            abc += matcher.group() + ".";
+        }
+        abc = abc.substring(0, abc.length() - 1);
+        abc = abc.trim();
+        
+        return abc;
+    }
+    
 }
 
 
