@@ -497,7 +497,7 @@ public class OrderProductController implements Initializable {
                 orderData.clear();
                 table_order.setItems(orderData);
                 
-                // printInvoice();
+                printInvoice();
                 
             }  
 
@@ -569,9 +569,9 @@ public class OrderProductController implements Initializable {
 
             params.put("logo", this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());
-            params.put("Customer", "ABC"); //tf_customer.getText()
-            params.put("OrderID", "Order00005"); //tf_invoiceID.getText()
-            params.put("Total", grandTotal);
+            params.put("Customer", tf_customer.getText()); //tf_customer.getText()
+            params.put("OrderID", tf_invoiceID.getText()); //tf_invoiceID.getText()
+            params.put("Total", String.valueOf(grandTotal));
 
             JasperPrint jp = JasperFillManager.fillReport(jr, params, connection);
             JasperViewer jv = new JasperViewer(jp, false);
