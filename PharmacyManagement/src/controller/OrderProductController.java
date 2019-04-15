@@ -146,6 +146,12 @@ public class OrderProductController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        tf_productname.setDisable(true);
+        tf_price.setDisable(true);
+        tf_invoiceID.setDisable(true);
+        order_dateInvoice.setDisable(true);
+        
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());

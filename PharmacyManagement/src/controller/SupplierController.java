@@ -146,19 +146,17 @@ public class SupplierController implements Initializable {
             txtEmail.requestFocus();
         }
 
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-        System.out.println("lalalala3");
-        
-        System.out.println(txtnameNotEmpty);
-         System.out.println(isUsernameTrue);
-        if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
-                
-            if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
-               
+        String name = txtName.getText().trim().replaceAll("\\s+", " ");
+        String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+
+        if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
+            boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+            boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+
+            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 SupplierDAOIplement sDI = new SupplierDAOIplement();
-                sDI.insertSupplier(txtCode.getText(), txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+                sDI.insertSupplier(txtCode.getText(), txtCode.getText(), name, addrees, txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
                 clear();
                 labelEmpty();
                 loadTable();
@@ -188,15 +186,16 @@ public class SupplierController implements Initializable {
         if (!txtEmailNotEmpty) {
             txtEmail.requestFocus();
         }
-
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-        
+        String name = txtName.getText().trim().replaceAll("\\s+", " ");
+        String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
-            if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
+            boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+            boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+
+            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 SupplierDAOIplement sDI = new SupplierDAOIplement();
-                sDI.updateSupplier(txtCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
+                sDI.updateSupplier(txtCode.getText(), name, addrees, txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
                 clear();
                 labelEmpty();
                 loadTable();

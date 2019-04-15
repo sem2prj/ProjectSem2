@@ -124,6 +124,11 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleAdd(ActionEvent event) {
+        
+        boolean txLevelnotEmpty=controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
+        if (!txLevelnotEmpty) {
+            txtLevel.requestFocus();
+        }
         boolean txtEmailnotEmpty = controller.ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailnotEmpty) {
             txtEmail.requestFocus();
@@ -147,13 +152,15 @@ public class CustomerController implements Initializable {
             txtCCode.requestFocus();
         }
 
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-        if (txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
-            if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
+        if (txLevelnotEmpty&&txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
+            boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+            boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+            String username = txtName.getText().trim().replaceAll("\\s+", " ");
+            String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
-                cDI.insertCustomer(txtCCode.getText(), txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+                cDI.insertCustomer(txtCCode.getText(), txtCCode.getText(),username , addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
                 loadTable();
             }
@@ -162,6 +169,11 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleUpdate(ActionEvent event) {
+        boolean txLevelnotEmpty=controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
+        if (!txLevelnotEmpty) {
+            txtLevel.requestFocus();
+        }
+        
         boolean txtEmailnotEmpty = controller.ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailnotEmpty) {
             txtEmail.requestFocus();
@@ -185,14 +197,16 @@ public class CustomerController implements Initializable {
             txtCCode.requestFocus();
         }
 
-        boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
-        boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-        
-        if (txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
-            if (isPhoneTrue && isEmailTrue&&isUsernameTrue) {
+        if (txLevelnotEmpty&&txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
+            boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
+            boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+
+            String username = txtName.getText().trim().replaceAll("\\s+", " ");
+            String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
+            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
-                cDI.updateCustomer(txtCCode.getText(), txtName.getText(), txtAddrees.getText(), txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+                cDI.updateCustomer(txtCCode.getText(), username,addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
                 loadTable();
             }

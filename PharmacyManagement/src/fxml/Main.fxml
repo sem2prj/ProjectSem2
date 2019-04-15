@@ -14,10 +14,18 @@
    <children>
       <AnchorPane id="paneHeaderMain" prefHeight="50.0" prefWidth="1024.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
+            <HBox layoutX="480.0" layoutY="10.0" prefHeight="30.0" prefWidth="330.0">
+               <children>
+                  <Label id="labelWelcome" prefHeight="30.0" prefWidth="46.0" text="User :" />
+                  <Label id="lbUser" fx:id="txtUser" prefHeight="30.0" prefWidth="128.0" />
+                  <Label id="labelMS" prefHeight="30.0" prefWidth="80.0" text="|  Mission :" />
+                  <Label id="lbUser" fx:id="txtMission" prefHeight="30.0" prefWidth="80.0" />
+               </children>
+            </HBox>
             <HBox layoutX="750.0" layoutY="5.0" prefHeight="30.0" prefWidth="190.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
                <children>
                   <Label id="lbYear" fx:id="lbDateDay" alignment="CENTER" prefHeight="30.0" prefWidth="60.0" textAlignment="CENTER" />
-                  <Label id="lbYear" fx:id="lbDateM" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="50.0" />
+                  <Label id="lbYear" fx:id="lbDateM" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="39.0" />
                   <Label id="lbYear" fx:id="lbDateYear" alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="30.0" prefWidth="80.0" />
                </children>
             </HBox>

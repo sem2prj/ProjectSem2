@@ -208,9 +208,10 @@ public class DrugController implements Initializable {
             lbImage.setText("");
         }
 
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-
+        String name = txtName.getText().trim().replaceAll("\\s+", " ");
+        
         if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
             if (isUsernameTrue) {
                 BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
                 byte[] res;
@@ -221,7 +222,7 @@ public class DrugController implements Initializable {
                     Drug drug = new Drug();
                     drug.setImage(blob);
                     DrugDAOImplement dDI = new DrugDAOImplement();
-                    dDI.insertDrug(txtCode.getText(), txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
+                    dDI.insertDrug(txtCode.getText(), txtCode.getText(), name, txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob,
                             cbStatus.getSelectionModel().getSelectedItem() + "", Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
                             txtSup.getText(), txtAreaDes.getText());
 
@@ -271,10 +272,9 @@ public class DrugController implements Initializable {
         } else if (imageView.getImage() != null) {
             lbImage.setText("");
         }
-
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-
+        String name = txtName.getText().trim().replaceAll("\\s+", " ");
         if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
             if (isUsernameTrue) {
                 Drug drug = new Drug();
                 BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
@@ -285,7 +285,7 @@ public class DrugController implements Initializable {
                     Blob blob = new SerialBlob(res);
                     drug.setImage(blob);
                     DrugDAOImplement dDI = new DrugDAOImplement();
-                    dDI.updateDrug(txtCode.getText(), txtName.getText(), txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
+                    dDI.updateDrug(txtCode.getText(), name, txtCategories.getText(), cUnit.getSelectionModel().getSelectedItem() + "", blob, cbStatus.getSelectionModel().getSelectedItem() + "",
                             Double.parseDouble(txtBuy.getText()), Double.parseDouble(txtSell.getText()),
                             txtSup.getText(), txtAreaDes.getText(), id1);
 

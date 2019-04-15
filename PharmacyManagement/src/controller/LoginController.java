@@ -130,9 +130,11 @@ public class LoginController implements Initializable {
                 }
             }
             if (check == false) {
-                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
-                alert.setTitle("Invalid");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.NONE, "Invalid Email or Password", ButtonType.OK);
+//                alert.setTitle("Invalid");
+//                alert.showAndWait();
+                
+                 AlertDialog.display("Notice", "Invalid Email or Password");
             }
         }
     }

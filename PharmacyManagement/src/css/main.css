@@ -12,7 +12,7 @@
 
 #btnHandleMain{
     -fx-background-color: #4169e1;
-    -fx-text-fill: #daa520;;
+    -fx-text-fill: #fd311d;
     -fx-font-family: "Advent Pro";
     -fx-font-size: 16px;
 }
@@ -24,7 +24,27 @@
 #lbYear{
     -fx-font-size: 14px;
     -fx-font-family: sans-serif;
-    -fx-text-fill: #daa520;
+    -fx-text-fill: whitesmoke;
+}
+
+#lbUser{
+    -fx-font-size: 15px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: black;
+    
+}
+
+#labelWelcome{
+    -fx-font-size: 15px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: black;
+}
+
+#labelMS{
+    -fx-font-size: 15px;
+    -fx-font-family: sans-serif;
+    -fx-text-fill: black;
+    
 }
 
 #btnEmployee{
