@@ -93,6 +93,10 @@ public class MainController implements Initializable {
     final private Timer timer = new Timer(true);
     final private LinkedList<TimerTask> taskList = new LinkedList<TimerTask>();
     Connection con;
+    @FXML
+    private Label txtUser;
+    @FXML
+    private Label txtMission;
 
     /**
      * Initializes the controller class.
@@ -122,12 +126,11 @@ public class MainController implements Initializable {
         }
 
         infoUser = LoginController.ListUserLogin;
-//        for (User user : infoUser) {
-//            System.out.println(user.getMission());
-//            if (user.getMission().equals("User")) {
-//                btnIE.setDisable(true);
-//            }
-//        }
+        for (User user : infoUser) {
+            System.out.println(user.getMission());
+            txtUser.setText(user.getUserName());
+            txtMission.setText(user.getMission());
+        }
         //Animation 
         opacityPane.setVisible(false);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), opacityPane);
@@ -354,6 +357,7 @@ public class MainController implements Initializable {
         stage.resizableProperty().setValue(Boolean.FALSE);
 //        stage.initStyle(StageStyle.UTILITY);
         stage.getIcons().add(new Image("/image/hyhy.png"));
+        scene.getStylesheets().add(getClass().getResource("/css/order.css").toExternalForm());
         stage.setTitle("Payment");
         stage.setScene(scene);
         stage.show();

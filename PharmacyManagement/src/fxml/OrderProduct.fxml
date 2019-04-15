@@ -10,42 +10,45 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="530.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderProductController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderProductController">
    <children>
-      <TextField fx:id="tf_barcode" layoutX="26.0" layoutY="39.0" promptText="Barcode" />
-      <TextField fx:id="tf_productname" layoutX="26.0" layoutY="80.0" promptText="Product name" />
-      <TextField fx:id="tf_qty" layoutX="26.0" layoutY="120.0" promptText="Qty" />
-      <TextField fx:id="tf_price" layoutX="26.0" layoutY="167.0" promptText="Price" />
-      <Button fx:id="btn_add" layoutX="190.0" layoutY="40.0" mnemonicParsing="false" onAction="#action_add" prefHeight="25.0" prefWidth="48.0" text="Take" />
-      <JFXDatePicker fx:id="order_dateInvoice" layoutX="444.0" layoutY="175.0" prefHeight="17.0" prefWidth="135.0" />
-      <TableView fx:id="table_order" layoutX="26.0" layoutY="215.0" prefHeight="254.0" prefWidth="598.0">
+      <TextField fx:id="tf_barcode" layoutX="11.0" layoutY="18.0" promptText="Enter Barcode" />
+      <TextField fx:id="tf_productname" layoutX="11.0" layoutY="69.0" promptText="Product Name" />
+      <TextField fx:id="tf_qty" layoutX="11.0" layoutY="120.0" promptText="Enter Quantity" />
+      <TextField fx:id="tf_price" layoutX="11.0" layoutY="171.0" promptText="Price" />
+      <Button id="buttonHandle" fx:id="btn_add" layoutX="176.0" layoutY="18.0" mnemonicParsing="false" onAction="#action_add" prefHeight="25.0" prefWidth="98.0" text="Enter Barcode" />
+      <JFXDatePicker fx:id="order_dateInvoice" layoutX="498.0" layoutY="180.0" prefHeight="25.0" prefWidth="161.0" />
+      <TableView fx:id="table_order" layoutX="11.0" layoutY="215.0" prefHeight="300.0" prefWidth="780.0">
         <columns>
-          <TableColumn fx:id="column_invoice_no" prefWidth="42.0" text="No" />
-            <TableColumn fx:id="column_invoice_barcode" prefWidth="130.0" text="Barcode" />
-            <TableColumn fx:id="column_invoice_productname" prefWidth="127.0" text="Product name" />
-            <TableColumn fx:id="column_invoice_priceout" prefWidth="122.0" text="Price" />
-            <TableColumn fx:id="column_invoice_qty" prefWidth="68.0" text="Qty" />
-            <TableColumn fx:id="column_invoice_amount" prefWidth="108.0" text="Amount" />
+          <TableColumn fx:id="column_invoice_no" prefWidth="49.0" text="No" />
+            <TableColumn fx:id="column_invoice_barcode" prefWidth="134.0" text="Barcode" />
+            <TableColumn fx:id="column_invoice_productname" prefWidth="209.0" text="Product name" />
+            <TableColumn fx:id="column_invoice_priceout" prefWidth="124.0" text="Price" />
+            <TableColumn fx:id="column_invoice_qty" prefWidth="119.0" text="Qty" />
+            <TableColumn fx:id="column_invoice_amount" prefWidth="144.0" text="Amount" />
         </columns>
       </TableView>
-      <Label layoutX="26.0" layoutY="487.0" prefHeight="17.0" prefWidth="60.0" text="Total : " />
-      <TextField fx:id="tf_invoiceID" alignment="CENTER" layoutX="235.0" layoutY="167.0" promptText="invoiceID" />
-      <Label fx:id="lb_total" layoutX="65.0" layoutY="482.0" prefHeight="27.0" prefWidth="149.0">
+      <Label layoutX="32.0" layoutY="537.0" prefHeight="17.0" prefWidth="77.0" text="Total : ">
+         <font>
+            <Font name=".VnArabia" size="18.0" />
+         </font></Label>
+      <TextField fx:id="tf_invoiceID" alignment="CENTER" layoutX="310.0" layoutY="180.0" prefHeight="25.0" prefWidth="161.0" promptText="invoiceID" />
+      <Label fx:id="lb_total" layoutX="93.0" layoutY="536.0" prefHeight="27.0" prefWidth="149.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="tf_search" layoutX="265.0" layoutY="27.0" prefHeight="25.0" prefWidth="161.0" promptText="Search medic name here" />
-      <TableView fx:id="table_search" layoutX="444.0" layoutY="17.0" prefHeight="152.0" prefWidth="201.0">
+      <JFXTextField fx:id="tf_search" layoutX="310.0" layoutY="18.0" prefHeight="25.0" prefWidth="161.0" promptText="Search medic name here" unFocusColor="#f8d15a" />
+      <TableView fx:id="table_search" layoutX="498.0" layoutY="18.0" prefHeight="152.0" prefWidth="288.0">
         <columns>
-          <TableColumn fx:id="column_search_productname" prefWidth="98.0" text="Product name" />
-          <TableColumn fx:id="column_search_barcode" minWidth="0.0" prefWidth="114.0" text="Barcode" />
+          <TableColumn fx:id="column_search_productname" prefWidth="134.0" text="Product name" />
+          <TableColumn fx:id="column_search_barcode" minWidth="0.0" prefWidth="153.0" text="Barcode" />
         </columns>
       </TableView>
-      <Label fx:id="error_qty" layoutX="32.0" layoutY="146.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
-      <Button fx:id="btn_addtomenu" layoutX="191.0" layoutY="81.0" mnemonicParsing="false" onAction="#action_addtomenu" prefHeight="25.0" prefWidth="88.0" text="Add to menu" />
-      <Button fx:id="btn_printInvoice" layoutX="527.0" layoutY="483.0" mnemonicParsing="false" onAction="#action_printInvoice" prefHeight="25.0" prefWidth="98.0" text="Print Invoice" />
-      <Button fx:id="btn_remove" layoutX="426.0" layoutY="483.0" mnemonicParsing="false" onAction="#action_removeItem" prefHeight="25.0" prefWidth="88.0" text="Remove Item" />
-      <TextField fx:id="tf_customer" alignment="CENTER" layoutX="235.0" layoutY="129.0" promptText="Customer" />
+      <Label fx:id="error_qty" layoutX="11.0" layoutY="149.0" prefHeight="17.0" prefWidth="149.0" textFill="RED" />
+      <Button id="buttonHandle" fx:id="btn_addtomenu" layoutX="176.0" layoutY="160.0" mnemonicParsing="false" onAction="#action_addtomenu" prefHeight="40.0" prefWidth="98.0" text="Add to menu" />
+      <Button id="buttonHandle" fx:id="btn_printInvoice" layoutX="688.0" layoutY="545.0" mnemonicParsing="false" onAction="#action_printInvoice" prefHeight="25.0" prefWidth="98.0" text="Print Invoice" />
+      <Button id="buttonHandle" fx:id="btn_remove" layoutX="554.0" layoutY="545.0" mnemonicParsing="false" onAction="#action_removeItem" prefHeight="25.0" prefWidth="88.0" text="Remove Item" />
+      <TextField fx:id="tf_customer" alignment="CENTER" layoutX="310.0" layoutY="133.0" prefHeight="25.0" prefWidth="161.0" promptText="Enter Customer" />
    </children>
 </AnchorPane>

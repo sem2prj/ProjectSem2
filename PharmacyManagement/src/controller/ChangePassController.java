@@ -72,10 +72,10 @@ public class ChangePassController implements Initializable {
             txtConfirm.requestFocus();
         }
 
-        boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtUser, lbUser, "Username is not suitable");
-        boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "Password is not suitable");
-
         if (txtUsernotEmpty && txtPasswordTrue && txtRePass) {
+            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtUser, lbUser, "Username is not suitable");
+            boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "Password is not suitable");
+
             if (isPasswordTrue && isUsernameTrue) {
                 UsernameDAOImplement userImp = new UsernameDAOImplement();
                 String password = PasswordHash.encryptPass(txtConfirm.getText());

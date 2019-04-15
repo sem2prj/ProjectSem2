@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.6105100000000014"/>
-	<property name="ireport.x" value="142"/>
+	<property name="ireport.x" value="134"/>
 	<property name="ireport.y" value="374"/>
 	<parameter name="OrderID" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -136,7 +136,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[PName]]></text>
+				<text><![CDATA[  PName]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="220" y="0" width="95" height="20"/>
@@ -150,7 +150,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[SellPrice]]></text>
+				<text><![CDATA[  SellPrice]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="315" y="0" width="118" height="20"/>
@@ -164,7 +164,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Qty]]></text>
+				<text><![CDATA[  Qty]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="0" width="69" height="20"/>
@@ -178,7 +178,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[No]]></text>
+				<text><![CDATA[  No]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="433" y="0" width="100" height="20"/>
@@ -192,7 +192,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<text><![CDATA[Amount]]></text>
+				<text><![CDATA[  Amount]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -210,7 +210,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{PName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{PName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="220" y="0" width="95" height="38"/>
@@ -224,7 +224,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{SellPrice}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{SellPrice}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="315" y="0" width="118" height="38"/>
@@ -238,7 +238,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Qty}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{Qty}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="433" y="0" width="100" height="38"/>
@@ -252,7 +252,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $F{Amount}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="69" height="38"/>
@@ -266,7 +266,7 @@ WHERE dt.OrderID=$P{OrderID}]]>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{COLUMN_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[  $V{COLUMN_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
