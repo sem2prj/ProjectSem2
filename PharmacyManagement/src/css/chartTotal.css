@@ -1,0 +1,13 @@
+
+#labelStatistics{
+    -fx-text-fill: #fd311d;
+    -fx-font-family: "Advent Pro";
+    -fx-font-size: 16px;
+}
+.chart{
+    -fx-padding: 10px;
+}
+
+.chart-series-line {    
+    -fx-stroke-width: 2px;
+}

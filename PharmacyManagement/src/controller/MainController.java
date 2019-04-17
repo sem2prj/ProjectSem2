@@ -363,4 +363,36 @@ public class MainController implements Initializable {
         stage.show();
 
     }
+
+    @FXML
+    private void handleReport(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportMain.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/reportMain.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.setTitle("Report");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleStatistic(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/chartTotalAmount.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/chartTotal.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.setTitle("Statistic");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleStore(ActionEvent event) {
+    }
 }

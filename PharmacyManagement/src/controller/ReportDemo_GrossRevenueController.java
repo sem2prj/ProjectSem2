@@ -108,7 +108,11 @@ public class ReportDemo_GrossRevenueController implements Initializable {
     }
 
     private void comboboxDefault() {
+<<<<<<< HEAD
         combobox.getItems().addAll("Day", "Week", "Month", "Year", "All time", "Custom");
+=======
+        combobox.getItems().addAll("Day", "Week", "Month", "Year", "All", "Option");
+>>>>>>> 9be83cc4583815f5796ddaf897f7e83d61f392c4
         combobox.getSelectionModel().selectFirst();
         combobox.getValue();
     }
@@ -158,7 +162,11 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     column_doanhthu.setSortable(true);
 
                     break;
+<<<<<<< HEAD
                 case "all time":
+=======
+                case "all":
+>>>>>>> 9be83cc4583815f5796ddaf897f7e83d61f392c4
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -168,7 +176,11 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     table_view.getSortOrder().add(column_doanhthu);
                     column_doanhthu.setSortable(true);
                     break;
+<<<<<<< HEAD
                 case "custom":
+=======
+                case "option":
+>>>>>>> 9be83cc4583815f5796ddaf897f7e83d61f392c4
                     lb_tu.setVisible(true);
                     lb_den.setVisible(true);
                     date_1.setVisible(true);
