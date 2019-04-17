@@ -28,6 +28,10 @@ public class ReportDemoController implements Initializable {
     private Button report_button3;
     @FXML
     private Button report_button4;
+    @FXML
+    private Button report_button5;
+    @FXML
+    private Button report_button6;
 
     /**
      * Initializes the controller class.

@@ -108,7 +108,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
     }
 
     private void comboboxDefault() {
-        combobox.getItems().addAll("Ngay", "Tuan", "Thang", "Nam", "Tat Ca", "Tuy Chon");
+        combobox.getItems().addAll("Day", "Week", "Month", "Year", "All time", "Custom");
         combobox.getSelectionModel().selectFirst();
         combobox.getValue();
     }
@@ -116,7 +116,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
     private void comboboxDo() throws SQLException {
         if (combobox.getValue() != null) {
             switch (combobox.getValue().toLowerCase()) {
-                case "ngay":
+                case "day":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -126,7 +126,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     table_view.getSortOrder().add(column_doanhthu);
                     column_doanhthu.setSortable(true);
                     break;
-                case "tuan":
+                case "week":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -136,7 +136,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     table_view.getSortOrder().add(column_doanhthu);
                     column_doanhthu.setSortable(true);
                     break;
-                case "thang":
+                case "month":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -147,7 +147,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     column_doanhthu.setSortable(true);
 
                     break;
-                case "nam":
+                case "year":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -158,7 +158,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     column_doanhthu.setSortable(true);
 
                     break;
-                case "tat ca":
+                case "all time":
                     lb_tu.setVisible(false);
                     lb_den.setVisible(false);
                     date_1.setVisible(false);
@@ -168,7 +168,7 @@ public class ReportDemo_GrossRevenueController implements Initializable {
                     table_view.getSortOrder().add(column_doanhthu);
                     column_doanhthu.setSortable(true);
                     break;
-                case "tuy chon":
+                case "custom":
                     lb_tu.setVisible(true);
                     lb_den.setVisible(true);
                     date_1.setVisible(true);

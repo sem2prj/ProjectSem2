@@ -9,5 +9,7 @@
       <Button fx:id="report_button2" layoutX="466.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_2" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report thong ke doanh thu" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="report_button3" layoutX="181.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_3" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report nhan vien cua nam" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="report_button4" layoutX="331.0" layoutY="21.0" mnemonicParsing="false" onAction="#action_4" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report khach hang than thiet" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="report_button5" layoutX="36.0" layoutY="176.0" mnemonicParsing="false" onAction="#action_1" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report  theo doi loi nhuan" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="report_button6" layoutX="181.0" layoutY="176.0" mnemonicParsing="false" onAction="#action_1" prefHeight="98.0" prefWidth="107.0" text=" Day la chuc nang report  theo doi cong no" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>
