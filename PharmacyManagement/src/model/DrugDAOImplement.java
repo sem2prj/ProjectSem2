@@ -55,7 +55,7 @@ public class DrugDAOImplement implements DAODrug {
     }
 
     @Override
-    public void insertDrug(String Code1,String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description) {
+    public void insertDrug(String Code1,String nameSuper,String supplierSuper,String DCode, String Name, String Categories, String Unit, Blob Image, String Status, Double BuyPrice, Double SellPrice, String Supplier, String description) {
         String sql = "INSERT INTO Categories (CatName) VALUES(?)";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
@@ -65,21 +65,23 @@ public class DrugDAOImplement implements DAODrug {
             rs.next();
             Object key = rs.getObject(1);
 
-            String sql1 = "IF NOT EXISTS (SELECT * FROM  Product WHERE PCode= ? )\n" +
+            String sql1 = "IF NOT EXISTS (SELECT * FROM  Product WHERE PCode= ? or (PName = ? and  Supplier= ?) )\n" +
 "	INSERT INTO Product (PCode,PName,PImage,Unit,Statuses,BuyPrice,SellPrice,Supplier,PDescription,CatID) \n" +
 "	VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pst1 = connection.prepareStatement(sql1);
             pst1.setString(1, Code1);
-            pst1.setString(2, DCode);
-            pst1.setString(3, Name);
-            pst1.setBlob(4, Image);
-            pst1.setString(5, Unit);
-            pst1.setString(6, Status);
-            pst1.setDouble(7, BuyPrice);
-            pst1.setDouble(8, SellPrice);
-            pst1.setString(9, Supplier);
-            pst1.setString(10, description);
-            pst1.setInt(11, Integer.parseInt(String.valueOf(key)));
+            pst1.setString(2, nameSuper);
+            pst1.setString(3, supplierSuper);
+            pst1.setString(4, DCode);
+            pst1.setString(5, Name);
+            pst1.setBlob(6, Image);
+            pst1.setString(7, Unit);
+            pst1.setString(8, Status);
+            pst1.setDouble(9, BuyPrice);
+            pst1.setDouble(10, SellPrice);
+            pst1.setString(11, Supplier);
+            pst1.setString(12, description);
+            pst1.setInt(13, Integer.parseInt(String.valueOf(key)));
             int i = pst1.executeUpdate();
 
 //            ResultSet rs1 = pst1.getGeneratedKeys();
@@ -95,7 +97,7 @@ public class DrugDAOImplement implements DAODrug {
             if (i ==1) {
                 AlertDialog.display("Info", "Data Insert Successfully");
             } else {
-                AlertDialog.display("Info", "Product Code already exists");
+                AlertDialog.display("Info", "Product Code already exists or the product names with same provider has been duplicated");
             }
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DrugDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
