@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -600,5 +601,11 @@ public class OrderProductController implements Initializable {
         lb_total.setText("" + grandTotal);
 
     }
+    
+    
+        
+    
+    
+    
 
 }

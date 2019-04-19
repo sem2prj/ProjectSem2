@@ -27,7 +27,7 @@ public class ValidationController {
 
     public static boolean isTextFieldHavingText(TextField tf) {
         boolean b = false;
-        if (tf.getText().length() != 0 | !tf.getText().isEmpty()) {
+        if (tf.getText().length() != 0 || !tf.getText().isEmpty()) {
             b = true;
         }
 

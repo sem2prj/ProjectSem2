@@ -54,6 +54,8 @@ CREATE TABLE Product(
 	on delete cascade 
 	on update cascade ,
 )
+
+
 CREATE TABLE Supplier(
 	SuID int identity(1,1),
 	SuCode varchar(50),
@@ -155,16 +157,52 @@ CREATE TABLE OrderDetail(
 )
 
 CREATE TABLE stock(
-	stockid int identity(1,1),
-	PId bigint,
-	Qty int,
-	ExpiredTime date,
-	DateIn date,
-	CONSTRAINT pk_stockid PRIMARY KEY (stockid),
-	CONSTRAINT fk_PId_stock FOREIGN KEY (PId) REFERENCES Product(PId)
+	stockID int identity(1,1),
+	PCode varchar(50),
+	Supplier varchar(50),
+	totalqty int DEFAULT 0,
+	
+	CONSTRAINT pk_stockid PRIMARY KEY (stockID),
+
+)
+
+CREATE TABLE stockdetail(
+	stockdetailID int identity(1,1),
+	stockID int,
+	qty int,
+	amount float,
+	already float,
+	remain float,
+	drugexdate date,
+	liabilitiesexdate date,
+	stockdetaildate date
+
+	CONSTRAINT pk_stockdetailID PRIMARY KEY (stockdetailID),
+	CONSTRAINT fk_stockID FOREIGN KEY (stockID) REFERENCES stock(stockID)
 	on delete cascade 
 	on update cascade ,
 )
+
+
+
+
+
+	TotalQty int,
+	ProductExDate date,
+	SuName varchar(50),
+	Total float DEFAULT 0,
+	Already float DEFAULT 0,
+	Remain float DEFAULT 0,
+	DateIn date,
+	LiabilitiesExDate date
+
+	CONSTRAINT pk_stockid PRIMARY KEY (stockID),
+	CONSTRAINT fk_stockdetailID FOREIGN KEY (stockdetailID) REFERENCES Product(PId)
+	on delete cascade 
+	on update cascade ,
+
+
+
 /*
 CREATE TABLE Users(
 	UsersID int identity(1,1),

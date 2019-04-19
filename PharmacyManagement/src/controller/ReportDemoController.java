@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -24,7 +25,6 @@ import javafx.stage.Stage;
  */
 public class ReportDemoController implements Initializable {
 
-<<<<<<< HEAD
     @FXML
     private Button report_button1;
     @FXML
@@ -38,8 +38,8 @@ public class ReportDemoController implements Initializable {
     @FXML
     private Button report_button6;
 
-=======
->>>>>>> 9be83cc4583815f5796ddaf897f7e83d61f392c4
+
+
     /**
      * Initializes the controller class.
      */
