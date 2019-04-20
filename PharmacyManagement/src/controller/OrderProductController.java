@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,10 +41,8 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import org.controlsfx.control.textfield.TextFields;
-import report.Products;
 
 /**
  * FXML Controller class
@@ -148,10 +145,10 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        tf_productname.setDisable(true);
-        tf_price.setDisable(true);
-        tf_invoiceID.setDisable(true);
-        order_dateInvoice.setDisable(true);
+//        tf_productname.setDisable(true);
+//        tf_price.setDisable(true);
+//        tf_invoiceID.setDisable(true);
+//        order_dateInvoice.setDisable(true);
         
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
