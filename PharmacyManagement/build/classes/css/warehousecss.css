@@ -1,0 +1,13 @@
+#titleWareHouse{
+    -fx-text-fill: #ff5400;
+}
+
+#btnHandle{
+    -fx-background-color: linear-gradient(#ff5400, #be1d00);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: white; 
+}
+#btnHandle:hover{
+    -fx-background-color: #1fd625;
+}

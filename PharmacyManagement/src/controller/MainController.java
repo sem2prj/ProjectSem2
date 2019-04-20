@@ -393,6 +393,16 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void handleStore(ActionEvent event) {
+    private void handleStore(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/warehousecss.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.setTitle("Warehouse");
+        stage.setScene(scene);
+        stage.show();
     }
 }

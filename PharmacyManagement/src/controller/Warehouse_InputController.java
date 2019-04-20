@@ -197,7 +197,7 @@ public class Warehouse_InputController implements Initializable {
     }
 
     private void comboboxSupplierDo() throws SQLException {
-        System.out.println("Doan test la : " + tf_drug.getText());
+//        System.out.println("Doan test la : " + tf_drug.getText());
         combobox_supplier.getItems().clear();
         pst = con.prepareStatement("select Supplier from Product where PCode like ?");
         pst.setString(1, tf_drug.getText());
