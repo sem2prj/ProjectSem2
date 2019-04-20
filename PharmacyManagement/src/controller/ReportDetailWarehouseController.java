@@ -26,12 +26,8 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author admin
  */
-public class ReportDemo_LiabilitiesController implements Initializable {
+public class ReportDetailWarehouseController implements Initializable {
 
-    @FXML
-    private AnchorPane anchorpane;
-    @FXML
-    private JFXTextField tf_search;
     @FXML
     private JFXComboBox<String> combobox;
     @FXML
@@ -58,11 +54,11 @@ public class ReportDemo_LiabilitiesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          data = FXCollections.observableArrayList(
-         new LiabilitiesReport("CN0001","Sun Pharmacy","10000000","7000000","3000000","01/09/2019"),
-                 new LiabilitiesReport("CN0002","Big Pharmacy","10000000","7000000","3000000","01/09/2019"),
-                 new LiabilitiesReport("CN0003","Null Pharmacy","10000000","7000000","3000000","01/09/2019"),
-                 new LiabilitiesReport("CN0004","Delegate Pharmacy","10000000","7000000","3000000","01/09/2019"),
-                 new LiabilitiesReport("CN0005","Vinh Pharmacy","10000000","7000000","3000000","01/09/2019")
+         new LiabilitiesReport("Stock0001","Paracetamol","BiG Pharmacy","700","01/01/2021","01/01/2019"),
+                 new LiabilitiesReport("Stock0002","Endorphine","Sun Pharmacy","800","01/01/2021","01/09/2019"),
+                 new LiabilitiesReport("Stock0003","Mutivitamin control","Vinh Pharmacy","150","01/01/2021","01/01/2019"),
+                 new LiabilitiesReport("Stock0004","TooGood for men","Sun Pharmacy","100","01/01/2021","01/01/2019"),
+                 new LiabilitiesReport("Stock0005","Extacin","Null Pharmac","200","01/01/2021","01/01/2019")
          
          );
          
@@ -155,4 +151,5 @@ public class ReportDemo_LiabilitiesController implements Initializable {
             expdate.set(fexpdate);
         }
     }
+    
 }

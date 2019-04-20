@@ -6,6 +6,7 @@
 package controller;
 
 
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -41,6 +42,16 @@ public class ReportDemo_DrugController implements Initializable {
     private ObservableList<DrugReport> data ;
     @FXML
     private Button button;
+    @FXML
+    private JFXTextField tf_name;
+    @FXML
+    private JFXTextField tf_address;
+    @FXML
+    private JFXTextField tf_phone;
+    @FXML
+    private JFXTextField tf_buyprice;
+    @FXML
+    private JFXTextField tf_sellprice;
     
     /**
      * Initializes the controller class.
@@ -48,11 +59,11 @@ public class ReportDemo_DrugController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         data = FXCollections.observableArrayList(
-            new DrugReport("Jacob", "Smith", "jacob.smith@example.com"),
-            new DrugReport("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new DrugReport("Ethan", "Williams", "ethan.williams@example.com"),
-            new DrugReport("Emma", "Jones", "emma.jones@example.com"),
-            new DrugReport("Michael", "Brown", "michael.brown@example.com")
+            new DrugReport("Paracetamol", "1100001", "01/01/2021"),
+            new DrugReport("Morphindental", "11085721", "01/01/2021"),
+            new DrugReport("Endorphinate", "11070004", "01/01/2021"),
+            new DrugReport("Dopamine", "11090023", "01/01/2021"),
+            new DrugReport("Asparin", "11070001", "01/01/2021")
         
         
         );
@@ -60,6 +71,14 @@ public class ReportDemo_DrugController implements Initializable {
         cloumn_code.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("barcode"));
         cloumn_date.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("date"));
         cloumn_select.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("select"));
+        cloumn_select.setStyle("-fx-alignment: CENTER;");
+        
+        tf_name.setText("Sun Pharmacy");
+        tf_address.setText("1801 Texas, USA");
+        tf_phone.setText("1800-8485-5211");
+        tf_buyprice.setText("15000");
+        tf_sellprice.setText("49000");
+        
         
         table_drug.setItems(data);
     }    

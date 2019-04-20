@@ -39,7 +39,7 @@ public class Main extends Application {
 
 
 //        //Test MainController
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
 
         Scene scene = new Scene(root);
 
