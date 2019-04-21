@@ -147,21 +147,16 @@ public class OrderProductController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-<<<<<<< HEAD
-        
+
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
         tf_invoiceID.setDisable(true);
         order_dateInvoice.setDisable(true);
-        mission();
-        
-=======
 
 //        tf_productname.setDisable(true);
 //        tf_price.setDisable(true);
 //        tf_invoiceID.setDisable(true);
 //        order_dateInvoice.setDisable(true);
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());
@@ -341,13 +336,18 @@ public class OrderProductController implements Initializable {
 
                         if (ValidationController.sosanhchuoi(barcode, item.getBarcode())) {
                             int table_qty = item.getQty() + qty;
-                            double table_amount = item.getAmount() + amount;
-                            item.setQty(table_qty);
-                            item.setAmount(table_amount);
-                            lb_total.setText("" + grandTotal);
-                            table_order.getItems().set(table_order.getItems().indexOf(item), item);
-                            clearText();
-                            return;
+                            boolean checkQty2 = checkQtyProduct_2(table_qty);
+                            if (checkQty2) {
+                                double table_amount = item.getAmount() + amount;
+                                item.setQty(table_qty);
+                                item.setAmount(table_amount);
+                                lb_total.setText("" + grandTotal);
+                                table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                                clearText();
+                                return;
+                            } else {
+                                return;
+                            }
 
                         }
 
@@ -384,6 +384,25 @@ public class OrderProductController implements Initializable {
             AlertDialog.display("Info", "No qty in this drug yet. Please choose another drugs");
         }
 
+        return check;
+    }
+
+    private boolean checkQtyProduct_2(int qty_in) throws SQLException {
+        boolean check = false;
+        pst = con.prepareStatement("select totalqty from stock where PCode like ?");
+        pst.setString(1, tf_barcode.getText());
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            temp_qty = rs.getInt(1);
+            if (temp_qty < qty_in) {
+                AlertDialog.display("Info", "Your updated qty of this drug is not enough to order.");
+            } else {
+                check = true;
+            }
+
+        } else {
+            AlertDialog.display("Info", "No qty in this drug yet. Please choose another drugs");
+        }
         return check;
     }
 
@@ -632,27 +651,20 @@ public class OrderProductController implements Initializable {
         lb_total.setText("" + grandTotal);
 
     }
-<<<<<<< HEAD
-    
+
     private void mission() {
         infoUser = LoginController.ListUserLogin;
         for (User user : infoUser) {
-            if (user.getMission().equals("") && user.getDeparment().equals("")||
-                    user.getDeparment().equals("Warehouse")
-                    ||user.getMission().equals("User") && user.getDeparment().equals("Business")) {
+            if (user.getMission().equals("") && user.getDeparment().equals("")
+                    || user.getDeparment().equals("Warehouse")
+                    || user.getMission().equals("User") && user.getDeparment().equals("Business")) {
                 btn_addtomenu.setDisable(true);
                 btn_printInvoice.setDisable(true);
-            }else{
+            } else {
                 btn_addtomenu.setDisable(false);
                 btn_printInvoice.setDisable(false);
             }
         }
     }
-        
-    
-    
-    
-=======
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
 
 }
