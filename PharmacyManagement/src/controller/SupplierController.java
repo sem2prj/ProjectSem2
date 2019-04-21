@@ -111,7 +111,9 @@ public class SupplierController implements Initializable {
                     if (supplier.getCode().contains(newValue)) {
                         return true;
                     }
-
+                    if (supplier.getNameSupplier().contains(newValue)) {
+                        return true;
+                    }
                     return false;
                 });
             });

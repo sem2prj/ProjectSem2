@@ -14,4 +14,5 @@ import javafx.collections.ObservableList;
 public interface DAOUser {
     ObservableList<User> getAllUser();
     void updateUser(String code,String password);
+    void updateUserPass(String code,String password);
 }

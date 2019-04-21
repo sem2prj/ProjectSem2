@@ -7,6 +7,7 @@ package controller;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import static controller.MainController.infoUser;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +35,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.User;
 import org.controlsfx.control.textfield.TextFields;
 
 /**
@@ -130,6 +132,8 @@ public class Warehouse_InputController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        mission();
 
         ArrayList<String> resultTFDrug;
         try {
@@ -465,6 +469,19 @@ public class Warehouse_InputController implements Initializable {
 
         tableview.setItems(data);
 
+    }
+    
+    
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("") && user.getDeparment().equals("")||user.getDeparment().equals("Sell")) {
+                button.setDisable(true);
+                data.clear();
+            }else{
+                button.setDisable(false);
+            }
+        }
     }
 
     public static class WarehouseInput {

@@ -40,7 +40,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -416,10 +415,12 @@ public class DrugController implements Initializable {
     private void mission() {
         infoUser = LoginController.ListUserLogin;
         for (User user : infoUser) {
-            if (user.getMission().equals("") && user.getDeparment().equals("") || user.getDeparment().equals("Sell")) {
+            if (user.getMission().equals("") && user.getDeparment().equals("") || user.getDeparment().equals("Sell")
+                    ||user.getDeparment().equals("Business")&&user.getMission().equals("User")) {
                 btnAdd.setDisable(true);
                 btnEdit.setDisable(true);
                 btnDelete.setDisable(true);
+                data.clear();
             }
         }
     }

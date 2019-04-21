@@ -78,7 +78,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 public class EmployeeController implements Initializable {
 
     private ObservableList<Employee> orderData;
-    private ObservableList<Employee> data;
+    private ObservableList<Employee> dataEmployee;
 
     //FXML
     @FXML
@@ -215,21 +215,25 @@ public class EmployeeController implements Initializable {
         EmployeeDAOImplement eDAOIpl = new EmployeeDAOImplement();
         orderData = FXCollections.observableArrayList();
         //Notice Excel get all data !
-        data = eDAOIpl.getAllEmployee();
+        dataEmployee = eDAOIpl.getAllEmployee();
         excel();
         mission();
         //search
-        FilteredList<Employee> filteredData = new FilteredList<>(data, e -> true);
+        FilteredList<Employee> filteredData = new FilteredList<>(dataEmployee, e -> true);
         fldSearch.setOnKeyReleased(e -> {
             fldSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
                 filteredData.setPredicate((Predicate<? super Employee>) employee -> {
                     String lowerCaseFilter = newValue.toLowerCase();
-                    if (employee.getEplCode().contains(newValue)) {
-                        return true;
-                    }
                     if (newValue == null || newValue.isEmpty()) {
                         return true;
                     }
+                    if (employee.getEplCode().contains(newValue)) {
+                        return true;
+                    }
+                    if (employee.getUserName().contains(newValue)) {
+                        return true;
+                    }
+                    
                     return false;
                 });
             });
@@ -545,6 +549,7 @@ public class EmployeeController implements Initializable {
     }
 
     private void clear() {
+        txtFullName.clear();
         txtEplCode.clear();
         txtUsername.clear();
         rdMale.setSelected(false);
@@ -625,16 +630,16 @@ public class EmployeeController implements Initializable {
                 cellK1.setCellValue("Date At Work");
                 cellStyle = workbook.createCellStyle();
                 cellK1.setCellStyle(cellStyle);
-                for (int i = 0; i < data.size(); i++) {
+                for (int i = 0; i < dataEmployee.size(); i++) {
                     HSSFRow row2 = worksheet.createRow((short) i + 1);
-                    row2.createCell(0).setCellValue(((Employee) data.get(i)).getEplCode());
-                    row2.createCell(1).setCellValue(((Employee) data.get(i)).getUserName());
-                    row2.createCell(2).setCellValue(((Employee) data.get(i)).getPhone());
-                    row2.createCell(3).setCellValue(((Employee) data.get(i)).getEmail());
-                    row2.createCell(4).setCellValue(((Employee) data.get(i)).getAddrees());
-                    row2.createCell(5).setCellValue(((Employee) data.get(i)).getDepartment());
-                    row2.createCell(6).setCellValue(((Employee) data.get(i)).getSalary());
-                    row2.createCell(7).setCellValue(((Employee) data.get(i)).getDateWork().toString());
+                    row2.createCell(0).setCellValue(((Employee) dataEmployee.get(i)).getEplCode());
+                    row2.createCell(1).setCellValue(((Employee) dataEmployee.get(i)).getUserName());
+                    row2.createCell(2).setCellValue(((Employee) dataEmployee.get(i)).getPhone());
+                    row2.createCell(3).setCellValue(((Employee) dataEmployee.get(i)).getEmail());
+                    row2.createCell(4).setCellValue(((Employee) dataEmployee.get(i)).getAddrees());
+                    row2.createCell(5).setCellValue(((Employee) dataEmployee.get(i)).getDepartment());
+                    row2.createCell(6).setCellValue(((Employee) dataEmployee.get(i)).getSalary());
+                    row2.createCell(7).setCellValue(((Employee) dataEmployee.get(i)).getDateWork().toString());
                 }
 
                 //Set extension filter to .xlsx files
@@ -731,31 +736,22 @@ public class EmployeeController implements Initializable {
                 buttonEdit.setDisable(false);
                 buttonExcel.setDisable(false);
                 buttonChangePass.setDisable(false);
-            } else if (user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
+            }else if (user.getMission().equals("User") && user.getDeparment().equals("Warehouse") 
+                    || user.getMission().equals("User") && user.getDeparment().equals("Sell")||user.getMission().equals("") && user.getDeparment().equals("")
+                    ||user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
                 buttonAdd.setDisable(true);
                 buttonDelete.setDisable(true);
                 buttonEdit.setDisable(true);
                 buttonExcel.setDisable(true);
                 buttonChangePass.setDisable(true);
-            } else if (user.getMission().equals("User") && user.getDeparment().equals("Warehouse") || user.getMission().equals("User") && user.getDeparment().equals("Sell")) {
-                buttonAdd.setDisable(true);
-                buttonDelete.setDisable(true);
-                buttonEdit.setDisable(true);
-                buttonExcel.setDisable(true);
-                buttonChangePass.setDisable(true);
+                dataEmployee.clear();
             } else if (user.getMission().equals("User") && user.getDeparment().equals("Business")) {
                 buttonAdd.setDisable(true);
                 buttonDelete.setDisable(true);
                 buttonEdit.setDisable(true);
                 buttonExcel.setDisable(false);
                 buttonChangePass.setDisable(true);
-            }
-            if (user.getMission().equals("") && user.getDeparment().equals("")) {
-                buttonAdd.setDisable(true);
-                buttonDelete.setDisable(true);
-                buttonEdit.setDisable(true);
-                buttonExcel.setDisable(true);
-                buttonChangePass.setDisable(true);
+                dataEmployee.clear();
             }
         }
     }
