@@ -29,15 +29,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-<<<<<<< HEAD
-//        //Test MainController
 
-=======
+//        //Test MainController
         //Test MainController
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //        //Test MainController
+<<<<<<< HEAD
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
+=======
 <<<<<<< HEAD
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
 =======
@@ -96,29 +97,17 @@ public class Main extends Application {
 //
 //
 //        } else {
+>>>>>>> d6bcbc43ba6fde14d5d989ac0fb449c657273825
 //
-//            rs.close();
-//            pst.close();
-//            con.close();
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
+//        Scene scene = new Scene(root);
 //
-//            Scene scene = new Scene(root);
-////            stage.initStyle(StageStyle.UNDECORATED);
-//
-//            scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
-//            stage.getIcons().add(new Image("/image/hyhy.png"));
-//            stage.setTitle("Register");
-//            stage.setScene(scene);
-////            stage.setResizable(false);
-//            stage.show();
-//
-//        }
-//
-=======
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
 >>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
+
+
+
 
         //Start
         con = controller.ConnectDB.getConnectTable();
@@ -164,10 +153,13 @@ public class Main extends Application {
 
         }
        
+<<<<<<< HEAD
+=======
 
 
     
 
+>>>>>>> d6bcbc43ba6fde14d5d989ac0fb449c657273825
 //        //End
     }
 

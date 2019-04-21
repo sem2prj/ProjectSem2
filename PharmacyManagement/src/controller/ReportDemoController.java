@@ -25,21 +25,6 @@ import javafx.stage.Stage;
  */
 public class ReportDemoController implements Initializable {
 
-    @FXML
-    private Button report_button1;
-    @FXML
-    private Button report_button2;
-    @FXML
-    private Button report_button3;
-    @FXML
-    private Button report_button4;
-    @FXML
-    private Button report_button5;
-    @FXML
-    private Button report_button6;
-
-
-
     /**
      * Initializes the controller class.
      */
@@ -92,7 +77,7 @@ public class ReportDemoController implements Initializable {
 
     @FXML
     private void handleCustomer(ActionEvent event) throws IOException {
-         Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportCustomer.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportCustomer.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/reportCustomer.css").toExternalForm());
@@ -100,6 +85,34 @@ public class ReportDemoController implements Initializable {
 //        stage.initStyle(StageStyle.UTILITY);
         stage.getIcons().add(new Image("/image/hyhy.png"));
         stage.setTitle("Customer");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleWareHouse(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/reportDetailWareHouse.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.setTitle("DetailWareHouse");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleLibilities(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDemo_Liabilities.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/reportLiabilities.css").toExternalForm());
+        stage.resizableProperty().setValue(Boolean.FALSE);
+//        stage.initStyle(StageStyle.UTILITY);
+        stage.getIcons().add(new Image("/image/hyhy.png"));
+        stage.setTitle("Liabilities");
         stage.setScene(scene);
         stage.show();
     }

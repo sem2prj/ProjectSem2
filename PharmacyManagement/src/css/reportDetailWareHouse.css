@@ -1,22 +1,15 @@
-#labelDrugList{
+#labelDetailWareHouse{
     -fx-text-fill: #ff5400;
     
 }
 
-#buttonSelect{
+#buttonExieDetailWare{
     -fx-background-color: linear-gradient(#ff5400, #be1d00);
     -fx-background-radius: 30;
     -fx-background-insets: 0;
     -fx-text-fill: white; 
 }
 
-#buttonSelect:hover{
+#buttonExieDetailWare:hover{
     -fx-background-color: #1fd625;
 }
-
-#tiltle3D{
-   -fx-text-fill:#139100;
-    
-}
-
-
