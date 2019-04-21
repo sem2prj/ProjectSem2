@@ -285,8 +285,11 @@ public class SupplierController implements Initializable {
 
             if (user.getMission().equals("User") && user.getDeparment().equals("Sell")) {
                 btnAdd.setDisable(true);
-                btnEdit.setDisable(false);
+                btnAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
+                btnEdit.setDisable(true);
+                btnEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnDelete.setDisable(true);
+                btnDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
             } else {
                 btnAdd.setDisable(false);
                 btnEdit.setDisable(false);
@@ -294,8 +297,11 @@ public class SupplierController implements Initializable {
             }
             if (user.getMission().equals("") && user.getDeparment().equals("")) {
                 btnAdd.setDisable(true);
+                btnAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnEdit.setDisable(true);
+                btnEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnDelete.setDisable(true);
+                btnDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
             }
         }
     }
