@@ -124,8 +124,8 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleAdd(ActionEvent event) {
-        
-        boolean txLevelnotEmpty=controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
+
+        boolean txLevelnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
         if (!txLevelnotEmpty) {
             txtLevel.requestFocus();
         }
@@ -152,7 +152,7 @@ public class CustomerController implements Initializable {
             txtCCode.requestFocus();
         }
 
-        if (txLevelnotEmpty&&txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
+        if (txLevelnotEmpty && txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
             boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
@@ -160,7 +160,7 @@ public class CustomerController implements Initializable {
             String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
             if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
-                cDI.insertCustomer(txtCCode.getText(), txtCCode.getText(),username , addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+                cDI.insertCustomer(txtCCode.getText(), txtCCode.getText(), username, addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
                 loadTable();
             }
@@ -169,11 +169,11 @@ public class CustomerController implements Initializable {
 
     @FXML
     private void handleUpdate(ActionEvent event) {
-        boolean txLevelnotEmpty=controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
+        boolean txLevelnotEmpty = controller.ValidationController.isTextFieldTypeNumber(txtLevel, lbLevel, "Level must be filled out");
         if (!txLevelnotEmpty) {
             txtLevel.requestFocus();
         }
-        
+
         boolean txtEmailnotEmpty = controller.ValidationController.isTextFieldHavingText(txtEmail, lbEmail, "Email must be filled out");
         if (!txtEmailnotEmpty) {
             txtEmail.requestFocus();
@@ -197,7 +197,7 @@ public class CustomerController implements Initializable {
             txtCCode.requestFocus();
         }
 
-        if (txLevelnotEmpty&&txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
+        if (txLevelnotEmpty && txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
             boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
@@ -206,7 +206,7 @@ public class CustomerController implements Initializable {
             String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
             if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
-                cDI.updateCustomer(txtCCode.getText(), username,addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
+                cDI.updateCustomer(txtCCode.getText(), username, addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
                 loadTable();
             }
@@ -277,21 +277,13 @@ public class CustomerController implements Initializable {
     private void mission() {
         infoUser = LoginController.ListUserLogin;
         for (User user : infoUser) {
-            if (user.getMission().equals("Admin") && user.getDeparment().equals("Business")) {
+            if (user.getMission().equals("Admin") && user.getDeparment().equals("Business")
+                    || user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")
+                    || user.getMission().equals("User") && user.getDeparment().equals("Business")) {
                 btnAdd.setDisable(false);
                 btnEdit.setDisable(false);
                 btnDelete.setDisable(false);
-            } else if (user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")
-                    || user.getMission().equals("User") && user.getDeparment().equals("Sell") || user.getMission().equals("User") && user.getDeparment().equals("Business")) {
-                btnAdd.setDisable(false);
-                btnEdit.setDisable(false);
-                btnDelete.setDisable(false);
-            } else if (user.getMission().equals("User") && user.getDeparment().equals("Warehouse")) {
-                btnAdd.setDisable(true);
-                btnEdit.setDisable(true);
-                btnDelete.setDisable(true);
-            }
-            if (user.getMission().equals("") && user.getDeparment().equals("")) {
+            } else if (user.getDeparment().equals("Warehouse") || user.getMission().equals("") && user.getDeparment().equals("")) {
                 btnAdd.setDisable(true);
                 btnEdit.setDisable(true);
                 btnDelete.setDisable(true);

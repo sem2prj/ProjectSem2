@@ -7,6 +7,7 @@ package controller;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import static controller.MainController.infoUser;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -145,10 +146,11 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        tf_productname.setDisable(true);
-//        tf_price.setDisable(true);
-//        tf_invoiceID.setDisable(true);
-//        order_dateInvoice.setDisable(true);
+        tf_productname.setDisable(true);
+        tf_price.setDisable(true);
+        tf_invoiceID.setDisable(true);
+        order_dateInvoice.setDisable(true);
+        mission();
         
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
@@ -599,7 +601,20 @@ public class OrderProductController implements Initializable {
 
     }
     
-    
+    private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("") && user.getDeparment().equals("")||
+                    user.getDeparment().equals("Warehouse")
+                    ||user.getMission().equals("User") && user.getDeparment().equals("Business")) {
+                btn_addtomenu.setDisable(true);
+                btn_printInvoice.setDisable(true);
+            }else{
+                btn_addtomenu.setDisable(false);
+                btn_printInvoice.setDisable(false);
+            }
+        }
+    }
         
     
     

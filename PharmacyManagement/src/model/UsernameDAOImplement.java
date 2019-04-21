@@ -8,6 +8,7 @@ package model;
 import controller.AlertDialog;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,12 +21,12 @@ import javafx.collections.ObservableList;
  *
  * @author PC
  */
-public class UsernameDAOImplement implements DAOUser{
+public class UsernameDAOImplement implements DAOUser {
 
     @Override
     public ObservableList<User> getAllUser() {
-       ObservableList<User> listUser = FXCollections.observableArrayList();
-        String sql = "{call dbo.getUserMission}";  
+        ObservableList<User> listUser = FXCollections.observableArrayList();
+        String sql = "{call dbo.getUserMission}";
         try (Connection connection = controller.ConnectDB.connectSQLServer();
                 Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
@@ -48,13 +49,13 @@ public class UsernameDAOImplement implements DAOUser{
 
     @Override
     public void updateUser(String code, String password) {
-       String sql = "{call dbo.updatePassCode(?,?)}";
-          try (Connection connection = controller.ConnectDB.connectSQLServer();
+        String sql = "{call dbo.updatePassCode(?,?)}";
+        try (Connection connection = controller.ConnectDB.connectSQLServer();
                 CallableStatement pst = connection.prepareCall(sql);) {
             pst.setString(1, password);
             pst.setString(2, code);
             int i = pst.executeUpdate();
-            if (i != 0 ) {
+            if (i != 0) {
                 AlertDialog.display("Info", "Data Update Successfully");
             } else {
                 AlertDialog.display("Info", "Data Update is Failing");
@@ -62,5 +63,26 @@ public class UsernameDAOImplement implements DAOUser{
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public void updateUserPass(String code, String password) {
+        String sql = "UPDATE A SET A.UsersPass =?\n"
+                + "FROM Users A INNER JOIN DetailUser B ON  A.UsersID=B.UsersID\n"
+                + "WHERE A.UsersName=?";
+          try (Connection connection = controller.ConnectDB.connectSQLServer();
+                PreparedStatement pst = connection.prepareStatement(sql);) {
+            pst.setString(1, password);
+            pst.setString(2, code);
+            int i = pst.executeUpdate();
+            if (i != 0) {
+                AlertDialog.display("Info", "Data Update Successfully");
+            } else {
+                AlertDialog.display("Info", "Data Update is Failing");
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(EmployeeDAOImplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import model.User;
 //import model.User;
@@ -330,6 +331,11 @@ public class MainController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Logout");
         alert.setHeaderText(null);
+
+        Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();
+        stageAlert.getIcons().add(new Image(this.getClass().getResource("/image/hyhy.png").toString()));
+//        alert.initStyle(StageStyle.UTILITY);
+
         alert.setContentText("Are You Sure?");
         ButtonType okButton = new ButtonType("Yes");
         ButtonType noButton = new ButtonType("No");

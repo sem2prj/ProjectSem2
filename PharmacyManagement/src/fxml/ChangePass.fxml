@@ -13,7 +13,7 @@
          <children>
             <AnchorPane prefHeight="80.0" prefWidth="250.0">
                <children>
-                  <Label id="labelInfo" layoutX="14.0" layoutY="14.0" text="Code" />
+                  <Label id="labelInfo" layoutX="14.0" layoutY="14.0" text="Username" />
                   <JFXTextField fx:id="txtUser" layoutX="79.0" layoutY="10.0" prefHeight="25.0" prefWidth="165.0" />
                   <Label fx:id="lbUser" layoutX="14.0" layoutY="49.0" prefHeight="17.0" prefWidth="230.0" />
                </children>

@@ -10,12 +10,16 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 //import javafx.collections.FXCollections;
 //import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import model.Employee;
+import model.EmployeeDAOImplement;
+import model.User;
 //import model.Employee;
 //import model.Member;
 import model.UsernameDAOImplement;
@@ -40,13 +44,16 @@ public class ChangePassController implements Initializable {
     @FXML
     private JFXPasswordField txtConfirm;
 
+    public static ObservableList<User> dataUser;
+
 //    public static ObservableList<Employee> ListMembers = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        UsernameDAOImplement eDAOIpl = new UsernameDAOImplement();
+        dataUser = eDAOIpl.getAllUser();
         cssError();
     }
 
@@ -77,10 +84,19 @@ public class ChangePassController implements Initializable {
             boolean isPasswordTrue = controller.ValidationController.isPasswordTrueType(txtPass, lbPass, "Password is not suitable");
 
             if (isPasswordTrue && isUsernameTrue) {
+                boolean checkUser = false;
                 UsernameDAOImplement userImp = new UsernameDAOImplement();
                 String password = PasswordHash.encryptPass(txtConfirm.getText());
-                userImp.updateUser(txtUser.getText(), password);
-                clear();
+                for (User user : dataUser) {
+                    if (txtUser.getText().equals(user.getUserName())) {
+                        checkUser = true;
+                        userImp.updateUserPass(txtUser.getText(), password);
+                        clear();
+                    }
+                }
+                if (checkUser == false) {
+                    AlertDialog.display("Notice", "User name does not exist");
+                }
             }
         }
     }
