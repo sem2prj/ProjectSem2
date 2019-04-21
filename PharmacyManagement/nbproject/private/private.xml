@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/controller/OrderProductController.java</file>
-            <file>file:/E:/ProjectSem2/ProjectSem2/PharmacyManagement/src/controller/Warehouse_InputController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ReportDetailWarehouseController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/view/Main.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ReportDemo_LiabilitiesController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/fxml/ReportDetailWarehouse.fxml</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ReportDemo_DrugController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ReportDemo_GrossRevenueController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/OrderProductController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -10,10 +10,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_DrugController">
    <children>
-      <TableView fx:id="table_drug" layoutX="49.0" layoutY="47.0" prefHeight="400.0" prefWidth="400.0">
+      <TableView fx:id="table_drug" layoutX="26.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0">
         <columns>
           <TableColumn fx:id="cloumn_name" minWidth="100.0" prefWidth="75.0" text="Name" />
           <TableColumn fx:id="cloumn_code" minWidth="100.0" prefWidth="75.0" text="Code" />
+            <TableColumn fx:id="cloumn_qty" minWidth="100.0" prefWidth="75.0" text="Qty" />
             <TableColumn fx:id="cloumn_date" minWidth="100.0" prefWidth="75.0" text="Date" />
             <TableColumn fx:id="cloumn_select" minWidth="100.0" prefWidth="75.0" text="Select" />
         </columns>
@@ -23,21 +24,21 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="button" layoutX="185.0" layoutY="491.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="162.0" text="Select to hide notification" />
-      <Label layoutX="480.0" layoutY="20.0" prefHeight="25.0" prefWidth="106.0" text="Supplier">
+      <Button fx:id="button" layoutX="195.0" layoutY="561.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="162.0" text="Select to hide notification" AnchorPane.topAnchor="561.0" />
+      <Label layoutX="539.0" layoutY="17.0" prefHeight="25.0" prefWidth="106.0" text="Supplier">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="505.0" layoutY="69.0" text="Name" />
-      <JFXTextField fx:id="tf_name" layoutX="574.0" layoutY="65.0" />
-      <Label layoutX="505.0" layoutY="129.0" text="Address" />
-      <JFXTextField fx:id="tf_address" layoutX="574.0" layoutY="125.0" />
-      <Label layoutX="505.0" layoutY="196.0" text="Phone" />
-      <JFXTextField fx:id="tf_phone" layoutX="574.0" layoutY="192.0" />
-      <Label layoutX="505.0" layoutY="269.0" text="Buy Price" />
-      <JFXTextField fx:id="tf_buyprice" layoutX="574.0" layoutY="265.0" />
-      <Label layoutX="505.0" layoutY="339.0" text="Sell Price" />
-      <JFXTextField fx:id="tf_sellprice" layoutX="574.0" layoutY="335.0" />
+      <Label layoutX="560.0" layoutY="69.0" text="Name" />
+      <JFXTextField fx:id="tf_name" layoutX="628.0" layoutY="65.0" />
+      <Label layoutX="553.0" layoutY="129.0" text="Address" />
+      <JFXTextField fx:id="tf_address" layoutX="628.0" layoutY="125.0" />
+      <Label layoutX="558.0" layoutY="196.0" text="Phone" />
+      <JFXTextField fx:id="tf_phone" layoutX="628.0" layoutY="192.0" />
+      <Label layoutX="550.0" layoutY="269.0" text="Buy Price" />
+      <JFXTextField fx:id="tf_buyprice" layoutX="628.0" layoutY="265.0" />
+      <Label layoutX="551.0" layoutY="339.0" text="Sell Price" />
+      <JFXTextField fx:id="tf_sellprice" layoutX="628.0" layoutY="335.0" />
    </children>
 </AnchorPane>

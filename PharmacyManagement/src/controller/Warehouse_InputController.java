@@ -77,7 +77,7 @@ public class Warehouse_InputController implements Initializable {
     @FXML
     private Label lb_3;
 
-    int pid = 0;
+    int pid = 1;
     int stockid = 1;
     String barcode = "";
     String supplier = "";
@@ -281,6 +281,7 @@ public class Warehouse_InputController implements Initializable {
                     if (cal_amount == cal_already + cal_remain) {
 
                         barcode = tf_drug.getText();
+                        pid = getPId();
                         supplier = combobox_supplier.getValue().toString();
                         qty = Integer.parseInt(tf_qty.getText());
                         amount = Double.parseDouble(tf_amount.getText());
@@ -308,6 +309,7 @@ public class Warehouse_InputController implements Initializable {
                     }
                 } else {
                     barcode = tf_drug.getText();
+                    pid = getPId();
                     supplier = combobox_supplier.getValue().toString();
                     qty = Integer.parseInt(tf_qty.getText());
                     amount = Double.parseDouble(tf_amount.getText());
@@ -341,11 +343,23 @@ public class Warehouse_InputController implements Initializable {
 //        if(Validation = true) {
 //        }
     }
-
+    
+    private int getPId() throws SQLException{
+        int b = 1;
+        pst = con.prepareStatement("select PId from Product where PCode like ?");
+        pst.setString(1,barcode );
+        rs=pst.executeQuery();
+        if(rs.next()){
+            b = rs.getInt(1);
+        }
+        
+        return b;
+    }
+    
     private void importGoods() throws SQLException {
 
         String sql1 = "select stockID from stock where PCode like ?";
-        String sql2 = "insert into stock (PCode,Supplier,totalqty) values(?,?,?) ";
+        String sql2 = "insert into stock (PId,PCode,Supplier,totalqty) values(?,?,?,?) ";
         String sql3 = "insert into stockdetail(stockID,qty,amount,already,remain,drugexdate,liabilitiesexdate,stockdetaildate) \n"
                 + "values (?,?,?,?,?,?,?,?)";
         String sql4 = "update stock set totalqty += ? where stockid = ? ";
@@ -376,9 +390,10 @@ public class Warehouse_InputController implements Initializable {
 
         } else {
             pst = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-            pst.setString(1, barcode);
-            pst.setString(2, supplier);
-            pst.setInt(3, qty);
+            pst.setInt(1, pid );
+            pst.setString(2, barcode);
+            pst.setString(3, supplier);
+            pst.setInt(4, qty);
 
             int i = pst.executeUpdate();
             rs = pst.getGeneratedKeys();

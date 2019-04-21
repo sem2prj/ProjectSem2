@@ -39,17 +39,15 @@ public class Main extends Application {
 
 
 //        //Test MainController
-<<<<<<< HEAD
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
-=======
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
+
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
 //
 //        Scene scene = new Scene(root);
 //
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
->>>>>>> a6bfe378717baf78977ce0b059b100ed628b0327
+//
 
 
         //Start

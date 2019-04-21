@@ -187,7 +187,7 @@ CREATE TABLE stockdetail(
 
 
 
-	TotalQty int,
+/*	TotalQty int,
 	ProductExDate date,
 	SuName varchar(50),
 	Total float DEFAULT 0,
@@ -200,7 +200,7 @@ CREATE TABLE stockdetail(
 	CONSTRAINT fk_stockdetailID FOREIGN KEY (stockdetailID) REFERENCES Product(PId)
 	on delete cascade 
 	on update cascade ,
-
+*/
 
 
 /*

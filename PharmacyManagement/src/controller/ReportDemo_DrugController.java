@@ -52,6 +52,8 @@ public class ReportDemo_DrugController implements Initializable {
     private JFXTextField tf_buyprice;
     @FXML
     private JFXTextField tf_sellprice;
+    @FXML
+    private TableColumn<DrugReport, String> cloumn_qty;
     
     /**
      * Initializes the controller class.
@@ -59,19 +61,21 @@ public class ReportDemo_DrugController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         data = FXCollections.observableArrayList(
-            new DrugReport("Paracetamol", "1100001", "01/01/2021"),
-            new DrugReport("Morphindental", "11085721", "01/01/2021"),
-            new DrugReport("Endorphinate", "11070004", "01/01/2021"),
-            new DrugReport("Dopamine", "11090023", "01/01/2021"),
-            new DrugReport("Asparin", "11070001", "01/01/2021")
+        
         
         
         );
+        
+        
+        
         cloumn_name.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("name"));
         cloumn_code.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("barcode"));
+        cloumn_qty.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("qty"));
         cloumn_date.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("date"));
         cloumn_select.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("select"));
+        cloumn_qty.setStyle("-fx-alignment: CENTER;");
         cloumn_select.setStyle("-fx-alignment: CENTER;");
+        cloumn_date.setStyle("-fx-alignment: CENTER;");
         
         tf_name.setText("Sun Pharmacy");
         tf_address.setText("1801 Texas, USA");
@@ -108,13 +112,15 @@ public class ReportDemo_DrugController implements Initializable {
     public static class DrugReport{
         private final  SimpleStringProperty name;
         private final  SimpleStringProperty barcode;
+        private final  SimpleStringProperty qty;
         private final  SimpleStringProperty date;
         private CheckBox select;
         
         
-        DrugReport(String fname,String fbarcode,String fdate){
+        DrugReport(String fname,String fbarcode,String fqty,String fdate){
         this.name = new SimpleStringProperty(fname);
         this.barcode = new SimpleStringProperty(fbarcode);
+        this.qty = new SimpleStringProperty(fqty);
         this.date =  new SimpleStringProperty(fdate);
         this.select = new CheckBox();      
         
@@ -134,6 +140,14 @@ public class ReportDemo_DrugController implements Initializable {
         
         public void setBarcode(String fbarcode){
             barcode.set(fbarcode);
+        }
+        
+        public String getQty(){
+            return qty.get();
+        }
+        
+        public void setQty(String fqty){
+            qty.set(fqty);
         }
         
         public String getDate(){
