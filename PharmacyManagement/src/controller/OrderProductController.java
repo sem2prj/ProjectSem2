@@ -124,9 +124,11 @@ public class OrderProductController implements Initializable {
     private Button btn_remove;
     @FXML
     private TextField tf_customer;
-    
-    int UserIDReal ;
-    String returnTempOrderID ;
+
+    int UserIDReal;
+    String returnTempOrderID;
+
+    int temp_qty = 0;
 
     /**
      * Initializes the controller class.
@@ -141,10 +143,11 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            UserIDReal =getUsersID();
+            UserIDReal = getUsersID();
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
         
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
@@ -152,6 +155,13 @@ public class OrderProductController implements Initializable {
         order_dateInvoice.setDisable(true);
         mission();
         
+=======
+
+//        tf_productname.setDisable(true);
+//        tf_price.setDisable(true);
+//        tf_invoiceID.setDisable(true);
+//        order_dateInvoice.setDisable(true);
+>>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());
@@ -183,7 +193,11 @@ public class OrderProductController implements Initializable {
 
         tf_qty.setOnKeyReleased((KeyEvent ke) -> {
             if (ke.getCode().equals(KeyCode.ENTER)) {
-                addToMenu();
+                try {
+                    addToMenu();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 tf_barcode.requestFocus();
 
             }
@@ -308,45 +322,71 @@ public class OrderProductController implements Initializable {
 
         return customerList;
     }
-    public void addToMenu() {
+
+    public void addToMenu() throws SQLException {
 
         boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
+//        boolean isProductEnough = checkQtyProduct();
 
         if (isQtyTrue) {
             qty = Integer.parseInt(tf_qty.getText());
-            if (qty != 0) {
+            boolean checkQty = checkQtyProduct();
+            if (checkQty) {
+                if (qty != 0) {
 
-                amount = price * qty;
-                grandTotal += amount;
+                    amount = price * qty;
+                    grandTotal += amount;
 
-                for (OrderList2 item : orderData) {
+                    for (OrderList2 item : orderData) {
 
-                    if (ValidationController.sosanhchuoi(barcode, item.getBarcode())) {
-                        int table_qty = item.getQty() + qty;
-                        double table_amount = item.getAmount() + amount;
-                        item.setQty(table_qty);
-                        item.setAmount(table_amount);
-                        lb_total.setText("" + grandTotal);
-                        table_order.getItems().set(table_order.getItems().indexOf(item), item);
-                        clearText();
-                        return;
+                        if (ValidationController.sosanhchuoi(barcode, item.getBarcode())) {
+                            int table_qty = item.getQty() + qty;
+                            double table_amount = item.getAmount() + amount;
+                            item.setQty(table_qty);
+                            item.setAmount(table_amount);
+                            lb_total.setText("" + grandTotal);
+                            table_order.getItems().set(table_order.getItems().indexOf(item), item);
+                            clearText();
+                            return;
+
+                        }
 
                     }
 
                 }
+                orderData.add(new OrderList2(++no, productId, barcode, productname, price, qty, amount));
+                table_order.setItems(orderData);
+                lb_total.setText("" + grandTotal);
 
+                clearText();
             }
-            orderData.add(new OrderList2(++no, productId, barcode, productname, price, qty, amount));
-            table_order.setItems(orderData);
-            lb_total.setText("" + grandTotal);
 
-            clearText();
         } else {
             AlertDialog.display("Info", "Some information is wrong . Please check !!!");
         }
 
     }
-    
+
+    private boolean checkQtyProduct() throws SQLException {
+        boolean check = false;
+        pst = con.prepareStatement("select totalqty from stock where PCode like ?");
+        pst.setString(1, tf_barcode.getText());
+        rs = pst.executeQuery();
+        if (rs.next()) {
+            temp_qty = rs.getInt(1);
+            if (temp_qty < qty) {
+                AlertDialog.display("Info", "The qty which in warehouse is not enough to order !!!");
+            } else {
+                check = true;
+            }
+
+        } else {
+            AlertDialog.display("Info", "No qty in this drug yet. Please choose another drugs");
+        }
+
+        return check;
+    }
+
     public void autoFillWithBarcode() throws SQLException {
         pst = con.prepareStatement("Select Pid,PName,SellPrice from Product where PCode = ?");
         pst.setString(1, tf_barcode.getText());
@@ -366,52 +406,45 @@ public class OrderProductController implements Initializable {
     }
 
     @FXML
-    private void action_addtomenu(ActionEvent event) {
+    private void action_addtomenu(ActionEvent event) throws SQLException {
 
         addToMenu();
 
     }
 
-
-
     @FXML
 
     private void action_printInvoice(ActionEvent event) throws IOException {
-      
+
 //        boolean check_barcode = ValidationController.isTextFieldHavingText(tf_barcode);
 //        boolean check_productname = ValidationController.isTextFieldHavingText(tf_productname);
 //        boolean check_qty = ValidationController.isTextFieldHavingText(tf_qty);
 //        boolean check_price = ValidationController.isTextFieldHavingText(tf_price);
-               
-        //AlertDialog.display("Info", "May be some fields are missing, just check !!!");
-            try {
-                Invoice();
-                returnTempOrderID = tf_invoiceID.getText();
-                tf_invoiceID.setText(autoOrderID());
-                tf_customer.clear();
+//AlertDialog.display("Info", "May be some fields are missing, just check !!!");
+        try {
+            Invoice();
+            returnTempOrderID = tf_invoiceID.getText();
+            tf_invoiceID.setText(autoOrderID());
+            tf_customer.clear();
 //                printInvoice();
-                
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-       
 
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
-    
+
     public int getCuId() throws SQLException {
-        
+
         int cuid = 1;
         pst = con.prepareStatement("Select CuId from Customer where CuName like ? and CuPhone like ?");
-        pst.setString(1,  ValidationController.getStringFromText(tf_customer.getText()) );
-        pst.setString(2,  ValidationController.getNumberFromText(tf_customer.getText()) );
+        pst.setString(1, ValidationController.getStringFromText(tf_customer.getText()));
+        pst.setString(2, ValidationController.getNumberFromText(tf_customer.getText()));
         rs = pst.executeQuery();
         if (rs.next()) {
             cuid = rs.getInt("CuId");
         }
         rs.close();
-
 
         return cuid;
 
@@ -443,85 +476,84 @@ public class OrderProductController implements Initializable {
         return detailID;
     }
 
-
     public void Invoice() throws SQLException, IOException {
 
 //        if (getUsersID() != 0) {
         String sql = "insert into Orders (OrderID,OrderDate,AmountTotal,CuId,UsersID)values(?,?,?,?,?)";
         String sql2 = "Update Customer  set MoneySpend +=? where CuId = ?";
         String sql3 = "Update DetailUser set MoneySold +=? where DetailID= ?";
-    if (orderData.isEmpty()){AlertDialog.display("Info", "May be some fields are missing, just check !!!");} else {
-        try {
-            returnCuID = getCuId();
-            returnUserID = getUsersID();
-            pst = con.prepareStatement(sql);
-            pst.setString(1, tf_invoiceID.getText());
-            pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
-            pst.setDouble(3, grandTotal);
-            pst.setInt(4, returnCuID);
-            pst.setInt(5, returnUserID);
+        if (orderData.isEmpty()) {
+            AlertDialog.display("Info", "May be some fields are missing, just check !!!");
+        } else {
+            try {
+                returnCuID = getCuId();
+                returnUserID = getUsersID();
+                pst = con.prepareStatement(sql);
+                pst.setString(1, tf_invoiceID.getText());
+                pst.setDate(2, java.sql.Date.valueOf(order_dateInvoice.getValue()));
+                pst.setDouble(3, grandTotal);
+                pst.setInt(4, returnCuID);
+                pst.setInt(5, returnUserID);
 
+                int i = pst.executeUpdate();
+                if (i == 1) {
+                    sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
+                    for (OrderList2 item : orderData) {
+                        pst = con.prepareStatement(sql);
+                        pst.setString(1, tf_invoiceID.getText());
+                        pst.setInt(2, item.getPid());
+                        pst.setInt(3, item.getQty());
+                        pst.setString(4, "" + item.getPriceOut());
+                        pst.setDouble(5, item.getAmount());
+                        pst.executeUpdate();
 
-            int i = pst.executeUpdate();
-            if (i == 1) {
-                sql = "Insert into OrderDetail(OrderID,PId,Qty,SellPrice,Amount)values(?,?,?,?,?)";
-                for (OrderList2 item : orderData) {
-                    pst = con.prepareStatement(sql);
-                    pst.setString(1, tf_invoiceID.getText());
-                    pst.setInt(2, item.getPid());
-                    pst.setInt(3, item.getQty());
-                    pst.setString(4, "" + item.getPriceOut());
-                    pst.setDouble(5, item.getAmount());
-                    pst.executeUpdate();
+                    }
+
+                    if (getCuId() != 0) {
+                        pst2 = con.prepareStatement(sql2);
+                        pst2.setDouble(1, grandTotal);
+                        pst2.setInt(2, returnCuID);
+                        int j = pst2.executeUpdate();
+
+                        pst2.close();
+                    }
+
+                    if (getDetailID() != 0) {
+                        pst2 = con.prepareStatement(sql3);
+                        pst2.setDouble(1, grandTotal);
+                        pst2.setInt(2, getDetailID());
+                        int k = pst2.executeUpdate();
+
+                        pst2.close();
+
+                    }
+
+                    AlertDialog.display("Info", "Data added into order success !!!");
+
+                    clearText();
+                    returnTempOrderID = tf_invoiceID.getText();
+                    orderData.clear();
+                    table_order.setItems(orderData);
+
+                    printInvoice();
 
                 }
-
-                if (getCuId() != 0) {
-                    pst2 = con.prepareStatement(sql2);
-                    pst2.setDouble(1,grandTotal );
-                    pst2.setInt(2, returnCuID);
-                    int j = pst2.executeUpdate();
-
-                    pst2.close();
-                }
-
-                if (getDetailID() != 0) {
-                    pst2 = con.prepareStatement(sql3);
-                    pst2.setDouble(1, grandTotal);
-                    pst2.setInt(2, getDetailID());
-                    int k = pst2.executeUpdate();
-
-                    pst2.close();
-
-                }
-
-                AlertDialog.display("Info", "Data added into order success !!!");
-           
-      
-                clearText();
-                returnTempOrderID = tf_invoiceID.getText();
-                orderData.clear();
-                table_order.setItems(orderData);
-                
-                printInvoice();
-                
-            }  
 
 //để đây nó set rỗng tài liệu nhé ông
 //                tf_invoiceID.setText(autoOrderID());
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
-        
-    }
-        //        } else {
-        //            AlertDialog.display("Warning", "Please check your user 's condition or relogin user !!!");
-        //
-        //        }   // Phai thay khi update
+//        } else {
+//            AlertDialog.display("Warning", "Please check your user 's condition or relogin user !!!");
+//
+//        }   // Phai thay khi update
 
 //        printInvoice();
     }
-    
+
     private String autoOrderID() {
 
         String orderID = "Order00000";
@@ -600,6 +632,7 @@ public class OrderProductController implements Initializable {
         lb_total.setText("" + grandTotal);
 
     }
+<<<<<<< HEAD
     
     private void mission() {
         infoUser = LoginController.ListUserLogin;
@@ -619,5 +652,7 @@ public class OrderProductController implements Initializable {
     
     
     
+=======
+>>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
 
 }
