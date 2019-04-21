@@ -29,85 +29,23 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-<<<<<<< HEAD
-//        //Test MainController
 
-=======
+//        //Test MainController
         //Test MainController
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //        //Test MainController
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-
-<<<<<<< HEAD
-//Start
-//        con = controller.ConnectDB.getConnectTable();
-//        pst = con.prepareStatement("select * from Users");
-//        rs = pst.executeQuery();
-=======
-<<<<<<< HEAD
->>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
-
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
-<<<<<<< HEAD
-
-=======
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
->>>>>>> 737b5fada00896ccda7012fd658510d2e2141d16
+//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
 //
+//        Scene scene = new Scene(root);
 //
-<<<<<<< HEAD
-//        if (rs.next()) {
-//            rs.close();
-//            pst.close();
-//            con.close();
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-//
-//           // Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
-//         //   stage.getIcons().add(applicationIcon);
-//            //stage.setResizable(false);
-//            Scene scene = new Scene(root);
-//            scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
-//            stage.setTitle("Login");
-//            stage.getIcons().add(new Image("/image/hyhy.png"));
-//            stage.initStyle(StageStyle.DECORATED);
-//            stage.setScene(scene);
-//            stage.show();
->>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
-//
-//
-//
-//        } else {
-//
-//            rs.close();
-//            pst.close();
-//            con.close();
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
-//
-//            Scene scene = new Scene(root);
-////            stage.initStyle(StageStyle.UNDECORATED);
-//
-//            scene.getStylesheets().add(getClass().getResource("/css/register.css").toExternalForm());
-//            stage.getIcons().add(new Image("/image/hyhy.png"));
-//            stage.setTitle("Register");
-//            stage.setScene(scene);
-////            stage.setResizable(false);
-//            stage.show();
-//
-//        }
-//
-=======
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
+
+
+
 
         //Start
         con = controller.ConnectDB.getConnectTable();
@@ -153,10 +91,6 @@ public class Main extends Application {
 
         }
        
-
-
-    
->>>>>>> 737b5fada00896ccda7012fd658510d2e2141d16
 //        //End
     }
 
