@@ -36,46 +36,36 @@ public class Main extends Application {
 //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //        //Test MainController
-<<<<<<< HEAD
+
+
+
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
-=======
-<<<<<<< HEAD
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
-=======
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
+//
+//        Scene scene = new Scene(root);
+//
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.show();
 
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-
-<<<<<<< HEAD
 //Start
 //        con = controller.ConnectDB.getConnectTable();
 //        pst = con.prepareStatement("select * from Users");
 //        rs = pst.executeQuery();
-=======
-<<<<<<< HEAD
->>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
+
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
-<<<<<<< HEAD
 
-=======
 
 //
 //        Scene scene = new Scene(root);
 //
-<<<<<<< HEAD
+
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
 
 
-=======
-<<<<<<< HEAD
 //        if (rs.next()) {
 //            rs.close();
 //            pst.close();
@@ -92,19 +82,18 @@ public class Main extends Application {
 //            stage.initStyle(StageStyle.DECORATED);
 //            stage.setScene(scene);
 //            stage.show();
->>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
+
 //
 //
 //
 //        } else {
->>>>>>> d6bcbc43ba6fde14d5d989ac0fb449c657273825
+
 //
 //        Scene scene = new Scene(root);
 //
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
->>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
 
 
 
@@ -153,13 +142,12 @@ public class Main extends Application {
 
         }
        
-<<<<<<< HEAD
-=======
+
 
 
     
 
->>>>>>> d6bcbc43ba6fde14d5d989ac0fb449c657273825
+
 //        //End
     }
 
