@@ -72,14 +72,14 @@ public class ReportDemo_GrossRevenueController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         try {
             con = controller.ConnectDB.connectSQLServer();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDemo_GrossRevenueController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(ReportDemo_EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReportDemo_GrossRevenueController.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
 
         data = FXCollections.observableArrayList();
 
