@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_DrugController">
+<AnchorPane id="AnchorPane" fx:id="anchorpane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportDemo_DrugController">
    <children>
       <TableView fx:id="table_drug" layoutX="26.0" layoutY="50.0" prefHeight="500.0" prefWidth="500.0">
         <columns>
@@ -25,7 +25,7 @@
          </font>
       </Label>
       <Button fx:id="button" layoutX="195.0" layoutY="561.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="25.0" prefWidth="162.0" text="Select to hide notification" AnchorPane.topAnchor="561.0" />
-      <Label layoutX="539.0" layoutY="17.0" prefHeight="25.0" prefWidth="106.0" text="Supplier">
+      <Label layoutX="539.0" layoutY="17.0" prefHeight="27.0" prefWidth="135.0" text="3D Pharmacy">
          <font>
             <Font size="18.0" />
          </font>
@@ -36,9 +36,9 @@
       <JFXTextField fx:id="tf_address" layoutX="628.0" layoutY="125.0" />
       <Label layoutX="558.0" layoutY="196.0" text="Phone" />
       <JFXTextField fx:id="tf_phone" layoutX="628.0" layoutY="192.0" />
-      <Label layoutX="550.0" layoutY="269.0" text="Buy Price" />
+      <Label layoutX="562.0" layoutY="269.0" text="Email" />
       <JFXTextField fx:id="tf_buyprice" layoutX="628.0" layoutY="265.0" />
-      <Label layoutX="551.0" layoutY="339.0" text="Sell Price" />
+      <Label layoutX="565.0" layoutY="339.0" text="Year" />
       <JFXTextField fx:id="tf_sellprice" layoutX="628.0" layoutY="335.0" />
    </children>
 </AnchorPane>

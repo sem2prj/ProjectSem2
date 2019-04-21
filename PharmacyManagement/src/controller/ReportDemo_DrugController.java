@@ -8,7 +8,13 @@ package controller;
 
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +26,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -55,19 +62,32 @@ public class ReportDemo_DrugController implements Initializable {
     @FXML
     private TableColumn<DrugReport, String> cloumn_qty;
     
+    private Connection con;
+    private PreparedStatement pst;
+    private PreparedStatement pst2;
+    private ResultSet rs;
+    @FXML
+    private AnchorPane anchorpane;
+
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        data = FXCollections.observableArrayList(
+       
+           
+        try {
+            con = controller.ConnectDB.connectSQLServer();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ReportDemo_DrugController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_DrugController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        data = FXCollections.observableArrayList();
         
-        
-        );
-        
-        
-        
+               
         cloumn_name.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("name"));
         cloumn_code.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("barcode"));
         cloumn_qty.setCellValueFactory(new PropertyValueFactory<DrugReport, String>("qty"));
@@ -77,29 +97,44 @@ public class ReportDemo_DrugController implements Initializable {
         cloumn_select.setStyle("-fx-alignment: CENTER;");
         cloumn_date.setStyle("-fx-alignment: CENTER;");
         
-        tf_name.setText("Sun Pharmacy");
-        tf_address.setText("1801 Texas, USA");
-        tf_phone.setText("1800-8485-5211");
-        tf_buyprice.setText("15000");
-        tf_sellprice.setText("49000");
+        tf_name.setText("Aptech Education");
+        tf_address.setText("38 Yen Bai, Danang");
+        tf_phone.setText("0236.3.779.779");
+        tf_buyprice.setText("tuyensinh@softech.vn");
+        tf_sellprice.setText("2019");
         
-        
+        try {
+            allTimeAction();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportDemo_DrugController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         table_drug.setItems(data);
     }    
 
     @FXML
-    private void deleteAction(ActionEvent event) {
+    private void deleteAction(ActionEvent event) throws SQLException {
         
         delete();
     }
     
-    private void delete(){
+    private void delete() throws SQLException{
         ObservableList<DrugReport> dataForDelete = FXCollections.observableArrayList();
         
         for (DrugReport bean : data){
             if(bean.getSelect().isSelected())
             {
                 dataForDelete.add(bean);
+                String sql = "update stockdetail set status =1 where stockdetailID = ? ";
+                pst = con.prepareStatement(sql);
+                pst.setInt(1, Integer.valueOf(bean.getStockdetailid()));
+                int i = pst.executeUpdate();
+                
+                if(i==1){
+                    System.out.println("Tat thong bao thanh cong");
+                }
+                        
+                
+                
             }
         }
         
@@ -107,6 +142,28 @@ public class ReportDemo_DrugController implements Initializable {
     
     }
     
+    private void allTimeAction() throws SQLException {
+        String sql = "select stock.PCode,stockdetail.qty,stockdetail.drugexdate,stockdetail.stockdetailID   \n"
+                + "from stock\n"
+                + "INNER JOIN stockdetail\n"
+                + "on stock.stockID = stockdetail.stockID";
+        
+        pst = con.prepareStatement(sql);
+        rs= pst.executeQuery();
+        while(rs.next()){
+            data.add(new DrugReport(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4)));
+        }
+        for(DrugReport item : data){
+            pst = con.prepareStatement("select PName from Product where PCode like ?");
+            pst.setString(1,item.getBarcode());
+            rs= pst.executeQuery();
+            if(rs.next()){
+                item.setName(rs.getString(1));
+            }
+        
+        }
+    
+    }
     
     
     public static class DrugReport{
@@ -114,14 +171,16 @@ public class ReportDemo_DrugController implements Initializable {
         private final  SimpleStringProperty barcode;
         private final  SimpleStringProperty qty;
         private final  SimpleStringProperty date;
+        private final  SimpleStringProperty stockdetailid;
         private CheckBox select;
         
         
-        DrugReport(String fname,String fbarcode,String fqty,String fdate){
-        this.name = new SimpleStringProperty(fname);
+        DrugReport(String fbarcode,String fqty,String fdate,String fstockdetailid){
+        this.name = new SimpleStringProperty("");
         this.barcode = new SimpleStringProperty(fbarcode);
         this.qty = new SimpleStringProperty(fqty);
         this.date =  new SimpleStringProperty(fdate);
+        this.stockdetailid = new SimpleStringProperty(fstockdetailid);
         this.select = new CheckBox();      
         
         }
@@ -156,6 +215,14 @@ public class ReportDemo_DrugController implements Initializable {
         
         public void setDate(String fdate){
             date.set(fdate);
+        }
+        
+        public String getStockdetailid(){
+            return stockdetailid.get();
+        }
+        
+        public void setStockdetailid(String fstockdetailid){
+            stockdetailid.set(fstockdetailid);
         }
         
         public CheckBox getSelect(){

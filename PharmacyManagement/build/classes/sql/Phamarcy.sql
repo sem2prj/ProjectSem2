@@ -148,6 +148,10 @@ CREATE TABLE stockdetail(
 )
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
 create trigger cut_stock on OrderDetail for insert
 as 
 declare 
@@ -156,6 +160,91 @@ declare
 select @pid  = PId from inserted;
 select @qty_order = Qty from inserted;
 update stock set totalqty = totalqty- @qty_order where PId = @pid ;
+<<<<<<< HEAD
+=======
+
+
+
+
+
+/*	TotalQty int,
+	ProductExDate date,
+	SuName varchar(50),
+	Total float DEFAULT 0,
+	Already float DEFAULT 0,
+	Remain float DEFAULT 0,
+	DateIn date,
+	LiabilitiesExDate date
+
+	CONSTRAINT pk_stockid PRIMARY KEY (stockID),
+	CONSTRAINT fk_stockdetailID FOREIGN KEY (stockdetailID) REFERENCES Product(PId)
+	on delete cascade 
+	on update cascade ,
+*/
+
+
+/*
+CREATE TABLE Users(
+	UsersID int identity(1,1),
+	UsersName varchar(50) ,
+	UsersPass varchar(50) ,
+	UsersFullName varchar(50) ,
+	DetailID int,
+	CONSTRAINT pk_UsersID PRIMARY KEY (UsersID),
+	CONSTRAINT fk_DetailID FOREIGN KEY (DetailID) REFERENCES DetailUser(DetailID)
+	on delete cascade 
+	on update cascade ,
+)
+*/
+/*
+CREATE TABLE DetailUser(
+	DetailID int identity(1,1),
+	Code varchar(50),
+	Phone varchar(50),
+	Email varchar(50),
+	Addrees varchar(50),
+	Sex bit,
+	BirthDay date,
+	Salary float,
+	/*Position varchar(50),*/
+	Department varchar(50),
+	ImageBlob varbinary(max),
+	WorkDay date,
+	Mission varchar(50) ,
+	CONSTRAINT pk_DetailID PRIMARY KEY (DetailID),
+)
+*/
+
+
+/*
+CREATE TABLE ExpiredTime(
+	ExId int identity(1,1),
+	ExDate date ,
+	PId bigint,
+	Qty varchar(50),
+	CONSTRAINT pk_ExId PRIMARY KEY (ExId),
+	CONSTRAINT fk_PId FOREIGN KEY (PId) REFERENCES Product(PId)
+	on delete cascade 
+	on update cascade ,
+)*/
+/*
+CREATE TABLE Countries(
+	CountryID int identity(1,1),
+	CountryName varchar(50) ,
+	CONSTRAINT pk_CountryID PRIMARY KEY (CountryID),
+)
+
+
+CREATE TABLE Cities(
+	CityID int identity(1,1),
+	CityName varchar(50) ,
+	CountryID int,
+	CONSTRAINT pk_CityID PRIMARY KEY (CityID),
+	CONSTRAINT fk_CountryID FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)
+	on delete cascade 
+	on update cascade ,
+)*/
+>>>>>>> 26a324929aa960fbbcad78efbfd9bb3568720268
 
 
 CREATE TABLE Requests(
