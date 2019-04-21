@@ -154,9 +154,9 @@ public class SupplierController implements Initializable {
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+            
 
-            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
+            if (isPhoneTrue && isEmailTrue ) {
                 SupplierDAOIplement sDI = new SupplierDAOIplement();
                 sDI.insertSupplier(txtCode.getText(), txtCode.getText(), name, addrees, txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
                 clear();
@@ -193,9 +193,9 @@ public class SupplierController implements Initializable {
         if (txtCodeNotEmpty && txtnameNotEmpty && txtAddreesNotEmpty && txtPhoneNotEmpty && txtEmailNotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+            
 
-            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
+            if (isPhoneTrue && isEmailTrue ) {
                 SupplierDAOIplement sDI = new SupplierDAOIplement();
                 sDI.updateSupplier(txtCode.getText(), name, addrees, txtPhone.getText(), txtTax.getText(), txtEmail.getText(), txtWebsite.getText(), txtNotice.getText());
                 clear();

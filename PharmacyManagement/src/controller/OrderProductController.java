@@ -147,16 +147,27 @@ public class OrderProductController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
         tf_invoiceID.setDisable(true);
         order_dateInvoice.setDisable(true);
+<<<<<<< HEAD
 
 //        tf_productname.setDisable(true);
 //        tf_price.setDisable(true);
 //        tf_invoiceID.setDisable(true);
 //        order_dateInvoice.setDisable(true);
+=======
+        mission();
+        
+
+
+>>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());
@@ -614,16 +625,8 @@ public class OrderProductController implements Initializable {
             JasperReport jr = JasperCompileManager.compileReport(souceFile);
 
             Map<String, Object> params = new HashMap<String, Object>();
-
             BufferedImage image = ImageIO.read(getClass().getResource("/image/hyhy.png"));
             params.put("image", image);
-//            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
-//            System.out.println(UserCurrentLogin.getCurrentLogin());
-//            System.out.println(tf_invoiceID.getText());
-//            params.put("Customer", "aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
-//            params.put("OrderID", "Order00000");
-//            params.put("Total", "123123");
-
             params.put("logo", this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());
             params.put("Customer", tf_customer.getText()); //tf_customer.getText()
@@ -651,7 +654,11 @@ public class OrderProductController implements Initializable {
         lb_total.setText("" + grandTotal);
 
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
     private void mission() {
         infoUser = LoginController.ListUserLogin;
         for (User user : infoUser) {
@@ -666,5 +673,18 @@ public class OrderProductController implements Initializable {
             }
         }
     }
+<<<<<<< HEAD
+=======
+        
+    //            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
+//            System.out.println(UserCurrentLogin.getCurrentLogin());
+//            System.out.println(tf_invoiceID.getText());
+//            params.put("Customer", "aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
+//            params.put("OrderID", "Order00000");
+//            params.put("Total", "123123");
+
+    
+    
+>>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
 
 }
