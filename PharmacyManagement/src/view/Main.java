@@ -63,9 +63,7 @@ public class Main extends Application {
 <<<<<<< HEAD
 
 =======
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
->>>>>>> 737b5fada00896ccda7012fd658510d2e2141d16
->>>>>>> 33df8e3d20c98e06fe609bd60a14b52090173dbe
+
 //
 //        Scene scene = new Scene(root);
 //
