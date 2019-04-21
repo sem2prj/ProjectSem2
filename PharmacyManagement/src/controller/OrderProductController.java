@@ -148,29 +148,21 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
         tf_invoiceID.setDisable(true);
         order_dateInvoice.setDisable(true);
-<<<<<<< HEAD
 
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 
 //        tf_productname.setDisable(true);
 //        tf_price.setDisable(true);
 //        tf_invoiceID.setDisable(true);
 //        order_dateInvoice.setDisable(true);
-<<<<<<< HEAD
 
 
-=======
+
         mission();
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
+
         
 
 
@@ -336,7 +328,7 @@ public class OrderProductController implements Initializable {
     }
 
     public void addToMenu() throws SQLException {
-
+        barcode = tf_barcode.getText();
         boolean isQtyTrue = ValidationController.isQtySuitable(tf_qty, error_qty, "Qty isn't suitable");
 //        boolean isProductEnough = checkQtyProduct();
 
@@ -677,10 +669,7 @@ public class OrderProductController implements Initializable {
             }
         }
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
         
     //            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
 //            System.out.println(UserCurrentLogin.getCurrentLogin());
@@ -689,12 +678,8 @@ public class OrderProductController implements Initializable {
 //            params.put("OrderID", "Order00000");
 //            params.put("Total", "123123");
 
-<<<<<<< HEAD
-    
-    
 
-=======
+    
    
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 
 }
