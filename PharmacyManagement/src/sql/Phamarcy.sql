@@ -158,6 +158,7 @@ CREATE TABLE OrderDetail(
 
 CREATE TABLE stock(
 	stockID int identity(1,1),
+	PId bigint,
 	PCode varchar(50),
 	Supplier varchar(50),
 	totalqty int DEFAULT 0,
@@ -173,6 +174,7 @@ CREATE TABLE stockdetail(
 	amount float,
 	already float,
 	remain float,
+	status bit DEFAULT 0,
 	drugexdate date,
 	liabilitiesexdate date,
 	stockdetaildate date
@@ -182,6 +184,17 @@ CREATE TABLE stockdetail(
 	on delete cascade 
 	on update cascade ,
 )
+
+
+
+create trigger cut_stock on OrderDetail for insert
+as 
+declare 
+@pid as bigint ,
+@qty_order as int;
+select @pid  = PId from inserted;
+select @qty_order = Qty from inserted;
+update stock set totalqty = totalqty- @qty_order where PId = @pid ;
 
 
 
