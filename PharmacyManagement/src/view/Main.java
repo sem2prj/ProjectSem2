@@ -29,34 +29,18 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
-        //Test MainController
-//        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-
-
-        //Test MainController
-//            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-
-
 //        //Test MainController
 
-<<<<<<< HEAD
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
-=======
+
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
+
 //
 //        Scene scene = new Scene(root);
 //
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
-<<<<<<< HEAD
-
-=======
-//
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
-
 
         //Start
         con = controller.ConnectDB.getConnectTable();

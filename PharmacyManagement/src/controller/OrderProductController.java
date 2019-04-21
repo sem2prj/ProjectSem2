@@ -147,7 +147,6 @@ public class OrderProductController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-<<<<<<< HEAD
         
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
@@ -155,13 +154,8 @@ public class OrderProductController implements Initializable {
         order_dateInvoice.setDisable(true);
         mission();
         
-=======
 
-//        tf_productname.setDisable(true);
-//        tf_price.setDisable(true);
-//        tf_invoiceID.setDisable(true);
-//        order_dateInvoice.setDisable(true);
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
+
         error_qty.setStyle("-fx-text-fill: red;");
         tf_invoiceID.setText(autoOrderID());
         order_dateInvoice.setValue(LocalDate.now());
@@ -595,16 +589,8 @@ public class OrderProductController implements Initializable {
             JasperReport jr = JasperCompileManager.compileReport(souceFile);
 
             Map<String, Object> params = new HashMap<String, Object>();
-
             BufferedImage image = ImageIO.read(getClass().getResource("/image/hyhy.png"));
             params.put("image", image);
-//            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
-//            System.out.println(UserCurrentLogin.getCurrentLogin());
-//            System.out.println(tf_invoiceID.getText());
-//            params.put("Customer", "aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
-//            params.put("OrderID", "Order00000");
-//            params.put("Total", "123123");
-
             params.put("logo", this.getClass().getResourceAsStream(urlImage));
             params.put("Cashier", UserCurrentLogin.getCurrentLogin());
             params.put("Customer", tf_customer.getText()); //tf_customer.getText()
@@ -632,7 +618,6 @@ public class OrderProductController implements Initializable {
         lb_total.setText("" + grandTotal);
 
     }
-<<<<<<< HEAD
     
     private void mission() {
         infoUser = LoginController.ListUserLogin;
@@ -649,10 +634,14 @@ public class OrderProductController implements Initializable {
         }
     }
         
+    //            params.put("Cashier", "aaa"); //UserCurrentLogin.getCurrentLogin()
+//            System.out.println(UserCurrentLogin.getCurrentLogin());
+//            System.out.println(tf_invoiceID.getText());
+//            params.put("Customer", "aaaa"); //ValidationController.getStringFromText(tf_customer.getText()
+//            params.put("OrderID", "Order00000");
+//            params.put("Total", "123123");
+
     
     
-    
-=======
->>>>>>> e538d20d93b377d4642555febcc9ff8d684f6505
 
 }

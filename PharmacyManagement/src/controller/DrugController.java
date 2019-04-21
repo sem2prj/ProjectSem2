@@ -210,8 +210,8 @@ public class DrugController implements Initializable {
         String name = txtName.getText().trim().replaceAll("\\s+", " ");
         
         if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-            if (isUsernameTrue) {
+            
+            
                 BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
                 byte[] res;
                 try (ByteArrayOutputStream s = new ByteArrayOutputStream()) {
@@ -230,7 +230,7 @@ public class DrugController implements Initializable {
                 }
                 clear();
                 clearLabel();
-            }
+            
 
         }
         loadTable();
@@ -273,8 +273,8 @@ public class DrugController implements Initializable {
         }
         String name = txtName.getText().trim().replaceAll("\\s+", " ");
         if (imageView.getImage() != null && textCodeNotEmpty && txtNameNotEmpty && txtCategoriesnotEmpty && txtBuyNotEmpty && txtSellNotEmpty && txtSupNotEmpty) {
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
-            if (isUsernameTrue) {
+            
+            
                 Drug drug = new Drug();
                 BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
                 byte[] res;
@@ -293,7 +293,7 @@ public class DrugController implements Initializable {
                 }
                 clear();
                 clearLabel();
-            }
+            
         }
         loadTable();
     }
@@ -420,7 +420,6 @@ public class DrugController implements Initializable {
                 btnAdd.setDisable(true);
                 btnEdit.setDisable(true);
                 btnDelete.setDisable(true);
-                data.clear();
             }
         }
     }

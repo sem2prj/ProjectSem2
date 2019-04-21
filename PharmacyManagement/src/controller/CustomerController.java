@@ -155,10 +155,10 @@ public class CustomerController implements Initializable {
         if (txLevelnotEmpty && txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+            
             String username = txtName.getText().trim().replaceAll("\\s+", " ");
             String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
+            if (isPhoneTrue && isEmailTrue ) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
                 cDI.insertCustomer(txtCCode.getText(), txtCCode.getText(), username, addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
@@ -200,11 +200,11 @@ public class CustomerController implements Initializable {
         if (txLevelnotEmpty && txtCCodenotEmpty && txttxtNameEmpty && txtAddreesnotEmpty && txtPhonenotEmpty && txtEmailnotEmpty) {
             boolean isEmailTrue = controller.ValidationController.isEmailSuitable(txtEmail, lbEmail, "Example: xxx@yyy.com");
             boolean isPhoneTrue = controller.ValidationController.isPhoneSuitable(txtPhone, lbPhone, "Example: +84 925 111 4456, 0905999999,...");
-            boolean isUsernameTrue = controller.ValidationController.isUsernameTrueType(txtName, lbName, "Username is not suitable");
+            
 
             String username = txtName.getText().trim().replaceAll("\\s+", " ");
             String addrees = txtAddrees.getText().trim().replaceAll("\\s+", " ");
-            if (isPhoneTrue && isEmailTrue && isUsernameTrue) {
+            if (isPhoneTrue && isEmailTrue ) {
                 CustomerDAOImplement cDI = new CustomerDAOImplement();
                 cDI.updateCustomer(txtCCode.getText(), username, addrees, txtPhone.getText(), txtEmail.getText(), Integer.parseInt(txtLevel.getText()));
                 clear();
