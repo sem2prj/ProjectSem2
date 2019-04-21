@@ -7,6 +7,7 @@ package controller;
 
 
 import com.jfoenix.controls.JFXTextField;
+import static controller.MainController.infoUser;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import model.User;
 
 /**
  * FXML Controller class
@@ -84,6 +86,7 @@ public class ReportDemo_DrugController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ReportDemo_DrugController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        mission();
         
         data = FXCollections.observableArrayList();
         
@@ -164,6 +167,19 @@ public class ReportDemo_DrugController implements Initializable {
         }
     
     }
+    
+     private void mission() {
+        infoUser = LoginController.ListUserLogin;
+        for (User user : infoUser) {
+            if (user.getMission().equals("") && user.getDeparment().equals("")||user.getDeparment().equals("Business")&&user.getMission().equals("User")) {
+                button.setDisable(true);
+                button.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
+                data.clear();
+            }else{
+                button.setDisable(false);
+            }
+        }
+     }
     
     
     public static class DrugReport{

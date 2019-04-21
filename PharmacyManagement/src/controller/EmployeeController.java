@@ -740,17 +740,26 @@ public class EmployeeController implements Initializable {
                     || user.getMission().equals("User") && user.getDeparment().equals("Sell")||user.getMission().equals("") && user.getDeparment().equals("")
                     ||user.getMission().equals("Admin") && user.getDeparment().equals("Sell") || user.getMission().equals("Admin") && user.getDeparment().equals("Warehouse")) {
                 buttonAdd.setDisable(true);
+                buttonAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonDelete.setDisable(true);
+                buttonDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonEdit.setDisable(true);
+                buttonEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonExcel.setDisable(true);
+                buttonExcel.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonChangePass.setDisable(true);
+                buttonChangePass.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 dataEmployee.clear();
             } else if (user.getMission().equals("User") && user.getDeparment().equals("Business")) {
                 buttonAdd.setDisable(true);
+                buttonAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonDelete.setDisable(true);
+                buttonDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonEdit.setDisable(true);
+                buttonEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 buttonExcel.setDisable(false);
                 buttonChangePass.setDisable(true);
+                buttonChangePass.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 dataEmployee.clear();
             }
         }

@@ -285,8 +285,11 @@ public class CustomerController implements Initializable {
                 btnDelete.setDisable(false);
             } else if (user.getDeparment().equals("Warehouse") || user.getMission().equals("") && user.getDeparment().equals("")) {
                 btnAdd.setDisable(true);
+                btnAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnEdit.setDisable(true);
+                btnEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnDelete.setDisable(true);
+                btnDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
             }
         }
     }

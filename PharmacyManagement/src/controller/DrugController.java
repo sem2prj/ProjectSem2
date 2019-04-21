@@ -418,8 +418,11 @@ public class DrugController implements Initializable {
             if (user.getMission().equals("") && user.getDeparment().equals("") || user.getDeparment().equals("Sell")
                     ||user.getDeparment().equals("Business")&&user.getMission().equals("User")) {
                 btnAdd.setDisable(true);
+                btnAdd.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnEdit.setDisable(true);
+                btnEdit.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 btnDelete.setDisable(true);
+                btnDelete.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
             }
         }
     }

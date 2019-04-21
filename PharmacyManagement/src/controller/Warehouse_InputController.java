@@ -477,6 +477,7 @@ public class Warehouse_InputController implements Initializable {
         for (User user : infoUser) {
             if (user.getMission().equals("") && user.getDeparment().equals("")||user.getDeparment().equals("Sell")) {
                 button.setDisable(true);
+                button.setStyle("-fx-background-color: #393535; -fx-text-fill: white;");
                 data.clear();
             }else{
                 button.setDisable(false);
