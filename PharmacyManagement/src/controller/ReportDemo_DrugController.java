@@ -102,7 +102,7 @@ public class ReportDemo_DrugController implements Initializable {
         
         tf_name.setText("Aptech Education");
         tf_address.setText("38 Yen Bai, Danang");
-        tf_phone.setText("0236.3.779.779");
+        tf_phone.setText("0236.3.779.779"); //02363779779
         tf_buyprice.setText("tuyensinh@softech.vn");
         tf_sellprice.setText("2019");
         

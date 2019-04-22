@@ -36,7 +36,7 @@ public class Main extends Application {
 //Test MainController
 //            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 //        //Test MainController
-<<<<<<< HEAD
+
 
 
 
@@ -48,7 +48,7 @@ public class Main extends Application {
 //        stage.setResizable(false);
 //        stage.show();
 
-=======
+
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
@@ -60,12 +60,12 @@ public class Main extends Application {
 //        stage.setResizable(false);
 //        stage.show();
 
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
+
 //Start
 //        con = controller.ConnectDB.getConnectTable();
 //        pst = con.prepareStatement("select * from Users");
 //        rs = pst.executeQuery();
-<<<<<<< HEAD
+
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
 
@@ -76,22 +76,18 @@ public class Main extends Application {
 //        Scene scene = new Scene(root);
 //
 
-=======
+
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
 //
 //        Scene scene = new Scene(root);
 //
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
+
 //        stage.setScene(scene);
 //        stage.setResizable(false);
 //        stage.show();
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 //        if (rs.next()) {
 //            rs.close();
 //            pst.close();
@@ -108,18 +104,12 @@ public class Main extends Application {
 //            stage.initStyle(StageStyle.DECORATED);
 //            stage.setScene(scene);
 //            stage.show();
-<<<<<<< HEAD
 
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 //
 //
 //
 //        } else {
-<<<<<<< HEAD
 
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 //
 //        Scene scene = new Scene(root);
 //
@@ -174,15 +164,7 @@ public class Main extends Application {
 
         }
        
-<<<<<<< HEAD
 
-
-
-    
-
-
-=======
->>>>>>> 0e2339b8c9cb0923ee97f7744712bf4ee9619ea3
 //        //End
     }
 

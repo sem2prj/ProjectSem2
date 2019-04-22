@@ -21,7 +21,7 @@ public class ConnectDB {
     //Test
     static String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     static String DB_URL = "jdbc:sqlserver://localhost:1433;";
-    static String DATABASENAME = "databaseName=pharmacy;";
+    static String DATABASENAME = "databaseName=pharmacy2;";
     static String USER = "user=sa;";
     static String PASS = "password=123";
     

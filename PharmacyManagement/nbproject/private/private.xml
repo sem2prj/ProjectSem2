@@ -4,6 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/view/Main.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ReportDemo_DrugController.java</file>
+            <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/ConnectDB.java</file>
             <file>file:/D:/Git%20final/ProjectSem2/PharmacyManagement/src/controller/OrderProductController.java</file>
         </group>
     </open-files>

@@ -1,13 +1,13 @@
-﻿create database pharmacy
+﻿create database pharmacy2
 
-use pharmacy
+use pharmacy2
  
 use master 
-drop database pharmacy
+drop database pharmacy2
 
 ﻿
 use master 
-use pharmacy
+use pharmacy2
  
 create database pharmacy
 
