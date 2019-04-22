@@ -48,7 +48,10 @@ public class Main extends Application {
 //        stage.setResizable(false);
 //        stage.show();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ReportDetailWarehouse.fxml"));
@@ -76,7 +79,10 @@ public class Main extends Application {
 //        Scene scene = new Scene(root);
 //
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Warehouse_Input.fxml"));
 
 //        Parent root = FXMLLoader.load(getClass().getResource("/fxml/OrderProduct.fxml"));
@@ -88,6 +94,11 @@ public class Main extends Application {
 //        stage.setResizable(false);
 //        stage.show();
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 //        if (rs.next()) {
 //            rs.close();
 //            pst.close();
@@ -110,6 +121,11 @@ public class Main extends Application {
 //
 //        } else {
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 //
 //        Scene scene = new Scene(root);
 //
@@ -134,7 +150,7 @@ public class Main extends Application {
 
            // Image applicationIcon = new Image(getClass().getResourceAsStream("/image/Login-icon.png"));
          //   stage.getIcons().add(applicationIcon);
-            //stage.setResizable(false);
+            stage.setResizable(false);
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/css/login.css").toExternalForm());
             stage.setTitle("Login");
@@ -159,11 +175,20 @@ public class Main extends Application {
             stage.getIcons().add(new Image("/image/hyhy.png"));
             stage.setTitle("Register");
             stage.setScene(scene);
-//            stage.setResizable(false);
+            stage.setResizable(false);
             stage.show();
 
         }
+<<<<<<< HEAD
        
+=======
+
+
+
+
+    
+
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 
 //        //End
     }

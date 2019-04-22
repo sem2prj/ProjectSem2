@@ -148,15 +148,21 @@ public class OrderProductController implements Initializable {
             Logger.getLogger(OrderProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
         tf_productname.setDisable(true);
         tf_price.setDisable(true);
         tf_invoiceID.setDisable(true);
         order_dateInvoice.setDisable(true);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 
 //        tf_productname.setDisable(true);
 //        tf_price.setDisable(true);
@@ -165,7 +171,10 @@ public class OrderProductController implements Initializable {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
         mission();
 
         
@@ -683,9 +692,15 @@ public class OrderProductController implements Initializable {
 //            params.put("OrderID", "Order00000");
 //            params.put("Total", "123123");
 
+<<<<<<< HEAD
 
     
 
 
+=======
+
+    
+   
+>>>>>>> 031a9226ee182a49180337d83a18dfd7dab16354
 
 }
