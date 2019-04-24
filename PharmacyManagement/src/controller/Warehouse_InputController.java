@@ -208,17 +208,15 @@ public class Warehouse_InputController implements Initializable {
         rs = pst.executeQuery();
 
         if (rs.next()) {
-            System.out.println(rs.getString(1));
-            if (rs.getString(1) == null) {
-                combobox_supplier.getItems().addAll("None");
-                combobox_supplier.getSelectionModel().selectFirst();
-                combobox_supplier.getValue();
-            } else {
-                combobox_supplier.getItems().add(rs.getString(1));
-                combobox_supplier.getSelectionModel().selectFirst();
-                combobox_supplier.getValue();
-            }
 
+            combobox_supplier.getItems().add(rs.getString(1));
+            combobox_supplier.getSelectionModel().selectFirst();
+            combobox_supplier.getValue();
+
+        } else {
+            combobox_supplier.getItems().addAll("None");
+            combobox_supplier.getSelectionModel().selectFirst();
+            combobox_supplier.getValue();
         }
 
     }
@@ -431,6 +429,9 @@ public class Warehouse_InputController implements Initializable {
         tf_amount.clear();
         tf_already.clear();
         tf_remain.clear();
+        tf_amount.setText("0");
+        tf_remain.setText("0");
+        tf_already.setText("0");
         date_drug.setValue(LocalDate.now());
         date_Liabilities.setValue(LocalDate.now());
         combobox_status.getItems().clear();
